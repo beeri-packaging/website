@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# בארי אריזות — Beeri Packaging Website
 
-## Getting Started
+Marketing site for Beeri Packaging. Built with Next.js 16 (App Router) + React 19 + Tailwind v4.
 
-First, run the development server:
+- **Primary locale:** Hebrew (he, RTL)
+- **Secondary locale:** English (en, LTR)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Project layout
+
+```
+.
+├── app/                  Next.js App Router (routes, layouts, pages)
+├── public/
+│   └── images/
+│       ├── categories/
+│       │   ├── wines/              יינות
+│       │   ├── food/               מזון
+│       │   ├── alcohol-beverages/  משקאות אלכוהולים + בירות
+│       │   ├── cosmetics/          קוסמטיקה
+│       │   ├── pharma/             פארמה
+│       │   ├── coffee-capsules/    קפסולות קפה
+│       │   ├── finishing/          השבחות (print finishing)
+│       │   ├── shared/             תמונות משותפות
+│       │   └── other/              אחר
+│       └── uncategorized/          to be sorted into the categories above
+└── docs/
+    ├── research/         Hebrew SEO research, Google Trends, Autocomplete
+    ├── strategy/         SEO content strategy (.docx + .pdf)
+    ├── briefs/           SEO blog brief
+    ├── presentations/    SEO findings deck
+    └── README.md         full mapping + conventions
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+See [`docs/README.md`](docs/README.md) for the source-material overview and Hebrew→slug image mapping.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Getting started
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm install
+npm run dev
+```
 
-## Learn More
+Open <http://localhost:3000>.
 
-To learn more about Next.js, take a look at the following resources:
+## Notes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- This Next.js version has breaking changes — read `node_modules/next/dist/docs/` before writing new APIs (per `AGENTS.md`).
+- `public/images/` is heavy (~1.5 GB). Before pushing, decide on Git LFS, an external CDN/bucket, or cropping/compressing the assets.
+- Keyword strategy and positioning come from [`docs/research/beeri-google-trends-seo-research.md`](docs/research/beeri-google-trends-seo-research.md). Update there first if direction changes.

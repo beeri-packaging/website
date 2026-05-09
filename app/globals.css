@@ -1,26 +1,89 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Core palette pulled from the Figma — editorial, tactile, archival */
+  --bone: #fbf9f6;          /* off-white page surface */
+  --ink: #1b1c1a;           /* near-black text + buttons */
+  --teal: #006a6a;           /* eyebrow accent */
+  --cyan: #00fbfb;           /* electric accent — badges, numerals */
+  --cyan-deep: #002020;
+  --gold: #ffe177;           /* CTA section + heritage tag */
+  --gold-deep: #231b00;
+  --sand: #f5f3f0;           /* card surface */
+  --clay: #4d4632;           /* body copy on bone */
+  --bone-line: rgba(208, 198, 171, 0.3);
+  --rule: #d0c6ab;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bone: var(--bone);
+  --color-ink: var(--ink);
+  --color-teal: var(--teal);
+  --color-cyan: var(--cyan);
+  --color-cyan-deep: var(--cyan-deep);
+  --color-gold: var(--gold);
+  --color-gold-deep: var(--gold-deep);
+  --color-sand: var(--sand);
+  --color-clay: var(--clay);
+  --color-rule: var(--rule);
+  --color-bone-line: var(--bone-line);
+
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html,
+body {
+  background: var(--bone);
+  color: var(--ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--cyan);
+  color: var(--cyan-deep);
+}
+
+/* Subtle reveal used on first paint */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scrollHint {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  50.01% { transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+.animate-rise {
+  animation: rise 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.animate-fade {
+  animation: fade 1200ms ease-out both;
+}
+
+.animate-scroll-hint {
+  animation: scrollHint 2.4s ease-in-out infinite;
+}
+
+/* Image desaturation for hero backdrop — recreates the figma 'mix-blend-saturation' look */
+.hero-desaturate {
+  filter: grayscale(1) contrast(1.05);
 }
