@@ -1,36 +1,51 @@
 @import "tailwindcss";
 
 :root {
-  /* Core palette pulled from the Figma — editorial, tactile, archival */
-  --bone: #fbf9f6;          /* off-white page surface */
+  /* ── Palette mirrored from the Figma library (B/Light, P/*, Style/*) ── */
+  --bone: #fbf9f6;          /* B/Light — page surface */
   --ink: #1b1c1a;           /* near-black text + buttons */
-  --teal: #006a6a;           /* eyebrow accent */
-  --cyan: #00fbfb;           /* electric accent — badges, numerals */
+  --teal: #006a6a;           /* footer eyebrow accent */
+  --cyan: #00ffff;           /* P/Cyan — big numerals, badges, icons */
   --cyan-deep: #002020;
-  --gold: #ffe177;           /* CTA section + heritage tag */
+  --yellow: #ffd400;         /* P/Yellow — hero eyebrow tag + heritage tag */
+  --yellow-deep: #231b00;
+  --yellow-cream: #ffe8a7;   /* Purple card body copy — soft warm tint on purple */
+  --gold: #ffe177;           /* CTA section bg */
   --gold-deep: #231b00;
+  --magenta: #c846a3;        /* P/Magenta — section eyebrows */
+  --purple: #6f50a6;         /* P/Purple — customer-path eyebrow */
+  --purple-bento: #7d05f5;   /* "שטנץ מדויק" card bg */
   --sand: #f5f3f0;           /* card surface */
   --clay: #4d4632;           /* body copy on bone */
+  --clay-soft: #5f5d5c;      /* StickyContact label (Figma mail-icon stroke) */
+  --bone-warm: #dbd7d5;      /* StickyContact bg pill */
   --bone-line: rgba(208, 198, 171, 0.3);
   --rule: #d0c6ab;
 }
 
 @theme inline {
   --color-bone: var(--bone);
+  --color-bone-warm: var(--bone-warm);
   --color-ink: var(--ink);
   --color-teal: var(--teal);
   --color-cyan: var(--cyan);
   --color-cyan-deep: var(--cyan-deep);
+  --color-yellow: var(--yellow);
+  --color-yellow-deep: var(--yellow-deep);
+  --color-yellow-cream: var(--yellow-cream);
   --color-gold: var(--gold);
   --color-gold-deep: var(--gold-deep);
+  --color-magenta: var(--magenta);
+  --color-purple: var(--purple);
+  --color-purple-bento: var(--purple-bento);
   --color-sand: var(--sand);
   --color-clay: var(--clay);
+  --color-clay-soft: var(--clay-soft);
   --color-rule: var(--rule);
   --color-bone-line: var(--bone-line);
 
   --font-display: var(--font-display);
   --font-sans: var(--font-sans);
-  --font-serif: var(--font-serif);
 }
 
 html,
@@ -40,6 +55,8 @@ body {
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overflow-x: clip;
+  max-width: 100vw;
 }
 
 ::selection {
@@ -71,6 +88,16 @@ body {
   100% { transform: scaleY(0); transform-origin: bottom; }
 }
 
+@keyframes drawerIn {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes drawerBg {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 .animate-rise {
   animation: rise 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
@@ -83,7 +110,58 @@ body {
   animation: scrollHint 2.4s ease-in-out infinite;
 }
 
-/* Image desaturation for hero backdrop — recreates the figma 'mix-blend-saturation' look */
+.animate-drawer-in {
+  animation: drawerIn 360ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.animate-drawer-bg {
+  animation: drawerBg 240ms ease-out both;
+}
+
 .hero-desaturate {
   filter: grayscale(1) contrast(1.05);
+}
+
+/* Underline-on-hover link — supports RTL */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 100% 100%;
+  background-repeat: no-repeat;
+  transition: background-size 500ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.link-underline:hover,
+.link-underline:focus-visible {
+  background-size: 100% 1px;
+}
+
+/* Smooth scrolling for in-page anchors */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Reduce all motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Lock body scroll when mobile drawer is open */
+body[data-scroll-lock="true"] {
+  overflow: hidden;
+}
+
+/* Focus ring used across interactive surfaces */
+.focus-ring {
+  outline: 2px solid transparent;
+  outline-offset: 4px;
+}
+.focus-ring:focus-visible {
+  outline-color: var(--ink);
 }
