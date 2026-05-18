@@ -9,6 +9,7 @@ docs/
 ├── research/        Hebrew SEO research, Google Trends sets, Autocomplete data
 ├── strategy/        SEO content strategy (.docx + rendered .pdf)
 ├── briefs/          SEO blog brief
+├── blogs/           Bilingual Hebrew/English SEO blog drafts and source index
 └── presentations/   SEO findings deck (.pptx)
 ```
 
@@ -23,6 +24,11 @@ docs/
 
 ### briefs/
 - **beeri-seo-blog-brief.docx** — Blog content brief built from the strategy.
+
+### blogs/
+- **README.md** — Blog draft index, target keywords, funnel roles, and editorial rules.
+- **drafts/** — Bilingual Hebrew/English Markdown drafts for priority SEO topics.
+- **research/sources.md** — Internal and external sources used for blog foundations.
 
 ### presentations/
 - **beeri-arizot-seo-findings.pptx** — Stakeholder-facing summary of SEO findings.
