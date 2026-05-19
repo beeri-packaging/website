@@ -10,20 +10,39 @@ export function Footer({
   lang: Lang;
   t: HomeCopy;
 }) {
+  const socialLinks = t.footerLinks.slice(0, 2);
+  const legalLinks = t.footerLinks.slice(2);
+
   return (
     <footer className="bg-bone border-t border-bone-line">
       <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-10 md:px-12 lg:px-[64px] py-20 sm:py-28 md:py-32 lg:py-[120px] xl:py-[160px] flex flex-col md:flex-row gap-12 md:gap-10 md:items-end md:justify-between">
         <div className="flex flex-col gap-6 md:gap-8 order-2">
-          <div className="flex flex-col gap-2 max-w-[320px]">
-            <span className="font-sans font-semibold uppercase text-teal text-[12px] tracking-[0.08em] leading-4">
-              {t.footerEyebrow}
-            </span>
-            <p className="font-sans text-clay text-[16px] leading-[25px]">
-              {t.footerAddr[0]}
-              <br />
-              {t.footerAddr[1]}
-            </p>
-          </div>
+          <ul className="flex flex-wrap gap-x-8 gap-y-3">
+            {socialLinks.map((l) => (
+              <li key={l}>
+                <Link
+                  href="#"
+                  className="font-sans text-clay text-[16px] leading-[25px] uppercase underline underline-offset-4 decoration-from-font hover:text-ink transition-colors duration-300 focus-ring"
+                  aria-label={l}
+                >
+                  {l}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <ul className="flex flex-wrap gap-x-8 gap-y-3">
+            {legalLinks.map((l) => (
+              <li key={l}>
+                <Link
+                  href="#"
+                  className="font-sans text-clay text-[16px] leading-[25px] uppercase underline underline-offset-4 decoration-from-font hover:text-ink transition-colors duration-300 focus-ring"
+                  aria-label={l}
+                >
+                  {l}
+                </Link>
+              </li>
+            ))}
+          </ul>
           <p className="font-sans font-semibold uppercase text-clay text-[12px] tracking-[0.08em] leading-4 max-w-[260px]">
             {t.footerCopy}
           </p>
@@ -38,24 +57,21 @@ export function Footer({
             <Image
               src={lang === "he" ? homeImages.logoHe : homeImages.logoEn}
               alt={lang === "he" ? "בארי אריזות" : "Beeri Packaging"}
-              width={lang === "he" ? 1693 : 249}
-              height={lang === "he" ? 582 : 64}
+              width={249}
+              height={64}
               className="h-auto w-[200px] sm:w-[249px]"
             />
           </Link>
-          <ul className="grid grid-cols-2 gap-x-12 gap-y-4 w-[249px]">
-            {t.footerLinks.map((l) => (
-              <li key={l} className="flex md:justify-start">
-                <Link
-                  href="#"
-                  className="font-sans text-clay text-[16px] leading-[25px] uppercase underline underline-offset-4 decoration-from-font hover:text-ink transition-colors duration-300 focus-ring"
-                  aria-label={l}
-                >
-                  {l}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <div className="flex flex-col gap-2 max-w-[320px]">
+            <span className="font-sans font-semibold uppercase text-teal text-[12px] tracking-[0.08em] leading-4">
+              {t.footerEyebrow}
+            </span>
+            <p className="font-sans text-clay text-[16px] leading-[25px]">
+              {t.footerAddr[0]}
+              <br />
+              {t.footerAddr[1]}
+            </p>
+          </div>
         </div>
       </div>
     </footer>

@@ -25,8 +25,8 @@ export function Header({
           <Image
             src={lang === "he" ? homeImages.logoHe : homeImages.logoEn}
             alt={lang === "he" ? "בארי אריזות" : "Beeri Packaging"}
-            width={lang === "he" ? 1693 : 249}
-            height={lang === "he" ? 582 : 64}
+            width={249}
+            height={64}
             priority
             className="h-11 sm:h-12 md:h-14 w-auto"
           />
