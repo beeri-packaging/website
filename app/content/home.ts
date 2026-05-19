@@ -74,14 +74,15 @@ export type HomeCopy = {
   lang: string;
 };
 
-// Anchors are root-relative (`/#section`) so the same nav works from any
-// route — on the home page Next routes to `/` and the hash scrolls in place,
-// on other pages it navigates home and scrolls there.
+// Each link points to its own placeholder route until the full sections
+// land. The home page keeps its in-page anchors (#journey, #excellence,
+// #cta, #faq) for hero CTAs and the dual-journey scroll story.
 export const navLinks: readonly NavLink[] = [
-  { he: "פורטפוליו", en: "Work", href: "/#journey" },
-  { he: "השבחות", en: "Finishing", href: "/#excellence" },
-  { he: "קריירה", en: "Careers", href: "/#cta" },
-  { he: "קטלוג", en: "Catalog", href: "/#faq" },
+  { he: "פורטפוליו", en: "Work", href: "/portfolio" },
+  { he: "השבחות", en: "Finishing", href: "/finishing" },
+  { he: "קריירה", en: "Careers", href: "/careers" },
+  { he: "קטלוג", en: "Catalog", href: "/catalog" },
+  { he: "בלוג", en: "Blog", href: "/blog" },
 ];
 
 export const capabilities: readonly Capability[] = [
