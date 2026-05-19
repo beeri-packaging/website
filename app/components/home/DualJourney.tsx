@@ -1,15 +1,48 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { homeImages } from "@/app/content/home";
-import type { HomeCopy, Lang } from "@/app/content/home";
+import { journeyPanels } from "@/app/content/home";
+import type { HomeCopy, JourneyPanel, Lang } from "@/app/content/home";
 import { ArrowRtl } from "./icons";
 
 export function DualJourney({ lang, t }: { lang: Lang; t: HomeCopy }) {
+  const stackRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    // Add `is-visible` to each card once it intersects the viewport.
+    // We do this with IntersectionObserver instead of CSS scroll-driven
+    // animations because view() timelines freeze when their element gets
+    // pinned by position: sticky, leaving cards stuck at opacity 0.
+    const stack = stackRef.current;
+    if (!stack) return;
+    const cards = stack.querySelectorAll<HTMLElement>(".journey-card-reveal");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.18, rootMargin: "0px 0px -10% 0px" }
+    );
+    cards.forEach((card) => observer.observe(card));
+    return () => observer.disconnect();
+  }, []);
+
+  const rows: JourneyPanel[][] = [];
+  for (let i = 0; i < journeyPanels.length; i += 2) {
+    rows.push(journeyPanels.slice(i, i + 2));
+  }
+
   return (
     <section
       id="journey"
-      className="bg-bone overflow-clip scroll-mt-[80px] flex flex-col pt-16 sm:pt-20 md:pt-24 lg:pt-10 xl:pt-12 pb-12 sm:pb-16 md:pb-20 lg:pb-10 xl:pb-12 lg:h-[calc(100svh-72px)] lg:min-h-[640px]"
+      className="bg-bone scroll-mt-[80px] flex flex-col pt-16 sm:pt-20 md:pt-24 pb-12 sm:pb-16 md:pb-20"
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-2 px-6 sm:px-8 md:px-2 items-end pb-8 sm:pb-10 lg:pb-6 xl:pb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-2 px-6 sm:px-8 md:px-2 items-end pb-8 sm:pb-10 md:pb-12">
         <div className="flex flex-col gap-3 md:px-6 lg:px-[72px]">
           <span className="font-sans uppercase text-magenta text-[11px] sm:text-[12px] tracking-[0.08em] leading-4">
             {t.journeyEyebrow}
@@ -23,66 +56,76 @@ export function DualJourney({ lang, t }: { lang: Lang; t: HomeCopy }) {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 px-2 lg:flex-1 lg:min-h-0">
-        <JourneyCard
-          src={homeImages.journeyCustomer}
-          tag={t.customerTag}
-          tagColor="text-purple"
-          title={t.customerTitle}
-          theme="light"
-          body={t.customerBody}
-          link={t.customerLink}
-          lang={lang}
-          accent="purple"
-        />
-        <JourneyCard
-          src={homeImages.journeyHeritage}
-          tag={t.heritageTag}
-          tagColor="text-yellow"
-          title={t.heritageTitle}
-          theme="dark"
-          body={t.heritageBody}
-          link={t.heritageLink}
-          lang={lang}
-          accent="yellow"
-        />
+      {/*
+       * Each row is a non-sticky `journey-row-track` (one viewport tall on
+       * desktop) that hosts a named `view-timeline`. Inside it, the
+       * `journey-row-pin` is `position: sticky` and consumes that timeline,
+       * so its image keeps drifting throughout the pinned scroll and rows
+       * 2/3 can wipe in over the previous row with `clip-path`. See
+       * globals.css for the keyframes and timeline wiring.
+       */}
+      <div ref={stackRef} className="journey-stack relative">
+        {rows.map((row, rowIndex) => (
+          <div
+            key={rowIndex}
+            className={`journey-row-track journey-row-track--${rowIndex + 1}`}
+          >
+            <div
+              className="journey-row-pin md:sticky md:top-[80px] md:h-[calc(100svh-80px)] px-2 overflow-hidden"
+              style={{ zIndex: rowIndex + 1 }}
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 h-full">
+                {row.map((panel, j) => (
+                  <JourneyCard
+                    key={panel.key}
+                    panel={panel}
+                    lang={lang}
+                    priority={rowIndex === 0}
+                    pairIndex={j}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );
 }
 
 function JourneyCard({
-  src,
-  tag,
-  tagColor,
-  title,
-  theme,
-  body,
-  link,
+  panel,
   lang,
-  accent,
+  priority,
+  pairIndex,
 }: {
-  src: string;
-  tag: string;
-  tagColor: string;
-  title: string;
-  theme: "dark" | "light";
-  body: string;
-  link: string;
+  panel: JourneyPanel;
   lang: Lang;
-  accent: "purple" | "yellow";
+  priority: boolean;
+  pairIndex: number;
 }) {
-  const isDark = theme === "dark";
-  const accentBg = accent === "purple" ? "bg-purple" : "bg-yellow";
+  const copy = panel[lang];
+  const isDark = panel.theme === "dark";
+  const accentBg = panel.accent === "purple" ? "bg-purple" : "bg-yellow";
   return (
-    <article className="group relative h-[440px] sm:h-[560px] md:h-[720px] lg:h-full lg:min-h-0 overflow-hidden cursor-pointer">
-      <Image
-        src={src}
-        alt={title}
-        fill
-        sizes="(min-width: 768px) 50vw, 100vw"
-        className="object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.06]"
-      />
+    <article
+      data-pair={pairIndex}
+      className="journey-card-reveal group relative h-[480px] sm:h-[600px] md:h-full overflow-hidden cursor-pointer"
+    >
+      <div className="parallax-img absolute inset-0">
+        <Image
+          src={panel.src}
+          alt={copy.title}
+          fill
+          // Overrequest ~20% beyond the card width so the parallax
+          // scale(1.22) inside .parallax-img doesn't upscale a tighter
+          // crop. 60vw on desktop, 70vw on tablet, full width on mobile.
+          sizes="(min-width: 1280px) 60vw, (min-width: 768px) 70vw, 100vw"
+          quality={90}
+          className="object-cover"
+          priority={priority}
+        />
+      </div>
       <div
         className={`absolute inset-0 ${
           isDark ? "bg-ink/10" : "bg-[rgba(8,28,107,0.10)]"
@@ -97,27 +140,27 @@ function JourneyCard({
       >
         <div className="flex max-w-[456px] flex-col gap-2 text-start">
           <span
-            className={`inline-flex items-center gap-2 font-sans uppercase text-[11px] sm:text-[12px] tracking-[0.08em] leading-4 ${tagColor}`}
+            className={`inline-flex items-center gap-2 font-sans uppercase text-[11px] sm:text-[12px] tracking-[0.08em] leading-4 ${panel.tagColor}`}
           >
             <span
               aria-hidden
               className={`inline-block h-2 w-2 rounded-full ${accentBg} transition-transform duration-500 group-hover:scale-150`}
             />
-            {tag}
+            {copy.tag}
           </span>
           <h3
             className={`font-display text-[36px] sm:text-[42px] md:text-[50px] leading-[1.05] pt-2 ${
               isDark ? "text-bone" : "text-ink"
             }`}
           >
-            {title}
+            {copy.title}
           </h3>
           <p
             className={`font-sans text-[14px] sm:text-[15px] md:text-[16px] leading-[1.6] tracking-[-0.16px] pt-3 sm:pt-4 ${
               isDark ? "text-bone/85" : "text-clay"
             }`}
           >
-            {body}
+            {copy.body}
           </p>
           <div className="pt-4 sm:pt-5 flex items-center gap-4">
             <span
@@ -125,7 +168,7 @@ function JourneyCard({
                 isDark ? "text-bone" : "text-ink"
               }`}
             >
-              {link}
+              {copy.link}
               <span
                 aria-hidden
                 className={`absolute left-0 right-0 -bottom-1 h-px transform origin-right scale-x-0 transition-transform duration-500 group-hover:scale-x-100 ${

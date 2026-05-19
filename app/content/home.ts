@@ -27,6 +27,22 @@ export type FaqItem = {
   en: { q: string; a: string };
 };
 
+/**
+ * One stop in the "dual journey" scroll story. Rows alternate the
+ * heritage thread (dark, yellow accent) against the customer thread
+ * (light or dark, purple accent). Each image gets a CSS-driven
+ * parallax sweep as it passes through the viewport.
+ */
+export type JourneyPanel = {
+  key: string;
+  src: string;
+  theme: "dark" | "light";
+  accent: "purple" | "yellow";
+  tagColor: "text-yellow" | "text-purple" | "text-magenta";
+  he: { tag: string; title: string; body: string; link: string };
+  en: { tag: string; title: string; body: string; link: string };
+};
+
 export type HomeCopy = {
   eyebrow: string;
   h1: readonly [string, string];
@@ -37,14 +53,6 @@ export type HomeCopy = {
   journeyEyebrow: string;
   journeyTitle: string;
   journeyDesc: string;
-  customerTag: string;
-  customerTitle: string;
-  customerBody: string;
-  customerLink: string;
-  heritageTag: string;
-  heritageTitle: string;
-  heritageBody: string;
-  heritageLink: string;
   techTitle: string;
   techBody: string;
   bento1Title: string;
@@ -164,16 +172,6 @@ export const homeCopy: Record<Lang, HomeCopy> = {
     journeyTitle: "מורשת תעשייתית ופתרון עכשווי",
     journeyDesc:
       "הסיפור של בארי מתקדם לצד המסלול של הלקוח: מהיסטוריה של דפוס וייצור ועד אריזה מדויקת שמוכנה לשוק.",
-    customerTag: "מהצורך של הלקוח לאריזה המושלמת",
-    customerTitle: "מבינים את האתגר",
-    customerBody:
-      "לפני שמדברים על צבעים או גימורים, בודקים את המוצר: משקל, שבריריות, אחסון, שינוע, מדף וחוויית פתיחה. משם מתכננים פתרון שמתאים לפרויקט ולייצור.",
-    customerLink: "לתהליך העבודה",
-    heritageTag: "אריזות בארי על ציר הזמן",
-    heritageTitle: "1964 — שורשים",
-    heritageBody:
-      "בארי אריזות פועלת כחברה רשומה משנת 1964 וכיום היא חלק מקבוצת דפוס בארי. הניסיון המצטבר הזה מחבר בין ידע עמוק בדפוס, ייצור, שירות ופתרונות למותגים.",
-    heritageLink: "לציר הזמן",
     techTitle: "כשהמבנה פוגש את המותג.",
     techBody:
       "בארי אריזות מחברת תכנון מבני, חומרי גלם, דפוס והשבחות כדי ליצור אריזה שנראית נכון, נפתחת נכון, שומרת על המוצר ומחזקת את הרושם מהרגע הראשון.",
@@ -207,16 +205,6 @@ export const homeCopy: Record<Lang, HomeCopy> = {
     journeyTitle: "Industrial heritage, modern solution",
     journeyDesc:
       "Beeri's story runs alongside our client's path — from a legacy of print and manufacturing to a precise package ready for market.",
-    customerTag: "From client need to the perfect package",
-    customerTitle: "Understand the brief",
-    customerBody:
-      "Before we talk colors or finishes, we look at the product: weight, fragility, storage, shipping, shelf and unboxing. From there we plan a solution that fits both the project and the line.",
-    customerLink: "Our process",
-    heritageTag: "Beeri on the timeline",
-    heritageTitle: "1964 — Roots",
-    heritageBody:
-      "Beeri Packaging has operated as a registered company since 1964 and is part of the Beeri Print group. The accumulated experience bridges deep print know-how, manufacturing, service and brand solutions.",
-    heritageLink: "The timeline",
     techTitle: "Where structure meets brand.",
     techBody:
       "Beeri Packaging connects structural design, raw materials, print and finishing to create a package that looks right, opens right, protects the product and lands the first impression.",
@@ -247,9 +235,143 @@ export const homeCopy: Record<Lang, HomeCopy> = {
  */
 export const homeImages = {
   hero: "/images/figma/hero-bg.png",
-  journeyCustomer: "/images/figma/blue-moon.png",
-  journeyHeritage: "/images/figma/heritage.png",
+  // The journey panels fill near-full-viewport on desktop, so they need
+  // high-resolution sources. The /generated/timeline/ shots (1456×1080)
+  // cover the heritage thread; vertical-2x3 product crops (1024×1536)
+  // cover the customer thread and match the cards' tall aspect ratio.
+  journeyHeritage: "/images/generated/timeline/beeri-history.png",
+  journeyCustomer:
+    "/images/generated/imagegen-real-products-vertical-2x3/blue-moon-imagegen-ambience-v2-vertical-2x3.webp",
+  journeyGrowth: "/images/generated/timeline/beeri-growth.png",
+  journeyDeveloping:
+    "/images/generated/imagegen-real-products-vertical-2x3/barkan-wine-imagegen-ambience-vertical-2x3.webp",
+  journeyToday: "/images/generated/timeline/beeri-today-simple.png",
+  journeyPrecise:
+    "/images/generated/imagegen-real-products-vertical-2x3/mh-whisky-imagegen-ambience-v2-vertical-2x3.webp",
   bentoService: "/images/figma/service-1.png",
   logoHe: "/images/logo-he.svg",
   logoEn: "/images/logo-en.svg",
 } as const;
+
+/**
+ * Six-panel scrolling journey. The two threads (heritage + customer)
+ * alternate row-by-row. In Hebrew RTL the first panel in each pair
+ * renders visually on the right and the second on the left — matching
+ * the Figma layout (heritage on the left, customer on the right).
+ */
+export const journeyPanels: readonly JourneyPanel[] = [
+  {
+    key: "customer",
+    src: homeImages.journeyCustomer,
+    theme: "light",
+    accent: "purple",
+    tagColor: "text-purple",
+    he: {
+      tag: "מהצורך של הלקוח לאריזה המושלמת",
+      title: "מבינים את האתגר",
+      body: "לפני שמדברים על צבעים או גימורים, בודקים את המוצר: משקל, שבריריות, אחסון, שינוע, מדף וחוויית פתיחה. משם מתכננים פתרון שמתאים לפרויקט ולייצור.",
+      link: "לתהליך העבודה",
+    },
+    en: {
+      tag: "From client need to the perfect package",
+      title: "Understand the brief",
+      body: "Before we talk colors or finishes, we look at the product: weight, fragility, storage, shipping, shelf and unboxing. From there we plan a solution that fits both the project and the line.",
+      link: "Our process",
+    },
+  },
+  {
+    key: "heritage",
+    src: homeImages.journeyHeritage,
+    theme: "dark",
+    accent: "yellow",
+    tagColor: "text-yellow",
+    he: {
+      tag: "אריזות בארי על ציר הזמן",
+      title: "1964 — שורשים",
+      body: "בארי אריזות פועלת כחברה רשומה משנת 1964 וכיום היא חלק מקבוצת דפוס בארי. הניסיון המצטבר הזה מחבר בין ידע עמוק בדפוס, ייצור, שירות ופתרונות למותגים.",
+      link: "לציר הזמן",
+    },
+    en: {
+      tag: "Beeri on the timeline",
+      title: "1964 — Roots",
+      body: "Beeri Packaging has operated as a registered company since 1964 and is part of the Beeri Print group. The accumulated experience bridges deep print know-how, manufacturing, service and brand solutions.",
+      link: "The timeline",
+    },
+  },
+  {
+    key: "developing",
+    src: homeImages.journeyDeveloping,
+    theme: "light",
+    accent: "purple",
+    tagColor: "text-purple",
+    he: {
+      tag: "מהצורך של הלקוח לאריזה המושלמת",
+      title: "מפתחים פתרון",
+      body: "הצוות המקצועי מתרגם את הצורך לפתרון מבני ועיצובי: חומר מתאים, מבנה קופסה, אופן פתיחה, חיזוקים פנימיים, דפוס והשבחות שמשרתים את המותג והמוצר בפועל בפרויקט ובייצור.",
+      link: "לתהליך העבודה",
+    },
+    en: {
+      tag: "From client need to the perfect package",
+      title: "Develop the solution",
+      body: "Our team translates the brief into a structural and visual answer: the right stock, box geometry, closure, internal reinforcements, print and finishing — all in service of the brand and the product on the line.",
+      link: "Our process",
+    },
+  },
+  {
+    key: "growth",
+    src: homeImages.journeyGrowth,
+    theme: "dark",
+    accent: "yellow",
+    tagColor: "text-yellow",
+    he: {
+      tag: "אריזות בארי על ציר הזמן",
+      title: "תהליך הגדילה",
+      body: "עם השנים התפתחה בארי אריזות מספק ייצור לחברה שמלווה פרויקטים שלמים: אפיון, תכנון מבני, דפוס דיגיטלי ואופסט, שטנץ, הדבקה, השבחות, לוגיסטיקה, אספקה ושירות ללקוחות עסקיים.",
+      link: "לציר הזמן",
+    },
+    en: {
+      tag: "Beeri on the timeline",
+      title: "Growing the practice",
+      body: "Over the years Beeri evolved from a manufacturer into a partner that runs whole projects: briefing, structural design, digital and offset print, die-cutting, gluing, finishing, logistics, supply and service for B2B clients.",
+      link: "The timeline",
+    },
+  },
+  {
+    key: "precise",
+    src: homeImages.journeyPrecise,
+    theme: "dark",
+    accent: "purple",
+    tagColor: "text-purple",
+    he: {
+      tag: "מהצורך של הלקוח לאריזה המושלמת",
+      title: "מייצרים אריזה מדוייקת",
+      body: "בסוף התהליך מתקבלת אריזה שנבנתה סביב המוצר ולא להפך. היא מגינה, מציגה, מתקפלת, נפתחת ונארזת נכון — ומחזקת את חוויית הלקוח בכל מפגש מחדש עם המותג.",
+      link: "לתהליך העבודה",
+    },
+    en: {
+      tag: "From client need to the perfect package",
+      title: "Produce the precise package",
+      body: "What comes off the line is a package built around the product, not the other way around. It protects, presents, folds, opens and packs correctly — and reinforces the brand every time a customer meets it again.",
+      link: "Our process",
+    },
+  },
+  {
+    key: "today",
+    src: homeImages.journeyToday,
+    theme: "dark",
+    accent: "yellow",
+    tagColor: "text-yellow",
+    he: {
+      tag: "אריזות בארי על ציר הזמן",
+      title: "מי אנחנו היום",
+      body: "היום בארי אריזות מייצרת פתרונות אריזה מקרטון לתעשיות הפארמה, המזון, הקוסמטיקה, היין והמשקאות, עם מפעל ביבנה וצוות שמחבר ניסיון תעשייתי, עיצוב וחשיבה מדויקת למותגים מובילים.",
+      link: "לציר הזמן",
+    },
+    en: {
+      tag: "Beeri on the timeline",
+      title: "Who we are today",
+      body: "Today Beeri produces carton packaging for pharma, food, cosmetics, wine and beverages — from a factory in Yavne, with a team that pairs industrial know-how, design and precision thinking for leading brands.",
+      link: "The timeline",
+    },
+  },
+];
