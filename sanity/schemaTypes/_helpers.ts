@@ -7,11 +7,12 @@ import { defineField } from "sanity";
  * GROQ mappers resolve the asset URL when present and fall back to
  * `legacyImagePath` otherwise.
  */
-export function imageField(name: string, title: string) {
+export function imageField(name: string, title: string, group?: string) {
   return defineField({
     name,
     title,
     type: "image",
+    ...(group ? { group } : {}),
     options: { hotspot: true },
     fields: [
       defineField({

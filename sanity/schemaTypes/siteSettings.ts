@@ -13,17 +13,17 @@ export const siteSettings = defineType({
   groups: [
     { name: "header", title: "הדר / תפריט" },
     { name: "footer", title: "פוטר" },
-    { name: "contact", title: "יצירת קשר" },
+    { name: "contactInfo", title: "יצירת קשר" },
     { name: "media", title: "לוגו" },
   ],
   fields: [
     defineField({ name: "language", type: "string", readOnly: true, hidden: true }),
 
     // Header / chrome
-    defineField({ name: "menu", title: "תווית 'תפריט'", type: "string", group: "header", validation: (r) => r.required() }),
-    defineField({ name: "close", title: "תווית 'סגירה'", type: "string", group: "header", validation: (r) => r.required() }),
-    defineField({ name: "lang", title: "תווית 'שפה'", type: "string", group: "header", validation: (r) => r.required() }),
-    defineField({ name: "contact", title: "תווית 'צור קשר'", type: "string", group: "header", validation: (r) => r.required() }),
+    defineField({ name: "menu", title: "תווית 'תפריט'", type: "string", group: "header", validation: (rule) => rule.required() }),
+    defineField({ name: "close", title: "תווית 'סגירה'", type: "string", group: "header", validation: (rule) => rule.required() }),
+    defineField({ name: "lang", title: "תווית 'שפה'", type: "string", group: "header", validation: (rule) => rule.required() }),
+    defineField({ name: "contact", title: "תווית 'צור קשר'", type: "string", group: "header", validation: (rule) => rule.required() }),
     defineField({
       name: "navLinks",
       title: "קישורי ניווט",
@@ -33,18 +33,18 @@ export const siteSettings = defineType({
     }),
 
     // Footer
-    defineField({ name: "footerEyebrow", title: "תווית פוטר", type: "string", group: "footer", validation: (r) => r.required() }),
-    defineField({ name: "footerAddr", title: "כתובת (שתי שורות)", type: "array", of: [{ type: "string" }], group: "footer", validation: (r) => r.required().length(2) }),
-    defineField({ name: "footerLinks", title: "קישורי פוטר", type: "array", of: [{ type: "string" }], group: "footer", validation: (r) => r.required() }),
-    defineField({ name: "footerCopy", title: "זכויות יוצרים", type: "string", group: "footer", validation: (r) => r.required() }),
+    defineField({ name: "footerEyebrow", title: "תווית פוטר", type: "string", group: "footer", validation: (rule) => rule.required() }),
+    defineField({ name: "footerAddr", title: "כתובת (שתי שורות)", type: "array", of: [{ type: "string" }], group: "footer", validation: (rule) => rule.required().length(2) }),
+    defineField({ name: "footerLinks", title: "קישורי פוטר", type: "array", of: [{ type: "string" }], group: "footer", validation: (rule) => rule.required() }),
+    defineField({ name: "footerCopy", title: "זכויות יוצרים", type: "string", group: "footer", validation: (rule) => rule.required() }),
 
     // Contact (reserved for future use — optional)
-    defineField({ name: "contactEmail", title: "אימייל", type: "string", group: "contact" }),
-    defineField({ name: "social", title: "רשתות חברתיות", type: "array", of: [defineArrayMember({ type: "socialLink" })], group: "contact" }),
+    defineField({ name: "contactEmail", title: "אימייל", type: "string", group: "contactInfo" }),
+    defineField({ name: "social", title: "רשתות חברתיות", type: "array", of: [defineArrayMember({ type: "socialLink" })], group: "contactInfo" }),
 
     // Media
-    imageField("logoHe", "לוגו (עברית)"),
-    imageField("logoEn", "לוגו (אנגלית)"),
+    imageField("logoHe", "לוגו (עברית)", "media"),
+    imageField("logoEn", "לוגו (אנגלית)", "media"),
   ],
   preview: {
     select: { language: "language" },
