@@ -44,6 +44,7 @@ export function CareersPageDesign({ copy, lang }: { copy: CareersCopy; lang: Lan
         apply={copy.apply}
         department={department}
         filters={copy.filters}
+        lang={lang}
         noRoles={copy.noRoles}
         onDepartmentChange={setDepartment}
         roles={visibleRoles}
