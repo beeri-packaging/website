@@ -1,11 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
-import { capabilities, homeImages } from "@/app/content/home";
 import type { HomeCopy, Lang } from "@/app/content/home";
 import { Badge } from "@/components/ui/badge";
 import { ArrowOut, CardCornerArrow, DieCutIcon, LabIcon } from "./icons";
 
-export function TechnicalExcellence({ lang, t }: { lang: Lang; t: HomeCopy }) {
+export function TechnicalExcellence({
+  t,
+  capabilities,
+  bentoServiceImage,
+}: {
+  lang: Lang;
+  t: HomeCopy;
+  capabilities: readonly { n: string; title: string; body: string }[];
+  bentoServiceImage: string;
+}) {
   return (
     <section
       id="excellence"
@@ -23,9 +31,7 @@ export function TechnicalExcellence({ lang, t }: { lang: Lang; t: HomeCopy }) {
           </div>
 
           <ul className="flex flex-col w-full max-w-[452px]">
-            {capabilities.map((c) => {
-              const copy = lang === "he" ? c.he : c.en;
-              return (
+            {capabilities.map((c) => (
                 <li
                   key={c.n}
                   className="group flex items-center justify-end gap-8 sm:gap-16 md:gap-[80px] lg:gap-[110px] border-b border-rule pb-px transition-colors duration-300 hover:border-ink"
@@ -35,15 +41,14 @@ export function TechnicalExcellence({ lang, t }: { lang: Lang; t: HomeCopy }) {
                   </span>
                   <div className="flex flex-col gap-1 text-start w-[262px] max-w-full py-3">
                     <h3 className="font-sans font-semibold text-ink text-[16px] leading-[25px] tracking-[-0.16px]">
-                      {copy.title}
+                      {c.title}
                     </h3>
                     <p className="font-sans text-clay text-[16px] leading-[25px] tracking-[-0.16px]">
-                      {copy.body}
+                      {c.body}
                     </p>
                   </div>
                 </li>
-              );
-            })}
+              ))}
           </ul>
         </div>
 
@@ -115,7 +120,7 @@ export function TechnicalExcellence({ lang, t }: { lang: Lang; t: HomeCopy }) {
             className="md:col-span-7 relative bg-sand overflow-hidden aspect-[4/3] sm:aspect-[16/10] md:aspect-auto md:h-auto group block cursor-pointer focus-ring"
           >
             <Image
-              src={homeImages.bentoService}
+              src={bentoServiceImage}
               alt={t.bento1Title}
               fill
               sizes="(min-width: 768px) 60vw, 100vw"

@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { faqItems } from "@/app/content/home";
 import type { HomeCopy, Lang } from "@/app/content/home";
 
-export function Faq({ lang, t }: { lang: Lang; t: HomeCopy }) {
+export function Faq({ t, items }: { lang: Lang; t: HomeCopy; items: readonly { n: string; q: string; a: string }[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
@@ -28,8 +27,7 @@ export function Faq({ lang, t }: { lang: Lang; t: HomeCopy }) {
         </div>
 
         <ul className="flex flex-col border-t border-rule">
-          {faqItems.map((item, i) => {
-            const copy = lang === "he" ? item.he : item.en;
+          {items.map((item, i) => {
             const isOpen = openIndex === i;
             return (
               <li key={item.n} className="border-b border-rule">
@@ -45,7 +43,7 @@ export function Faq({ lang, t }: { lang: Lang; t: HomeCopy }) {
                     {item.n}
                   </span>
                   <span className="flex-1 font-sans font-extrabold text-ink text-[16px] sm:text-[20px] md:text-[24px] leading-[1.3] text-start">
-                    {copy.q}
+                    {item.q}
                   </span>
                   <span
                     aria-hidden
@@ -76,7 +74,7 @@ export function Faq({ lang, t }: { lang: Lang; t: HomeCopy }) {
                     <div className="grid grid-cols-1 sm:grid-cols-[120px_1fr] gap-4 sm:gap-12 pl-0 sm:pl-2">
                       <span aria-hidden className="hidden sm:block" />
                       <p className="font-sans text-clay text-[14px] sm:text-[16px] md:text-[18px] leading-[1.6] max-w-[640px]">
-                        {copy.a}
+                        {item.a}
                       </p>
                     </div>
                   </div>

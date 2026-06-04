@@ -3,6 +3,10 @@ import { defineQuery } from "next-sanity";
 import { client } from "./client";
 import {
   homeCopy,
+  homeImages,
+  capabilities as bundledCaps,
+  faqItems as bundledFaqs,
+  journeyPanels as bundledJourney,
   type HomeCopy,
   type Lang,
 } from "@/app/content/home";
@@ -57,6 +61,15 @@ export type HomeDoc = {
   faqTitle: string;
   faqBody: string;
   ctaTitle: string[];
+  capabilities?: { n: string; title: string; body: string }[];
+  faqItems?: { n: string; q: string; a: string }[];
+  journeyPanels?: {
+    key: string; theme: "dark" | "light"; accent: "purple" | "yellow";
+    tagColor: string; tag: string; title: string; body: string; link: string;
+    legacyImagePath?: string; imageUrl?: string; imageAlt?: string;
+  }[];
+  heroImageUrl?: string;
+  bentoServiceImageUrl?: string;
 };
 
 /**
@@ -112,6 +125,56 @@ export function toHomeCopy(doc: HomeDoc | null, locale: Lang): HomeCopy {
     faqTitle: doc.faqTitle ?? fallback.faqTitle,
     faqBody: doc.faqBody ?? fallback.faqBody,
     ctaTitle: tuple(doc.ctaTitle, fallback.ctaTitle),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Home — resolved content types + mapper (lists + images)
+// ---------------------------------------------------------------------------
+
+export type HomeCapability = { n: string; title: string; body: string };
+export type HomeFaqItem = { n: string; q: string; a: string };
+export type HomeJourneyPanel = {
+  key: string; theme: "dark" | "light"; accent: "purple" | "yellow";
+  tagColor: "text-yellow" | "text-purple" | "text-magenta";
+  tag: string; title: string; body: string; link: string; src: string;
+};
+export type HomeContent = {
+  copy: HomeCopy;
+  capabilities: readonly HomeCapability[];
+  faqItems: readonly HomeFaqItem[];
+  journeyPanels: readonly HomeJourneyPanel[];
+  heroImage: string;
+  bentoServiceImage: string;
+};
+
+export function toHomeContent(doc: HomeDoc | null, locale: Lang): HomeContent {
+  const copy = toHomeCopy(doc, locale);
+  const capabilities: HomeCapability[] = doc?.capabilities?.length
+    ? doc.capabilities.map((c) => ({ n: c.n, title: c.title, body: c.body }))
+    : bundledCaps.map((c) => ({ n: c.n, title: c[locale].title, body: c[locale].body }));
+  const faqItems: HomeFaqItem[] = doc?.faqItems?.length
+    ? doc.faqItems.map((f) => ({ n: f.n, q: f.q, a: f.a }))
+    : bundledFaqs.map((f) => ({ n: f.n, q: f[locale].q, a: f[locale].a }));
+  const journeyPanels: HomeJourneyPanel[] = doc?.journeyPanels?.length
+    ? doc.journeyPanels.map((p) => {
+        const fb = bundledJourney.find((b) => b.key === p.key);
+        return {
+          key: p.key, theme: p.theme, accent: p.accent,
+          tagColor: p.tagColor as HomeJourneyPanel["tagColor"],
+          tag: p.tag, title: p.title, body: p.body, link: p.link,
+          src: p.imageUrl ?? p.legacyImagePath ?? fb?.src ?? "",
+        };
+      })
+    : bundledJourney.map((p) => ({
+        key: p.key, theme: p.theme, accent: p.accent, tagColor: p.tagColor,
+        tag: p[locale].tag, title: p[locale].title, body: p[locale].body,
+        link: p[locale].link, src: p.src,
+      }));
+  return {
+    copy, capabilities, faqItems, journeyPanels,
+    heroImage: doc?.heroImageUrl ?? homeImages.hero,
+    bentoServiceImage: doc?.bentoServiceImageUrl ?? homeImages.bentoService,
   };
 }
 
