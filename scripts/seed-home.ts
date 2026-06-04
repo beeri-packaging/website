@@ -2,7 +2,7 @@
  * Seed the current home content into Sanity.
  *
  * Ports app/content/home.ts (homeCopy, capabilities, faqItems, journeyPanels,
- * navLinks, homeImages) into two localized `home` documents (`home-he`,
+ * homeImages) into two localized `home` documents (`home-he`,
  * `home-en`) plus a linking `translation.metadata` doc so the two appear as
  * translations of each other in Studio.
  *
@@ -29,7 +29,6 @@ import {
   homeCopy,
   homeImages,
   journeyPanels,
-  navLinks,
   type Lang,
 } from "../app/content/home";
 
@@ -90,12 +89,6 @@ type ImageRef = {
   alt: string;
 };
 
-type LegacyImage = {
-  _type: "image";
-  alt: string;
-  legacyImagePath: string;
-};
-
 /** Upload a local public/ image and return an image field referencing it. */
 async function uploadLocalImage(
   publicPath: string,
@@ -111,11 +104,6 @@ async function uploadLocalImage(
     asset: { _type: "reference", _ref: asset._id },
     alt,
   };
-}
-
-/** Build an image field that keeps the existing /images path (no upload). */
-function legacyImage(publicPath: string, alt: string): LegacyImage {
-  return { _type: "image", alt, legacyImagePath: publicPath };
 }
 
 async function buildHomeDoc(
@@ -152,13 +140,6 @@ async function buildHomeDoc(
     faqTitle: t.faqTitle,
     faqBody: t.faqBody,
     ctaTitle: [...t.ctaTitle],
-    footerEyebrow: t.footerEyebrow,
-    footerAddr: [...t.footerAddr],
-    footerLinks: [...t.footerLinks],
-    footerCopy: t.footerCopy,
-    menu: t.menu,
-    close: t.close,
-    lang: t.lang,
 
     // Embedded arrays — single-language projection of each type.
     capabilities: capabilities.map((c) => ({
@@ -188,19 +169,9 @@ async function buildHomeDoc(
       body: p[lang].body,
       link: p[lang].link,
     })),
-    navLinks: navLinks.map((n, i) => ({
-      _type: "navLink" as const,
-      _key: `nav-${i}`,
-      he: n.he,
-      en: n.en,
-      href: n.href,
-    })),
-
-    // Media: hero + bento uploaded to the CDN; logos as legacy paths.
+    // Media: hero + bento uploaded to the CDN.
     heroImage,
     bentoServiceImage,
-    logoHe: legacyImage(homeImages.logoHe, "בארי אריזות"),
-    logoEn: legacyImage(homeImages.logoEn, "Beeri Packaging"),
   };
 }
 

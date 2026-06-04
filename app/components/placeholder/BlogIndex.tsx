@@ -1,14 +1,12 @@
-"use client";
-
 import Link from "next/link";
 import type { Lang } from "@/app/content/home";
 import {
-  blogIndexCopy,
-  blogPosts,
   categoryChipClass,
+  type BlogIndexCopy,
+  type BlogCategory,
 } from "@/app/content/blog";
+import type { LocalizedPost } from "@/sanity/queries";
 import { ArrowGlyph } from "@/app/components/home/icons";
-import { useShellLang } from "./PlaceholderShell";
 
 function formatDate(iso: string, lang: Lang): string {
   const date = new Date(iso);
@@ -19,13 +17,17 @@ function formatDate(iso: string, lang: Lang): string {
   });
 }
 
-export function BlogIndex() {
-  const { lang } = useShellLang();
-  const copy = blogIndexCopy[lang];
-  const posts = [...blogPosts].sort((a, b) =>
-    a.date < b.date ? 1 : a.date > b.date ? -1 : 0,
-  );
-
+export function BlogIndex({
+  copy,
+  posts,
+  labels,
+  lang,
+}: {
+  copy: BlogIndexCopy;
+  posts: readonly LocalizedPost[];
+  labels: Record<BlogCategory, string>;
+  lang: Lang;
+}) {
   return (
     <section className="relative overflow-clip">
       <div className="mx-auto w-full max-w-[1280px] px-5 sm:px-8 md:px-12 lg:px-20 py-16 sm:py-24 md:py-32 lg:py-36">
@@ -93,7 +95,6 @@ export function BlogIndex() {
 
         <ul className="mt-10 sm:mt-14 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {posts.map((post, i) => {
-            const tr = lang === "he" ? post.he : post.en;
             return (
               <li key={post.slug} className="flex">
                 <Link
@@ -104,7 +105,7 @@ export function BlogIndex() {
                     <span
                       className={`inline-flex items-center rounded-full px-3 py-1 font-sans text-[11px] sm:text-[12px] font-bold uppercase tracking-[0.08em] ${categoryChipClass[post.category]}`}
                     >
-                      {tr.category}
+                      {labels[post.category]}
                     </span>
                     <span className="font-sans tabular-nums uppercase text-clay text-[11px] tracking-[0.06em]">
                       0{i + 1}
@@ -112,11 +113,11 @@ export function BlogIndex() {
                   </div>
 
                   <h2 className="font-display text-ink text-[34px] sm:text-[40px] md:text-[46px] leading-[0.98]">
-                    {tr.title}
+                    {post.title}
                   </h2>
 
                   <p className="font-sans text-clay text-[15px] sm:text-[16px] leading-[1.65]">
-                    {tr.excerpt}
+                    {post.excerpt}
                   </p>
 
                   <div className="mt-auto flex items-center justify-between pt-4 border-t border-rule/70">
@@ -125,7 +126,7 @@ export function BlogIndex() {
                         {formatDate(post.date, lang)}
                       </span>
                       <span className="font-sans text-clay/80 text-[12px]">
-                        {lang === "he" ? post.read.he : post.read.en}
+                        {post.read}
                       </span>
                     </div>
                     <span className="inline-flex items-center gap-2 font-sans font-bold uppercase text-ink text-[12px] tracking-[0.08em] transition-transform duration-300 group-hover:-translate-x-1 rtl:group-hover:-translate-x-1 ltr:group-hover:translate-x-1">

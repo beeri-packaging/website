@@ -1,13 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { homeImages } from "@/app/content/home";
 import type { HomeCopy, Lang } from "@/app/content/home";
 import { cn } from "@/lib/cn";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { buttonVariants } from "@/components/ui/button";
 import { ArrowGlyph } from "./icons";
 
-export function Hero({ lang, t }: { lang: Lang; t: HomeCopy }) {
+export function Hero({ lang, t, heroImage }: { lang: Lang; t: HomeCopy; heroImage: string }) {
   return (
     <section
       className="relative flex min-h-[560px] sm:min-h-[680px] md:min-h-[760px] lg:min-h-0 lg:h-[100svh] items-center justify-center overflow-clip pt-[80px] sm:pt-[96px] md:pt-[112px] pb-12 sm:pb-20 md:pb-24"
@@ -15,7 +14,7 @@ export function Hero({ lang, t }: { lang: Lang; t: HomeCopy }) {
     >
       <div className="absolute inset-0 pointer-events-none">
         <Image
-          src={homeImages.hero}
+          src={heroImage}
           alt=""
           fill
           priority

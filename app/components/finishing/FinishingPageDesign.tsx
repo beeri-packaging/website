@@ -2,10 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { finishingCopy } from "@/app/content/finishing";
-import type { FinishingGridItem } from "@/app/content/finishing";
+import type { FinishingCopy, FinishingGridItem } from "@/app/content/finishing";
+import type { Lang } from "@/app/content/home";
 import { ArrowGlyph } from "@/app/components/home/icons";
-import { useShellLang } from "@/app/components/placeholder/PlaceholderShell";
 
 function FinishImage({
   src,
@@ -85,9 +84,7 @@ function FeatureCard({
   );
 }
 
-export function FinishingPageDesign() {
-  const { lang } = useShellLang();
-  const copy = finishingCopy[lang];
+export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang: Lang }) {
   const arrowDirection = lang === "he" ? "right-to-left" : "left-to-right";
 
   return (

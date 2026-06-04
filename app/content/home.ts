@@ -65,25 +65,8 @@ export type HomeCopy = {
   faqTitle: string;
   faqBody: string;
   ctaTitle: readonly [string, string];
-  footerEyebrow: string;
-  footerAddr: readonly [string, string];
-  footerLinks: readonly string[];
-  footerCopy: string;
-  menu: string;
-  close: string;
-  lang: string;
 };
 
-// Each link points to its own placeholder route until the full sections
-// land. The home page keeps its in-page anchors (#journey, #excellence,
-// #cta, #faq) for hero CTAs and the dual-journey scroll story.
-export const navLinks: readonly NavLink[] = [
-  { he: "פורטפוליו", en: "Work", href: "/portfolio" },
-  { he: "השבחות", en: "Finishing", href: "/finishing" },
-  { he: "קריירה", en: "Careers", href: "/careers" },
-  { he: "קטלוג", en: "Catalog", href: "/catalog" },
-  { he: "בלוג", en: "Blog", href: "/blog" },
-];
 
 export const capabilities: readonly Capability[] = [
   {
@@ -187,13 +170,6 @@ export const homeCopy: Record<Lang, HomeCopy> = {
     faqBody:
       "כמה תשובות קצרות לשאלות שעולות כמעט בכל פרויקט אריזה: עיצוב, דייליין, חומרים, דוגמה ותמחור.",
     ctaTitle: ["מוכנים לתכנן את", "האריזה הבאה?"],
-    footerEyebrow: "סטודיו ומפעל",
-    footerAddr: ["פארן 4", "יבנה"],
-    footerLinks: ["INSTAGRAM", "LINKEDIN", "תנאים", "פרטיות"],
-    footerCopy: "© 2026 בארי אריזות. כל הזכויות שמורות.",
-    menu: "תפריט",
-    close: "סגירה",
-    lang: "שפה",
   },
   en: {
     eyebrow: "Since 1964 — Custom corrugated packaging",
@@ -220,13 +196,6 @@ export const homeCopy: Record<Lang, HomeCopy> = {
     faqBody:
       "Short answers to the questions that come up in nearly every packaging brief: design, dieline, stock, sampling and pricing.",
     ctaTitle: ["Ready to design", "your next package?"],
-    footerEyebrow: "Studio & factory",
-    footerAddr: ["4 Paran St.", "Yavne, Israel"],
-    footerLinks: ["INSTAGRAM", "LINKEDIN", "Terms", "Privacy"],
-    footerCopy: "© 2026 Beeri Packaging. All rights reserved.",
-    menu: "Menu",
-    close: "Close",
-    lang: "Language",
   },
 };
 

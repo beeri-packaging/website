@@ -10,9 +10,11 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "lighthouse": "npx --yes lighthouse http://localhost:3000 --only-categories=performance,accessibility,best-practices,seo --form-factor=mobile --screenEmulation.mobile --view"
+    "lighthouse": "npx --yes lighthouse http://localhost:3000 --only-categories=performance,accessibility,best-practices,seo --form-factor=mobile --screenEmulation.mobile --view",
+    "seed": "tsx scripts/seed-all.ts"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.15",
     "@sanity/document-internationalization": "^6.2.1",
     "@sanity/image-url": "^2.1.1",
     "@sanity/vision": "^5.30.0",

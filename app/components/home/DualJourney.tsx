@@ -2,11 +2,11 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { journeyPanels } from "@/app/content/home";
-import type { HomeCopy, JourneyPanel, Lang } from "@/app/content/home";
+import type { HomeCopy, Lang } from "@/app/content/home";
+import type { HomeJourneyPanel } from "@/sanity/queries";
 import { ArrowRtl } from "./icons";
 
-export function DualJourney({ lang, t }: { lang: Lang; t: HomeCopy }) {
+export function DualJourney({ lang, t, panels }: { lang: Lang; t: HomeCopy; panels: readonly HomeJourneyPanel[] }) {
   const stackRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -32,9 +32,9 @@ export function DualJourney({ lang, t }: { lang: Lang; t: HomeCopy }) {
     return () => observer.disconnect();
   }, []);
 
-  const rows: JourneyPanel[][] = [];
-  for (let i = 0; i < journeyPanels.length; i += 2) {
-    rows.push(journeyPanels.slice(i, i + 2));
+  const rows: HomeJourneyPanel[][] = [];
+  for (let i = 0; i < panels.length; i += 2) {
+    rows.push(panels.slice(i, i + 2));
   }
 
   return (
@@ -99,12 +99,11 @@ function JourneyCard({
   priority,
   pairIndex,
 }: {
-  panel: JourneyPanel;
+  panel: HomeJourneyPanel;
   lang: Lang;
   priority: boolean;
   pairIndex: number;
 }) {
-  const copy = panel[lang];
   const isDark = panel.theme === "dark";
   const accentBg = panel.accent === "purple" ? "bg-purple" : "bg-yellow";
   return (
@@ -115,7 +114,7 @@ function JourneyCard({
       <div className="parallax-img absolute inset-0">
         <Image
           src={panel.src}
-          alt={copy.title}
+          alt={panel.title}
           fill
           // Overrequest ~20% beyond the card width so the parallax
           // scale(1.22) inside .parallax-img doesn't upscale a tighter
@@ -146,21 +145,21 @@ function JourneyCard({
               aria-hidden
               className={`inline-block h-2 w-2 rounded-full ${accentBg} transition-transform duration-500 group-hover:scale-150`}
             />
-            {copy.tag}
+            {panel.tag}
           </span>
           <h3
             className={`font-display text-[36px] sm:text-[42px] md:text-[50px] leading-[1.05] pt-2 ${
               isDark ? "text-bone" : "text-ink"
             }`}
           >
-            {copy.title}
+            {panel.title}
           </h3>
           <p
             className={`font-sans text-[14px] sm:text-[15px] md:text-[16px] leading-[1.6] tracking-[-0.16px] pt-3 sm:pt-4 ${
               isDark ? "text-bone/85" : "text-clay"
             }`}
           >
-            {copy.body}
+            {panel.body}
           </p>
           <div className="pt-4 sm:pt-5 flex items-center gap-4">
             <span
@@ -168,7 +167,7 @@ function JourneyCard({
                 isDark ? "text-bone" : "text-ink"
               }`}
             >
-              {copy.link}
+              {panel.link}
               <span
                 aria-hidden
                 className={`absolute left-0 right-0 -bottom-1 h-px transform origin-right scale-x-0 transition-transform duration-500 group-hover:scale-x-100 ${

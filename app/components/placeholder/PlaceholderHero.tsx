@@ -1,9 +1,7 @@
-"use client";
-
 import Link from "next/link";
-import type { PlaceholderContent } from "@/app/content/placeholder";
+import type { PlaceholderCopy } from "@/app/content/placeholder";
+import type { Lang } from "@/app/content/home";
 import { ArrowGlyph } from "@/app/components/home/icons";
-import { useShellLang } from "./PlaceholderShell";
 
 /**
  * Editorial "chapter-cover" hero used by every placeholder route. The huge
@@ -11,9 +9,7 @@ import { useShellLang } from "./PlaceholderShell";
  * leaning on a stock image. Preview chips below hint at what the page will
  * eventually cover.
  */
-export function PlaceholderHero({ content }: { content: PlaceholderContent }) {
-  const { lang } = useShellLang();
-  const copy = content[lang];
+export function PlaceholderHero({ copy, lang }: { copy: PlaceholderCopy; lang: Lang }) {
   const soonMark = lang === "he" ? "בקרוב" : "Soon";
 
   return (

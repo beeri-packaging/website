@@ -1,5 +1,6 @@
-import Link from "next/link";
 import type { CareerRole } from "@/app/content/careers";
+import type { Lang } from "@/app/content/home";
+import { JobApplicationDialog } from "@/app/components/careers/JobApplicationDialog";
 
 function MetaIcon({ type }: { type: "pin" | "clock" }) {
   return (
@@ -19,7 +20,15 @@ function MetaIcon({ type }: { type: "pin" | "clock" }) {
   );
 }
 
-function RoleRow({ apply, role }: { apply: string; role: CareerRole }) {
+function RoleRow({
+  apply,
+  lang,
+  role,
+}: {
+  apply: string;
+  lang: Lang;
+  role: CareerRole;
+}) {
   return (
     <article className="flex flex-col gap-6 border border-ink bg-bone p-6 sm:p-8 md:flex-row md:items-center md:justify-between">
       <div className="min-w-0">
@@ -46,12 +55,7 @@ function RoleRow({ apply, role }: { apply: string; role: CareerRole }) {
         </div>
       </div>
 
-      <Link
-        href={`mailto:jobs@beeri-packaging.co.il?subject=${encodeURIComponent(role.code)}`}
-        className="inline-flex min-h-14 shrink-0 items-center justify-center bg-magenta px-10 py-4 font-sans text-[13px] font-bold text-bone shadow-[4px_4px_0_var(--yellow)] transition-transform hover:-translate-y-0.5 focus-ring"
-      >
-        {apply}
-      </Link>
+      <JobApplicationDialog lang={lang} role={role} triggerLabel={apply} />
     </article>
   );
 }
@@ -60,6 +64,7 @@ export function CareersRoles({
   apply,
   department,
   filters,
+  lang,
   noRoles,
   onDepartmentChange,
   roles,
@@ -68,6 +73,7 @@ export function CareersRoles({
   apply: string;
   department: CareerRole["department"];
   filters: readonly { key: CareerRole["department"]; label: string }[];
+  lang: Lang;
   noRoles: string;
   onDepartmentChange: (department: CareerRole["department"]) => void;
   roles: readonly CareerRole[];
@@ -106,7 +112,7 @@ export function CareersRoles({
       <div className="mt-8 grid gap-5">
         {roles.length > 0 ? (
           roles.map((role) => (
-            <RoleRow key={role.code} role={role} apply={apply} />
+            <RoleRow key={role.code} role={role} apply={apply} lang={lang} />
           ))
         ) : (
           <p className="border border-ink bg-sand p-8 font-sans text-[16px] text-clay">

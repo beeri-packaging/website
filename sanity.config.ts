@@ -22,7 +22,7 @@ export default defineConfig({
         { id: "he", title: "Hebrew" },
         { id: "en", title: "English" },
       ],
-      schemaTypes: ["home"],
+      schemaTypes: ["home", "careers", "finishing", "post", "placeholderPage", "siteSettings", "blogSettings"],
     }),
   ],
 });

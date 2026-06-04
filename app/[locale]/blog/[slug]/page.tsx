@@ -1,45 +1,42 @@
 import type { Metadata } from "next";
+import { setRequestLocale } from "next-intl/server";
+import type { Lang } from "@/app/content/home";
 import { PlaceholderShell } from "@/app/components/placeholder/PlaceholderShell";
 import { BlogPostHero } from "@/app/components/placeholder/BlogPostHero";
 import { BlogNotFound } from "@/app/components/placeholder/BlogNotFound";
-import { blogPosts, getBlogPost } from "@/app/content/blog";
+import { getPost, getAllPosts, getBlogSettings, toBlogIndexCopy, toCategoryLabels, getChrome, toChrome } from "@/sanity/queries";
+import { routing } from "@/i18n/routing";
 
-type RouteParams = { slug: string };
-
-export async function generateStaticParams(): Promise<RouteParams[]> {
-  return blogPosts.map((post) => ({ slug: post.slug }));
-}
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<RouteParams>;
-}): Promise<Metadata> {
-  const { slug } = await params;
-  const post = getBlogPost(slug);
-  if (!post) {
-    return {
-      title: "פוסט · בארי אריזות",
-      description: "הפוסט עדיין לא פורסם — בקרוב.",
-    };
+export async function generateStaticParams() {
+  const params: { locale: string; slug: string }[] = [];
+  for (const locale of routing.locales) {
+    const posts = await getAllPosts(locale as Lang);
+    for (const p of posts) params.push({ locale, slug: p.slug });
   }
-  return {
-    title: `${post.he.title} · בארי אריזות`,
-    description: post.he.excerpt,
-  };
+  return params;
 }
 
-export default async function BlogPostPage({
-  params,
-}: {
-  params: Promise<RouteParams>;
-}) {
-  const { slug } = await params;
-  const post = getBlogPost(slug);
+export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const post = await getPost(slug, locale as Lang);
+  if (!post) return { title: "Beeri" };
+  return { title: post.title, description: post.excerpt };
+}
 
+export default async function BlogPostPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+  const lang = locale as Lang;
+  const post = await getPost(slug, lang);
+  const settings = await getBlogSettings(lang);
+  const copy = toBlogIndexCopy(settings, lang);
+  const labels = toCategoryLabels(settings, lang);
+  const chrome = toChrome(await getChrome(lang), lang);
   return (
-    <PlaceholderShell>
-      {post ? <BlogPostHero post={post} /> : <BlogNotFound />}
+    <PlaceholderShell chrome={chrome}>
+      {post
+        ? <BlogPostHero post={post} copy={copy} labels={labels} lang={lang} />
+        : <BlogNotFound copy={copy} lang={lang} />}
     </PlaceholderShell>
   );
 }
