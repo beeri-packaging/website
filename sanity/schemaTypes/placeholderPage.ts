@@ -11,7 +11,7 @@ export const placeholderPage = defineType({
       name: "route",
       title: "עמוד",
       type: "string",
-      options: { list: ["catalog", "portfolio"], layout: "radio" },
+      options: { list: ["portfolio"], layout: "radio" },
       validation: (rule) => rule.required(),
     }),
     defineField({ name: "eyebrow", title: "תווית עליונה", type: "string", validation: (rule) => rule.required() }),
