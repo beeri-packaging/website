@@ -4,6 +4,7 @@ import { uploadImage, type ImageRef } from "./lib/upload-images";
 import { capabilities, faqItems, homeCopy, homeImages, journeyPanels } from "../app/content/home";
 import { chromeContent } from "../app/content/site";
 import { careersCopy, careersImages } from "../app/content/careers";
+import { catalogCopy, catalogImages } from "../app/content/catalog";
 import { finishingCopy, finishingImages } from "../app/content/finishing";
 import { blogIndexCopy, blogPosts, categoryLabels } from "../app/content/blog";
 import { placeholderContent } from "../app/content/placeholder";
@@ -38,6 +39,9 @@ async function main() {
   // careers
   const carFeature = await uploadImage(careersImages.feature, "תהליך ייצור");
   const carMaterials = await uploadImage(careersImages.materials, "מעבדת חומרים");
+  // catalog (shared across locales) keyed by public path
+  const catImg: Record<string, ImageRef> = {};
+  for (const [k, p] of Object.entries(catalogImages)) catImg[p] = await uploadImage(p, k);
 
   for (const lang of LANGS) {
     const t = homeCopy[lang];
@@ -89,6 +93,28 @@ async function main() {
       emailPlaceholder: ca.emailPlaceholder, newsletterCta: ca.newsletterCta,
     });
 
+    // CATALOG
+    const cat = catalogCopy[lang];
+    await writeClient.createOrReplace({
+      _id: `catalog-${lang}`, _type: "catalog", language: lang,
+      eyebrow: cat.eyebrow, title: [...cat.title], intro: cat.intro, specCard: [...cat.specCard],
+      categories: cat.categories.map((c) => ({
+        _type: "catalogCategory", _key: c.key,
+        key: c.key, number: c.number, name: c.name, count: c.count, layout: c.layout,
+        items: c.items.map((it) => ({
+          _type: "catalogItem", _key: it.key,
+          key: it.key, name: it.name, ...(it.series ? { series: it.series } : {}),
+          description: it.description,
+          ...(it.image ? { image: catImg[it.image] } : {}),
+          ...(it.tags ? { tags: it.tags.map((t, i) => ({ _type: "catalogTag", _key: `tag-${i}`, label: t.label, tone: t.tone })) } : {}),
+          ...(it.specs ? { specs: it.specs.map((s, i) => ({ _type: "catalogSpec", _key: `spec-${i}`, label: s.label, value: s.value })) } : {}),
+          ...(it.overlayLabel ? { overlayLabel: it.overlayLabel } : {}),
+          ...(it.overlaySpecs ? { overlaySpecs: [...it.overlaySpecs] } : {}),
+          ...(it.cta ? { cta: it.cta } : {}),
+        })),
+      })),
+    });
+
     // FINISHING
     const fi = finishingCopy[lang];
     const finImg: Record<string, ImageRef> = { [finishingImages.foil]: finFoil, [finishingImages.deboss]: finDeboss, [finishingImages.texture]: finTexture };
@@ -131,8 +157,8 @@ async function main() {
       });
     }
 
-    // PLACEHOLDER PAGES (catalog + portfolio)
-    for (const route of ["catalog", "portfolio"] as const) {
+    // PLACEHOLDER PAGES (portfolio)
+    for (const route of ["portfolio"] as const) {
       const pc = placeholderContent[route][lang];
       await writeClient.createOrReplace({
         _id: `placeholder-${route}-${lang}`, _type: "placeholderPage", language: lang, route,
@@ -146,10 +172,11 @@ async function main() {
   // Link translation pairs (singletons + page docs)
   await linkTranslations("home-translation", "home", "home-he", "home-en");
   await linkTranslations("careers-translation", "careers", "careers-he", "careers-en");
+  await linkTranslations("catalog-translation", "catalog", "catalog-he", "catalog-en");
   await linkTranslations("finishing-translation", "finishing", "finishing-he", "finishing-en");
   await linkTranslations("siteSettings-translation", "siteSettings", "siteSettings-he", "siteSettings-en");
   await linkTranslations("blogSettings-translation", "blogSettings", "blogSettings-he", "blogSettings-en");
-  for (const route of ["catalog", "portfolio"] as const)
+  for (const route of ["portfolio"] as const)
     await linkTranslations(`placeholder-${route}-translation`, "placeholderPage", `placeholder-${route}-he`, `placeholder-${route}-en`);
   for (const p of blogPosts)
     await linkTranslations(`post-${p.slug}-translation`, "post", `post-${p.slug}-he`, `post-${p.slug}-en`);

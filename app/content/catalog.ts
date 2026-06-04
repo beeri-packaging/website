@@ -1,0 +1,311 @@
+/**
+ * Catalog page content layer — "כשהמבנה פוגש מותג".
+ *
+ * Mirrors the pattern of `home.ts` / `careers.ts`: typed, bilingual copy that
+ * the GROQ mapper swaps for Sanity-backed content when the CMS is seeded, and
+ * falls back to here otherwise so the page (and the build) never break.
+ *
+ * Three category layouts share one `CatalogItem` shape (only the relevant
+ * fields are populated per layout):
+ *   - "grid"    — square photo cards with hover technical overlay + tags
+ *   - "feature" — large split cards (photo + spec column + spec download)
+ *   - "modular" — a single full-width system card with centered spec row
+ */
+
+import type { Lang } from "./home";
+
+export type CatalogTagTone = "outline" | "cyan" | "purple" | "magenta";
+export type CatalogTag = { label: string; tone: CatalogTagTone };
+export type CatalogSpec = { label: string; value: string };
+
+export type CatalogItem = {
+  /** Stable key, shared across locales — used for image lookup + React keys. */
+  key: string;
+  name: string;
+  /** Small eyebrow above the name on feature cards (e.g. "סדרת יין"). */
+  series?: string;
+  description: string;
+  /** Resolved image src (public path as fallback, Sanity CDN once seeded). */
+  image?: string;
+  /** Grid cards: up to two accent tags. */
+  tags?: readonly CatalogTag[];
+  /** Feature + modular cards: labelled spec values. */
+  specs?: readonly CatalogSpec[];
+  /** Grid cards: label revealed on the hover technical overlay. */
+  overlayLabel?: string;
+  /** Grid cards: spec lines revealed on the hover technical overlay. */
+  overlaySpecs?: readonly string[];
+  /** Feature cards: spec-download button label. */
+  cta?: string;
+};
+
+export type CatalogLayout = "grid" | "feature" | "modular";
+
+export type CatalogCategory = {
+  key: string;
+  /** Two-digit index shown in the yellow tag (e.g. "01"). */
+  number: string;
+  /** Category name shown in the yellow tag (e.g. "קוסמטיקה"). */
+  name: string;
+  /** Item-count label shown opposite the tag (e.g. "4 פריטים"). */
+  count: string;
+  layout: CatalogLayout;
+  items: readonly CatalogItem[];
+};
+
+export type CatalogCopy = {
+  /** Teal hero eyebrow, e.g. "קטלוג / 2026". */
+  eyebrow: string;
+  /** Display title broken into two lines. */
+  title: readonly [string, string];
+  /** Hero body paragraph. */
+  intro: string;
+  /** The 3 mono lines in the hero spec card. */
+  specCard: readonly [string, string, string];
+  categories: readonly CatalogCategory[];
+};
+
+/** Public-path images (uploaded to Sanity by the seed script, keyed by path). */
+export const catalogImages = {
+  serum: "/images/figma/catalog/serum.png",
+  ampoule: "/images/figma/catalog/ampoule.png",
+  cream: "/images/figma/catalog/cream.png",
+  perfume: "/images/figma/catalog/perfume.png",
+  wine: "/images/figma/catalog/wine.png",
+  whiskey: "/images/figma/catalog/whiskey.png",
+} as const;
+
+export const catalogCopy: Record<Lang, CatalogCopy> = {
+  he: {
+    eyebrow: "קטלוג / 2026",
+    title: ["כשהמבנה", "פוגש מותג"],
+    intro:
+      "אינדקס של אריזות קרטון ממותגות, מאורגן לפי תעשייה: קוסמטיקה, פארמה, יין ומשקאות. מתכנון מבני ודיוק שטנץ ועד חומר, דפוס והשבחות.",
+    specCard: ["מפעל: יבנה, ישראל", "סטטוס: פעיל / משנת 1964", "מזהה: BR-2026"],
+    categories: [
+      {
+        key: "cosmetics",
+        number: "01",
+        name: "קוסמטיקה",
+        count: "4 פריטים",
+        layout: "grid",
+        items: [
+          {
+            key: "serum",
+            name: "סרום פרימיום",
+            description: "קופסה קשיחה עם מגירה פנימית, חיתוך חלון ופויל למוצר טיפוח.",
+            image: catalogImages.serum,
+            tags: [
+              { label: "פויל זהב", tone: "outline" },
+              { label: "ניתן למחזור", tone: "cyan" },
+            ],
+            overlayLabel: "תצוגת שטנץ",
+            overlaySpecs: ['סטייה: ±0.01 מ"מ', "חומר: קרטון קשיח"],
+          },
+          {
+            key: "ampoule",
+            name: "מארז אמפולות",
+            description: "מבנה עם חוצץ פנימי וסימון סדרה לאמפולות ומוצרי פארמה.",
+            image: catalogImages.ampoule,
+            tags: [
+              { label: "סימון סדרה", tone: "outline" },
+              { label: "חוצץ פנימי", tone: "purple" },
+            ],
+            overlayLabel: "קו קיפול",
+          },
+          {
+            key: "cream",
+            name: "צנצנת קרם",
+            description: "אריזת קרטון ממוחזר עם חלון ומגירה לצנצנת קרם.",
+            image: catalogImages.cream,
+            tags: [
+              { label: "חלון", tone: "outline" },
+              { label: "ממוחזר", tone: "cyan" },
+            ],
+          },
+          {
+            key: "perfume",
+            name: "קופסת בושם",
+            description: "מבנה קשיח עם הבלטה ולכה סלקטיבית לבקבוק בושם.",
+            image: catalogImages.perfume,
+            tags: [
+              { label: "הבלטה", tone: "outline" },
+              { label: "לכה סלקטיבית", tone: "magenta" },
+            ],
+          },
+        ],
+      },
+      {
+        key: "spirits",
+        number: "02",
+        name: "יין ומשקאות",
+        count: "2 פריטים",
+        layout: "feature",
+        items: [
+          {
+            key: "wine",
+            series: "סדרת יין",
+            name: "מארז שי ליין",
+            description:
+              "מארז קרטון קשיח לבקבוק יין, עם תמיכה פנימית, חיתוך צורני והשבחות פויל ולכה. מתאים למארזי שי ולסדרות עונתיות.",
+            image: catalogImages.wine,
+            specs: [
+              { label: "משקל", value: "350 גרם" },
+              { label: "דוגמה", value: "24ש׳" },
+            ],
+            cta: "להורדת מפרט (PDF)",
+          },
+          {
+            key: "whiskey",
+            series: "סדרת פרימיום",
+            name: "מארז וויסקי",
+            description:
+              "מארז פרימיום לבקבוק וויסקי, עם חלון, פויל ולכה סלקטיבית. תמיכה פנימית להגנה ולנשיאה.",
+            image: catalogImages.whiskey,
+            specs: [
+              { label: "אספקה", value: "72ש׳" },
+              { label: "תקן", value: "ISO" },
+            ],
+            cta: "להורדת מפרט (PDF)",
+          },
+        ],
+      },
+      {
+        key: "modular",
+        number: "03",
+        name: "מערכת מודולרית",
+        count: "פריט אחד",
+        layout: "modular",
+        items: [
+          {
+            key: "modular-system",
+            name: "מערכת מארזים מודולרית",
+            description:
+              "מערכת חוצצים ומגירות מודולרית לסדרות מוצרים. תכנון מדויק לשמירה על המוצר, על המדף ועל חוויית הפתיחה.",
+            specs: [
+              { label: "סטייה", value: "±0.01MM" },
+              { label: "שטנץ", value: "צורני" },
+              { label: "מבנה", value: "גרסה 02" },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  en: {
+    eyebrow: "Catalog / 2026",
+    title: ["When structure", "meets brand"],
+    intro:
+      "An index of branded carton packaging, organized by industry: cosmetics, pharma, wine & spirits. From structural design and die-cut precision to material, print and finishing.",
+    specCard: ["Plant: Yavne, Israel", "Status: Active / since 1964", "ID: BR-2026"],
+    categories: [
+      {
+        key: "cosmetics",
+        number: "01",
+        name: "Cosmetics",
+        count: "4 items",
+        layout: "grid",
+        items: [
+          {
+            key: "serum",
+            name: "Premium serum",
+            description: "Rigid box with an inner drawer, window cut and foil for a skincare product.",
+            image: catalogImages.serum,
+            tags: [
+              { label: "Gold foil", tone: "outline" },
+              { label: "Recyclable", tone: "cyan" },
+            ],
+            overlayLabel: "Die view",
+            overlaySpecs: ["Tolerance: ±0.01 mm", "Material: rigid board"],
+          },
+          {
+            key: "ampoule",
+            name: "Ampoule pack",
+            description: "Structure with an inner divider and series marking for ampoules and pharma.",
+            image: catalogImages.ampoule,
+            tags: [
+              { label: "Series marking", tone: "outline" },
+              { label: "Inner divider", tone: "purple" },
+            ],
+            overlayLabel: "Fold line",
+          },
+          {
+            key: "cream",
+            name: "Cream jar",
+            description: "Recycled carton pack with a window and drawer for a cream jar.",
+            image: catalogImages.cream,
+            tags: [
+              { label: "Window", tone: "outline" },
+              { label: "Recycled", tone: "cyan" },
+            ],
+          },
+          {
+            key: "perfume",
+            name: "Perfume box",
+            description: "Rigid structure with deboss and spot varnish for a perfume bottle.",
+            image: catalogImages.perfume,
+            tags: [
+              { label: "Deboss", tone: "outline" },
+              { label: "Spot varnish", tone: "magenta" },
+            ],
+          },
+        ],
+      },
+      {
+        key: "spirits",
+        number: "02",
+        name: "Wine & spirits",
+        count: "2 items",
+        layout: "feature",
+        items: [
+          {
+            key: "wine",
+            series: "Wine series",
+            name: "Wine gift box",
+            description:
+              "A rigid carton case for a wine bottle, with inner support, shaped die-cut and foil & varnish finishing. Suited to gift sets and seasonal series.",
+            image: catalogImages.wine,
+            specs: [
+              { label: "Weight", value: "350 g" },
+              { label: "Sample", value: "24h" },
+            ],
+            cta: "Download spec (PDF)",
+          },
+          {
+            key: "whiskey",
+            series: "Premium series",
+            name: "Whiskey case",
+            description:
+              "A premium case for a whiskey bottle, with a window, foil and spot varnish. Inner support for protection and carrying.",
+            image: catalogImages.whiskey,
+            specs: [
+              { label: "Lead time", value: "72h" },
+              { label: "Standard", value: "ISO" },
+            ],
+            cta: "Download spec (PDF)",
+          },
+        ],
+      },
+      {
+        key: "modular",
+        number: "03",
+        name: "Modular system",
+        count: "1 item",
+        layout: "modular",
+        items: [
+          {
+            key: "modular-system",
+            name: "Modular packaging system",
+            description:
+              "A modular system of dividers and drawers for product series. Precise engineering to protect the product, the shelf and the unboxing experience.",
+            specs: [
+              { label: "Tolerance", value: "±0.01MM" },
+              { label: "Die-cut", value: "Shaped" },
+              { label: "Structure", value: "v02" },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+};

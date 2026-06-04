@@ -5,6 +5,9 @@ import { capability } from "./capability";
 import { careerRole } from "./careerRole";
 import { careers } from "./careers";
 import { careersArticle } from "./careersArticle";
+import { catalog } from "./catalog";
+import { catalogCategory } from "./catalogCategory";
+import { catalogItem } from "./catalogItem";
 import { faqItem } from "./faqItem";
 import { finishing } from "./finishing";
 import { finishingItem } from "./finishingItem";
@@ -21,6 +24,7 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   // Documents
   home,
   careers,
+  catalog,
   finishing,
   post,
   placeholderPage,
@@ -33,6 +37,8 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   navLink,
   careersArticle,
   careerRole,
+  catalogCategory,
+  catalogItem,
   finishingItem,
   finishingMetric,
   socialLink,

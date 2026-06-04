@@ -461,7 +461,104 @@ export async function getPost(slug: string, locale: Lang): Promise<LocalizedPost
 }
 
 // ---------------------------------------------------------------------------
-// Placeholder pages — /catalog, /portfolio (+ /finishing, /careers, /blog)
+// Catalog — /catalog page
+// ---------------------------------------------------------------------------
+
+import { catalogCopy } from "@/app/content/catalog";
+import type {
+  CatalogCopy,
+  CatalogCategory,
+  CatalogItem,
+  CatalogTag,
+  CatalogSpec,
+} from "@/app/content/catalog";
+
+export const catalogQuery = defineQuery(`*[_type == "catalog" && language == $locale][0]{
+  language, eyebrow, title, intro, specCard,
+  categories[]{
+    key, number, name, count, layout,
+    items[]{
+      key, name, series, description,
+      tags[]{ label, tone },
+      specs[]{ label, value },
+      overlayLabel, overlaySpecs, cta,
+      "imageUrl": image.asset->url, "imageLegacy": image.legacyImagePath
+    }
+  }
+}`);
+
+type CatalogItemDoc = {
+  key?: string; name?: string; series?: string; description?: string;
+  tags?: { label: string; tone: CatalogTag["tone"] }[];
+  specs?: { label: string; value: string }[];
+  overlayLabel?: string; overlaySpecs?: string[]; cta?: string;
+  imageUrl?: string; imageLegacy?: string;
+};
+type CatalogCategoryDoc = {
+  key?: string; number?: string; name?: string; count?: string;
+  layout?: CatalogCategory["layout"]; items?: CatalogItemDoc[];
+};
+type CatalogDoc = {
+  language?: Lang; eyebrow?: string; title?: string[]; intro?: string;
+  specCard?: string[]; categories?: CatalogCategoryDoc[];
+};
+
+export async function getCatalog(locale: Lang): Promise<CatalogDoc | null> {
+  try {
+    return await client.fetch<CatalogDoc | null>(catalogQuery, { locale });
+  } catch (err) {
+    console.error("getCatalog: Sanity fetch failed, using bundled copy", err);
+    return null;
+  }
+}
+
+/**
+ * Map a fetched `catalog` document to the exact `CatalogCopy` shape the
+ * components consume, resolving each item's image (uploaded asset URL, else
+ * the local fallback path) and filling any gaps from the bundled copy by key.
+ */
+export function toCatalogContent(doc: CatalogDoc | null, locale: Lang): CatalogCopy {
+  const fb = catalogCopy[locale];
+  if (!doc?.categories?.length) return fb;
+
+  const categories: CatalogCategory[] = doc.categories.map((c) => {
+    const fbCat = fb.categories.find((x) => x.key === c.key);
+    const items: CatalogItem[] = (c.items ?? []).map((it) => {
+      const fbItem = fbCat?.items.find((x) => x.key === it.key);
+      return {
+        key: it.key ?? fbItem?.key ?? "",
+        name: it.name ?? fbItem?.name ?? "",
+        series: it.series ?? fbItem?.series,
+        description: it.description ?? fbItem?.description ?? "",
+        image: it.imageUrl ?? it.imageLegacy ?? fbItem?.image,
+        tags: (it.tags?.length ? it.tags : fbItem?.tags) as readonly CatalogTag[] | undefined,
+        specs: (it.specs?.length ? it.specs : fbItem?.specs) as readonly CatalogSpec[] | undefined,
+        overlayLabel: it.overlayLabel ?? fbItem?.overlayLabel,
+        overlaySpecs: it.overlaySpecs?.length ? it.overlaySpecs : fbItem?.overlaySpecs,
+        cta: it.cta ?? fbItem?.cta,
+      };
+    });
+    return {
+      key: c.key ?? fbCat?.key ?? "",
+      number: c.number ?? fbCat?.number ?? "",
+      name: c.name ?? fbCat?.name ?? "",
+      count: c.count ?? fbCat?.count ?? "",
+      layout: c.layout ?? fbCat?.layout ?? "grid",
+      items: items.length ? items : (fbCat?.items ?? []),
+    };
+  });
+
+  return {
+    eyebrow: doc.eyebrow ?? fb.eyebrow,
+    title: tuple(doc.title, fb.title),
+    intro: doc.intro ?? fb.intro,
+    specCard: (doc.specCard?.length === 3 ? doc.specCard : fb.specCard) as CatalogCopy["specCard"],
+    categories,
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Placeholder pages — /portfolio (+ /finishing, /careers, /blog)
 // ---------------------------------------------------------------------------
 
 import { placeholderContent } from "@/app/content/placeholder";
