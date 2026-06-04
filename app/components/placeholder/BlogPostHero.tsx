@@ -1,14 +1,12 @@
-"use client";
-
 import Link from "next/link";
 import type { Lang } from "@/app/content/home";
 import {
-  blogIndexCopy,
   categoryChipClass,
-  type BlogPost,
+  type BlogIndexCopy,
+  type BlogCategory,
 } from "@/app/content/blog";
+import type { LocalizedPost } from "@/sanity/queries";
 import { ArrowGlyph } from "@/app/components/home/icons";
-import { useShellLang } from "./PlaceholderShell";
 
 function formatDate(iso: string, lang: Lang): string {
   const date = new Date(iso);
@@ -19,11 +17,17 @@ function formatDate(iso: string, lang: Lang): string {
   });
 }
 
-export function BlogPostHero({ post }: { post: BlogPost }) {
-  const { lang } = useShellLang();
-  const copy = blogIndexCopy[lang];
-  const tr = lang === "he" ? post.he : post.en;
-
+export function BlogPostHero({
+  post,
+  copy,
+  labels,
+  lang,
+}: {
+  post: LocalizedPost;
+  copy: BlogIndexCopy;
+  labels: Record<BlogCategory, string>;
+  lang: Lang;
+}) {
   return (
     <article className="relative">
       <div className="mx-auto w-full max-w-[860px] px-5 sm:px-8 md:px-10 py-12 sm:py-20 md:py-28">
@@ -47,13 +51,13 @@ export function BlogPostHero({ post }: { post: BlogPost }) {
             <span
               className={`inline-flex items-center rounded-full px-3 py-1 font-sans text-[11px] sm:text-[12px] font-bold uppercase tracking-[0.08em] ${categoryChipClass[post.category]}`}
             >
-              {tr.category}
+              {labels[post.category]}
             </span>
             <span className="font-sans uppercase text-clay text-[11px] tracking-[0.08em]">
               {copy.publishedOn} · {formatDate(post.date, lang)}
             </span>
             <span className="font-sans text-clay/80 text-[12px]">
-              · {lang === "he" ? post.read.he : post.read.en}
+              · {post.read}
             </span>
           </div>
 
@@ -63,21 +67,21 @@ export function BlogPostHero({ post }: { post: BlogPost }) {
               fontSize: "clamp(40px, 7vw, 88px)",
             }}
           >
-            {tr.title}
+            {post.title}
           </h1>
 
           <p
             className="font-display text-ink/80 text-[22px] sm:text-[26px] leading-[1.2] max-w-[680px] animate-rise"
             style={{ animationDelay: "120ms" }}
           >
-            {tr.excerpt}
+            {post.excerpt}
           </p>
         </header>
 
         <div className="mt-10 sm:mt-14 h-px bg-rule" />
 
         <div className="mt-10 sm:mt-14 flex flex-col gap-6 sm:gap-7">
-          {tr.body.map((paragraph, i) => (
+          {post.body.map((paragraph, i) => (
             <p
               key={i}
               className="font-sans text-ink/90 text-[17px] sm:text-[18px] leading-[1.75]"

@@ -1,13 +1,9 @@
-"use client";
-
 import Link from "next/link";
-import { blogIndexCopy } from "@/app/content/blog";
+import type { Lang } from "@/app/content/home";
+import type { BlogIndexCopy } from "@/app/content/blog";
 import { ArrowGlyph } from "@/app/components/home/icons";
-import { useShellLang } from "./PlaceholderShell";
 
-export function BlogNotFound() {
-  const { lang } = useShellLang();
-  const copy = blogIndexCopy[lang];
+export function BlogNotFound({ copy, lang }: { copy: BlogIndexCopy; lang: Lang }) {
   return (
     <section className="relative">
       <div className="mx-auto w-full max-w-[760px] px-5 sm:px-8 py-20 sm:py-28 md:py-36 flex flex-col gap-8 items-start">
