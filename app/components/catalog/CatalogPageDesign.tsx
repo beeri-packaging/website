@@ -20,7 +20,7 @@ function SpecCard({ lines }: { lines: CatalogCopy["specCard"] }) {
           <span key={bg} className={`${bg} size-3 border border-ink`} aria-hidden />
         ))}
       </div>
-      <div className="mt-6 flex flex-col items-end gap-1 text-right">
+      <div className="mt-6 flex flex-col items-start gap-1 text-start">
         {lines.map((line) => (
           <p
             key={line}
@@ -38,7 +38,7 @@ function CatalogHero({ copy }: { copy: CatalogCopy }) {
   return (
     <section className={`${SECTION} pt-10 sm:pt-14 lg:pt-16`}>
       <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
-        <div className="flex max-w-[672px] flex-col items-end text-right">
+        <div className="flex max-w-[672px] flex-col items-start text-start">
           <p className="ds-eyebrow text-teal">{copy.eyebrow}</p>
           <h1 className="mt-4 font-display text-[56px] leading-[0.85] text-blueprint sm:text-[80px] md:text-[96px]">
             {copy.title.map((line) => (
@@ -112,7 +112,7 @@ function GridCard({ item }: { item: CatalogItem }) {
             </span>
           ) : null}
           {item.overlaySpecs?.length ? (
-            <div className="absolute bottom-4 right-4 flex flex-col items-end">
+            <div className="absolute bottom-4 end-4 flex flex-col items-start">
               {item.overlaySpecs.map((spec) => (
                 <span
                   key={spec}
@@ -125,7 +125,7 @@ function GridCard({ item }: { item: CatalogItem }) {
           ) : null}
         </div>
       </div>
-      <div className="flex flex-1 flex-col items-end gap-6 p-6 text-right">
+      <div className="flex flex-1 flex-col items-start gap-6 p-6 text-start">
         <h3 className="font-display text-[40px] leading-[0.92] text-ink sm:text-[44px]">
           {item.name}
         </h3>
@@ -148,7 +148,7 @@ function GridCard({ item }: { item: CatalogItem }) {
 function FeatureCard({ item }: { item: CatalogItem }) {
   return (
     <article className="grid overflow-hidden border border-ink bg-bone shadow-[4px_4px_0_0_var(--ink)] md:grid-cols-2">
-      <div className="flex flex-col items-end gap-7 p-8 text-right sm:p-12">
+      <div className="flex flex-col items-start gap-7 p-8 text-start sm:p-12">
         {item.series ? <p className="ds-eyebrow text-purple">{item.series}</p> : null}
         <h3 className="font-display text-[64px] leading-[0.82] text-blueprint sm:text-[80px] lg:text-[88px]">
           {item.name}
@@ -165,10 +165,10 @@ function FeatureCard({ item }: { item: CatalogItem }) {
                   i === 0 ? "border-cyan" : "border-magenta"
                 }`}
               >
-                <span className="font-sans text-[16px] font-light text-clay">
+                <span dir="auto" className="font-sans text-[16px] font-light text-clay">
                   {spec.label}
                 </span>
-                <span className="font-display text-[24px] font-bold tracking-[0.05em] text-ink">
+                <span dir="auto" className="font-display text-[24px] font-bold tracking-[0.05em] text-ink">
                   {spec.value}
                 </span>
               </div>
@@ -229,7 +229,7 @@ function ModularCard({ item }: { item: CatalogItem }) {
         <div dir="ltr" className="mt-2 flex flex-wrap justify-center gap-8 sm:gap-12">
           {item.specs.map((spec) => (
             <div key={spec.label} className="flex flex-col items-center">
-              <span className="font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-magenta">
+              <span dir="auto" className="font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-magenta">
                 {spec.label}
               </span>
               <span className="font-display text-[24px] font-bold tracking-[0.05em] text-ink">
