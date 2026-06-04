@@ -1,17 +1,14 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { careersCopy } from "@/app/content/careers";
-import type { CareerRole } from "@/app/content/careers";
-import { useShellLang } from "@/app/components/placeholder/PlaceholderShell";
+import type { CareersCopy, CareerRole } from "@/app/content/careers";
+import type { Lang } from "@/app/content/home";
 import { CareersBento } from "@/app/components/careers/CareersBento";
 import { CareersHero } from "@/app/components/careers/CareersHero";
 import { CareersNewsletter } from "@/app/components/careers/CareersNewsletter";
 import { CareersRoles } from "@/app/components/careers/CareersRoles";
 
-export function CareersPageDesign() {
-  const { lang } = useShellLang();
-  const copy = careersCopy[lang];
+export function CareersPageDesign({ copy, lang }: { copy: CareersCopy; lang: Lang }) {
   const [query, setQuery] = useState("");
   const [department, setDepartment] = useState<CareerRole["department"]>("all");
 
