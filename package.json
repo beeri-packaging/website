@@ -13,7 +13,6 @@
     "lighthouse": "npx --yes lighthouse http://localhost:3000 --only-categories=performance,accessibility,best-practices,seo --form-factor=mobile --screenEmulation.mobile --view"
   },
   "dependencies": {
-    "@radix-ui/react-dialog": "^1.1.15",
     "@sanity/document-internationalization": "^6.2.1",
     "@sanity/image-url": "^2.1.1",
     "@sanity/vision": "^5.30.0",
