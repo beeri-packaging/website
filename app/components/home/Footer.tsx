@@ -1,17 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
-import { homeImages } from "@/app/content/home";
-import type { HomeCopy, Lang } from "@/app/content/home";
+import type { Lang } from "@/app/content/home";
+import type { Chrome } from "@/app/content/site";
 
 export function Footer({
   lang,
-  t,
+  chrome,
 }: {
   lang: Lang;
-  t: HomeCopy;
+  chrome: Chrome;
 }) {
-  const socialLinks = t.footerLinks.slice(0, 2);
-  const legalLinks = t.footerLinks.slice(2);
+  const socialLinks = chrome.footerLinks.slice(0, 2);
+  const legalLinks = chrome.footerLinks.slice(2);
 
   return (
     <footer className="bg-bone border-t border-bone-line">
@@ -44,7 +44,7 @@ export function Footer({
             ))}
           </ul>
           <p className="font-sans font-semibold uppercase text-clay text-[12px] tracking-[0.08em] leading-4 max-w-[260px]">
-            {t.footerCopy}
+            {chrome.footerCopy}
           </p>
         </div>
 
@@ -55,7 +55,7 @@ export function Footer({
             className="block focus-ring rounded-sm transition-opacity hover:opacity-80"
           >
             <Image
-              src={lang === "he" ? homeImages.logoHe : homeImages.logoEn}
+              src={lang === "he" ? chrome.logoHe : chrome.logoEn}
               alt={lang === "he" ? "בארי אריזות" : "Beeri Packaging"}
               width={249}
               height={64}
@@ -64,12 +64,12 @@ export function Footer({
           </Link>
           <div className="flex flex-col gap-2 max-w-[320px]">
             <span className="font-sans font-semibold uppercase text-teal text-[12px] tracking-[0.08em] leading-4">
-              {t.footerEyebrow}
+              {chrome.footerEyebrow}
             </span>
             <p className="font-sans text-clay text-[16px] leading-[25px]">
-              {t.footerAddr[0]}
+              {chrome.footerAddr[0]}
               <br />
-              {t.footerAddr[1]}
+              {chrome.footerAddr[1]}
             </p>
           </div>
         </div>

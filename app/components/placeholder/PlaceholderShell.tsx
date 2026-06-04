@@ -2,8 +2,9 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { useLocale } from "next-intl";
-import { homeCopy } from "@/app/content/home";
-import type { HomeCopy, Lang } from "@/app/content/home";
+import { chromeContent } from "@/app/content/site";
+import type { Chrome } from "@/app/content/site";
+import type { Lang } from "@/app/content/home";
 import { Header } from "@/app/components/home/Header";
 import { MobileDrawer } from "@/app/components/home/MobileDrawer";
 import { Footer } from "@/app/components/home/Footer";
@@ -11,15 +12,13 @@ import { StickyContact } from "@/app/components/home/StickyContact";
 
 type ShellContext = {
   lang: Lang;
-  t: HomeCopy;
 };
 
 const LangContext = createContext<ShellContext | null>(null);
 
 /**
- * Read the current language/copy block published by the nearest
- * `PlaceholderShell`. Throws if used outside a shell so a missing
- * provider fails loud during development.
+ * Read the current language published by the nearest `PlaceholderShell`.
+ * Throws if used outside a shell so a missing provider fails loud during development.
  */
 export function useShellLang(): ShellContext {
   const ctx = useContext(LangContext);
@@ -30,12 +29,17 @@ export function useShellLang(): ShellContext {
 }
 
 /**
- * Shared chrome for every non-home route. Owns the lang + mobile-drawer
- * state that the home page also owns, then publishes `lang` and the
- * localized `HomeCopy` block via context so child client components stay
- * thin and serializable across the server→client boundary.
+ * Shared chrome for every non-home route. Accepts an optional `chrome` prop
+ * from the server page (CMS-driven); falls back to the bundled chromeContent
+ * for pages not yet migrated to CMS. Owns the lang + mobile-drawer state.
  */
-export function PlaceholderShell({ children }: { children: React.ReactNode }) {
+export function PlaceholderShell({
+  chrome,
+  children,
+}: {
+  chrome?: Chrome;
+  children: React.ReactNode;
+}) {
   const lang = useLocale() as Lang;
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -46,28 +50,28 @@ export function PlaceholderShell({ children }: { children: React.ReactNode }) {
     };
   }, [menuOpen]);
 
-  const t = homeCopy[lang];
+  const resolved = chrome ?? chromeContent[lang];
 
   return (
-    <LangContext.Provider value={{ lang, t }}>
+    <LangContext.Provider value={{ lang }}>
       <div className="relative flex min-h-screen flex-col bg-bone text-ink overflow-x-clip">
         <Header
           lang={lang}
           menuOpen={menuOpen}
           setMenuOpen={setMenuOpen}
-          t={t}
+          chrome={resolved}
         />
         <MobileDrawer
           open={menuOpen}
           onClose={() => setMenuOpen(false)}
           lang={lang}
-          t={t}
+          chrome={resolved}
         />
         <main id="main" className="flex-1 flex flex-col pt-[88px] sm:pt-[104px] md:pt-[120px]">
           {children}
         </main>
-        <Footer lang={lang} t={t} />
-        <StickyContact lang={lang} t={t} />
+        <Footer lang={lang} chrome={resolved} />
+        <StickyContact lang={lang} chrome={resolved} />
       </div>
     </LangContext.Provider>
   );

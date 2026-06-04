@@ -6,6 +6,7 @@ import {
   type HomeCopy,
   type Lang,
 } from "@/app/content/home";
+import { chromeContent, type Chrome } from "@/app/content/site";
 
 /**
  * One `home` document per locale (document-internationalization). Select every
@@ -21,8 +22,6 @@ export const homeQuery = defineQuery(`*[_type == "home" && language == $locale][
   badge1, badge2,
   faqEyebrow, faqTitle, faqBody,
   ctaTitle,
-  footerEyebrow, footerAddr, footerLinks, footerCopy,
-  menu, close, lang,
   capabilities[]{ n, title, body },
   faqItems[]{ n, q, a },
   journeyPanels[]{
@@ -31,11 +30,8 @@ export const homeQuery = defineQuery(`*[_type == "home" && language == $locale][
     "imageUrl": image.asset->url,
     "imageAlt": image.alt
   },
-  navLinks[]{ he, en, href },
   "heroImageUrl": heroImage.asset->url,
-  "bentoServiceImageUrl": bentoServiceImage.asset->url,
-  "logoHeUrl": logoHe.asset->url,
-  "logoEnUrl": logoEn.asset->url
+  "bentoServiceImageUrl": bentoServiceImage.asset->url
 }`);
 
 export type HomeDoc = {
@@ -61,13 +57,6 @@ export type HomeDoc = {
   faqTitle: string;
   faqBody: string;
   ctaTitle: string[];
-  footerEyebrow: string;
-  footerAddr: string[];
-  footerLinks: string[];
-  footerCopy: string;
-  menu: string;
-  close: string;
-  lang: string;
 };
 
 /**
@@ -123,15 +112,64 @@ export function toHomeCopy(doc: HomeDoc | null, locale: Lang): HomeCopy {
     faqTitle: doc.faqTitle ?? fallback.faqTitle,
     faqBody: doc.faqBody ?? fallback.faqBody,
     ctaTitle: tuple(doc.ctaTitle, fallback.ctaTitle),
-    footerEyebrow: doc.footerEyebrow ?? fallback.footerEyebrow,
-    footerAddr: tuple(doc.footerAddr, fallback.footerAddr),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Chrome (siteSettings) — global header / nav / footer / contact
+// ---------------------------------------------------------------------------
+
+export const chromeQuery = defineQuery(`*[_type == "siteSettings" && language == $locale][0]{
+  menu, close, lang, contact,
+  navLinks[]{ he, en, href },
+  footerEyebrow, footerAddr, footerLinks, footerCopy,
+  "logoHeUrl": logoHe.asset->url, "logoHeLegacy": logoHe.legacyImagePath,
+  "logoEnUrl": logoEn.asset->url, "logoEnLegacy": logoEn.legacyImagePath
+}`);
+
+type ChromeDoc = {
+  menu?: string;
+  close?: string;
+  lang?: string;
+  contact?: string;
+  navLinks?: { he: string; en: string; href: string }[];
+  footerEyebrow?: string;
+  footerAddr?: string[];
+  footerLinks?: string[];
+  footerCopy?: string;
+  logoHeUrl?: string;
+  logoHeLegacy?: string;
+  logoEnUrl?: string;
+  logoEnLegacy?: string;
+};
+
+export async function getChrome(locale: Lang): Promise<ChromeDoc | null> {
+  try {
+    return await client.fetch<ChromeDoc | null>(chromeQuery, { locale });
+  } catch (err) {
+    console.error("getChrome: Sanity fetch failed, using bundled chrome", err);
+    return null;
+  }
+}
+
+export function toChrome(doc: ChromeDoc | null, locale: Lang): Chrome {
+  const fb = chromeContent[locale];
+  if (!doc) return fb;
+  return {
+    menu: doc.menu ?? fb.menu,
+    close: doc.close ?? fb.close,
+    lang: doc.lang ?? fb.lang,
+    contact: doc.contact ?? fb.contact,
+    navLinks:
+      doc.navLinks && doc.navLinks.length > 0 ? doc.navLinks : fb.navLinks,
+    footerEyebrow: doc.footerEyebrow ?? fb.footerEyebrow,
+    footerAddr: tuple(doc.footerAddr, fb.footerAddr),
     footerLinks:
       doc.footerLinks && doc.footerLinks.length > 0
         ? doc.footerLinks
-        : fallback.footerLinks,
-    footerCopy: doc.footerCopy ?? fallback.footerCopy,
-    menu: doc.menu ?? fallback.menu,
-    close: doc.close ?? fallback.close,
-    lang: doc.lang ?? fallback.lang,
+        : fb.footerLinks,
+    footerCopy: doc.footerCopy ?? fb.footerCopy,
+    logoHe: doc.logoHeUrl ?? doc.logoHeLegacy ?? fb.logoHe,
+    logoEn: doc.logoEnUrl ?? doc.logoEnLegacy ?? fb.logoEn,
   };
 }

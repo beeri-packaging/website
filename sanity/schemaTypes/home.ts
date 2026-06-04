@@ -1,4 +1,4 @@
-import { defineArrayMember, defineField, defineType } from "sanity";
+import { defineArrayMember, defineField, defineType } from "sanity"; // defineArrayMember kept for journeyPanels/faqItems/capabilities
 import { imageField } from "./_helpers";
 
 /**
@@ -18,8 +18,6 @@ export const home = defineType({
     { name: "tech", title: "Technical Excellence" },
     { name: "faq", title: "FAQ" },
     { name: "cta", title: "Call to Action" },
-    { name: "footer", title: "Footer" },
-    { name: "chrome", title: "Header / Chrome" },
     { name: "media", title: "Media" },
   ],
   fields: [
@@ -217,73 +215,9 @@ export const home = defineType({
       validation: (rule) => rule.required().length(2),
     }),
 
-    // --- Footer ---
-    defineField({
-      name: "footerEyebrow",
-      title: "Footer eyebrow",
-      type: "string",
-      group: "footer",
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: "footerAddr",
-      title: "Footer address (two lines)",
-      type: "array",
-      of: [{ type: "string" }],
-      group: "footer",
-      validation: (rule) => rule.required().length(2),
-    }),
-    defineField({
-      name: "footerLinks",
-      title: "Footer links",
-      type: "array",
-      of: [{ type: "string" }],
-      group: "footer",
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: "footerCopy",
-      title: "Footer copyright",
-      type: "string",
-      group: "footer",
-      validation: (rule) => rule.required(),
-    }),
-
-    // --- Header / chrome ---
-    defineField({
-      name: "menu",
-      title: "Menu label",
-      type: "string",
-      group: "chrome",
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: "close",
-      title: "Close label",
-      type: "string",
-      group: "chrome",
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: "lang",
-      title: "Language label",
-      type: "string",
-      group: "chrome",
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: "navLinks",
-      title: "Nav links",
-      type: "array",
-      of: [defineArrayMember({ type: "navLink" })],
-      group: "chrome",
-    }),
-
     // --- Media ---
     imageField("heroImage", "Hero image"),
     imageField("bentoServiceImage", "Bento service image"),
-    imageField("logoHe", "Logo (Hebrew)"),
-    imageField("logoEn", "Logo (English)"),
   ],
   preview: {
     select: { language: "language" },

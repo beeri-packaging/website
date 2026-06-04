@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useLocale } from "next-intl";
-import { homeCopy } from "@/app/content/home";
+import { chromeContent } from "@/app/content/site";
 import type { Lang } from "@/app/content/home";
 import { Header } from "@/app/components/home/Header";
 import { MobileDrawer } from "@/app/components/home/MobileDrawer";
@@ -92,7 +92,7 @@ export default function ShowcasePage() {
     };
   }, [menuOpen]);
 
-  const t = homeCopy[lang];
+  const chrome = chromeContent[lang];
 
   const close = useCallback(() => setActive(null), []);
   const next = useCallback(
@@ -138,13 +138,13 @@ export default function ShowcasePage() {
         lang={lang}
         menuOpen={menuOpen}
         setMenuOpen={setMenuOpen}
-        t={t}
+        chrome={chrome}
       />
       <MobileDrawer
         open={menuOpen}
         onClose={() => setMenuOpen(false)}
         lang={lang}
-        t={t}
+        chrome={chrome}
       />
       <main
         dir="ltr"

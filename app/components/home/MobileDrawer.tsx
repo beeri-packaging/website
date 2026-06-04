@@ -1,18 +1,18 @@
 import Link from "next/link";
-import { navLinks } from "@/app/content/home";
-import type { HomeCopy, Lang } from "@/app/content/home";
+import type { Lang } from "@/app/content/home";
+import type { Chrome } from "@/app/content/site";
 import { LangPill } from "./LangPill";
 
 export function MobileDrawer({
   open,
   onClose,
   lang,
-  t,
+  chrome,
 }: {
   open: boolean;
   onClose: () => void;
   lang: Lang;
-  t: HomeCopy;
+  chrome: Chrome;
 }) {
   if (!open) return null;
 
@@ -27,19 +27,19 @@ export function MobileDrawer({
         id="mobile-drawer"
         role="dialog"
         aria-modal="true"
-        aria-label={t.menu}
+        aria-label={chrome.menu}
         className="fixed inset-x-0 top-[64px] sm:top-[72px] z-40 lg:hidden bg-bone border-y border-bone-line shadow-[0_30px_60px_-25px_rgba(0,0,0,0.35)] animate-drawer-in"
       >
         <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-8 py-8 sm:py-10 flex flex-col gap-8">
           <div className="flex items-center justify-between gap-4">
             <span className="font-sans uppercase text-clay text-[11px] tracking-[0.08em] leading-4">
-              {t.lang}
+              {chrome.lang}
             </span>
             <LangPill lang={lang} />
           </div>
 
           <ul className="flex flex-col gap-1 border-t border-rule pt-6">
-            {navLinks.map((l, i) => (
+            {chrome.navLinks.map((l, i) => (
               <li key={l.href}>
                 <Link
                   href={l.href}
@@ -76,13 +76,13 @@ export function MobileDrawer({
               onClick={onClose}
               className="inline-flex items-center justify-center bg-ink text-bone rounded-[5px] px-8 py-4 text-[14px] font-sans font-bold tracking-[0.08em] hover:bg-clay transition-colors duration-300"
             >
-              {t.contact}
+              {chrome.contact}
             </Link>
             <div className="flex items-center justify-between text-clay/80 text-[12px] uppercase tracking-[0.08em]">
               <span>
-                {t.footerAddr[0]} · {t.footerAddr[1]}
+                {chrome.footerAddr[0]} · {chrome.footerAddr[1]}
               </span>
-              <span>{t.footerCopy.split("©")[1]?.split(".")[0] ?? ""}</span>
+              <span>{chrome.footerCopy.split("©")[1]?.split(".")[0] ?? ""}</span>
             </div>
           </div>
         </div>

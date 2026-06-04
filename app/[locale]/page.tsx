@@ -1,6 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
 import type { Lang } from "@/app/content/home";
-import { getHome, toHomeCopy } from "@/sanity/queries";
+import { getHome, toHomeCopy, getChrome, toChrome } from "@/sanity/queries";
 import { SiteHeader } from "@/app/components/home/SiteHeader";
 import { Hero } from "@/app/components/home/Hero";
 import { DualJourney } from "@/app/components/home/DualJourney";
@@ -20,10 +20,11 @@ export default async function Home({
   const lang = locale as Lang;
   const doc = await getHome(lang);
   const t = toHomeCopy(doc, lang);
+  const chrome = toChrome(await getChrome(lang), lang);
 
   return (
     <div className="relative flex flex-col bg-bone text-ink overflow-x-clip">
-      <SiteHeader lang={lang} t={t} />
+      <SiteHeader lang={lang} chrome={chrome} />
       <main id="main" className="flex flex-col">
         <Hero lang={lang} t={t} />
         <DualJourney lang={lang} t={t} />
@@ -31,8 +32,8 @@ export default async function Home({
         <Faq lang={lang} t={t} />
         <CallToAction lang={lang} t={t} />
       </main>
-      <Footer lang={lang} t={t} />
-      <StickyContact lang={lang} t={t} />
+      <Footer lang={lang} chrome={chrome} />
+      <StickyContact lang={lang} chrome={chrome} />
     </div>
   );
 }

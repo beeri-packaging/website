@@ -3,9 +3,10 @@
 import { useEffect, useState } from "react";
 import { Header } from "./Header";
 import { MobileDrawer } from "./MobileDrawer";
-import type { HomeCopy, Lang } from "@/app/content/home";
+import type { Lang } from "@/app/content/home";
+import type { Chrome } from "@/app/content/site";
 
-export function SiteHeader({ lang, t }: { lang: Lang; t: HomeCopy }) {
+export function SiteHeader({ lang, chrome }: { lang: Lang; chrome: Chrome }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -17,8 +18,8 @@ export function SiteHeader({ lang, t }: { lang: Lang; t: HomeCopy }) {
 
   return (
     <>
-      <Header lang={lang} menuOpen={menuOpen} setMenuOpen={setMenuOpen} t={t} />
-      <MobileDrawer open={menuOpen} onClose={() => setMenuOpen(false)} lang={lang} t={t} />
+      <Header lang={lang} menuOpen={menuOpen} setMenuOpen={setMenuOpen} chrome={chrome} />
+      <MobileDrawer open={menuOpen} onClose={() => setMenuOpen(false)} lang={lang} chrome={chrome} />
     </>
   );
 }

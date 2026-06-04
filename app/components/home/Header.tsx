@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { homeImages, navLinks } from "@/app/content/home";
-import type { HomeCopy, Lang } from "@/app/content/home";
+import type { Lang } from "@/app/content/home";
+import type { Chrome } from "@/app/content/site";
 import { cn } from "@/lib/cn";
 import { buttonVariants } from "@/components/ui/button";
 
@@ -9,12 +9,12 @@ export function Header({
   lang,
   menuOpen,
   setMenuOpen,
-  t,
+  chrome,
 }: {
   lang: Lang;
   menuOpen: boolean;
   setMenuOpen: (b: boolean) => void;
-  t: HomeCopy;
+  chrome: Chrome;
 }) {
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-bone/85 backdrop-blur-md border-b border-bone-line">
@@ -25,7 +25,7 @@ export function Header({
           className="block shrink-0 focus-ring rounded-sm transition-opacity hover:opacity-80"
         >
           <Image
-            src={lang === "he" ? homeImages.logoHe : homeImages.logoEn}
+            src={lang === "he" ? chrome.logoHe : chrome.logoEn}
             alt={lang === "he" ? "בארי אריזות" : "Beeri Packaging"}
             width={249}
             height={64}
@@ -35,7 +35,7 @@ export function Header({
         </Link>
 
         <ul className="hidden lg:flex items-center gap-10 xl:gap-12">
-          {navLinks.map((l) => (
+          {chrome.navLinks.map((l) => (
             <li key={l.href}>
               <Link
                 href={l.href}
@@ -52,18 +52,18 @@ export function Header({
             href="/#cta"
             className={cn(buttonVariants({ variant: "solid", size: "sm" }), "hidden md:inline-flex lg:px-8")}
           >
-            {t.contact}
+            {chrome.contact}
           </Link>
 
           <button
             type="button"
-            aria-label={menuOpen ? t.close : t.menu}
+            aria-label={menuOpen ? chrome.close : chrome.menu}
             aria-expanded={menuOpen}
             aria-controls="mobile-drawer"
             onClick={() => setMenuOpen(!menuOpen)}
             className="lg:hidden relative inline-flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-md border border-rule bg-bone/60 backdrop-blur text-ink hover:bg-ink hover:text-bone transition-colors duration-300 focus-ring"
           >
-            <span className="sr-only">{menuOpen ? t.close : t.menu}</span>
+            <span className="sr-only">{menuOpen ? chrome.close : chrome.menu}</span>
             <span
               aria-hidden
               className={`absolute h-px w-5 bg-current transition-transform duration-300 ${
