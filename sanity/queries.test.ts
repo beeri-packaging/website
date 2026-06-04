@@ -1,6 +1,10 @@
 import { describe, it, expect } from "vitest";
-import { toChrome } from "./queries";
+import { toChrome, toCareersCopy, toFinishingCopy, toBlogIndexCopy, toCategoryLabels, toPlaceholderCopy } from "./queries";
 import { chromeContent } from "@/app/content/site";
+import { careersCopy } from "@/app/content/careers";
+import { finishingCopy } from "@/app/content/finishing";
+import { blogIndexCopy, categoryLabels } from "@/app/content/blog";
+import { placeholderContent } from "@/app/content/placeholder";
 
 describe("toChrome", () => {
   it("returns bundled fallback when doc is null", () => {
@@ -17,5 +21,33 @@ describe("toChrome", () => {
       "he"
     );
     expect(result.logoHe).toBe("https://cdn/he.svg");
+  });
+});
+
+describe("toCareersCopy", () => {
+  it("returns bundled fallback when doc is null", () => {
+    expect(toCareersCopy(null, "he")).toEqual(careersCopy.he);
+  });
+});
+
+describe("toFinishingCopy", () => {
+  it("returns bundled fallback when doc is null", () => {
+    expect(toFinishingCopy(null, "en")).toEqual(finishingCopy.en);
+  });
+});
+
+describe("blog mappers", () => {
+  it("blog index falls back when doc is null", () => {
+    expect(toBlogIndexCopy(null, "he")).toEqual(blogIndexCopy.he);
+  });
+  it("category labels fall back to bundled per-locale", () => {
+    const labels = toCategoryLabels(null, "en");
+    expect(labels.structural).toBe(categoryLabels.structural.en);
+  });
+});
+
+describe("toPlaceholderCopy", () => {
+  it("returns bundled fallback when doc is null", () => {
+    expect(toPlaceholderCopy(null, "catalog", "he")).toEqual(placeholderContent.catalog.he);
   });
 });
