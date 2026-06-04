@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { PlaceholderShell } from "@/app/components/placeholder/PlaceholderShell";
-import { PlaceholderHero } from "@/app/components/placeholder/PlaceholderHero";
-import { placeholderContent } from "@/app/content/placeholder";
+import { CareersPageDesign } from "@/app/components/careers/CareersPageDesign";
 
 export const metadata: Metadata = {
-  title: "קריירה · בארי אריזות",
+  title: "קריירה",
   description:
     "המשרות הפתוחות בבארי אריזות יפורסמו כאן. אפשר גם לשלוח קורות חיים יזומים.",
 };
@@ -12,7 +11,7 @@ export const metadata: Metadata = {
 export default function CareersPage() {
   return (
     <PlaceholderShell>
-      <PlaceholderHero content={placeholderContent.careers} />
+      <CareersPageDesign />
     </PlaceholderShell>
   );
 }

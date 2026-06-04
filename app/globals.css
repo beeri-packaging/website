@@ -15,6 +15,9 @@
   --magenta: #c846a3;        /* P/Magenta — section eyebrows */
   --purple: #6f50a6;         /* P/Purple — customer-path eyebrow */
   --purple-bento: #7d05f5;   /* "שטנץ מדויק" card bg */
+  --blueprint: #292d78;      /* Original-style page panels + borders */
+  --blueprint-soft: #3a3d88;
+  --mist: #ebe9e6;           /* Original-style quiet card surface */
   --sand: #f5f3f0;           /* card surface */
   --clay: #4d4632;           /* body copy on bone */
   --clay-soft: #5f5d5c;      /* StickyContact label (Figma mail-icon stroke) */
@@ -38,6 +41,9 @@
   --color-magenta: var(--magenta);
   --color-purple: var(--purple);
   --color-purple-bento: var(--purple-bento);
+  --color-blueprint: var(--blueprint);
+  --color-blueprint-soft: var(--blueprint-soft);
+  --color-mist: var(--mist);
   --color-sand: var(--sand);
   --color-clay: var(--clay);
   --color-clay-soft: var(--clay-soft);
@@ -46,6 +52,160 @@
 
   --font-display: var(--font-display);
   --font-sans: var(--font-sans);
+
+  /* ── Type scale — mirrors the Figma library (Style/T/* + Style/Body/*).
+   *    Generates `text-display`, `text-h1` … `text-kicker` utilities, each
+   *    carrying its paired line-height. Display + headings ride on Karantina
+   *    (font-display); body/lead/eyebrow ride on Open Sans (font-sans). ── */
+  --text-display: clamp(48px, 13.5vw, 128px); /* T/Main — hero */
+  --text-display--line-height: 0.72;
+  --text-h1: clamp(40px, 7vw, 96px);          /* T/Big */
+  --text-h1--line-height: 1;
+  --text-h2: clamp(36px, 5.5vw, 64px);        /* T/Secondary */
+  --text-h2--line-height: 1.04;
+  --text-h3: clamp(30px, 4vw, 50px);          /* card titles */
+  --text-h3--line-height: 1.05;
+  --text-h4: clamp(22px, 2.6vw, 32px);        /* small headings */
+  --text-h4--line-height: 1.12;
+  --text-kicker: 24px;                         /* T/Mini */
+  --text-kicker--line-height: 1.1;
+  --text-question: clamp(20px, 2.4vw, 24px);   /* Style/Questions */
+  --text-question--line-height: 1.08;
+  --text-lead: 20px;                           /* Style/Body/Medium */
+  --text-lead--line-height: 1.5;
+
+  /* Shared label tracking used by eyebrows, tags and buttons. */
+  --tracking-label: 0.08em;
+}
+
+/* ────────────────────────────────────────────────────────────────
+ * DESIGN KIT — composite component primitives
+ * ────────────────────────────────────────────────────────────────
+ * Multi-property building blocks shared across pages and documented
+ * on /design. Named with a `ds-` prefix so they never collide with
+ * Tailwind utilities; written in the `components` layer so an inline
+ * utility in JSX always wins when both are present.
+ */
+@layer components {
+  /* Tracked micro-label that sits above headings (the colored eyebrows). */
+  .ds-eyebrow {
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 1rem;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+  }
+
+  /* Button — solid (ink) and outline, both invert on hover. */
+  .ds-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    border-radius: 5px;
+    border: 1px solid var(--ink);
+    padding: 1rem 2.5rem;
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1rem;
+    letter-spacing: var(--tracking-label);
+    cursor: pointer;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease,
+      border-color 0.3s ease;
+  }
+  .ds-btn--solid {
+    background: var(--ink);
+    color: var(--bone);
+  }
+  .ds-btn--solid:hover {
+    background: var(--bone);
+    color: var(--ink);
+  }
+  .ds-btn--outline {
+    background: transparent;
+    color: var(--ink);
+  }
+  .ds-btn--outline:hover {
+    background: var(--ink);
+    color: var(--bone);
+  }
+
+  /* Tag / badge pill — one variant per palette accent. */
+  .ds-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 1rem;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+  }
+  .ds-tag--yellow {
+    background: var(--yellow);
+    color: var(--yellow-deep);
+  }
+  .ds-tag--cyan {
+    background: var(--cyan);
+    color: var(--cyan-deep);
+  }
+  .ds-tag--magenta {
+    background: var(--magenta);
+    color: #fff;
+  }
+  .ds-tag--purple {
+    background: var(--purple);
+    color: #fff;
+  }
+  .ds-tag--ink {
+    background: var(--ink);
+    color: var(--bone);
+  }
+
+  /* Card surface — quiet sand panel with a hairline border. */
+  .ds-card {
+    background: var(--sand);
+    border: 1px solid var(--rule);
+  }
+
+  /* Text input — bone field, ink hairline, label-grey placeholder. */
+  .ds-input {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--ink);
+    border-radius: 5px;
+    padding: 0.875rem 1.125rem;
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .ds-input::placeholder {
+    color: var(--clay-soft);
+  }
+  .ds-input:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+
+  /* Hairline divider matching the editorial rules across the site. */
+  .ds-rule {
+    border: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* Page gutter container shared by editorial sections. */
+  .ds-container {
+    width: 100%;
+    max-width: 1264px;
+    margin-inline: auto;
+    padding-inline: clamp(1.5rem, 5vw, 4rem);
+  }
 }
 
 html,

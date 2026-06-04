@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { PlaceholderShell } from "@/app/components/placeholder/PlaceholderShell";
-import { PlaceholderHero } from "@/app/components/placeholder/PlaceholderHero";
-import { placeholderContent } from "@/app/content/placeholder";
+import { FinishingPageDesign } from "@/app/components/finishing/FinishingPageDesign";
 
 export const metadata: Metadata = {
-  title: "השבחות · בארי אריזות",
+  title: "השבחות",
   description:
     "טכניקות הדפסה וגימור — פויל, הבלטה, ספוט UV, חיתוך לייזר ועוד. תיעוד מלא בעריכה.",
 };
@@ -12,7 +11,7 @@ export const metadata: Metadata = {
 export default function FinishingPage() {
   return (
     <PlaceholderShell>
-      <PlaceholderHero content={placeholderContent.finishing} />
+      <FinishingPageDesign />
     </PlaceholderShell>
   );
 }
