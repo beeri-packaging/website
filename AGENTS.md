@@ -1,105 +1,106 @@
-<!-- BEGIN:nextjs-agent-rules -->
 # This is NOT the Next.js you know
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
-<!-- END:nextjs-agent-rules -->
+This version has breaking changes — APIs, conventions, and file structure may all differ
+from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before
+writing any code. Heed deprecation notices.
 
 # Beeri Packaging — Project Guide
 
-Marketing site for **בארי אריזות** (Beeri Packaging), a custom carton-packaging manufacturer (est. 1964).
+Marketing site for **בארי אריזות** (Beeri Packaging), a custom carton-packaging
+manufacturer (est. 1964).
+
+> **Status:** Migrating to a server-first, CMS-driven, bilingual foundation.
+> Source of truth for the architecture: `docs/superpowers/specs/2026-06-04-website-foundation-design.md`.
+> Plans: `docs/superpowers/plans/`. Some target paths below land progressively — follow the plans.
 
 ## Stack
 
-- **Next.js 16.2.6** (App Router, no `src/`, no API routes yet)
-- **React 19.2** — note the home page is currently one big `"use client"` component
-- **Tailwind v4** via `@tailwindcss/postcss` — config lives in `app/globals.css` under `@theme inline`, not in a JS config
-- **TypeScript 5** strict, `@/*` path alias maps to repo root
-- Fonts: `Karantina` (display) + `Open Sans` (sans) — both loaded via `next/font/google` with `hebrew` and `latin` subsets
+- **Next.js 16.2.6** (App Router, no `src/`)
+- **React 19.2**
+- **Tailwind v4** via `@tailwindcss/postcss` — tokens live in `app/globals.css` under
+  `@theme inline`, not a JS config
+- **TypeScript 5** strict, `@/*` → repo root
+- **next-intl** — `/he` + `/en` routing, Hebrew default
+- **Sanity** — CMS, Studio embedded at `/studio`
+- **class-variance-authority** + **clsx** + **tailwind-merge** — typed component variants
+- **Radix** primitives — only for interactive a11y (dialog, accordion, menu)
+- Fonts: `Karantina` (display) + `Open Sans` (sans) via `next/font/google` (hebrew + latin)
 
 ## Commands
 
 ```bash
-npm run dev      # Next dev server at http://localhost:3000
-npm run build    # production build
-npm run start    # serve production build
-npm run lint     # eslint (eslint-config-next)
+npm run dev         # dev server at http://localhost:3000
+npm run build       # production build
+npm run start       # serve production build
+npm run lint        # eslint
+npm run test        # Vitest unit tests
+npm run test:e2e    # Playwright end-to-end tests
+npm run lighthouse  # Lighthouse against a running production build
 ```
 
-## Locale & direction
-
-- **Primary: Hebrew (he, RTL).** `<html lang="he" dir="rtl">` is set in [app/layout.tsx](app/layout.tsx).
-- **Secondary: English (en, LTR).** The home page already carries an EN scaffold (`type Lang = "he" | "en"`) — copy lives inline as `{ he, en }` pairs. EN copy is provisional.
-- When adding UI, ship both `he` and `en` strings in the same shape. Don't hard-code Hebrew in JSX.
-- Tailwind logical properties (`ps-*`, `pe-*`, `ms-*`, `me-*`, `start-*`, `end-*`) over physical (`pl-*`, `pr-*`) so RTL/LTR both work.
-
-## File layout
+## Folder layout
 
 ```
 app/
-  layout.tsx              Root layout — RTL, fonts, metadata
-  page.tsx                Home page — thin "use client" orchestrator
-  design/page.tsx         /design route (Figma / design-system scratch)
-  globals.css             Tailwind v4 + brand tokens + animation keyframes
-  content/
-    home.ts               Typed content for the home page (copy + image paths)
-  components/
-    home/                 Home-page section components
-      Header.tsx, MobileDrawer.tsx, LangPill.tsx,
-      Hero.tsx, DualJourney.tsx, TechnicalExcellence.tsx,
-      Faq.tsx, CallToAction.tsx, Footer.tsx, StickyContact.tsx,
-      icons.tsx           Inline SVG icons shared across the page
-public/
-  images/
-    categories/    wines, food, alcohol-beverages, cosmetics, finishing,
-                   pharma, coffee-capsules, shared, other
-    figma/         Figma exports (in-flight)
-    generated/     AI-generated batches (ambience, hero, timeline, etc.)
-    home/          home-page-specific photography
-    uncategorized/ legacy photos pending a sorting pass
-    logo-he.svg, logo-en.svg
-docs/              SEO research, strategy, briefs, blog drafts, decks
-.claude/skills/    Repo-local skills (hebrew-content-writer)
+  [locale]/            he | en — Hebrew default, RTL
+    layout.tsx         <html lang dir>, fonts, NextIntlClientProvider, JSON-LD
+    page.tsx           home (server)
+    <route>/page.tsx   catalog, portfolio, showcase, careers, finishing, blog
+  studio/[[...tool]]/  embedded Sanity Studio (admin)
+  sitemap.ts robots.ts
+  globals.css          brand tokens (design source of truth) — DO NOT change the palette
+  design/              dev-only playground — excluded from prod
+components/
+  ui/          PRIMITIVES — Button, Card, Badge, Container, Section, Heading, Eyebrow, Link
+  sections/    composed page sections (server by default)
+  interactive/ client islands only (MobileDrawer, LangMenu, StickyContact)
+lib/    cn.ts (clsx + tailwind-merge), utils
+sanity/ schemaTypes, client, queries (GROQ), image url builder, live/preview
+i18n/   routing.ts, request.ts, navigation.ts
+messages/ he.json, en.json — UI chrome strings only
+proxy.ts  locale middleware (renamed from middleware.ts in Next 16)
 ```
 
-See [docs/README.md](docs/README.md) for the full Hebrew→slug image mapping and content-source overview.
+## Core rules
+
+1. **Server-first.** Components render on the server by default. Add `"use client"` only at
+   the leaf that owns state, an effect, a ref, or a browser API. Pass server data into
+   client islands as props. A whole page must never be `"use client"`.
+2. **Use the primitives.** Never re-hardcode a button/card/badge with raw Tailwind. Import
+   from `components/ui/` and use variants (`<Button variant="primary" size="lg">`). New
+   variants are added to the primitive, not forked inline.
+3. **No hard-coded strings or image paths in components.** UI chrome strings come from
+   `messages/{he,en}.json`; editorial content comes from **Sanity** via typed GROQ queries.
+   Images come from the Sanity CDN, never from `public/images/`.
+4. **Bilingual in the same shape.** Hebrew (he, RTL) is primary; English (en, LTR) is
+   secondary. Both locales render from the same components and content shape.
+5. **Logical CSS properties** (`ps-*`, `pe-*`, `ms-*`, `me-*`, `start-*`, `end-*`) over
+   physical, so RTL/LTR both work.
 
 ## Brand tokens
 
-Defined as CSS variables in [app/globals.css](app/globals.css) and exposed to Tailwind through `@theme inline`. Use the Tailwind class form (`bg-bone`, `text-ink`, `bg-cyan`, etc.), not raw hex values.
+CSS variables in `app/globals.css`, exposed via `@theme inline`. Use the Tailwind class form
+(`bg-bone`, `text-ink`, `bg-cyan`…), never raw hex. Core palette: `bone` (surface), `ink`
+(text/buttons), `cyan`/`yellow`/`magenta`/`purple` (accents), `gold` (CTA), `sand` (cards),
+`clay` (body), `rule` (hairlines). `font-display` = Karantina (headlines), `font-sans` =
+Open Sans (body).
 
-Core palette: `bone` (page surface), `ink` (text/buttons), `cyan` / `yellow` / `magenta` / `purple` (accents), `gold` (CTA bg), `sand` (cards), `clay` (body copy), `rule` (hairlines).
+## Verification gates (every change)
 
-Fonts: `font-display` (Karantina) for headlines, `font-sans` (Open Sans) for body. Both are wired via `--font-display` / `--font-sans` CSS variables on `<html>`.
-
-## Content layer (CMS-ready)
-
-**All visible text and image paths live in `app/content/`** — currently `home.ts`, with one module planned per page. Components import typed constants (`homeCopy`, `homeImages`, `navLinks`, `capabilities`, `faqItems`) and never hard-code strings or image paths.
-
-This is the seam where a CMS plugs in later. The plan:
-
-1. A CMS (TBD — likely Sanity, Payload, or a headless Strapi) will own the same shape exposed by `app/content/home.ts` (types: `HomeCopy`, `NavLink`, `Capability`, `FaqItem`, plus the `homeImages` record).
-2. `content/*.ts` modules will be swapped for async fetchers (e.g. `lib/cms.ts`) that return the same types. Components stay untouched.
-3. Images served from the CMS become absolute URLs — `next.config.ts` will need `images.remotePatterns` updated.
-
-**Rules until the CMS lands:**
-- Any new copy goes into the relevant `content/*.ts` module — never inline in a component.
-- New images get a key in `homeImages` (or the page's equivalent) — components reference the key, never a raw `/images/...` path.
-- Types in `content/*.ts` are the contract. Update the type first, then the data, then the component.
-
-## Conventions
-
-- **Edit existing files** rather than creating new ones. New section components go under `app/components/<page>/` only when extracting from a route that already exists.
-- **Hebrew filenames** in `public/images/` are kept as-is for now. A rename-to-slug pass is a planned follow-up, not blocking.
-- **Image size variants:** most product photos have a full-size `<name>.jpg` plus a smaller `<name>28.jpg` (or `<name>-28.jpg`). Use the `28` variant where bandwidth matters; full-size for hero/zoom.
-- **Animations** (`animate-rise`, `animate-fade`, `animate-scroll-hint`, `animate-drawer-in`) live in `globals.css`. All respect `prefers-reduced-motion`.
-- **Comments:** code is intentionally light on comments. Don't add narrative comments to JSX; the editorial copy is the documentation.
-
-## Heavy assets
-
-`public/images/` is ~1.5 GB. Before any push to a remote that doesn't already track it, confirm strategy with the user — Git LFS, an external bucket/CDN, or compression. Do not blindly `git add public/images/`.
+- `npm run lint` and `tsc --noEmit` — 0 errors
+- `npm run build` — succeeds
+- `npm run test` (Vitest) — green
+- `npm run test:e2e` (Playwright) — green; both `/he` and `/en` render
+- **Visual:** the design must not change — verify migrated pages against the current render
+- A11y: WCAG 2.1 AA; no serious axe violations
+- Perf: production Lighthouse Performance ≈ 100
 
 ## Content & SEO source of truth
 
-Keyword strategy and positioning come from [docs/research/beeri-google-trends-seo-research.md](docs/research/beeri-google-trends-seo-research.md). If positioning shifts, update that file first, then propagate to UI copy and blog drafts in [docs/blogs/drafts/](docs/blogs/drafts/).
+Keyword strategy/positioning: `docs/research/beeri-google-trends-seo-research.md`. For
+Hebrew copy work use the `hebrew-content-writer` skill.
 
-For Hebrew copy work (marketing, UX strings, blog editing), use the `hebrew-content-writer` skill — it covers register, grammar, gendered language, and Hebrew SEO conventions.
+## Heavy assets
+
+Legacy photos in `public/images/` (~1.7 GB) are being migrated to the Sanity CDN. Do not
+`git add public/images/` blindly. New images go to Sanity, not the repo.

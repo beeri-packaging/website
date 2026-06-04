@@ -1,14 +1,16 @@
+"use client";
+
+import { Link, usePathname } from "@/i18n/navigation";
 import type { Lang } from "@/app/content/home";
 
 export function LangPill({
   lang,
-  setLang,
   compact = false,
 }: {
   lang: Lang;
-  setLang: (l: Lang) => void;
   compact?: boolean;
 }) {
+  const pathname = usePathname();
   const inactive = "text-clay/70 hover:text-ink transition-colors duration-200";
   const active = "text-ink";
   return (
@@ -19,26 +21,26 @@ export function LangPill({
         compact ? "px-1 py-1 text-[11px]" : "px-1.5 py-1 text-[12px]"
       }`}
     >
-      <button
-        type="button"
-        onClick={() => setLang("he")}
-        aria-pressed={lang === "he"}
+      <Link
+        href={pathname}
+        locale="he"
+        aria-current={lang === "he" ? "true" : undefined}
         className={`relative z-10 px-3 py-1 font-sans font-bold tracking-[0.08em] uppercase rounded-full transition-colors duration-300 ${
           lang === "he" ? active : inactive
         }`}
       >
         HE
-      </button>
-      <button
-        type="button"
-        onClick={() => setLang("en")}
-        aria-pressed={lang === "en"}
+      </Link>
+      <Link
+        href={pathname}
+        locale="en"
+        aria-current={lang === "en" ? "true" : undefined}
         className={`relative z-10 px-3 py-1 font-sans font-bold tracking-[0.08em] uppercase rounded-full transition-colors duration-300 ${
           lang === "en" ? active : inactive
         }`}
       >
         EN
-      </button>
+      </Link>
       {/* Active-state pill — pinned by logical inset-inline-start so it
           tracks the active button in both LTR and RTL automatically. */}
       <span

@@ -1,4 +1,7 @@
 import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
+
+const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
   images: {
@@ -6,7 +9,9 @@ const nextConfig: NextConfig = {
     // The journey panels render large, so 90 keeps them sharp after the
     // parallax scale; 75 stays for everything else (the default).
     qualities: [75, 90],
+    // Sanity-hosted assets are served from the image CDN.
+    remotePatterns: [{ protocol: "https", hostname: "cdn.sanity.io" }],
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

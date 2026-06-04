@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
+import { useLocale } from "next-intl";
 import { homeCopy } from "@/app/content/home";
 import type { HomeCopy, Lang } from "@/app/content/home";
 import { Header } from "@/app/components/home/Header";
@@ -35,14 +36,8 @@ export function useShellLang(): ShellContext {
  * thin and serializable across the server→client boundary.
  */
 export function PlaceholderShell({ children }: { children: React.ReactNode }) {
-  const [lang, setLang] = useState<Lang>("he");
+  const lang = useLocale() as Lang;
   const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const html = document.documentElement;
-    html.lang = lang;
-    html.dir = lang === "he" ? "rtl" : "ltr";
-  }, [lang]);
 
   useEffect(() => {
     document.body.dataset.scrollLock = menuOpen ? "true" : "false";
@@ -66,10 +61,9 @@ export function PlaceholderShell({ children }: { children: React.ReactNode }) {
           open={menuOpen}
           onClose={() => setMenuOpen(false)}
           lang={lang}
-          setLang={setLang}
           t={t}
         />
-        <main className="flex-1 flex flex-col pt-[88px] sm:pt-[104px] md:pt-[120px]">
+        <main id="main" className="flex-1 flex flex-col pt-[88px] sm:pt-[104px] md:pt-[120px]">
           {children}
         </main>
         <Footer lang={lang} t={t} />

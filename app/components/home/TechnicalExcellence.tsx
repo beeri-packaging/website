@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { capabilities, homeImages } from "@/app/content/home";
 import type { HomeCopy, Lang } from "@/app/content/home";
+import { Badge } from "@/components/ui/badge";
 import { ArrowOut, CardCornerArrow, DieCutIcon, LabIcon } from "./icons";
 
 export function TechnicalExcellence({ lang, t }: { lang: Lang; t: HomeCopy }) {
@@ -33,9 +34,9 @@ export function TechnicalExcellence({ lang, t }: { lang: Lang; t: HomeCopy }) {
                     {c.n}
                   </span>
                   <div className="flex flex-col gap-1 text-start w-[262px] max-w-full py-3">
-                    <h4 className="font-sans font-semibold text-ink text-[16px] leading-[25px] tracking-[-0.16px]">
+                    <h3 className="font-sans font-semibold text-ink text-[16px] leading-[25px] tracking-[-0.16px]">
                       {copy.title}
-                    </h4>
+                    </h3>
                     <p className="font-sans text-clay text-[16px] leading-[25px] tracking-[-0.16px]">
                       {copy.body}
                     </p>
@@ -53,7 +54,6 @@ export function TechnicalExcellence({ lang, t }: { lang: Lang; t: HomeCopy }) {
           <div className="md:col-span-5 grid grid-rows-[402fr_366fr] gap-6 md:gap-8 h-full min-h-[640px] md:min-h-0">
             <Link
               href="#journey"
-              aria-label={t.bento1Title}
               className="group relative overflow-hidden bg-purple-bento border border-bone-line p-8 sm:p-10 md:p-10 lg:p-[40px] xl:p-[49px] flex flex-col items-start justify-between text-start cursor-pointer focus-ring transition-[box-shadow,transform] duration-500 hover:shadow-[0_30px_60px_-20px_rgba(125,5,245,0.5)] hover:-translate-y-0.5"
             >
               <span
@@ -64,9 +64,9 @@ export function TechnicalExcellence({ lang, t }: { lang: Lang; t: HomeCopy }) {
                 <DieCutIcon />
               </div>
               <div className="relative z-10 flex flex-col gap-4 w-full">
-                <h4 className="font-display text-bone text-[36px] sm:text-[42px] md:text-[44px] lg:text-[48px] xl:text-[50px] leading-[normal] w-full text-start">
+                <h3 className="font-display text-bone text-[36px] sm:text-[42px] md:text-[44px] lg:text-[48px] xl:text-[50px] leading-[normal] w-full text-start">
                   {t.bento1Title}
-                </h4>
+                </h3>
                 <p className="font-sans text-yellow-cream text-[16px] sm:text-[17px] md:text-[18px] lg:text-[20px] leading-[25px] w-full text-start">
                   {t.bento1Body}
                 </p>
@@ -85,7 +85,6 @@ export function TechnicalExcellence({ lang, t }: { lang: Lang; t: HomeCopy }) {
 
             <Link
               href="#journey"
-              aria-label={t.bento2Title}
               className="group relative overflow-hidden bg-ink p-8 sm:p-10 md:p-10 lg:p-[40px] xl:p-[48px] flex flex-col items-start justify-between text-start cursor-pointer focus-ring transition-[box-shadow,transform] duration-500 hover:shadow-[0_30px_60px_-20px_rgba(0,255,255,0.25)] hover:-translate-y-0.5"
             >
               <span
@@ -101,9 +100,9 @@ export function TechnicalExcellence({ lang, t }: { lang: Lang; t: HomeCopy }) {
                 </span>
               </div>
               <div className="relative z-10 flex flex-col gap-4 w-full">
-                <h4 className="font-display text-bone text-[36px] sm:text-[42px] md:text-[44px] lg:text-[48px] xl:text-[50px] leading-[normal] w-full text-start">
+                <h3 className="font-display text-bone text-[36px] sm:text-[42px] md:text-[44px] lg:text-[48px] xl:text-[50px] leading-[normal] w-full text-start">
                   {t.bento2Title}
-                </h4>
+                </h3>
                 <p className="font-sans text-bone/70 text-[16px] sm:text-[17px] md:text-[18px] lg:text-[20px] leading-[25px] max-w-[346px] text-start">
                   {t.bento2Body}
                 </p>
@@ -113,7 +112,6 @@ export function TechnicalExcellence({ lang, t }: { lang: Lang; t: HomeCopy }) {
 
           <Link
             href="#journey"
-            aria-label={t.bento1Title}
             className="md:col-span-7 relative bg-sand overflow-hidden aspect-[4/3] sm:aspect-[16/10] md:aspect-auto md:h-auto group block cursor-pointer focus-ring"
           >
             <Image
@@ -121,7 +119,7 @@ export function TechnicalExcellence({ lang, t }: { lang: Lang; t: HomeCopy }) {
               alt={t.bento1Title}
               fill
               sizes="(min-width: 768px) 60vw, 100vw"
-              className="object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-105"
+              className="object-cover brightness-[0.82] transition-transform duration-[1400ms] ease-out group-hover:scale-105"
             />
             <span
               aria-hidden
@@ -141,23 +139,5 @@ export function TechnicalExcellence({ lang, t }: { lang: Lang; t: HomeCopy }) {
         </div>
       </div>
     </section>
-  );
-}
-
-function Badge({
-  children,
-  variant,
-}: {
-  children: React.ReactNode;
-  variant: "yellow" | "cyan";
-}) {
-  const styles =
-    variant === "yellow" ? "bg-yellow text-yellow-deep" : "bg-cyan text-cyan-deep";
-  return (
-    <span
-      className={`inline-flex items-center px-3 py-1 text-[11px] sm:text-[12px] uppercase font-sans tracking-[0.08em] leading-4 ${styles}`}
-    >
-      {children}
-    </span>
   );
 }

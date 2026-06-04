@@ -1,5 +1,7 @@
 import Link from "next/link";
 import type { HomeCopy, Lang } from "@/app/content/home";
+import { cn } from "@/lib/cn";
+import { buttonVariants } from "@/components/ui/button";
 import { ArrowGlyph } from "./icons";
 
 export function CallToAction({ lang, t }: { lang: Lang; t: HomeCopy }) {
@@ -12,7 +14,7 @@ export function CallToAction({ lang, t }: { lang: Lang; t: HomeCopy }) {
         </h2>
         <Link
           href="mailto:hello@beeri.co.il"
-          className="group inline-flex items-center justify-center gap-3 bg-ink border border-ink text-bone rounded-[5px] px-10 sm:px-14 md:px-16 py-5 sm:py-7 md:py-8 text-[13px] sm:text-[14px] font-sans font-bold tracking-[0.08em] hover:bg-clay transition-colors duration-300 self-start md:self-auto md:order-2"
+          className={cn(buttonVariants({ variant: "solid", size: "lg" }), "group self-start md:self-auto md:order-2")}
         >
           {t.cta1}
           <span

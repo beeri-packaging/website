@@ -80,7 +80,7 @@ export function DualJourney({ lang, t }: { lang: Lang; t: HomeCopy }) {
                     key={panel.key}
                     panel={panel}
                     lang={lang}
-                    priority={rowIndex === 0}
+                    priority={false}
                     pairIndex={j}
                   />
                 ))}

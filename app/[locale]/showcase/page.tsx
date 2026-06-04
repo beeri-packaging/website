@@ -1,6 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useLocale } from "next-intl";
 import { homeCopy } from "@/app/content/home";
 import type { Lang } from "@/app/content/home";
 import { Header } from "@/app/components/home/Header";
@@ -80,16 +82,8 @@ const pad = (n: number) => n.toString().padStart(2, "0");
 
 export default function ShowcasePage() {
   const [active, setActive] = useState<number | null>(null);
-  const [lang, setLang] = useState<Lang>("he");
+  const lang = useLocale() as Lang;
   const [menuOpen, setMenuOpen] = useState(false);
-
-  // Mirror the home page: keep <html lang/dir> in sync with the toggle so the
-  // shared Header's RTL/LTR styling stays consistent across routes.
-  useEffect(() => {
-    const html = document.documentElement;
-    html.lang = lang;
-    html.dir = lang === "he" ? "rtl" : "ltr";
-  }, [lang]);
 
   useEffect(() => {
     document.body.dataset.scrollLock = menuOpen ? "true" : "false";
@@ -150,7 +144,6 @@ export default function ShowcasePage() {
         open={menuOpen}
         onClose={() => setMenuOpen(false)}
         lang={lang}
-        setLang={setLang}
         t={t}
       />
       <main
@@ -262,11 +255,13 @@ function Plate({
       style={{ aspectRatio: `${item.w} / ${item.h}` }}
       aria-label={`Open plate ${index + 1} of ${total}: ${item.title}`}
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <Image
         src={item.src}
         alt={item.title}
-        loading="lazy"
+        fill
+        sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+        loading={index < 4 ? "eager" : "lazy"}
+        fetchPriority={index < 4 ? "high" : "auto"}
         className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
       />
 
@@ -354,11 +349,13 @@ function Lightbox({
           <ArrowRight />
         </button>
 
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           key={item.src}
           src={item.src}
           alt={item.title}
+          width={item.w}
+          height={item.h}
+          sizes="100vw"
           className="max-h-full max-w-full object-contain shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] animate-rise"
           style={{ animationDuration: "500ms" }}
         />

@@ -7,13 +7,11 @@ export function MobileDrawer({
   open,
   onClose,
   lang,
-  setLang,
   t,
 }: {
   open: boolean;
   onClose: () => void;
   lang: Lang;
-  setLang: (l: Lang) => void;
   t: HomeCopy;
 }) {
   if (!open) return null;
@@ -37,7 +35,7 @@ export function MobileDrawer({
             <span className="font-sans uppercase text-clay text-[11px] tracking-[0.08em] leading-4">
               {t.lang}
             </span>
-            <LangPill lang={lang} setLang={setLang} />
+            <LangPill lang={lang} />
           </div>
 
           <ul className="flex flex-col gap-1 border-t border-rule pt-6">

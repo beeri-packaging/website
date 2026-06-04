@@ -2,6 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { homeImages } from "@/app/content/home";
 import type { HomeCopy, Lang } from "@/app/content/home";
+import { cn } from "@/lib/cn";
+import { Eyebrow } from "@/components/ui/eyebrow";
+import { buttonVariants } from "@/components/ui/button";
 import { ArrowGlyph } from "./icons";
 
 export function Hero({ lang, t }: { lang: Lang; t: HomeCopy }) {
@@ -34,11 +37,7 @@ export function Hero({ lang, t }: { lang: Lang; t: HomeCopy }) {
       <div className="pointer-events-none absolute inset-y-0 right-8 lg:right-16 hidden lg:block w-px bg-gradient-to-b from-transparent via-ink/10 to-transparent" />
 
       <div className="relative flex flex-col items-center gap-4 sm:gap-6 text-center px-5 sm:px-6 max-w-[742px] w-full">
-        <div className="bg-yellow inline-flex items-start justify-center px-3 py-1 animate-rise max-w-full">
-          <span className="font-sans text-cyan-deep text-[10.5px] sm:text-[12px] tracking-[0.08em] leading-4 uppercase text-balance">
-            {t.eyebrow}
-          </span>
-        </div>
+        <Eyebrow className="animate-rise">{t.eyebrow}</Eyebrow>
 
         <h1
           className="font-display font-bold text-ink leading-[0.82] sm:leading-[0.74] md:leading-[0.7] animate-rise"
@@ -57,7 +56,7 @@ export function Hero({ lang, t }: { lang: Lang; t: HomeCopy }) {
         >
           <Link
             href="#cta"
-            className="group inline-flex items-center justify-center gap-3 bg-ink border border-ink text-bone rounded-[5px] px-8 sm:px-10 py-4 sm:py-5 text-[13px] sm:text-[14px] font-sans font-bold tracking-[0.08em] hover:bg-bone hover:text-ink transition-colors duration-300"
+            className={cn(buttonVariants({ variant: "primary", size: "md" }), "group")}
           >
             {t.cta1}
             <span
@@ -71,7 +70,7 @@ export function Hero({ lang, t }: { lang: Lang; t: HomeCopy }) {
           </Link>
           <Link
             href="#journey"
-            className="inline-flex items-center justify-center border border-ink text-ink rounded-[5px] px-8 sm:px-10 py-4 sm:py-5 text-[13px] sm:text-[14px] font-sans font-bold tracking-[0.08em] hover:bg-ink hover:text-bone transition-colors duration-300"
+            className={cn(buttonVariants({ variant: "secondary", size: "md" }))}
           >
             {t.cta2}
           </Link>

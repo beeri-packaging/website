@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { homeImages, navLinks } from "@/app/content/home";
 import type { HomeCopy, Lang } from "@/app/content/home";
+import { cn } from "@/lib/cn";
+import { buttonVariants } from "@/components/ui/button";
 
 export function Header({
   lang,
@@ -27,7 +29,7 @@ export function Header({
             alt={lang === "he" ? "בארי אריזות" : "Beeri Packaging"}
             width={249}
             height={64}
-            priority
+            preload
             className="h-11 sm:h-12 md:h-14 w-auto"
           />
         </Link>
@@ -48,7 +50,7 @@ export function Header({
         <div className="flex items-center gap-2 sm:gap-3">
           <Link
             href="/#cta"
-            className="hidden md:inline-flex items-center justify-center bg-ink text-bone rounded-[5px] px-6 lg:px-8 py-3 text-[13px] lg:text-[14px] font-sans font-bold tracking-[0.08em] hover:bg-clay hover:text-bone transition-colors duration-300 focus-ring"
+            className={cn(buttonVariants({ variant: "solid", size: "sm" }), "hidden md:inline-flex lg:px-8")}
           >
             {t.contact}
           </Link>
