@@ -1,34 +1,5 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
-
-/**
- * An `image` field that mirrors the home page's image needs: a Sanity asset
- * with required alt text, plus a `legacyImagePath` for images not yet
- * uploaded to the CDN. The mapper resolves the asset URL when present and
- * falls back to `legacyImagePath` otherwise — both render the same picture.
- */
-function imageField(name: string, title: string) {
-  return defineField({
-    name,
-    title,
-    type: "image",
-    options: { hotspot: true },
-    fields: [
-      defineField({
-        name: "alt",
-        title: "Alt text",
-        type: "string",
-        validation: (rule) => rule.required(),
-      }),
-      defineField({
-        name: "legacyImagePath",
-        title: "Legacy image path",
-        type: "string",
-        description:
-          "Local /images/... path, used until the asset is uploaded.",
-      }),
-    ],
-  });
-}
+import { imageField } from "./_helpers";
 
 /**
  * The home document. Each document represents ONE locale (he or en); the
