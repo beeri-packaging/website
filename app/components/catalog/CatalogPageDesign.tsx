@@ -15,7 +15,7 @@ function SpecCard({ lines }: { lines: CatalogCopy["specCard"] }) {
   const dots = ["bg-purple", "bg-cyan", "bg-yellow", "bg-magenta"];
   return (
     <div className="self-start border border-ink bg-sand p-6 shadow-[4px_4px_0_0_var(--ink)] md:self-end">
-      <div className="flex justify-end gap-4">
+      <div dir="ltr" className="flex justify-end gap-4">
         {dots.map((bg) => (
           <span key={bg} className={`${bg} size-3 border border-ink`} aria-hidden />
         ))}
@@ -99,7 +99,7 @@ function GridCard({ item }: { item: CatalogItem }) {
             alt={item.name}
             fill
             sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-            className="object-cover grayscale"
+            className="object-cover"
           />
         ) : null}
         {/* Technical overlay — revealed on hover */}
@@ -133,7 +133,7 @@ function GridCard({ item }: { item: CatalogItem }) {
           {item.description}
         </p>
         {item.tags?.length ? (
-          <div className="mt-auto flex flex-wrap justify-end gap-2 pt-2">
+          <div dir="ltr" className="mt-auto flex flex-wrap justify-end gap-2 pt-2">
             {item.tags.map((tag) => (
               <Tag key={tag.label} tag={tag} />
             ))}
@@ -157,11 +157,11 @@ function FeatureCard({ item }: { item: CatalogItem }) {
           {item.description}
         </p>
         {item.specs?.length ? (
-          <div className="grid w-full grid-cols-2 gap-4">
+          <div dir="ltr" className="grid w-full grid-cols-2 gap-4">
             {item.specs.map((spec, i) => (
               <div
                 key={spec.label}
-                className={`flex flex-col items-center border-s-2 ps-3 ${
+                className={`flex flex-col items-center border-e-2 pe-3 ${
                   i === 0 ? "border-cyan" : "border-magenta"
                 }`}
               >
@@ -191,7 +191,7 @@ function FeatureCard({ item }: { item: CatalogItem }) {
             alt={item.name}
             fill
             sizes="(min-width: 768px) 25vw, 100vw"
-            className="object-cover grayscale"
+            className="object-cover"
           />
         </div>
       ) : null}
@@ -226,7 +226,7 @@ function ModularCard({ item }: { item: CatalogItem }) {
         {item.description}
       </p>
       {item.specs?.length ? (
-        <div className="mt-2 flex flex-wrap justify-center gap-8 sm:gap-12">
+        <div dir="ltr" className="mt-2 flex flex-wrap justify-center gap-8 sm:gap-12">
           {item.specs.map((spec) => (
             <div key={spec.label} className="flex flex-col items-center">
               <span className="font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-magenta">
