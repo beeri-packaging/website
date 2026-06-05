@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import type { Lang } from "@/app/content/home";
 import type { BlogIndexCopy } from "@/app/content/blog";
 import { ArrowGlyph } from "@/app/components/home/icons";

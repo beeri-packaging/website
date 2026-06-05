@@ -90,7 +90,7 @@ export function ContactDialog({ lang, open, onOpenChange }: ContactDialogProps) 
         size="lg"
         closeLabel={copy.closeLabel}
         showClose={false}
-        className="max-w-[920px] shadow-[8px_8px_0_var(--yellow),0_25px_50px_-12px_rgba(0,0,0,0.25)]"
+        className="max-w-[920px] border border-ink shadow-[8px_8px_0_var(--yellow),0_25px_50px_-12px_rgba(0,0,0,0.25)]"
       >
         {/* Custom close cluster (X + label), inline-end / top — mirrors the Figma. */}
         <DialogClose
@@ -113,7 +113,7 @@ export function ContactDialog({ lang, open, onOpenChange }: ContactDialogProps) 
                 <span className="font-sans text-[16px] font-semibold uppercase tracking-[0.5px] text-clay">
                   {copy.eyebrow}
                 </span>
-                <DialogTitle className="text-[52px] leading-[0.92] sm:text-[64px] md:text-[80px]">
+                <DialogTitle className="text-logo-dark text-[44px] leading-[0.74] sm:text-[72px] md:text-[88px] lg:text-[104px]">
                   {copy.title}
                 </DialogTitle>
                 <DialogDescription className="sr-only">
@@ -231,7 +231,7 @@ export function ContactDialog({ lang, open, onOpenChange }: ContactDialogProps) 
                 {/* Submit row — button on the inline-end, consent on the inline-start. */}
                 <div className="mt-2 flex flex-col-reverse items-stretch justify-between gap-6 sm:col-span-2 sm:flex-row sm:items-center">
                   <div className="flex flex-col gap-2">
-                    <p className="max-w-[320px] font-sans text-[10px] uppercase leading-[1.6] tracking-[0.04em] text-clay text-start">
+                    <p className="max-w-[320px] font-sans text-[12px] font-extrabold uppercase leading-[16px] tracking-[0.08em] text-clay text-start">
                       {copy.form.consent}
                     </p>
                     {submitError ? (

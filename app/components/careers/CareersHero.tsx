@@ -33,7 +33,7 @@ export function CareersHero({
       <div className="flex flex-col gap-8 border-b border-ink pb-8 md:gap-12 md:flex-row md:items-end md:justify-between md:pb-10">
         {/* Start column — eyebrow, oversized headline, intro */}
         <div className="flex min-w-0 flex-col">
-          <p className="ds-eyebrow text-clay">{copy.eyebrow}</p>
+          <p className="ds-eyebrow text-purple">{copy.eyebrow}</p>
           <h1 className="mt-5 font-display text-[44px] font-bold leading-[0.9] text-ink sm:text-[64px] md:text-[80px] lg:text-[96px]">
             {copy.title.join(" ")}
           </h1>

@@ -1,17 +1,16 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import type { CareersArticle } from "@/app/content/careers";
 import type { Lang } from "@/app/content/home";
-import { ArrowGlyph } from "@/app/components/home/icons";
+import { ArrowGlyph, PrintRulerGlyph } from "@/app/components/home/icons";
 
-function PackageIcon() {
+/** Small vertical flag/ribbon marker hung from a card's top-start edge. */
+function RibbonFlag({ color }: { color: string }) {
   return (
-    <svg viewBox="0 0 48 48" className="h-11 w-11 text-ink" aria-hidden>
-      <path
-        d="M10 9h28v8H10V9Zm4 12h20v18H14V21Zm5 5v4h10v-4H19Zm0 8v3h10v-3H19Z"
-        fill="currentColor"
-      />
-    </svg>
+    <span
+      aria-hidden
+      className={`absolute top-0 start-6 z-10 h-7 w-[15px] ${color} [clip-path:polygon(0_0,100%_0,100%_100%,50%_70%,0_100%)]`}
+    />
   );
 }
 
@@ -38,11 +37,15 @@ function ArticleTag({
   );
 }
 
-function FeatureArticle({ article }: { article: CareersArticle }) {
+function FeatureArticle({ article, lang }: { article: CareersArticle; lang: Lang }) {
   return (
-    <article className="relative overflow-hidden border border-ink bg-sand lg:col-span-8 lg:row-span-2">
+    <article
+      dir={lang === "he" ? "rtl" : "ltr"}
+      className="relative overflow-hidden border border-ink bg-sand lg:col-start-1 lg:col-span-8 lg:row-start-1 lg:row-span-2 lg:h-full"
+    >
       <span className="absolute inset-x-0 top-0 h-1 bg-magenta" aria-hidden />
-      <div className="flex min-h-[720px] flex-col justify-between p-6 sm:p-8 lg:min-h-[890px]">
+      <RibbonFlag color="bg-magenta" />
+      <div className="flex min-h-[640px] flex-col justify-between p-6 sm:p-8 lg:h-full lg:min-h-0">
         <div>
           <div className="flex items-center justify-between gap-4">
             <ArticleTag tone="magenta">{article.tag}</ArticleTag>
@@ -85,7 +88,11 @@ function FeatureArticle({ article }: { article: CareersArticle }) {
 
 function PlainArticle({ article, lang }: { article: CareersArticle; lang: Lang }) {
   return (
-    <article className="border border-ink bg-mist p-6 sm:p-8 lg:col-span-4 lg:min-h-[410px]">
+    <article
+      dir={lang === "he" ? "rtl" : "ltr"}
+      className="relative border border-ink bg-mist p-6 sm:p-8 lg:col-start-9 lg:col-span-4 lg:row-start-1 lg:h-full"
+    >
+      <RibbonFlag color="bg-cyan" />
       <ArticleTag tone="cyan">{article.tag}</ArticleTag>
       <h2 className="mt-12 font-display text-[52px] font-bold leading-none text-ink sm:text-[64px]">
         {article.title.join(" ")}
@@ -98,9 +105,11 @@ function PlainArticle({ article, lang }: { article: CareersArticle; lang: Lang }
       {article.cta ? (
         <Link
           href="/blog/finishing-language"
-          className="mt-9 flex items-center justify-between border-t border-ink pt-5 font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-ink focus-ring"
+          className="mt-9 flex items-center justify-between border-t border-ink pt-5 font-sans text-[14px] font-bold tracking-[0.07em] text-ink focus-ring"
         >
-          {article.cta}
+          <span className="underline decoration-solid underline-offset-[3px]">
+            {article.cta}
+          </span>
           <ArrowGlyph direction={lang === "he" ? "right-to-left" : "left-to-right"} />
         </Link>
       ) : null}
@@ -108,14 +117,18 @@ function PlainArticle({ article, lang }: { article: CareersArticle; lang: Lang }
   );
 }
 
-function YellowArticle({ article }: { article: CareersArticle }) {
+function YellowArticle({ article, lang }: { article: CareersArticle; lang: Lang }) {
   return (
-    <article className="relative overflow-hidden border border-ink bg-yellow p-6 sm:p-8 lg:col-span-4 lg:min-h-[410px]">
+    <article
+      dir={lang === "he" ? "rtl" : "ltr"}
+      className="relative overflow-hidden border border-ink bg-yellow p-6 sm:p-8 lg:col-start-9 lg:col-span-4 lg:row-start-2 lg:h-full"
+    >
       <div
         aria-hidden
         className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle_at_center,var(--clay)_2px,transparent_2px)] [background-size:96px_96px]"
       />
-      <div className="relative flex min-h-[330px] flex-col justify-between">
+      <RibbonFlag color="bg-logo-dark" />
+      <div className="relative flex min-h-[330px] flex-col justify-between lg:h-full">
         <div>
           <ArticleTag tone="dark">{article.tag}</ArticleTag>
           <h2 className="mt-12 font-display text-[54px] font-bold leading-[0.9] text-ink sm:text-[64px]">
@@ -126,17 +139,22 @@ function YellowArticle({ article }: { article: CareersArticle }) {
             ))}
           </h2>
         </div>
-        <PackageIcon />
+        <div className="mt-6 text-ink">
+          <PrintRulerGlyph />
+        </div>
       </div>
     </article>
   );
 }
 
-function ImageArticle({ article }: { article: CareersArticle }) {
+function ImageArticle({ article, lang }: { article: CareersArticle; lang: Lang }) {
   return (
-    <article className="overflow-hidden border border-ink bg-bone lg:col-span-4">
+    <article
+      dir={lang === "he" ? "rtl" : "ltr"}
+      className="overflow-hidden border border-ink bg-bone lg:col-start-1 lg:col-span-4 lg:row-start-3 lg:row-span-2 lg:flex lg:h-full lg:flex-col"
+    >
       {article.image ? (
-        <div className="relative aspect-[1.08] bg-ink">
+        <div className="relative aspect-[1.08] bg-ink lg:aspect-auto lg:flex-1">
           <Image
             src={article.image}
             alt={article.title.join(" ")}
@@ -163,12 +181,15 @@ function ImageArticle({ article }: { article: CareersArticle }) {
 
 function WideArticle({ article, lang }: { article: CareersArticle; lang: Lang }) {
   return (
-    <article className="grid gap-8 border border-ink bg-bone p-6 sm:p-8 md:grid-cols-[1fr_auto] md:items-center lg:col-span-8">
+    <article
+      dir={lang === "he" ? "rtl" : "ltr"}
+      className="grid gap-8 border border-ink bg-bone p-6 sm:p-8 md:grid-cols-[1fr_auto] md:items-center lg:col-start-5 lg:col-span-8 lg:row-start-3 lg:h-full"
+    >
       <div>
         <p className="font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-magenta">
           {article.tag}
         </p>
-        <h2 className="mt-3 font-display text-[52px] font-bold leading-[0.92] text-ink sm:text-[64px]">
+        <h2 className="mt-3 font-display text-[48px] font-bold leading-[0.92] text-ink sm:text-[64px]">
           {article.title.map((line) => (
             <span key={line} className="block">
               {line}
@@ -184,10 +205,10 @@ function WideArticle({ article, lang }: { article: CareersArticle; lang: Lang })
       {article.cta ? (
         <Link
           href="/finishing"
-          className="inline-flex items-center justify-center gap-3 bg-magenta px-8 py-4 font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-bone shadow-[4px_4px_0_var(--yellow)] focus-ring"
+          className="inline-flex items-center justify-center gap-3 border border-ink bg-magenta px-8 py-4 font-sans text-[14px] font-bold tracking-[0.07em] text-bone transition-colors hover:bg-ink focus-ring"
         >
-          {article.cta}
           <ArrowGlyph direction={lang === "he" ? "right-to-left" : "left-to-right"} />
+          {article.cta}
         </Link>
       ) : null}
     </article>
@@ -202,7 +223,7 @@ function BentoArticle({
   lang: Lang;
 }) {
   if (article.theme === "feature") {
-    return <FeatureArticle article={article} />;
+    return <FeatureArticle article={article} lang={lang} />;
   }
 
   if (article.theme === "plain") {
@@ -210,11 +231,11 @@ function BentoArticle({
   }
 
   if (article.theme === "yellow") {
-    return <YellowArticle article={article} />;
+    return <YellowArticle article={article} lang={lang} />;
   }
 
   if (article.theme === "image") {
-    return <ImageArticle article={article} />;
+    return <ImageArticle article={article} lang={lang} />;
   }
 
   return <WideArticle article={article} lang={lang} />;
@@ -228,7 +249,10 @@ export function CareersBento({
   lang: Lang;
 }) {
   return (
-    <section className="mx-auto grid w-full max-w-[1280px] grid-cols-1 gap-6 px-5 pb-24 sm:px-8 md:px-12 lg:grid-cols-12 lg:px-20">
+    <section
+      dir="ltr"
+      className="mx-auto grid w-full max-w-[1280px] grid-cols-1 gap-6 px-5 pb-24 sm:px-8 md:px-12 lg:grid-cols-12 lg:grid-rows-[482px_456px_300px_300px] lg:px-20"
+    >
       {articles.map((article) => (
         <BentoArticle
           key={`${article.theme}-${article.title.join("-")}`}

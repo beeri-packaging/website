@@ -7,7 +7,6 @@ import { careersCopy, careersImages } from "../app/content/careers";
 import { catalogCopy, catalogImages } from "../app/content/catalog";
 import { finishingCopy, finishingImages } from "../app/content/finishing";
 import { blogIndexCopy, blogPosts, categoryLabels } from "../app/content/blog";
-import { placeholderContent } from "../app/content/placeholder";
 import type { Lang } from "../app/content/home";
 
 const LANGS: Lang[] = ["he", "en"];
@@ -173,15 +172,6 @@ async function main() {
       });
     }
 
-    // PLACEHOLDER PAGES (portfolio)
-    for (const route of ["portfolio"] as const) {
-      const pc = placeholderContent[route][lang];
-      await writeClient.createOrReplace({
-        _id: `placeholder-${route}-${lang}`, _type: "placeholderPage", language: lang, route,
-        eyebrow: pc.eyebrow, title: [...pc.title], lead: pc.lead, body: pc.body,
-        preview: [...pc.preview], ctaPrimary: pc.ctaPrimary, ctaSecondary: pc.ctaSecondary,
-      });
-    }
     console.log(`  ✓ all docs for ${lang}`);
   }
 
@@ -208,8 +198,6 @@ async function main() {
   await linkTranslations("finishing-translation", "finishing", "finishing-he", "finishing-en");
   await linkTranslations("siteSettings-translation", "siteSettings", "siteSettings-he", "siteSettings-en");
   await linkTranslations("blogSettings-translation", "blogSettings", "blogSettings-he", "blogSettings-en");
-  for (const route of ["portfolio"] as const)
-    await linkTranslations(`placeholder-${route}-translation`, "placeholderPage", `placeholder-${route}-he`, `placeholder-${route}-en`);
   for (const p of blogPosts)
     await linkTranslations(`post-${p.slug}-translation`, "post", `post-${p.slug}-he`, `post-${p.slug}-en`);
 

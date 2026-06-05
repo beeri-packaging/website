@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import type { FinishingCopy, FinishingGridItem } from "@/app/content/finishing";
 import type { Lang } from "@/app/content/home";
-import { ArrowGlyph } from "@/app/components/home/icons";
+import { PrecisionArmIcon } from "@/app/components/home/icons";
 import { ContactTriggerButton } from "@/app/components/contact/ContactTriggerButton";
 
 function FinishImage({
@@ -34,13 +34,7 @@ function FinishImage({
   );
 }
 
-function FeatureCard({
-  item,
-  arrowDirection,
-}: {
-  item: FinishingGridItem;
-  arrowDirection: "right-to-left" | "left-to-right";
-}) {
+function FeatureCard({ item }: { item: FinishingGridItem }) {
   return (
     <article className="relative flex h-full flex-col overflow-hidden border border-blueprint bg-bone">
       {item.sample ? (
@@ -48,7 +42,7 @@ function FeatureCard({
           <span className="bg-yellow px-4 py-1 font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-blueprint">
             {item.sample}
           </span>
-          <span className="h-0 w-0 border-b-[24px] border-l-[15px] border-b-transparent border-l-yellow" aria-hidden />
+          <span className="h-0 w-0 border-y-[12px] border-l-[15px] border-y-transparent border-l-yellow" aria-hidden />
         </div>
       ) : null}
       {item.image ? (
@@ -66,17 +60,16 @@ function FeatureCard({
         </h2>
         <div className="flex flex-1 flex-col gap-6 md:flex-row md:items-end md:justify-between">
           {item.body ? (
-            <p className="max-w-[448px] font-sans text-[16px] leading-[1.56] tracking-[-0.01em] text-clay md:order-2">
+            <p className="max-w-[448px] font-sans text-[16px] leading-[1.56] tracking-[-0.01em] text-clay md:order-1">
               {item.body}
             </p>
           ) : null}
         {item.cta ? (
           <Link
             href="/catalog"
-              className="inline-flex items-center gap-3 self-start font-sans text-[14px] font-bold tracking-[0.08em] text-purple underline underline-offset-2 focus-ring md:order-1"
+              className="inline-flex items-center self-start font-sans text-[14px] font-bold tracking-[0.08em] text-purple underline underline-offset-2 focus-ring md:order-2 md:self-end"
           >
             {item.cta}
-            <ArrowGlyph direction={arrowDirection} />
           </Link>
         ) : null}
         </div>
@@ -86,8 +79,6 @@ function FeatureCard({
 }
 
 export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang: Lang }) {
-  const arrowDirection = lang === "he" ? "right-to-left" : "left-to-right";
-
   return (
     <div className="bg-bone">
       <section className="mx-auto w-full max-w-[1152px] px-5 pb-[75px] pt-2 sm:px-8 lg:px-0">
@@ -116,7 +107,7 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
         dir="ltr"
       >
         <div className="lg:col-span-8" dir={lang === "he" ? "rtl" : "ltr"}>
-          <FeatureCard item={copy.feature} arrowDirection={arrowDirection} />
+          <FeatureCard item={copy.feature} />
         </div>
 
         <div className="grid gap-6 lg:col-span-4" dir={lang === "he" ? "rtl" : "ltr"}>
@@ -126,9 +117,7 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
                 {copy.metricsTitle}
               </h2>
               <span className="text-cyan" aria-hidden>
-                <svg viewBox="0 0 32 32" className="h-5 w-5 fill-current">
-                  <path d="M16 2h4v7h7v4h-7v7h-4v-7H9V9h7V2Zm-8 18h4v4H8v-4Zm12 4h-4v-4h4v4Zm4-4h4v4h-4v-4Z" />
-                </svg>
+                <PrecisionArmIcon />
               </span>
             </div>
             <dl className="grid gap-6">
@@ -145,8 +134,8 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
             </dl>
           </aside>
 
-          <aside className="border border-blueprint bg-bone p-8">
-            <blockquote className="font-sans text-[16px] font-normal leading-[1.56] tracking-[-0.01em] text-blueprint">
+          <aside className="border border-blueprint bg-bone p-[33px]">
+            <blockquote className="ms-auto max-w-[274px] font-sans text-[16px] font-normal leading-[1.56] tracking-[-0.01em] text-blueprint">
               {copy.quote}
             </blockquote>
             <div className="mt-6 flex items-center justify-end gap-2">
@@ -165,17 +154,17 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
               alt={copy.deboss.title}
               className="h-[360px] sm:h-[477px]"
               sizes="(min-width: 1024px) 37vw, 100vw"
-              objectPosition="50% 50%"
+              objectPosition="62% 47%"
             />
           ) : null}
-          <div className="p-6 text-right sm:p-8">
+          <div className="p-8 text-right">
             <p className="font-sans text-[12px] font-extrabold uppercase leading-4 tracking-[0.08em] text-purple">
               {copy.deboss.eyebrow}
             </p>
-            <h2 className="mt-2 font-display text-[24px] font-bold leading-[0.8] tracking-[0.05em] text-blueprint">
+            <h2 className="mt-2 font-display text-[24px] font-bold leading-[0.9] tracking-[0.05em] text-blueprint">
               {copy.deboss.title}
             </h2>
-            <p className="mt-4 font-sans text-[16px] leading-[1.56] tracking-[-0.01em] text-clay">
+            <p className="mt-4 whitespace-pre-line font-sans text-[16px] leading-[1.56] tracking-[-0.01em] text-clay">
               {copy.deboss.body}
             </p>
           </div>
@@ -196,7 +185,7 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
               alt={copy.texture.title}
               className="h-[349px] opacity-80 mix-blend-multiply"
               sizes="(min-width: 1024px) 54vw, 100vw"
-              objectPosition="50% 35%"
+              objectPosition="52% 65%"
             />
           ) : null}
         </article>

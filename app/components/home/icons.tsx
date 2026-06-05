@@ -120,6 +120,53 @@ export function PinGlyph() {
   );
 }
 
+/** Articulated precision / robotic arm — finishing "נתוני גימור" metrics window. */
+export function PrecisionArmIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <g
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M4 20h6" />
+        <path d="M7 20v-4.5" />
+        <path d="M7 15.5 13.5 13" />
+        <path d="M13.5 13 17 15.5" />
+        <path d="M17 13.5v4l3.2-1.2" />
+      </g>
+      <circle cx="7" cy="15.5" r="1.3" fill="currentColor" />
+    </svg>
+  );
+}
+
+/** Wide measurement-ruler strip — careers "דיוק בדפוס וגימור" card. */
+export function PrintRulerGlyph() {
+  return (
+    <svg
+      viewBox="0 0 220 40"
+      className="h-[44px] w-full"
+      preserveAspectRatio="xMidYMid meet"
+      fill="none"
+      aria-hidden
+    >
+      <g stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+        <rect x="2" y="13" width="216" height="14" rx="1" />
+        <line x1="24" y1="13" x2="24" y2="21" />
+        <line x1="46" y1="13" x2="46" y2="24" />
+        <line x1="68" y1="13" x2="68" y2="21" />
+        <line x1="90" y1="13" x2="90" y2="24" />
+        <line x1="112" y1="13" x2="112" y2="21" />
+        <line x1="134" y1="13" x2="134" y2="24" />
+        <line x1="156" y1="13" x2="156" y2="21" />
+        <line x1="178" y1="13" x2="178" y2="24" />
+        <line x1="200" y1="13" x2="200" y2="21" />
+      </g>
+    </svg>
+  );
+}
+
 export function DieCutIcon() {
   return (
     <svg width="22" height="36" viewBox="0 0 16.5 27" fill="none" aria-hidden>

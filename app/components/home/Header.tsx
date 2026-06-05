@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import type { Lang } from "@/app/content/home";
 import type { Chrome } from "@/app/content/site";
 import { cn } from "@/lib/cn";
@@ -23,6 +23,14 @@ export function Header({
         <Link
           href="/"
           aria-label={lang === "he" ? "בארי אריזות" : "Beeri Packaging"}
+          onClick={(e) => {
+            // Already on the home page → smooth-scroll to top instead of a
+            // no-op navigation. /he and /en (with or without trailing slash).
+            if (/^\/(he|en)\/?$/.test(window.location.pathname)) {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+          }}
           className="block shrink-0 focus-ring rounded-sm transition-opacity hover:opacity-80"
         >
           <Image
@@ -50,7 +58,7 @@ export function Header({
 
         <div className="flex items-center gap-2 sm:gap-3">
           <ContactTriggerButton
-            className={cn(buttonVariants({ variant: "solid", size: "sm" }), "hidden md:inline-flex lg:px-8")}
+            className={cn(buttonVariants({ variant: "cyan", size: "sm" }), "hidden md:inline-flex lg:px-8")}
           >
             {chrome.contact}
           </ContactTriggerButton>

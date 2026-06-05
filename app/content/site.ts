@@ -33,9 +33,8 @@ const emailAddr = COMPANY.email;
 const mapsHref = MAPS_HREF;
 
 export const navLinks: readonly NavLink[] = [
-  { he: "פורטפוליו", en: "Work", href: "/portfolio" },
   { he: "השבחות", en: "Finishing", href: "/finishing" },
-  { he: "קריירה", en: "Careers", href: "/careers" },
+  { he: "ג׳ורנל", en: "Journal", href: "/careers" },
   { he: "קטלוג", en: "Catalog", href: "/catalog" },
 ];
 

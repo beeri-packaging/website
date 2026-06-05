@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import type { Lang } from "@/app/content/home";
 import type { Chrome } from "@/app/content/site";
 import { LinkedInGlyph, MailGlyph, PinGlyph, ArrowOut } from "./icons";

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import type { Lang } from "@/app/content/home";
 import type { Chrome } from "@/app/content/site";
 import { ContactTriggerButton } from "@/app/components/contact/ContactTriggerButton";
@@ -74,7 +74,7 @@ export function MobileDrawer({
           <div className="flex flex-col gap-4">
             <ContactTriggerButton
               onClick={onClose}
-              className="inline-flex items-center justify-center bg-ink text-bone rounded-[5px] px-8 py-4 text-[14px] font-sans font-bold tracking-[0.08em] hover:bg-clay transition-colors duration-300"
+              className="inline-flex items-center justify-center bg-ink text-bone rounded-none px-8 py-4 text-[14px] font-sans font-bold tracking-[0.08em] hover:bg-clay transition-colors duration-300"
             >
               {chrome.contact}
             </ContactTriggerButton>

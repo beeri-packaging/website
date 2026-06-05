@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import type { Lang } from "@/app/content/home";
 import {
   categoryChipClass,
@@ -68,7 +68,7 @@ function MetaSidebar({
 function QuoteBlock({ post }: { post: LocalizedPost }) {
   if (!post.quote) return null;
   return (
-    <div className="flex flex-col items-stretch gap-8 pt-6 sm:flex-row sm:items-center">
+    <div className="flex flex-col items-stretch gap-8 pt-6 sm:flex-row-reverse sm:items-center">
       {post.quoteImage ? (
         <div className="relative aspect-square w-full shrink-0 overflow-hidden border border-ink bg-sand sm:w-[44%]">
           <Image
@@ -80,12 +80,12 @@ function QuoteBlock({ post }: { post: LocalizedPost }) {
           />
         </div>
       ) : null}
-      <blockquote className="flex flex-col gap-4 border-s-4 border-yellow ps-6 sm:ps-9">
-        <p className="font-sans text-[22px] font-extrabold leading-[1.12] text-ink sm:text-[24px]">
+      <blockquote className="flex flex-1 flex-col gap-4 border-s-4 border-yellow ps-6 text-start sm:ps-9">
+        <p className="font-sans text-[24px] font-extrabold leading-[25px] text-ink">
           {post.quote.text}
         </p>
         {post.quote.cite ? (
-          <cite className="font-sans text-[18px] not-italic text-magenta sm:text-[20px]">
+          <cite className="font-sans text-[20px] not-italic text-magenta">
             {post.quote.cite}
           </cite>
         ) : null}
@@ -153,7 +153,7 @@ function RelatedCard({
         {label} / 0{index + 1}
       </span>
       <h3
-        className={`font-display text-[40px] leading-[0.95] sm:text-[46px] ${
+        className={`font-display text-h2 text-balance leading-[0.95] ${
           dark ? "text-bone" : "text-ink"
         }`}
       >
@@ -213,22 +213,33 @@ export function BlogArticle({
             >
               {badge}
             </span>
-            <h1 className="font-display text-h1 text-blueprint">{post.title}</h1>
+            <h1 className="font-display text-h1 text-balance text-logo-dark">{post.title}</h1>
             <p className="font-sans text-[20px] font-extrabold leading-[1.08] text-clay sm:text-[24px]">
               {post.excerpt}
             </p>
           </div>
 
           {post.image ? (
-            <div className="relative aspect-[16/10] w-full overflow-hidden border border-ink bg-sand lg:-mt-16 lg:w-8/12 lg:self-end">
-              <Image
-                src={post.image}
-                alt={post.imageAlt ?? post.title}
-                fill
-                priority
-                sizes="(min-width: 1024px) 80vw, 100vw"
-                className="object-cover"
+            <div className="relative isolate lg:-mt-16 lg:w-8/12 lg:self-end">
+              {/* Floating brand accent peeking from the lower start corner (Figma 531:532). */}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute -bottom-5 -start-5 z-0 h-20 w-20 bg-yellow sm:h-24 sm:w-24"
               />
+              <span
+                aria-hidden
+                className="pointer-events-none absolute -bottom-2 -start-9 z-0 h-12 w-10 bg-magenta"
+              />
+              <div className="relative z-10 aspect-[16/10] w-full overflow-hidden border border-ink bg-sand">
+                <Image
+                  src={post.image}
+                  alt={post.imageAlt ?? post.title}
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 80vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
             </div>
           ) : null}
         </header>
@@ -263,19 +274,19 @@ export function BlogArticle({
         {related.length > 0 ? (
           <div className="mt-20 flex flex-col gap-10 sm:mt-28">
             <div className="flex items-end justify-between gap-6 border-b border-ink pb-4">
-              <h2 className="font-display text-h2 text-ink sm:text-h1">
+              <h2 className="font-display text-h1 text-ink">
                 {t.moreFromBlog}
               </h2>
               <Link
-                href="/"
+                href="/careers"
                 className="group inline-flex items-center gap-2 pb-2 font-sans text-[14px] font-bold uppercase tracking-[0.08em] text-magenta underline decoration-from-font underline-offset-2 transition-colors duration-300 hover:text-ink focus-ring"
               >
                 <span
                   aria-hidden
-                  className="inline-block transition-transform duration-300 ltr:group-hover:-translate-x-1 rtl:group-hover:translate-x-1"
+                  className="inline-block transition-transform duration-300 rtl:group-hover:-translate-x-1 ltr:group-hover:translate-x-1"
                 >
                   <ArrowGlyph
-                    direction={lang === "he" ? "left-to-right" : "right-to-left"}
+                    direction={lang === "he" ? "right-to-left" : "left-to-right"}
                   />
                 </span>
                 {t.allPosts}

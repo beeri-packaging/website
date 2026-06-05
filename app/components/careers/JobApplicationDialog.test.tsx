@@ -1,13 +1,25 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent, within } from "@testing-library/react";
 import { JobApplicationDialog } from "./JobApplicationDialog";
+import { ContactDialogProvider } from "@/app/components/contact/ContactDialogProvider";
 import { jobApplicationCopy } from "@/app/content/jobApplication";
+import type { Lang } from "@/app/content/home";
 
 const he = jobApplicationCopy.he;
 const role = { code: "#BR-402", title: "רכז/ת איכות" };
 
+// The dialog now reads useContactDialog() for its "inquire" button, so it must
+// render inside the provider (which also mounts the closed global contact dialog).
+function renderDialog(lang: Lang, props: { triggerLabel?: string } = {}) {
+  return render(
+    <ContactDialogProvider lang={lang}>
+      <JobApplicationDialog lang={lang} role={role} {...props} />
+    </ContactDialogProvider>
+  );
+}
+
 function open() {
-  render(<JobApplicationDialog lang="he" role={role} triggerLabel="להגשה" />);
+  renderDialog("he", { triggerLabel: "להגשה" });
   fireEvent.click(screen.getByRole("button", { name: "להגשה" }));
   return screen.getByRole("dialog");
 }
@@ -54,7 +66,7 @@ describe("JobApplicationDialog", () => {
   });
 
   it("renders English copy when lang is en", () => {
-    render(<JobApplicationDialog lang="en" role={role} />);
+    renderDialog("en");
     fireEvent.click(
       screen.getByRole("button", { name: jobApplicationCopy.en.triggerLabel })
     );
