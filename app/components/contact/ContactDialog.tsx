@@ -31,7 +31,7 @@ const FIELD_CLASS =
   "w-full border-b-2 border-ink/20 bg-transparent px-3 pb-3 pt-2 font-sans text-[16px] text-ink text-start outline-none transition-colors placeholder:text-clay-soft/55 focus:border-ink aria-[invalid=true]:border-magenta";
 
 const LABEL_CLASS =
-  "font-sans text-[11px] font-semibold uppercase tracking-[0.5px] text-clay text-start";
+  "font-sans text-[16px] font-light leading-[25px] text-clay text-start";
 
 export function ContactDialog({ lang, open, onOpenChange }: ContactDialogProps) {
   const copy = contactCopy[lang];
@@ -109,7 +109,7 @@ export function ContactDialog({ lang, open, onOpenChange }: ContactDialogProps) 
           ) : (
             <div className="flex flex-col gap-10 md:gap-12">
               {/* Header — yellow accent rule on the inline-start edge. */}
-              <header className="flex w-full flex-col gap-2 border-s-4 border-yellow ps-7 text-start">
+              <header className="flex w-full flex-col gap-2 border-s-4 border-magenta ps-7 text-start">
                 <span className="font-sans text-[16px] font-semibold uppercase tracking-[0.5px] text-clay">
                   {copy.eyebrow}
                 </span>
