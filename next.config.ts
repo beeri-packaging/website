@@ -12,6 +12,14 @@ const nextConfig: NextConfig = {
     // Sanity-hosted assets are served from the image CDN.
     remotePatterns: [{ protocol: "https", hostname: "cdn.sanity.io" }],
   },
+  // The /portfolio placeholder route was removed; 301 any old (possibly
+  // indexed / linked) locale URLs to the catalog so they don't hard-404.
+  async redirects() {
+    return [
+      { source: "/portfolio", destination: "/catalog", permanent: true },
+      { source: "/:locale(he|en)/portfolio", destination: "/:locale/catalog", permanent: true },
+    ];
+  },
 };
 
 export default withNextIntl(nextConfig);

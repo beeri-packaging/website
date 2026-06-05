@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import type { FinishingCopy, FinishingGridItem } from "@/app/content/finishing";
 import type { Lang } from "@/app/content/home";
 import { PrecisionArmIcon } from "@/app/components/home/icons";

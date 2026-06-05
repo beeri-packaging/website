@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import type { CareersArticle } from "@/app/content/careers";
 import type { Lang } from "@/app/content/home";
 import { ArrowGlyph, PrintRulerGlyph } from "@/app/components/home/icons";

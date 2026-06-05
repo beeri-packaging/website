@@ -283,9 +283,11 @@ export function JobApplicationDialog({
                 type="button"
                 onClick={() => {
                   // Close the application dialog first, then open the global
-                  // contact dialog — avoids two stacked Radix dialogs.
+                  // contact dialog. Defer the open so the closing dialog's
+                  // focus-restore + scroll-lock cleanup land first — otherwise
+                  // the two Radix roots race over focus/body pointer-events.
                   handleOpenChange(false);
-                  openContact();
+                  setTimeout(openContact, 150);
                 }}
                 className="inline-flex w-fit items-center justify-center border border-cyan px-6 py-3 font-sans text-[13px] font-bold tracking-[0.08em] text-cyan transition-colors duration-300 hover:bg-cyan hover:text-cyan-deep focus-ring"
               >

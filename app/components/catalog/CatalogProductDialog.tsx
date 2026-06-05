@@ -115,11 +115,15 @@ export function CatalogProductDialog({
                 type="button"
                 onClick={() => {
                   onOpenChange(false);
-                  openContact();
+                  // Defer so the closing dialog's focus-restore + body
+                  // pointer-events cleanup finish before the contact dialog
+                  // mounts (avoids a focus/scroll-lock race between two Radix
+                  // roots in the same tick).
+                  setTimeout(openContact, 150);
                 }}
                 className="inline-flex items-center justify-center self-start border border-ink bg-magenta px-12 py-[18px] font-sans text-[14px] font-bold tracking-[0.08em] text-ink shadow-[6px_6px_0_0_var(--cyan)] transition-transform duration-300 hover:-translate-y-0.5 focus-ring"
               >
-                {item.cta ?? t.requestSample}
+                {t.requestSample}
               </button>
             </div>
           ) : null}

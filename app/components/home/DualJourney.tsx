@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import type { HomeCopy, Lang } from "@/app/content/home";
 import type { HomeJourneyPanel } from "@/sanity/queries";
 import { ArrowRtl } from "./icons";
