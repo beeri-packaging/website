@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
 import { ContactTriggerButton } from "@/app/components/contact/ContactTriggerButton";
 import type {
@@ -10,7 +7,7 @@ import type {
 } from "@/app/content/catalog";
 import type { Lang } from "@/app/content/home";
 import { Tag } from "./Tag";
-import { CatalogProductDialog } from "./CatalogProductDialog";
+import { CatalogModalProvider, ProductOpenButton } from "./CatalogModalProvider";
 
 const SECTION = "mx-auto w-full max-w-[1280px] px-5 sm:px-8 md:px-12 lg:px-20";
 
@@ -79,19 +76,14 @@ function CategoryHeader({ category }: { category: CatalogCategory }) {
 // ── Grid card (cosmetics) — square photo + tags, opens product detail ─────────
 function GridCard({
   item,
-  onSelect,
+  categoryName,
 }: {
   item: CatalogItem;
-  onSelect: (item: CatalogItem) => void;
+  categoryName: string;
 }) {
   return (
     <article className="group relative flex min-h-[480px] flex-col overflow-hidden border border-ink bg-bone shadow-[4px_4px_0_0_var(--ink)] transition-transform duration-300 hover:-translate-y-0.5 lg:min-h-[556px]">
-      <button
-        type="button"
-        aria-label={item.name}
-        onClick={() => onSelect(item)}
-        className="absolute inset-0 z-10 cursor-pointer focus-ring"
-      />
+      <ProductOpenButton item={item} categoryName={categoryName} />
       <div className="relative aspect-square border-b border-ink bg-sand">
         {item.image ? (
           <Image
@@ -125,19 +117,14 @@ function GridCard({
 // ── Feature card (wine & spirits) — tall split photo / spec column ────────────
 function FeatureCard({
   item,
-  onSelect,
+  categoryName,
 }: {
   item: CatalogItem;
-  onSelect: (item: CatalogItem) => void;
+  categoryName: string;
 }) {
   return (
     <article className="group relative grid overflow-hidden border border-ink bg-bone shadow-[4px_4px_0_0_var(--ink)] transition-transform duration-300 hover:-translate-y-0.5 md:grid-cols-2 lg:min-h-[700px]">
-      <button
-        type="button"
-        aria-label={item.name}
-        onClick={() => onSelect(item)}
-        className="absolute inset-0 z-10 cursor-pointer focus-ring"
-      />
+      <ProductOpenButton item={item} categoryName={categoryName} />
       <div className="flex flex-col items-start justify-center gap-7 p-8 text-start sm:p-12">
         {item.series ? <p className="ds-eyebrow text-purple">{item.series}</p> : null}
         <h3 className="font-display text-[64px] leading-[0.82] text-logo-dark sm:text-[80px] lg:text-[96px]">
@@ -232,27 +219,21 @@ function ModularCard({ item }: { item: CatalogItem }) {
   );
 }
 
-function CategorySection({
-  category,
-  onSelect,
-}: {
-  category: CatalogCategory;
-  onSelect: (item: CatalogItem) => void;
-}) {
+function CategorySection({ category }: { category: CatalogCategory }) {
   return (
     <section className={`${SECTION} mt-20 sm:mt-28`}>
       <CategoryHeader category={category} />
       {category.layout === "grid" ? (
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {category.items.map((item) => (
-            <GridCard key={item.key} item={item} onSelect={onSelect} />
+            <GridCard key={item.key} item={item} categoryName={category.name} />
           ))}
         </div>
       ) : null}
       {category.layout === "feature" ? (
         <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
           {category.items.map((item) => (
-            <FeatureCard key={item.key} item={item} onSelect={onSelect} />
+            <FeatureCard key={item.key} item={item} categoryName={category.name} />
           ))}
         </div>
       ) : null}
@@ -268,32 +249,14 @@ function CategorySection({
 }
 
 export function CatalogPageDesign({ copy, lang }: { copy: CatalogCopy; lang: Lang }) {
-  const [active, setActive] = useState<{ item: CatalogItem; categoryName: string } | null>(null);
-
-  // Find each item's category name for the modal header.
-  function selectFrom(category: CatalogCategory) {
-    return (item: CatalogItem) => setActive({ item, categoryName: category.name });
-  }
-
   return (
-    <div className="bg-bone pb-24 sm:pb-32">
-      <CatalogHero copy={copy} />
-      {copy.categories.map((category) => (
-        <CategorySection
-          key={category.key}
-          category={category}
-          onSelect={selectFrom(category)}
-        />
-      ))}
-      <CatalogProductDialog
-        lang={lang}
-        item={active?.item ?? null}
-        categoryName={active?.categoryName ?? ""}
-        open={active !== null}
-        onOpenChange={(o) => {
-          if (!o) setActive(null);
-        }}
-      />
-    </div>
+    <CatalogModalProvider lang={lang}>
+      <div className="bg-bone pb-24 sm:pb-32">
+        <CatalogHero copy={copy} />
+        {copy.categories.map((category) => (
+          <CategorySection key={category.key} category={category} />
+        ))}
+      </div>
+    </CatalogModalProvider>
   );
 }
