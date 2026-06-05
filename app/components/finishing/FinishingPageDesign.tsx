@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { FinishingCopy, FinishingGridItem } from "@/app/content/finishing";
 import type { Lang } from "@/app/content/home";
 import { ArrowGlyph } from "@/app/components/home/icons";
+import { ContactTriggerButton } from "@/app/components/contact/ContactTriggerButton";
 
 function FinishImage({
   src,
@@ -208,12 +209,11 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
               {copy.ctaTitle}
             </h2>
             <div className="mt-6 flex flex-col gap-4 sm:flex-row">
-              <Link
-                href="/#cta"
+              <ContactTriggerButton
                 className="inline-flex min-h-[56px] items-center justify-center border-2 border-blueprint bg-cyan px-[42px] py-[18px] font-sans text-[14px] font-bold leading-4 tracking-[0.08em] text-blueprint focus-ring"
               >
                 {copy.ctaPrimary}
-              </Link>
+              </ContactTriggerButton>
               <Link
                 href="/catalog"
                 className="inline-flex min-h-[56px] items-center justify-center border border-blueprint px-[41px] py-[18px] font-sans text-[14px] font-bold leading-4 tracking-[0.08em] text-blueprint focus-ring"

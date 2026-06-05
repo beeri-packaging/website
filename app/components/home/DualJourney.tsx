@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import type { HomeCopy, Lang } from "@/app/content/home";
 import type { HomeJourneyPanel } from "@/sanity/queries";
 import { ArrowRtl } from "./icons";
@@ -106,10 +107,15 @@ function JourneyCard({
 }) {
   const isDark = panel.theme === "dark";
   const accentBg = panel.accent === "purple" ? "bg-purple" : "bg-yellow";
+  // Two tracks: the purple "customer path" panels lead to the process page;
+  // the yellow "timeline" panels lead to the company/journal page.
+  const href = panel.accent === "yellow" ? "/careers" : "/finishing";
   return (
-    <article
+    <Link
+      href={href}
       data-pair={pairIndex}
-      className="journey-card-reveal group relative h-[480px] sm:h-[600px] md:h-full overflow-hidden cursor-pointer"
+      aria-label={panel.title}
+      className="journey-card-reveal group relative block h-[480px] sm:h-[600px] md:h-full overflow-hidden cursor-pointer focus-ring"
     >
       <div className="parallax-img absolute inset-0">
         <Image
@@ -179,6 +185,6 @@ function JourneyCard({
           </div>
         </div>
       </div>
-    </article>
+    </Link>
   );
 }

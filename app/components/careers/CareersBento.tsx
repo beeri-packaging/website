@@ -97,7 +97,7 @@ function PlainArticle({ article, lang }: { article: CareersArticle; lang: Lang }
       ) : null}
       {article.cta ? (
         <Link
-          href="/blog"
+          href="/blog/finishing-language"
           className="mt-9 flex items-center justify-between border-t border-ink pt-5 font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-ink focus-ring"
         >
           {article.cta}
@@ -183,7 +183,7 @@ function WideArticle({ article, lang }: { article: CareersArticle; lang: Lang })
       </div>
       {article.cta ? (
         <Link
-          href="/showcase"
+          href="/finishing"
           className="inline-flex items-center justify-center gap-3 bg-magenta px-8 py-4 font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-bone shadow-[4px_4px_0_var(--yellow)] focus-ring"
         >
           {article.cta}

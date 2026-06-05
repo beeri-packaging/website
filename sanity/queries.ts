@@ -234,6 +234,16 @@ export function toChrome(doc: ChromeDoc | null, locale: Lang): Chrome {
     footerCopy: doc.footerCopy ?? fb.footerCopy,
     logoHe: doc.logoHeUrl ?? doc.logoHeLegacy ?? fb.logoHe,
     logoEn: doc.logoEnUrl ?? doc.logoEnLegacy ?? fb.logoEn,
+    // Footer composition fields are brand-stable; sourced from bundled chrome.
+    wordmark: fb.wordmark,
+    footerTagline: fb.footerTagline,
+    footerHeritage: fb.footerHeritage,
+    footerNavHeading: fb.footerNavHeading,
+    footerConnectHeading: fb.footerConnectHeading,
+    email: fb.email,
+    mapsHref: fb.mapsHref,
+    social: fb.social,
+    legal: fb.legal,
   };
 }
 
@@ -396,45 +406,92 @@ export function toCategoryLabels(doc: Awaited<ReturnType<typeof getBlogSettings>
 }
 
 // --- Posts (single-locale projection) ---
-const POST = `{
-  "slug": slug.current, date, read, category,
-  "imageUrl": image.asset->url, "imageLegacy": image.legacyImagePath,
-  title, excerpt, body
+// Lightweight projection shared by the index + related cards.
+const POST_CARD = `"slug": slug.current, date, read, category,
+  "imageUrl": image.asset->url, "imageLegacy": image.legacyImagePath, "imageAlt": image.alt,
+  title, excerpt, body`;
+// Full projection for the article page (adds author, credit, quote + sections).
+const POST_FULL = `{ ${POST_CARD}, author, credit,
+  quote{ text, cite },
+  "quoteImageUrl": quoteImage.asset->url, "quoteImageLegacy": quoteImage.legacyImagePath, "quoteImageAlt": quoteImage.alt,
+  sections[]{ heading, body, "imageUrl": image.asset->url, "imageLegacy": image.legacyImagePath, "imageAlt": image.alt }
 }`;
 
-export const allPostsQuery = defineQuery(`*[_type == "post" && language == $locale] | order(date desc) ${POST}`);
-export const postQuery = defineQuery(`*[_type == "post" && language == $locale && slug.current == $slug][0] ${POST}`);
+export const allPostsQuery = defineQuery(`*[_type == "post" && language == $locale] | order(date desc) { ${POST_CARD} }`);
+export const postQuery = defineQuery(`*[_type == "post" && language == $locale && slug.current == $slug][0] ${POST_FULL}`);
+// Other posts, same category first, then most recent — capped at 3.
+// Other posts ordered by date; same-category preference is applied in JS
+// (GROQ order() doesn't take a boolean expression).
+export const relatedPostsQuery = defineQuery(`*[_type == "post" && language == $locale && slug.current != $slug] | order(date desc) { ${POST_CARD} }`);
 
+type PostSectionDoc = {
+  heading?: string; body?: string;
+  imageUrl?: string; imageLegacy?: string; imageAlt?: string;
+};
 type PostDoc = {
   slug?: string; date?: string; read?: string; category?: BlogCategory;
-  imageUrl?: string; imageLegacy?: string;
+  imageUrl?: string; imageLegacy?: string; imageAlt?: string;
   title?: string; excerpt?: string; body?: string[];
+  author?: string; credit?: string;
+  quote?: { text?: string; cite?: string };
+  quoteImageUrl?: string; quoteImageLegacy?: string; quoteImageAlt?: string;
+  sections?: PostSectionDoc[];
 };
+
+export type PostQuote = { text: string; cite: string };
+export type PostSection = { heading: string; body: string; image?: string; imageAlt?: string };
 
 /** A single-locale post shape consumed by the blog components. */
 export type LocalizedPost = {
   slug: string; date: string; read: string; category: BlogCategory;
-  image?: string; title: string; excerpt: string; body: readonly string[];
+  image?: string; imageAlt?: string; title: string; excerpt: string; body: readonly string[];
+  author?: string; credit?: string;
+  quote?: PostQuote; quoteImage?: string; quoteImageAlt?: string;
+  sections?: readonly PostSection[];
 };
 
 function fbPost(p: BlogPost, locale: Lang): LocalizedPost {
+  const l = p[locale];
   return {
     slug: p.slug, date: p.date, read: p.read[locale], category: p.category,
-    image: p.image, title: p[locale].title, excerpt: p[locale].excerpt, body: p[locale].body,
+    image: p.image, imageAlt: l.title,
+    title: l.title, excerpt: l.excerpt, body: l.body,
+    author: p.author?.[locale], credit: p.credit?.[locale],
+    quote: l.quote, quoteImage: p.quoteImage,
+    sections: l.sections?.map((s) => ({ heading: s.heading, body: s.body, image: s.image })),
   };
 }
 
 function mapPost(d: PostDoc, locale: Lang): LocalizedPost {
   const fb = blogPosts.find((p) => p.slug === d.slug);
+  const fbL = fb?.[locale];
+  const quote = d.quote?.text
+    ? { text: d.quote.text, cite: d.quote.cite ?? "" }
+    : fbL?.quote;
+  const sections: PostSection[] | undefined = d.sections?.length
+    ? d.sections.map((s, i) => ({
+        heading: s.heading ?? fbL?.sections?.[i]?.heading ?? "",
+        body: s.body ?? fbL?.sections?.[i]?.body ?? "",
+        image: s.imageUrl ?? s.imageLegacy ?? fbL?.sections?.[i]?.image,
+        imageAlt: s.imageAlt,
+      }))
+    : fbL?.sections?.map((s) => ({ heading: s.heading, body: s.body, image: s.image }));
   return {
     slug: d.slug ?? fb?.slug ?? "",
     date: d.date ?? fb?.date ?? "",
-    read: d.read ?? (fb ? fb.read[locale] : ""),
+    read: d.read ?? (fbL ? fb!.read[locale] : ""),
     category: d.category ?? fb?.category ?? "studio",
     image: d.imageUrl ?? d.imageLegacy ?? fb?.image,
-    title: d.title ?? (fb ? fb[locale].title : ""),
-    excerpt: d.excerpt ?? (fb ? fb[locale].excerpt : ""),
-    body: d.body?.length ? d.body : (fb ? fb[locale].body : []),
+    imageAlt: d.imageAlt ?? fbL?.title,
+    title: d.title ?? fbL?.title ?? "",
+    excerpt: d.excerpt ?? fbL?.excerpt ?? "",
+    body: d.body?.length ? d.body : (fbL?.body ?? []),
+    author: d.author ?? fb?.author?.[locale],
+    credit: d.credit ?? fb?.credit?.[locale],
+    quote,
+    quoteImage: d.quoteImageUrl ?? d.quoteImageLegacy ?? fb?.quoteImage,
+    quoteImageAlt: d.quoteImageAlt,
+    sections,
   };
 }
 
@@ -458,6 +515,30 @@ export async function getPost(slug: string, locale: Lang): Promise<LocalizedPost
   }
   const fb = blogPosts.find((p) => p.slug === slug);
   return fb ? fbPost(fb, locale) : null;
+}
+
+/** Up to 3 related posts — same category first, then most recent. */
+export async function getRelatedPosts(
+  slug: string,
+  locale: Lang,
+  category: BlogCategory
+): Promise<LocalizedPost[]> {
+  // Same-category first, then most recent (stable sort keeps date order).
+  const byCategory = (a: LocalizedPost, b: LocalizedPost) =>
+    (a.category === category ? 0 : 1) - (b.category === category ? 0 : 1);
+  try {
+    const docs = await client.fetch<PostDoc[]>(relatedPostsQuery, { locale, slug });
+    if (docs?.length) {
+      return docs.map((d) => mapPost(d, locale)).sort(byCategory).slice(0, 3);
+    }
+  } catch (err) {
+    console.error("getRelatedPosts failed, using bundled copy", err);
+  }
+  return blogPosts
+    .filter((p) => p.slug !== slug)
+    .map((p) => fbPost(p, locale))
+    .sort((a, b) => byCategory(a, b) || (a.date < b.date ? 1 : -1))
+    .slice(0, 3);
 }
 
 // ---------------------------------------------------------------------------

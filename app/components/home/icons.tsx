@@ -84,6 +84,42 @@ export function CardCornerArrow() {
   );
 }
 
+export function LinkedInGlyph() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3.2 9h3.6v11.5H3.2zm5.9 0h3.45v1.57h.05c.48-.86 1.65-1.77 3.4-1.77 3.64 0 4.3 2.24 4.3 5.16v6.54h-3.6v-5.8c0-1.38-.03-3.16-1.98-3.16-1.98 0-2.28 1.5-2.28 3.06v5.9H9.1z" />
+    </svg>
+  );
+}
+
+export function MailGlyph() {
+  return (
+    <svg width="18" height="14" viewBox="0 0 20 16" fill="none" aria-hidden>
+      <path
+        d="M1 2.5h18v11H1zM1 3l9 6 9-6"
+        stroke="currentColor"
+        strokeWidth="1.25"
+        strokeLinecap="square"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function PinGlyph() {
+  return (
+    <svg width="16" height="18" viewBox="0 0 16 20" fill="none" aria-hidden>
+      <path
+        d="M8 19c4-4.2 6-7.6 6-11A6 6 0 002 8c0 3.4 2 6.8 6 11z"
+        stroke="currentColor"
+        strokeWidth="1.25"
+        strokeLinejoin="round"
+      />
+      <circle cx="8" cy="8" r="2.25" stroke="currentColor" strokeWidth="1.25" />
+    </svg>
+  );
+}
+
 export function DieCutIcon() {
   return (
     <svg width="22" height="36" viewBox="0 0 16.5 27" fill="none" aria-hidden>

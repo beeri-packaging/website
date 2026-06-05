@@ -1,15 +1,17 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import type { Lang } from "@/app/content/home";
 import type { Chrome } from "@/app/content/site";
+import { useContactDialog } from "@/app/components/contact/ContactDialogProvider";
 
 export function StickyContact({ lang, chrome }: { lang: Lang; chrome: Chrome }) {
   const [hovered, setHovered] = useState(false);
+  const { open } = useContactDialog();
   return (
-    <Link
-      href="#cta"
+    <button
+      type="button"
+      onClick={open}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       aria-label={chrome.contact}
@@ -37,6 +39,6 @@ export function StickyContact({ lang, chrome }: { lang: Lang; chrome: Chrome }) 
       <span aria-hidden className="sr-only">
         {lang === "he" ? "צור קשר" : "Contact"}
       </span>
-    </Link>
+    </button>
   );
 }

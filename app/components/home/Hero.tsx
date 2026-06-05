@@ -4,6 +4,7 @@ import type { HomeCopy, Lang } from "@/app/content/home";
 import { cn } from "@/lib/cn";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { buttonVariants } from "@/components/ui/button";
+import { ContactTriggerButton } from "@/app/components/contact/ContactTriggerButton";
 import { ArrowGlyph } from "./icons";
 
 export function Hero({ lang, t, heroImage }: { lang: Lang; t: HomeCopy; heroImage: string }) {
@@ -53,8 +54,7 @@ export function Hero({ lang, t, heroImage }: { lang: Lang; t: HomeCopy; heroImag
           className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4 sm:pt-6 w-full sm:w-auto animate-rise"
           style={{ animationDelay: "240ms" }}
         >
-          <Link
-            href="#cta"
+          <ContactTriggerButton
             className={cn(buttonVariants({ variant: "primary", size: "md" }), "group")}
           >
             {t.cta1}
@@ -66,7 +66,7 @@ export function Hero({ lang, t, heroImage }: { lang: Lang; t: HomeCopy; heroImag
                 direction={lang === "he" ? "right-to-left" : "left-to-right"}
               />
             </span>
-          </Link>
+          </ContactTriggerButton>
           <Link
             href="#journey"
             className={cn(buttonVariants({ variant: "secondary", size: "md" }))}

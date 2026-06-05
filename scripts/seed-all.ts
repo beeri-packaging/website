@@ -11,7 +11,6 @@ import { placeholderContent } from "../app/content/placeholder";
 import type { Lang } from "../app/content/home";
 
 const LANGS: Lang[] = ["he", "en"];
-const legacy = (p: string, alt: string) => ({ _type: "image" as const, alt, legacyImagePath: p });
 
 async function linkTranslations(id: string, type: string, heId: string, enId: string) {
   await writeClient.createOrReplace({
@@ -148,12 +147,29 @@ async function main() {
 
     // POSTS
     for (const p of blogPosts) {
+      const L = p[lang];
+      const heroImg = p.image ? await uploadImage(p.image, L.title) : undefined;
+      const quoteImg = p.quoteImage ? await uploadImage(p.quoteImage, L.title) : undefined;
+      const sections = L.sections
+        ? await Promise.all(
+            L.sections.map(async (s, i) => ({
+              _type: "section", _key: `sec-${i}`,
+              heading: s.heading, body: s.body,
+              ...(s.image ? { image: await uploadImage(s.image, s.heading) } : {}),
+            }))
+          )
+        : undefined;
       await writeClient.createOrReplace({
         _id: `post-${p.slug}-${lang}`, _type: "post", language: lang,
         slug: { _type: "slug", current: p.slug },
         date: p.date, read: p.read[lang], category: p.category,
-        ...(p.image ? { image: legacy(p.image, p[lang].title) } : {}),
-        title: p[lang].title, excerpt: p[lang].excerpt, body: [...p[lang].body],
+        ...(p.author ? { author: p.author[lang] } : {}),
+        ...(p.credit ? { credit: p.credit[lang] } : {}),
+        ...(heroImg ? { image: heroImg } : {}),
+        ...(quoteImg ? { quoteImage: quoteImg } : {}),
+        title: L.title, excerpt: L.excerpt, body: [...L.body],
+        ...(L.quote ? { quote: { text: L.quote.text, cite: L.quote.cite } } : {}),
+        ...(sections ? { sections } : {}),
       });
     }
 
@@ -167,6 +183,22 @@ async function main() {
       });
     }
     console.log(`  ✓ all docs for ${lang}`);
+  }
+
+  // Remove posts (and their translation links) whose slug is no longer bundled —
+  // e.g. after a rename — so the index doesn't show stale entries.
+  const keepPostIds = blogPosts.flatMap((p) => LANGS.map((l) => `post-${p.slug}-${l}`));
+  const stalePosts: string[] = await writeClient.fetch(
+    `*[_type == "post" && !(_id in $keep)]._id`, { keep: keepPostIds }
+  );
+  const keepPostTx = blogPosts.map((p) => `post-${p.slug}-translation`);
+  const staleTx: string[] = await writeClient.fetch(
+    `*[_type == "translation.metadata" && "post" in schemaTypes && !(_id in $keep)]._id`, { keep: keepPostTx }
+  );
+  // Delete translation metadata first — it references the post docs.
+  for (const id of [...staleTx, ...stalePosts]) {
+    await writeClient.delete(id);
+    console.log(`  ✕ removed stale ${id}`);
   }
 
   // Link translation pairs (singletons + page docs)

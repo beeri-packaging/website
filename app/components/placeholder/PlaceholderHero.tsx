@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { PlaceholderCopy } from "@/app/content/placeholder";
 import type { Lang } from "@/app/content/home";
 import { ArrowGlyph } from "@/app/components/home/icons";
+import { ContactTriggerButton } from "@/app/components/contact/ContactTriggerButton";
 
 /**
  * Editorial "chapter-cover" hero used by every placeholder route. The huge
@@ -55,8 +56,7 @@ export function PlaceholderHero({ copy, lang }: { copy: PlaceholderCopy; lang: L
               className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 animate-rise"
               style={{ animationDelay: "400ms" }}
             >
-              <Link
-                href="/#cta"
+              <ContactTriggerButton
                 className="group inline-flex items-center justify-center gap-3 bg-ink border border-ink text-bone rounded-[5px] px-8 sm:px-10 py-4 sm:py-5 text-[13px] sm:text-[14px] font-sans font-bold tracking-[0.08em] hover:bg-bone hover:text-ink transition-colors duration-300 focus-ring"
               >
                 {copy.ctaPrimary}
@@ -68,7 +68,7 @@ export function PlaceholderHero({ copy, lang }: { copy: PlaceholderCopy; lang: L
                     direction={lang === "he" ? "right-to-left" : "left-to-right"}
                   />
                 </span>
-              </Link>
+              </ContactTriggerButton>
               <Link
                 href="/"
                 className="inline-flex items-center justify-center border border-ink text-ink rounded-[5px] px-8 sm:px-10 py-4 sm:py-5 text-[13px] sm:text-[14px] font-sans font-bold tracking-[0.08em] hover:bg-ink hover:text-bone transition-colors duration-300 focus-ring"
