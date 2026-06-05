@@ -267,7 +267,7 @@ export function BlogArticle({
                 {t.moreFromBlog}
               </h2>
               <Link
-                href="/careers"
+                href="/"
                 className="group inline-flex items-center gap-2 pb-2 font-sans text-[14px] font-bold uppercase tracking-[0.08em] text-magenta underline decoration-from-font underline-offset-2 transition-colors duration-300 hover:text-ink focus-ring"
               >
                 <span

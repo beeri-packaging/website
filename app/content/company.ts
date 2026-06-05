@@ -28,8 +28,8 @@ export const COMPANY = {
   /** Parent group. */
   groupHe: "קבוצת דפוס בארי",
   groupEn: "Beeri Print Group",
-  /** Primary contact email (placeholder until the production address is set). */
-  email: "contact@beeri.com",
+  /** Primary contact email — the real משל"ט inbox; also the contact-form recipient. */
+  email: "orders@beeripacks.co.il",
   /** Company LinkedIn page. */
   linkedin: "https://www.linkedin.com/company/beeri-packaging/",
   /** Postal address, per locale. */
