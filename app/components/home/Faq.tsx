@@ -9,7 +9,7 @@ export function Faq({ t, items }: { lang: Lang; t: HomeCopy; items: readonly { n
   return (
     <section
       id="faq"
-      className="bg-bone py-20 sm:py-24 md:py-28 lg:py-10 xl:py-14 scroll-mt-[80px] lg:h-[calc(100svh-72px)] lg:min-h-[700px] flex flex-col justify-center"
+      className="bg-bone py-20 sm:py-24 md:py-28 lg:py-24 scroll-mt-[80px] flex flex-col"
     >
       <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-8 md:px-12 lg:px-20 flex flex-col gap-10 md:gap-14 lg:gap-8 xl:gap-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-end">
@@ -17,10 +17,10 @@ export function Faq({ t, items }: { lang: Lang; t: HomeCopy; items: readonly { n
             {t.faqBody}
           </p>
           <div className="flex flex-col gap-3 sm:gap-4 text-start md:order-1">
-            <span className="font-sans uppercase text-magenta text-[11px] sm:text-[12px] tracking-[0.08em] leading-4">
+            <span className="font-sans font-extrabold uppercase text-magenta text-[11px] sm:text-[12px] tracking-[0.08em] leading-4">
               {t.faqEyebrow}
             </span>
-            <h2 className="font-display text-ink text-[44px] sm:text-[52px] md:text-[64px] lg:text-[52px] xl:text-[60px] leading-[1.04] max-w-[532px]">
+            <h2 className="font-display text-logo-dark text-[44px] sm:text-[64px] lg:text-[80px] xl:text-[96px] leading-[1] text-balance max-w-[532px]">
               {t.faqTitle}
             </h2>
           </div>
@@ -39,7 +39,7 @@ export function Faq({ t, items }: { lang: Lang; t: HomeCopy; items: readonly { n
                   onClick={() => setOpenIndex(isOpen ? null : i)}
                   className="group w-full flex items-center justify-between gap-4 sm:gap-8 md:gap-12 py-4 sm:py-5 md:py-6 lg:py-4 xl:py-6 text-start cursor-pointer focus-ring"
                 >
-                  <span className="font-display text-cyan text-[36px] sm:text-[56px] md:text-[80px] lg:text-[72px] xl:text-[88px] leading-[0.4] text-center tabular-nums w-[44px] sm:w-[80px] md:w-[110px] lg:w-[100px] xl:w-[120px] shrink-0 transition-colors duration-300 group-hover:text-ink">
+                  <span className="font-display text-cyan text-[36px] sm:text-[56px] md:text-[80px] lg:text-[88px] xl:text-[96px] leading-[0.4] text-center tabular-nums w-[44px] sm:w-[80px] md:w-[110px] lg:w-[110px] xl:w-[120px] shrink-0 transition-colors duration-300 group-hover:text-ink">
                     {item.n}
                   </span>
                   <span className="flex-1 font-sans font-extrabold text-ink text-[16px] sm:text-[20px] md:text-[24px] leading-[1.3] text-start">

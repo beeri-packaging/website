@@ -68,7 +68,7 @@ export function Hero({ lang, t, heroImage }: { lang: Lang; t: HomeCopy; heroImag
             </span>
           </ContactTriggerButton>
           <Link
-            href="#journey"
+            href="#excellence"
             className={cn(buttonVariants({ variant: "secondary", size: "md" }))}
           >
             {t.cta2}

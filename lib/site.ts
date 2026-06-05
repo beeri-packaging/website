@@ -8,7 +8,6 @@ export const LOCALES = ["he", "en"] as const;
 // /blog index).
 export const ROUTES = [
   "",
-  "/portfolio",
   "/finishing",
   "/careers",
   "/catalog",

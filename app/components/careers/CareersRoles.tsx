@@ -33,17 +33,17 @@ function RoleRow({
     <article className="flex flex-col gap-6 border border-ink bg-bone p-6 sm:p-8 md:flex-row md:items-center md:justify-between">
       <div className="min-w-0">
         <div className="flex flex-wrap items-center gap-3">
-          <span className="bg-yellow px-3 py-1 font-sans text-[10px] font-bold text-yellow-deep">
+          <span className="bg-yellow px-3 py-1 font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-yellow-deep">
             {role.status}
           </span>
-          <span className="font-sans text-[12px] font-bold text-clay/75">
+          <span className="font-sans text-[16px] font-light text-clay/80">
             {role.code}
           </span>
         </div>
-        <h3 className="mt-3 font-display text-[42px] font-bold leading-none text-ink sm:text-[48px]">
+        <h3 className="mt-3 font-display text-[56px] font-bold leading-none text-ink sm:text-[64px]">
           {role.title}
         </h3>
-        <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 font-sans text-[13px] text-clay">
+        <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 font-sans text-[16px] font-light tracking-[-0.01em] text-clay/80">
           <span className="inline-flex items-center gap-2">
             <MetaIcon type="clock" />
             {role.scope}
@@ -55,7 +55,12 @@ function RoleRow({
         </div>
       </div>
 
-      <JobApplicationDialog lang={lang} role={role} triggerLabel={apply} />
+      <JobApplicationDialog
+        lang={lang}
+        role={role}
+        triggerLabel={apply}
+        triggerClassName="inline-flex min-h-14 shrink-0 items-center justify-center bg-magenta px-10 py-4 font-sans text-[20px] font-extrabold tracking-[0.02em] text-bone shadow-[2px_2px_0_var(--yellow)] transition-transform hover:-translate-y-0.5 focus-ring sm:text-[24px]"
+      />
     </article>
   );
 }

@@ -45,10 +45,10 @@ export function DualJourney({ lang, t, panels }: { lang: Lang; t: HomeCopy; pane
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-2 px-6 sm:px-8 md:px-2 items-end pb-8 sm:pb-10 md:pb-12">
         <div className="flex flex-col gap-3 md:px-6 lg:px-[72px]">
-          <span className="font-sans uppercase text-magenta text-[11px] sm:text-[12px] tracking-[0.08em] leading-4">
+          <span className="font-sans font-extrabold uppercase text-magenta text-[11px] sm:text-[12px] tracking-[0.08em] leading-4">
             {t.journeyEyebrow}
           </span>
-          <h2 className="font-display text-ink text-[40px] sm:text-[44px] md:text-[48px] lg:text-[44px] xl:text-[50px] leading-[1.02] max-w-[535px]">
+          <h2 className="font-display text-logo-dark text-[40px] sm:text-[52px] md:text-[60px] lg:text-[64px] leading-[1.02] text-balance max-w-[535px]">
             {t.journeyTitle}
           </h2>
         </div>
@@ -139,13 +139,13 @@ function JourneyCard({
       <div
         className={`absolute inset-0 flex flex-col justify-end px-6 sm:px-10 md:px-12 lg:px-[72px] pb-12 sm:pb-16 md:pb-[80px] lg:pb-[100px] ${
           isDark
-            ? "bg-gradient-to-t from-ink/90 via-ink/30 to-transparent"
-            : "bg-gradient-to-t from-bone/96 via-bone/40 to-transparent"
+            ? "bg-gradient-to-t from-ink via-ink/55 to-transparent"
+            : "bg-gradient-to-t from-bone via-bone/65 to-transparent"
         }`}
       >
         <div className="flex max-w-[456px] flex-col gap-2 text-start">
           <span
-            className={`inline-flex items-center gap-2 font-sans uppercase text-[11px] sm:text-[12px] tracking-[0.08em] leading-4 ${panel.tagColor}`}
+            className={`inline-flex items-center gap-2 font-sans font-extrabold uppercase text-[11px] sm:text-[12px] tracking-[0.08em] leading-4 ${panel.tagColor}`}
           >
             <span
               aria-hidden
@@ -154,15 +154,15 @@ function JourneyCard({
             {panel.tag}
           </span>
           <h3
-            className={`font-display text-[36px] sm:text-[42px] md:text-[50px] leading-[1.05] pt-2 ${
+            className={`font-display text-[40px] sm:text-[52px] md:text-[64px] leading-[1.05] pt-2 ${
               isDark ? "text-bone" : "text-ink"
             }`}
           >
             {panel.title}
           </h3>
           <p
-            className={`font-sans text-[14px] sm:text-[15px] md:text-[16px] leading-[1.6] tracking-[-0.16px] pt-3 sm:pt-4 ${
-              isDark ? "text-bone/85" : "text-clay"
+            className={`font-sans text-[16px] sm:text-[17px] md:text-[18px] leading-[1.6] tracking-[-0.16px] pt-3 sm:pt-4 ${
+              isDark ? "text-bone/90" : "text-clay"
             }`}
           >
             {panel.body}

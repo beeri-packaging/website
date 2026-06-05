@@ -22,10 +22,10 @@ export function TechnicalExcellence({
       <div className="mx-auto w-full max-w-[1264px] px-6 sm:px-8 md:px-12 lg:ps-[64px] lg:pe-[79px] flex flex-col gap-10 md:gap-12 lg:gap-[46px]">
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,452px)] gap-10 lg:gap-[140px] xl:gap-[170px] lg:items-center">
           <div className="flex flex-col gap-6 lg:gap-8 lg:items-start">
-            <h2 className="font-display text-ink text-[44px] sm:text-[52px] md:text-[60px] lg:text-[64px] leading-[1.04] lg:leading-[normal] max-w-[493px] text-start">
+            <h2 className="font-display text-logo-dark text-[44px] sm:text-[64px] lg:text-[80px] xl:text-[96px] leading-[1] text-balance max-w-[493px] text-start">
               {t.techTitle}
             </h2>
-            <p className="font-sans text-clay text-[17px] sm:text-[18px] md:text-[20px] leading-[25px] max-w-[576px] text-start">
+            <p className="font-sans text-clay text-lead leading-[25px] max-w-[576px] text-start text-pretty">
               {t.techBody}
             </p>
           </div>
@@ -36,11 +36,11 @@ export function TechnicalExcellence({
                   key={c.n}
                   className="group flex items-center justify-end gap-8 sm:gap-16 md:gap-[80px] lg:gap-[110px] border-b border-rule pb-px transition-colors duration-300 hover:border-ink"
                 >
-                  <span className="font-display text-cyan text-[72px] sm:text-[88px] md:text-[96px] leading-[38px] tabular-nums shrink-0 w-[59px] text-end transition-colors duration-300 group-hover:text-ink py-3">
+                  <span className="font-display text-magenta text-[72px] sm:text-[88px] md:text-[96px] leading-[38px] tabular-nums shrink-0 w-[59px] text-end transition-colors duration-300 group-hover:text-ink py-3">
                     {c.n}
                   </span>
                   <div className="flex flex-col gap-1 text-start w-[262px] max-w-full py-3">
-                    <h3 className="font-sans font-semibold text-ink text-[16px] leading-[25px] tracking-[-0.16px]">
+                    <h3 className="font-display text-ink text-[22px] sm:text-[24px] leading-[1.05] tracking-[0.04em]">
                       {c.title}
                     </h3>
                     <p className="font-sans text-clay text-[16px] leading-[25px] tracking-[-0.16px]">
@@ -58,8 +58,8 @@ export function TechnicalExcellence({
               (right) side, matching Figma. */}
           <div className="md:col-span-5 grid grid-rows-[402fr_366fr] gap-6 md:gap-8 h-full min-h-[640px] md:min-h-0">
             <Link
-              href="#journey"
-              className="group relative overflow-hidden bg-purple-bento border border-bone-line p-8 sm:p-10 md:p-10 lg:p-[40px] xl:p-[49px] flex flex-col items-start justify-between text-start cursor-pointer focus-ring transition-[box-shadow,transform] duration-500 hover:shadow-[0_30px_60px_-20px_rgba(125,5,245,0.5)] hover:-translate-y-0.5"
+              href="/finishing"
+              className="group relative overflow-hidden bg-purple border border-bone-line p-8 sm:p-10 md:p-10 lg:p-[40px] xl:p-[49px] flex flex-col items-start justify-between text-start cursor-pointer focus-ring transition-[box-shadow,transform] duration-500 hover:shadow-[0_30px_60px_-20px_rgba(111,80,166,0.5)] hover:-translate-y-0.5"
             >
               <span
                 aria-hidden
@@ -69,7 +69,7 @@ export function TechnicalExcellence({
                 <DieCutIcon />
               </div>
               <div className="relative z-10 flex flex-col gap-4 w-full">
-                <h3 className="font-display text-bone text-[36px] sm:text-[42px] md:text-[44px] lg:text-[48px] xl:text-[50px] leading-[normal] w-full text-start">
+                <h3 className="font-display text-bone text-[40px] sm:text-[48px] md:text-[56px] lg:text-[64px] leading-[normal] w-full text-start">
                   {t.bento1Title}
                 </h3>
                 <p className="font-sans text-yellow-cream text-[16px] sm:text-[17px] md:text-[18px] lg:text-[20px] leading-[25px] w-full text-start">
@@ -89,7 +89,7 @@ export function TechnicalExcellence({
             </Link>
 
             <Link
-              href="#journey"
+              href="/finishing"
               className="group relative overflow-hidden bg-ink p-8 sm:p-10 md:p-10 lg:p-[40px] xl:p-[48px] flex flex-col items-start justify-between text-start cursor-pointer focus-ring transition-[box-shadow,transform] duration-500 hover:shadow-[0_30px_60px_-20px_rgba(0,255,255,0.25)] hover:-translate-y-0.5"
             >
               <span
@@ -105,7 +105,7 @@ export function TechnicalExcellence({
                 </span>
               </div>
               <div className="relative z-10 flex flex-col gap-4 w-full">
-                <h3 className="font-display text-bone text-[36px] sm:text-[42px] md:text-[44px] lg:text-[48px] xl:text-[50px] leading-[normal] w-full text-start">
+                <h3 className="font-display text-bone text-[40px] sm:text-[48px] md:text-[56px] lg:text-[64px] leading-[normal] w-full text-start">
                   {t.bento2Title}
                 </h3>
                 <p className="font-sans text-bone/70 text-[16px] sm:text-[17px] md:text-[18px] lg:text-[20px] leading-[25px] max-w-[346px] text-start">
@@ -116,7 +116,7 @@ export function TechnicalExcellence({
           </div>
 
           <Link
-            href="#journey"
+            href="/catalog"
             className="md:col-span-7 relative bg-sand overflow-hidden aspect-[4/3] sm:aspect-[16/10] md:aspect-auto md:h-auto group block cursor-pointer focus-ring"
           >
             <Image

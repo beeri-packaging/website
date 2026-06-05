@@ -19,6 +19,8 @@ export type JobApplicationCopy = {
     codeLabel: string;
     /** Fallback heading when no specific role is being applied to. */
     fallbackTitle: string;
+    /** Secondary action — opens the global contact dialog for a general question. */
+    inquire: string;
   };
   form: {
     heading: string;
@@ -68,6 +70,7 @@ export const jobApplicationCopy: Record<Lang, JobApplicationCopy> = {
       ],
       codeLabel: 'מק"ט',
       fallbackTitle: "הגשת מועמדות",
+      inquire: "יש לי שאלה — לפנייה כללית",
     },
     form: {
       heading: "פרטי המועמד/ת",
@@ -123,6 +126,7 @@ export const jobApplicationCopy: Record<Lang, JobApplicationCopy> = {
       ],
       codeLabel: "SKU",
       fallbackTitle: "Apply now",
+      inquire: "Have a question — general inquiry",
     },
     form: {
       heading: "Applicant details",

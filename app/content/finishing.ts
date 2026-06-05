@@ -61,13 +61,13 @@ export const finishingCopy: Record<Lang, FinishingCopy> = {
       { label: "סטייה", value: "±0.01MM" },
     ],
     quote:
-      "האריזה היא המפגש הראשון בין המותג ללקוח. כשהגימור מדויק, המוצר מרגיש נכון עוד לפני השימוש.",
+      "״האריזה היא המפגש הראשון בין המותג ללקוח. כשהגימור מדויק, המוצר מרגיש נכון עוד לפני השימוש.״",
     quoteBy: "סטודיו",
     deboss: {
       eyebrow: "מבנה וחומר",
       title: "הבלטה שמוסיפה עומק",
       body:
-        "הבלטה ודיבוס מוסיפים עומק ומגע, בלי להעמיס על העיצוב.",
+        "הבלטה ודיבוס מוסיפים עומק ומגע,\nבלי להעמיס על העיצוב.",
       image: finishingImages.deboss,
     },
     texture: {
@@ -111,7 +111,7 @@ export const finishingCopy: Record<Lang, FinishingCopy> = {
       eyebrow: "Structure & stock",
       title: "Embossing with depth",
       body:
-        "Embossing and debossing add depth and touch without overloading the design.",
+        "Embossing and debossing add depth and touch\nwithout overloading the design.",
       image: finishingImages.deboss,
     },
     texture: {

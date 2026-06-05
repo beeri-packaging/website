@@ -1,8 +1,8 @@
 /**
  * Placeholder-page content layer.
  *
- * Each route under the header nav (portfolio, finishing, careers, catalog,
- * blog) renders a placeholder page until its real content lands. Copy lives
+ * Each route under the header nav (finishing, careers, catalog, blog)
+ * renders a placeholder page until its real content lands. Copy lives
  * here for the same reason `home.ts` exists — a CMS will swap this module
  * for an async fetcher without touching the components.
  */
@@ -10,7 +10,6 @@
 import type { Lang } from "@/app/content/home";
 
 export type PlaceholderRoute =
-  | "portfolio"
   | "finishing"
   | "careers"
   | "catalog"
@@ -36,28 +35,6 @@ export type PlaceholderCopy = {
 export type PlaceholderContent = Record<Lang, PlaceholderCopy>;
 
 export const placeholderContent: Record<PlaceholderRoute, PlaceholderContent> = {
-  portfolio: {
-    he: {
-      eyebrow: "פורטפוליו · בקרוב",
-      title: ["פרויקטים נבחרים", "מקבוצת בארי"],
-      lead: "אוסף עבודות הסטודיו נמצא בעריכה.",
-      body:
-        "אנחנו אוספים את הפרויקטים הבולטים שלנו — אריזות יין, פארמה, קוסמטיקה, מזון ומשקאות — לתצוגה ייעודית שתוצג כאן. בינתיים אפשר לראות חלק מהעבודות בעמוד הבית או לפנות אלינו ישירות.",
-      preview: ["יינות וקפסולות", "פארמה ובריאות", "מזון ומשקאות", "קוסמטיקה והשבחות"],
-      ctaPrimary: "התחלת תהליך",
-      ctaSecondary: "חזרה לעמוד הבית",
-    },
-    en: {
-      eyebrow: "Portfolio · Coming soon",
-      title: ["Selected work", "from the studio"],
-      lead: "Our case-study gallery is being curated.",
-      body:
-        "We're collecting standout projects — wine, pharma, cosmetics, food and beverages — into a dedicated portfolio that will live here. In the meantime you can see a slice on the home page or reach out directly.",
-      preview: ["Wines & capsules", "Pharma & health", "Food & beverage", "Cosmetics & finishing"],
-      ctaPrimary: "Start a project",
-      ctaSecondary: "Back to home",
-    },
-  },
   finishing: {
     he: {
       eyebrow: "השבחות · בקרוב",

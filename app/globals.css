@@ -12,9 +12,9 @@
   --yellow-cream: #ffe8a7;   /* Purple card body copy — soft warm tint on purple */
   --gold: #ffe177;           /* CTA section bg */
   --gold-deep: #231b00;
+  --logo-dark: #24296a;      /* T/Logo/Dark — section headings (journey, tech, FAQ) */
   --magenta: #c846a3;        /* P/Magenta — section eyebrows */
-  --purple: #6f50a6;         /* P/Purple — customer-path eyebrow */
-  --purple-bento: #7d05f5;   /* "שטנץ מדויק" card bg */
+  --purple: #6f50a6;         /* P/Purple — customer-path eyebrow + "שטנץ מדויק" card bg */
   --blueprint: #292d78;      /* Original-style page panels + borders */
   --blueprint-soft: #3a3d88;
   --mist: #ebe9e6;           /* Original-style quiet card surface */
@@ -38,9 +38,9 @@
   --color-yellow-cream: var(--yellow-cream);
   --color-gold: var(--gold);
   --color-gold-deep: var(--gold-deep);
+  --color-logo-dark: var(--logo-dark);
   --color-magenta: var(--magenta);
   --color-purple: var(--purple);
-  --color-purple-bento: var(--purple-bento);
   --color-blueprint: var(--blueprint);
   --color-blueprint-soft: var(--blueprint-soft);
   --color-mist: var(--mist);
@@ -103,7 +103,7 @@
     align-items: center;
     justify-content: center;
     gap: 0.625rem;
-    border-radius: 5px;
+    border-radius: 0;
     border: 1px solid var(--ink);
     padding: 1rem 2.5rem;
     font-family: var(--font-sans), system-ui, sans-serif;
@@ -391,7 +391,12 @@ html {
     .journey-row-track--2 .journey-row-pin,
     .journey-row-track--3 .journey-row-pin {
       animation: row-wipe-in linear both;
-      animation-range: entry 0% cover 35%;
+      /* Gentler, longer reveal so the row eases in over more scroll
+       * distance instead of snapping over a short window. */
+      animation-range: entry 8% cover 48%;
+      /* Promote to its own layer so the clip-path/transform reveal is
+       * composited on the GPU instead of repainting each frame. */
+      will-change: clip-path, transform;
     }
     .journey-row-track--2 .journey-row-pin { animation-timeline: --jrow2; }
     .journey-row-track--3 .journey-row-pin { animation-timeline: --jrow3; }
@@ -399,7 +404,7 @@ html {
     @keyframes row-wipe-in {
       from {
         clip-path: inset(100% 0 0 0);
-        transform: translateY(-3vh);
+        transform: translateY(-2vh);
       }
       to {
         clip-path: inset(0 0 0 0);

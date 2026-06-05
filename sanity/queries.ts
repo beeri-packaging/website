@@ -639,7 +639,7 @@ export function toCatalogContent(doc: CatalogDoc | null, locale: Lang): CatalogC
 }
 
 // ---------------------------------------------------------------------------
-// Placeholder pages — /portfolio (+ /finishing, /careers, /blog)
+// Placeholder pages — /finishing, /careers, /catalog, /blog
 // ---------------------------------------------------------------------------
 
 import { placeholderContent } from "@/app/content/placeholder";

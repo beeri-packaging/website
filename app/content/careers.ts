@@ -70,7 +70,7 @@ export const careersCopy: Record<Lang, CareersCopy> = {
       },
       {
         tag: "ייצור",
-        title: ["דיוק", "בדפוס וגימור"],
+        title: ["דיוק בדפוס", "וגימור"],
         theme: "yellow",
       },
       {

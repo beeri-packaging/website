@@ -11,7 +11,7 @@ export const placeholderPage = defineType({
       name: "route",
       title: "עמוד",
       type: "string",
-      options: { list: ["portfolio"], layout: "radio" },
+      options: { list: ["finishing", "careers", "catalog", "blog"], layout: "radio" },
       validation: (rule) => rule.required(),
     }),
     defineField({ name: "eyebrow", title: "תווית עליונה", type: "string", validation: (rule) => rule.required() }),
@@ -25,7 +25,7 @@ export const placeholderPage = defineType({
   preview: {
     select: { route: "route", language: "language" },
     prepare({ route, language }) {
-      return { title: route === "portfolio" ? "פורטפוליו" : "קטלוג", subtitle: language ? String(language).toUpperCase() : undefined };
+      return { title: route ? String(route) : 'עמוד "בקרוב"', subtitle: language ? String(language).toUpperCase() : undefined };
     },
   },
 });

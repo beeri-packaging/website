@@ -1,12 +1,16 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import { ContactTriggerButton } from "@/app/components/contact/ContactTriggerButton";
 import type {
   CatalogCategory,
   CatalogCopy,
   CatalogItem,
-  CatalogTag,
 } from "@/app/content/catalog";
 import type { Lang } from "@/app/content/home";
+import { Tag } from "./Tag";
+import { CatalogProductDialog } from "./CatalogProductDialog";
 
 const SECTION = "mx-auto w-full max-w-[1280px] px-5 sm:px-8 md:px-12 lg:px-20";
 
@@ -14,13 +18,13 @@ const SECTION = "mx-auto w-full max-w-[1280px] px-5 sm:px-8 md:px-12 lg:px-20";
 function SpecCard({ lines }: { lines: CatalogCopy["specCard"] }) {
   const dots = ["bg-purple", "bg-cyan", "bg-yellow", "bg-magenta"];
   return (
-    <div className="self-start border border-ink bg-sand p-6 shadow-[4px_4px_0_0_var(--ink)] md:self-end">
-      <div dir="ltr" className="flex justify-end gap-4">
+    <div className="flex flex-col gap-4 self-start border border-ink bg-sand p-[25px] shadow-[4px_4px_0_0_var(--ink)] md:self-end">
+      <div dir="ltr" className="flex gap-4 pe-[106px]">
         {dots.map((bg) => (
           <span key={bg} className={`${bg} size-3 border border-ink`} aria-hidden />
         ))}
       </div>
-      <div className="mt-6 flex flex-col items-start gap-1 text-start">
+      <div className="flex flex-col items-start gap-1 text-start">
         {lines.map((line) => (
           <p
             key={line}
@@ -40,7 +44,7 @@ function CatalogHero({ copy }: { copy: CatalogCopy }) {
       <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
         <div className="flex max-w-[672px] flex-col items-start text-start">
           <p className="ds-eyebrow text-teal">{copy.eyebrow}</p>
-          <h1 className="mt-4 font-display text-[56px] leading-[0.85] text-blueprint sm:text-[80px] md:text-[96px]">
+          <h1 className="mt-4 font-display text-[56px] leading-[0.85] text-logo-dark sm:text-[80px] md:text-[96px]">
             {copy.title.map((line) => (
               <span key={line} className="block">
                 {line}
@@ -57,41 +61,37 @@ function CatalogHero({ copy }: { copy: CatalogCopy }) {
   );
 }
 
-// ── Category header — count · hairline · numbered yellow tag ──────────────────
+// ── Category header — numbered yellow tag (start) · hairline · count (end) ────
 function CategoryHeader({ category }: { category: CatalogCategory }) {
   return (
     <div className="flex items-center gap-4">
-      <span className="shrink-0 font-sans text-[16px] font-light text-clay">
-        {category.count}
-      </span>
-      <span className="h-px flex-1 bg-ink/20" aria-hidden />
       <span className="shrink-0 border border-ink bg-yellow px-4 py-[5px] font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-yellow-deep">
         {category.number} / {category.name}
+      </span>
+      <span className="h-px flex-1 bg-ink/20" aria-hidden />
+      <span className="shrink-0 font-sans text-[16px] font-light text-clay">
+        {category.count}
       </span>
     </div>
   );
 }
 
-function Tag({ tag }: { tag: CatalogTag }) {
-  const tone = {
-    outline: "border-ink text-ink",
-    cyan: "border-ink bg-cyan text-ink",
-    purple: "border-ink bg-purple text-bone",
-    magenta: "border-ink bg-magenta text-bone",
-  }[tag.tone];
+// ── Grid card (cosmetics) — square photo + tags, opens product detail ─────────
+function GridCard({
+  item,
+  onSelect,
+}: {
+  item: CatalogItem;
+  onSelect: (item: CatalogItem) => void;
+}) {
   return (
-    <span
-      className={`${tone} inline-flex items-center border px-[9px] py-[5px] font-sans text-[12px] font-extrabold uppercase tracking-[0.08em]`}
-    >
-      {tag.label}
-    </span>
-  );
-}
-
-// ── Grid card (cosmetics) — square photo + hover technical overlay + tags ─────
-function GridCard({ item }: { item: CatalogItem }) {
-  return (
-    <article className="flex flex-col overflow-hidden border border-ink bg-bone shadow-[4px_4px_0_0_var(--ink)]">
+    <article className="group relative flex min-h-[480px] flex-col overflow-hidden border border-ink bg-bone shadow-[4px_4px_0_0_var(--ink)] transition-transform duration-300 hover:-translate-y-0.5 lg:min-h-[556px]">
+      <button
+        type="button"
+        aria-label={item.name}
+        onClick={() => onSelect(item)}
+        className="absolute inset-0 z-10 cursor-pointer focus-ring"
+      />
       <div className="relative aspect-square border-b border-ink bg-sand">
         {item.image ? (
           <Image
@@ -104,7 +104,7 @@ function GridCard({ item }: { item: CatalogItem }) {
         ) : null}
       </div>
       <div className="flex flex-1 flex-col items-start gap-6 p-6 text-start">
-        <h3 className="font-display text-[40px] leading-[0.92] text-ink sm:text-[44px]">
+        <h3 className="font-display text-[44px] leading-[0.92] text-ink sm:text-[56px] lg:text-[64px]">
           {item.name}
         </h3>
         <p className="font-sans text-[16px] font-light leading-[25px] text-clay">
@@ -122,13 +122,25 @@ function GridCard({ item }: { item: CatalogItem }) {
   );
 }
 
-// ── Feature card (wine & spirits) — split photo / spec column ─────────────────
-function FeatureCard({ item }: { item: CatalogItem }) {
+// ── Feature card (wine & spirits) — tall split photo / spec column ────────────
+function FeatureCard({
+  item,
+  onSelect,
+}: {
+  item: CatalogItem;
+  onSelect: (item: CatalogItem) => void;
+}) {
   return (
-    <article className="grid overflow-hidden border border-ink bg-bone shadow-[4px_4px_0_0_var(--ink)] md:grid-cols-2">
-      <div className="flex flex-col items-start gap-7 p-8 text-start sm:p-12">
+    <article className="group relative grid overflow-hidden border border-ink bg-bone shadow-[4px_4px_0_0_var(--ink)] transition-transform duration-300 hover:-translate-y-0.5 md:grid-cols-2 lg:min-h-[700px]">
+      <button
+        type="button"
+        aria-label={item.name}
+        onClick={() => onSelect(item)}
+        className="absolute inset-0 z-10 cursor-pointer focus-ring"
+      />
+      <div className="flex flex-col items-start justify-center gap-7 p-8 text-start sm:p-12">
         {item.series ? <p className="ds-eyebrow text-purple">{item.series}</p> : null}
-        <h3 className="font-display text-[64px] leading-[0.82] text-blueprint sm:text-[80px] lg:text-[88px]">
+        <h3 className="font-display text-[64px] leading-[0.82] text-logo-dark sm:text-[80px] lg:text-[96px]">
           {item.name}
         </h3>
         <p className="max-w-[280px] font-sans text-[16px] font-light leading-[25px] text-clay">
@@ -139,7 +151,7 @@ function FeatureCard({ item }: { item: CatalogItem }) {
             {item.specs.map((spec, i) => (
               <div
                 key={spec.label}
-                className={`flex flex-col items-center border-e-2 pe-3 ${
+                className={`flex flex-col items-center border-s-2 ps-3 ${
                   i === 0 ? "border-cyan" : "border-magenta"
                 }`}
               >
@@ -155,14 +167,14 @@ function FeatureCard({ item }: { item: CatalogItem }) {
         ) : null}
         {item.cta ? (
           <ContactTriggerButton
-            className="inline-flex items-center justify-center border border-ink bg-purple px-5 py-4 font-sans text-[12px] font-semibold text-bone shadow-[4px_4px_0_0_var(--ink)] transition-colors hover:bg-ink focus-ring"
+            className="relative z-20 inline-flex items-center justify-center self-start border border-ink bg-purple px-5 py-4 font-sans text-[12px] font-semibold text-bone shadow-[4px_4px_0_0_var(--ink)] transition-colors hover:bg-ink focus-ring"
           >
             {item.cta}
           </ContactTriggerButton>
         ) : null}
       </div>
       {item.image ? (
-        <div className="relative min-h-[320px] border-t border-ink md:min-h-0 md:border-s md:border-t-0">
+        <div className="relative h-full min-h-[320px] border-t border-ink md:min-h-0 md:border-s md:border-t-0">
           <Image
             src={item.image}
             alt={item.name}
@@ -196,7 +208,7 @@ function ModularCard({ item }: { item: CatalogItem }) {
       <div className="grid size-24 place-items-center border border-ink bg-yellow text-ink">
         <ModularIcon />
       </div>
-      <h3 className="font-display text-[48px] leading-[0.9] text-blueprint sm:text-[72px] md:text-[88px]">
+      <h3 className="font-display text-[48px] leading-[0.9] text-logo-dark sm:text-[72px] md:text-[88px]">
         {item.name}
       </h3>
       <p className="max-w-[576px] font-sans text-[18px] leading-[1.5] text-clay sm:text-[20px]">
@@ -220,21 +232,27 @@ function ModularCard({ item }: { item: CatalogItem }) {
   );
 }
 
-function CategorySection({ category }: { category: CatalogCategory }) {
+function CategorySection({
+  category,
+  onSelect,
+}: {
+  category: CatalogCategory;
+  onSelect: (item: CatalogItem) => void;
+}) {
   return (
     <section className={`${SECTION} mt-20 sm:mt-28`}>
       <CategoryHeader category={category} />
       {category.layout === "grid" ? (
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {category.items.map((item) => (
-            <GridCard key={item.key} item={item} />
+            <GridCard key={item.key} item={item} onSelect={onSelect} />
           ))}
         </div>
       ) : null}
       {category.layout === "feature" ? (
         <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
           {category.items.map((item) => (
-            <FeatureCard key={item.key} item={item} />
+            <FeatureCard key={item.key} item={item} onSelect={onSelect} />
           ))}
         </div>
       ) : null}
@@ -249,13 +267,33 @@ function CategorySection({ category }: { category: CatalogCategory }) {
   );
 }
 
-export function CatalogPageDesign({ copy }: { copy: CatalogCopy; lang: Lang }) {
+export function CatalogPageDesign({ copy, lang }: { copy: CatalogCopy; lang: Lang }) {
+  const [active, setActive] = useState<{ item: CatalogItem; categoryName: string } | null>(null);
+
+  // Find each item's category name for the modal header.
+  function selectFrom(category: CatalogCategory) {
+    return (item: CatalogItem) => setActive({ item, categoryName: category.name });
+  }
+
   return (
     <div className="bg-bone pb-24 sm:pb-32">
       <CatalogHero copy={copy} />
       {copy.categories.map((category) => (
-        <CategorySection key={category.key} category={category} />
+        <CategorySection
+          key={category.key}
+          category={category}
+          onSelect={selectFrom(category)}
+        />
       ))}
+      <CatalogProductDialog
+        lang={lang}
+        item={active?.item ?? null}
+        categoryName={active?.categoryName ?? ""}
+        open={active !== null}
+        onOpenChange={(o) => {
+          if (!o) setActive(null);
+        }}
+      />
     </div>
   );
 }
