@@ -76,7 +76,7 @@ const SPACING = [
 const PAGES = [
   { href: "/", he: "דף הבית", en: "Home", figma: "252-723", note: "גיבור, מסלול כפול, מצוינות טכנית, FAQ" },
   { href: "/careers", he: "קריירה / The Journal", en: "Careers", figma: "337-239", note: "בנטו עריכה, משרות פתוחות, ניוזלטר" },
-  { href: "/blog/foil-vs-spot-uv", he: "כתבת בלוג", en: "Article", figma: "461-2170", note: "עריכה ארוכה, ציטוט, מקטעים ממוספרים" },
+  { href: "/blog/finishing-language", he: "כתבת בלוג", en: "Article", figma: "531-530", note: "עריכה ארוכה, ציטוט, מקטעים ממוספרים" },
 ];
 
 const FAQ_SAMPLE = [

@@ -4,13 +4,14 @@ export const SITE_URL =
 export const LOCALES = ["he", "en"] as const;
 
 // Public, indexable routes (relative to a locale). Excludes /design (dev-only)
-// and dynamic /blog/[slug] (added once blog content exists in the CMS).
+// and dynamic /blog/[slug] (the journal lists from /careers; no standalone
+// /blog index).
 export const ROUTES = [
   "",
   "/portfolio",
   "/finishing",
   "/careers",
   "/catalog",
-  "/blog",
-  "/showcase",
+  "/terms",
+  "/privacy",
 ] as const;

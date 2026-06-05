@@ -9,6 +9,8 @@ import { routing } from "@/i18n/routing";
 import { SanityLive } from "@/sanity/live";
 import { SITE_URL } from "@/lib/site";
 import { OrganizationJsonLd } from "@/app/components/seo/JsonLd";
+import { ContactDialogProvider } from "@/app/components/contact/ContactDialogProvider";
+import type { Lang } from "@/app/content/home";
 import "../globals.css";
 
 const karantina = Karantina({
@@ -83,7 +85,11 @@ export default async function LocaleLayout({
           {locale === "he" ? "דלג לתוכן" : "Skip to content"}
         </a>
         <OrganizationJsonLd />
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          <ContactDialogProvider lang={locale as Lang}>
+            {children}
+          </ContactDialogProvider>
+        </NextIntlClientProvider>
         <SanityLive />
         {isDraftMode && <VisualEditing />}
       </body>

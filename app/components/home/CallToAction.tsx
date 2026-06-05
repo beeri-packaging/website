@@ -1,7 +1,7 @@
-import Link from "next/link";
 import type { HomeCopy, Lang } from "@/app/content/home";
 import { cn } from "@/lib/cn";
 import { buttonVariants } from "@/components/ui/button";
+import { ContactTriggerButton } from "@/app/components/contact/ContactTriggerButton";
 import { ArrowGlyph } from "./icons";
 
 export function CallToAction({ lang, t }: { lang: Lang; t: HomeCopy }) {
@@ -12,8 +12,7 @@ export function CallToAction({ lang, t }: { lang: Lang; t: HomeCopy }) {
           <span className="block">{t.ctaTitle[0]}</span>
           <span className="block">{t.ctaTitle[1]}</span>
         </h2>
-        <Link
-          href="mailto:hello@beeri.co.il"
+        <ContactTriggerButton
           className={cn(buttonVariants({ variant: "solid", size: "lg" }), "group self-start md:self-auto md:order-2")}
         >
           {t.cta1}
@@ -25,7 +24,7 @@ export function CallToAction({ lang, t }: { lang: Lang; t: HomeCopy }) {
               direction={lang === "he" ? "right-to-left" : "left-to-right"}
             />
           </span>
-        </Link>
+        </ContactTriggerButton>
       </div>
     </section>
   );

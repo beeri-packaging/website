@@ -34,12 +34,8 @@ export function CareersHero({
         {/* Start column — eyebrow, oversized headline, intro */}
         <div className="flex min-w-0 flex-col">
           <p className="ds-eyebrow text-clay">{copy.eyebrow}</p>
-          <h1 className="mt-5 font-display text-[64px] font-bold leading-[0.8] text-ink sm:text-[96px] md:text-[112px] lg:text-[132px]">
-            {copy.title.map((line) => (
-              <span key={line} className="block">
-                {line}
-              </span>
-            ))}
+          <h1 className="mt-5 font-display text-[44px] font-bold leading-[0.9] text-ink sm:text-[64px] md:text-[80px] lg:text-[96px]">
+            {copy.title.join(" ")}
           </h1>
           <p className="mt-7 max-w-[600px] font-sans text-[16px] leading-[1.6] text-clay sm:text-[18px]">
             {copy.intro}

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import type { Lang } from "@/app/content/home";
 import { PlaceholderShell } from "@/app/components/placeholder/PlaceholderShell";
-import { BlogPostHero } from "@/app/components/placeholder/BlogPostHero";
+import { BlogArticle } from "@/app/components/blog/BlogArticle";
 import { BlogNotFound } from "@/app/components/placeholder/BlogNotFound";
-import { getPost, getAllPosts, getBlogSettings, toBlogIndexCopy, toCategoryLabels, getChrome, toChrome } from "@/sanity/queries";
+import { getPost, getRelatedPosts, getAllPosts, getBlogSettings, toBlogIndexCopy, toCategoryLabels, getChrome, toChrome } from "@/sanity/queries";
 import { routing } from "@/i18n/routing";
 
 export async function generateStaticParams() {
@@ -32,10 +32,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   const copy = toBlogIndexCopy(settings, lang);
   const labels = toCategoryLabels(settings, lang);
   const chrome = toChrome(await getChrome(lang), lang);
+  const related = post ? await getRelatedPosts(slug, lang, post.category) : [];
   return (
     <PlaceholderShell chrome={chrome}>
       {post
-        ? <BlogPostHero post={post} copy={copy} labels={labels} lang={lang} />
+        ? <BlogArticle post={post} related={related} copy={copy} labels={labels} lang={lang} />
         : <BlogNotFound copy={copy} lang={lang} />}
     </PlaceholderShell>
   );

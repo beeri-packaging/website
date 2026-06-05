@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Lang } from "@/app/content/home";
 import type { Chrome } from "@/app/content/site";
+import { ContactTriggerButton } from "@/app/components/contact/ContactTriggerButton";
 import { LangPill } from "./LangPill";
 
 export function MobileDrawer({
@@ -71,13 +72,12 @@ export function MobileDrawer({
           </ul>
 
           <div className="flex flex-col gap-4">
-            <Link
-              href="/#cta"
+            <ContactTriggerButton
               onClick={onClose}
               className="inline-flex items-center justify-center bg-ink text-bone rounded-[5px] px-8 py-4 text-[14px] font-sans font-bold tracking-[0.08em] hover:bg-clay transition-colors duration-300"
             >
               {chrome.contact}
-            </Link>
+            </ContactTriggerButton>
             <div className="flex items-center justify-between text-clay/80 text-[12px] uppercase tracking-[0.08em]">
               <span>
                 {chrome.footerAddr[0]} · {chrome.footerAddr[1]}

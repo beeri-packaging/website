@@ -4,6 +4,7 @@ import type { Lang } from "@/app/content/home";
 import type { Chrome } from "@/app/content/site";
 import { cn } from "@/lib/cn";
 import { buttonVariants } from "@/components/ui/button";
+import { ContactTriggerButton } from "@/app/components/contact/ContactTriggerButton";
 
 export function Header({
   lang,
@@ -48,12 +49,11 @@ export function Header({
         </ul>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <Link
-            href="/#cta"
+          <ContactTriggerButton
             className={cn(buttonVariants({ variant: "solid", size: "sm" }), "hidden md:inline-flex lg:px-8")}
           >
             {chrome.contact}
-          </Link>
+          </ContactTriggerButton>
 
           <button
             type="button"

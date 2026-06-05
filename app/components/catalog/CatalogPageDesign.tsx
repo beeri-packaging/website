@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { ContactTriggerButton } from "@/app/components/contact/ContactTriggerButton";
 import type {
   CatalogCategory,
   CatalogCopy,
@@ -91,7 +91,7 @@ function Tag({ tag }: { tag: CatalogTag }) {
 // ── Grid card (cosmetics) — square photo + hover technical overlay + tags ─────
 function GridCard({ item }: { item: CatalogItem }) {
   return (
-    <article className="group flex flex-col overflow-hidden border border-ink bg-bone shadow-[4px_4px_0_0_var(--ink)]">
+    <article className="flex flex-col overflow-hidden border border-ink bg-bone shadow-[4px_4px_0_0_var(--ink)]">
       <div className="relative aspect-square border-b border-ink bg-sand">
         {item.image ? (
           <Image
@@ -102,28 +102,6 @@ function GridCard({ item }: { item: CatalogItem }) {
             className="object-cover"
           />
         ) : null}
-        {/* Technical overlay — revealed on hover */}
-        <div className="pointer-events-none absolute inset-4 border border-cyan/50 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-          <span className="absolute left-0 top-0 h-px w-8 bg-cyan" aria-hidden />
-          <span className="absolute left-0 top-0 h-8 w-px bg-cyan" aria-hidden />
-          {item.overlayLabel ? (
-            <span className="absolute left-2 top-2 bg-cyan/20 px-1 font-sans text-[8px] font-semibold leading-[12px] text-teal">
-              {item.overlayLabel}
-            </span>
-          ) : null}
-          {item.overlaySpecs?.length ? (
-            <div className="absolute bottom-4 end-4 flex flex-col items-start">
-              {item.overlaySpecs.map((spec) => (
-                <span
-                  key={spec}
-                  className="font-sans text-[10px] font-semibold leading-[15px] text-teal"
-                >
-                  {spec}
-                </span>
-              ))}
-            </div>
-          ) : null}
-        </div>
       </div>
       <div className="flex flex-1 flex-col items-start gap-6 p-6 text-start">
         <h3 className="font-display text-[40px] leading-[0.92] text-ink sm:text-[44px]">
@@ -176,12 +154,11 @@ function FeatureCard({ item }: { item: CatalogItem }) {
           </div>
         ) : null}
         {item.cta ? (
-          <Link
-            href="/#cta"
+          <ContactTriggerButton
             className="inline-flex items-center justify-center border border-ink bg-purple px-5 py-4 font-sans text-[12px] font-semibold text-bone shadow-[4px_4px_0_0_var(--ink)] transition-colors hover:bg-ink focus-ring"
           >
             {item.cta}
-          </Link>
+          </ContactTriggerButton>
         ) : null}
       </div>
       {item.image ? (

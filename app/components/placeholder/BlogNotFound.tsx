@@ -22,7 +22,7 @@ export function BlogNotFound({ copy, lang }: { copy: BlogIndexCopy; lang: Lang }
           {copy.notFoundBody}
         </p>
         <Link
-          href="/blog"
+          href="/"
           className="group inline-flex items-center gap-3 bg-ink text-bone rounded-[5px] px-8 py-4 text-[13px] font-sans font-bold tracking-[0.08em] hover:bg-clay transition-colors duration-300 focus-ring"
         >
           {copy.backToBlog}

@@ -15,12 +15,28 @@ export type BlogCategory =
   | "floor"
   | "studio";
 
+/** A pull-quote with its citation, rendered beside an image in the article. */
+export type BlogQuote = { text: string; cite: string };
+
+/** A numbered article section — heading + body, with an optional inline image. */
+export type BlogSection = {
+  heading: string;
+  body: string;
+  /** Optional inline image path, rendered full-width under the section. */
+  image?: string;
+};
+
 export type BlogLocalized = {
   category: string;
   title: string;
+  /** Hero subtitle + card description. */
   excerpt: string;
-  /** Body paragraphs — keep short, the page renders one <p> per entry. */
+  /** Lead paragraphs — rendered above the numbered sections. */
   body: readonly string[];
+  /** Optional pull-quote shown beside the quote image. */
+  quote?: BlogQuote;
+  /** Numbered sections (auto-numbered 01, 02 …) that make up the article. */
+  sections?: readonly BlogSection[];
 };
 
 export type BlogPost = {
@@ -31,8 +47,14 @@ export type BlogPost = {
   read: { he: string; en: string };
   /** Category key — drives the eyebrow color. */
   category: BlogCategory;
-  /** Optional image path. If omitted, a tinted brand-color block is used. */
+  /** Optional hero image path. If omitted, a tinted brand-color block is used. */
   image?: string;
+  /** Author label ("written by") — shared across locales unless overridden. */
+  author?: { he: string; en: string };
+  /** Photo / production credit — shared across locales. */
+  credit?: { he: string; en: string };
+  /** Image rendered beside the pull-quote. */
+  quoteImage?: string;
   he: BlogLocalized;
   en: BlogLocalized;
 };
@@ -101,21 +123,108 @@ export const categoryChipClass: Record<BlogCategory, string> = {
   studio: "bg-gold text-gold-deep",
 };
 
+/** Shared author/credit labels — most posts come from the studio + floor. */
+const STUDIO = { he: "סטודיו בארי", en: "Beeri Studio" };
+const FLOOR = { he: "מחלקת ייצור", en: "Production floor" };
+
 export const blogPosts: readonly BlogPost[] = [
+  {
+    slug: "finishing-language",
+    date: "2026-05-20",
+    read: { he: "6 דקות", en: "6 min read" },
+    category: "trends",
+    image: "/images/generated/hero-new-style/hero-new-style-01-wine-foil.png",
+    author: STUDIO,
+    credit: FLOOR,
+    quoteImage:
+      "/images/generated/website-content/finishing/syrah-foil-detail-v1.png",
+    he: {
+      category: "מגמות עיצוב",
+      title: "שפת הגימור",
+      excerpt:
+        "איך פויל, לכה והבלטה הופכים אריזת קרטון פשוטה לחוויית פרימיום שמרגישים עוד לפני השימוש.",
+      body: [
+        "אריזה טובה היא לא קישוט. היא עוזרת למותג להגיד משהו ברור — יוקרה, ניקיון, טבעיות או חגיגיות. במארזי קוסמטיקה, פארמה ויין הגימור הוא חלק מהמסר, ולא רק עיטור על הקרטון.",
+        "כאן נכנסות השבחות הדפוס: פויל, לכה סלקטיבית והבלטה שמוסיפים מגע, ברק ועומק — ומעלים את הערך הנתפס של המוצר עוד לפני שפותחים אותו.",
+      ],
+      quote: {
+        text: "האריזה היא המפגש הראשון בין המותג ללקוח — וכשהגימור מדויק, המוצר מרגיש נכון עוד לפני השימוש.",
+        cite: "— מתוך הבלוג של בארי אריזות",
+      },
+      sections: [
+        {
+          heading: "מה הלקוח רואה ומרגיש",
+          body: "באריזות פרימיום הלקוח לא רק מסתכל. הוא מחזיק, פותח ומעביר אצבע על הלוגו ומרגיש את החומר. זה רגע קטן, אבל הוא משפיע ישירות על הערך הנתפס של המוצר. לכה שמבליטה פרט, פויל שמחזיר אור או הבלטה שמוסיפה עומק — כל אחד מהם גורם לאריזה להרגיש מושקעת יותר.",
+          image:
+            "/images/generated/hero-new-style/hero-new-style-04-black-gold-bottle.png",
+        },
+        {
+          heading: "לכה, פויל והבלטה",
+          body: "לכה סלקטיבית מוחלת על אזורים מסוימים בלבד, להדגשת לוגו או פרט גרפי. פויל מוסיף ברק ונוכחות מטאלית כנקודת מוקד ברורה. הבלטה ודיבוס יוצרים תחושת מגע ועומק. שימוש מדוד תמיד עדיף על עומס — אזור אחד מדויק שווה יותר מהכול.",
+        },
+      ],
+    },
+    en: {
+      category: "Trends",
+      title: "The language of finishing",
+      excerpt:
+        "How foil, lacquer and emboss turn a plain carton into a premium experience you feel before you even open it.",
+      body: [
+        "Good packaging isn't decoration. It helps a brand say something clear — luxury, cleanliness, natural, or celebration. On cosmetics, pharma and wine cartons, the finish is part of the message, not just an ornament on the board.",
+        "This is where print finishing comes in: foil, spot lacquer and emboss add touch, shine and depth — raising the product's perceived value before anyone even opens it.",
+      ],
+      quote: {
+        text: "The package is the first meeting between a brand and its customer — when the finish is precise, the product feels right before it's even used.",
+        cite: "— From the Beeri Packaging journal",
+      },
+      sections: [
+        {
+          heading: "What the customer sees and feels",
+          body: "On premium packaging the customer doesn't just look. They hold it, open it, run a finger over the logo and feel the material. It's a small moment, but it directly shapes the product's perceived value. A lacquer that lifts a detail, a foil that catches the light, or an emboss that adds depth — each one makes the package feel more considered.",
+          image:
+            "/images/generated/hero-new-style/hero-new-style-04-black-gold-bottle.png",
+        },
+        {
+          heading: "Lacquer, foil and emboss",
+          body: "Spot lacquer is applied only to chosen areas, to highlight a logo or a graphic detail. Foil adds shine and a metallic presence as a clear focal point. Emboss and deboss create touch and depth. Restraint always beats overload — one precise area is worth more than covering everything.",
+        },
+      ],
+    },
+  },
   {
     slug: "anatomy-of-a-wine-carton",
     date: "2026-05-12",
-    read: { he: "4 דק׳ קריאה", en: "4 min read" },
+    read: { he: "5 דקות", en: "5 min read" },
     category: "structural",
+    image:
+      "/images/generated/website-content/packaging/gold-wine-insert-handle-box.png",
+    author: STUDIO,
+    credit: FLOOR,
+    quoteImage: "/images/figma/catalog/wine.png",
     he: {
       category: "תכנון מבני",
       title: "האנטומיה של אריזת יין",
       excerpt:
-        "מה הופך אריזת יין טובה — מהדייליין הראשון ועד הקופסה שמגיעה לחנות?",
+        "מה הופך אריזת יין טובה — מהדייליין הראשון ועד הקופסה שמגיעה למדף?",
       body: [
-        "אריזת יין טובה מתחילה הרבה לפני הדפוס. היא מתחילה בשאלות פשוטות: מה גובה הבקבוק, מה הקוטר, איך הצרכן יחזיק אותה בחנות, ואיך היא תיארז על משטח.",
-        "במאמר הזה נפרק את שלבי התכנון של אריזת יין מקרטון 350 גרם — מהאפיון הראשוני, דרך הדייליין הראשון, הדוגמה הדיגיטלית, הדפוס וההשבחות, ועד הרון הסופי.",
-        "הפוסט המלא בעריכה — בינתיים זה השלד. נחזור עם תיעוד נרחב, כולל קבצי דייליין, צילומים מהמפעל ולומדה קצרה על מה משפיע על המחיר.",
+        "אריזת יין טובה מתחילה הרבה לפני הדפוס. היא מתחילה בשאלות פשוטות: מה גובה הבקבוק, מה קוטר הצוואר, איך הלקוח יחזיק את הקופסה במדף ואיך היא תיארז על משטח.",
+        "כל החלטה כזו משפיעה על המבנה, על כמות הקרטון ועל המחיר הסופי — ולכן התכנון המבני הוא הלב של אריזת יין מצליחה.",
+      ],
+      quote: {
+        text: "אריזה של יין נמדדת ברגע שמרימים אותה מהמדף — היא צריכה להרגיש יציבה, נקייה ובטוחה.",
+        cite: "— מתוך הבלוג של בארי אריזות",
+      },
+      sections: [
+        {
+          heading: "מהבקבוק לדייליין",
+          body: "מודדים את הבקבוק, מוסיפים מרווחי בטיחות ובונים דייליין ראשוני. כאן נקבעים סוג הסגירה, חוזק הדפנות והאם צריך מגירה פנימית או חוצץ שיחזיק את הבקבוק במקום. דייליין מדויק חוסך תיקונים יקרים בהמשך.",
+          image:
+            "/images/generated/hero-new-style/hero-new-style-01-wine-foil.png",
+        },
+        {
+          heading: "חומר, דפוס והשבחה",
+          body: "אחרי שהמבנה נעול בוחרים קרטון במשקל מתאים, מתאימים את הדפוס לגוון התווית ומוסיפים השבחה נקודתית — פויל על הלוגו או לכה שמדגישה את שם היקב. השילוב הנכון בין מבנה לגימור הוא מה שגורם לאריזה להרגיש יקרה.",
+        },
       ],
     },
     en: {
@@ -124,93 +233,152 @@ export const blogPosts: readonly BlogPost[] = [
       excerpt:
         "What makes a wine carton work — from the first dieline to the box on the shelf.",
       body: [
-        "A good wine carton starts long before the press. It starts with simple questions: bottle height, neck diameter, how the customer holds it on the shelf, and how the carton palletizes for shipping.",
-        "In this post we'll unpack the design stages of a 350gsm wine carton — from the brief, through the first dieline, the digital prototype, print and finishing, all the way to the final run.",
-        "The full piece is in edit — this is the skeleton. We'll come back with deep documentation, dieline files, factory photos and a short primer on what drives price.",
+        "A good wine carton starts long before the press. It starts with simple questions: bottle height, neck diameter, how the customer holds the box on the shelf, and how it palletizes for shipping.",
+        "Every one of those decisions shapes the structure, the amount of board used and the final price — which is why structural design is the heart of a successful wine carton.",
       ],
-    },
-  },
-  {
-    slug: "foil-vs-spot-uv",
-    date: "2026-04-28",
-    read: { he: "3 דק׳ קריאה", en: "3 min read" },
-    category: "trends",
-    he: {
-      category: "מגמות עיצוב",
-      title: "פויל מול ספוט יו-וי — מתי מה?",
-      excerpt:
-        "שתי השבחות שמשנות מותג. הבדל אחד גדול שכדאי להכיר.",
-      body: [
-        "פויל וספוט UV נראים לפעמים כמו אלטרנטיבות, אבל הם עושים שני דברים שונים לחלוטין. אחד מוסיף מתכת לדפוס, השני מוסיף הברקה ועומק.",
-        "בפוסט נדבר על מתי כל טכניקה מצדיקה את עצמה — לפי קטגוריית מוצר, תקציב, ולוח זמנים — ועל שילובים נפוצים שעובדים יותר טוב מכל אחד מהם בנפרד.",
-        "השלמת הפוסט כוללת דוגמאות צילום, מחירון משוואתי וטיפים לתכנון קובץ אומנות שתומך בשני העולמות.",
-      ],
-    },
-    en: {
-      category: "Trends",
-      title: "Foil vs. spot UV — when to use which",
-      excerpt:
-        "Two finishes that move a brand. One big difference worth knowing.",
-      body: [
-        "Foil and spot UV are sometimes treated as alternatives, but they do very different things. One adds metal to the print, the other adds gloss and depth.",
-        "In this post we'll cover when each technique earns its keep — by product category, budget and timeline — and the common combinations that beat either one on its own.",
-        "The final piece will include photographic samples, a comparative price sheet and tips for prepping artwork that supports both.",
+      quote: {
+        text: "A wine package is judged the moment it's lifted off the shelf — it has to feel stable, clean and secure.",
+        cite: "— From the Beeri Packaging journal",
+      },
+      sections: [
+        {
+          heading: "From bottle to dieline",
+          body: "We measure the bottle, add safety clearances and build a first dieline. This is where the closure type, wall strength and whether an inner drawer or insert is needed get decided. A precise dieline saves expensive corrections down the line.",
+          image:
+            "/images/generated/hero-new-style/hero-new-style-01-wine-foil.png",
+        },
+        {
+          heading: "Stock, print and finish",
+          body: "Once the structure is locked we pick board at the right weight, tune the print to the label's palette and add a focused finish — foil on the logo or a lacquer that lifts the winery name. The right balance of structure and finish is what makes a carton feel expensive.",
+        },
       ],
     },
   },
   {
     slug: "recyclable-stock-2026",
-    date: "2026-04-09",
-    read: { he: "5 דק׳ קריאה", en: "5 min read" },
+    date: "2026-04-28",
+    read: { he: "5 דקות", en: "5 min read" },
     category: "sustainability",
+    image:
+      "/images/generated/website-content/packaging/kraft-sweets-window-box.png",
+    author: STUDIO,
+    credit: FLOOR,
+    quoteImage:
+      "/images/generated/website-content/packaging/cosmetics-drawer-window-sleeve.png",
     he: {
       category: "קיימות",
       title: "חומרי קרטון בני-מיחזור ב-2026",
       excerpt:
-        "מה השוק מציע השנה — וכיצד מותג בוחר חומר בלי לאבד חוויה.",
+        "מה השוק מציע השנה — ואיך בוחרים חומר בלי לוותר על תחושת פרימיום.",
       body: [
-        "השוק הישראלי של קרטון בר-מיחזור התרחב משמעותית בשנים האחרונות. אפשר היום למצוא קרטוני FSC במגוון משקלים, גימורים ומקורות סיבים שלא היו זמינים בעבר.",
-        "בפוסט נמפה את האפשרויות, נתאר מה ההבדל בין FSC, PEFC ו-recycled, ונראה איך מותגים אצלנו בוחרים חומר בלי לוותר על הרגשה פרימיום.",
-        "הפוסט המלא יכלול טבלת השוואה, המלצות נקודתיות לפי קטגוריות מוצר, ודיון על תקנים ירוקים שצפויים להיכנס לתוקף.",
+        "השוק הישראלי של קרטון בר-מיחזור התרחב מאוד בשנים האחרונות. אפשר היום למצוא קרטוני FSC במגוון משקלים, גימורים ומקורות סיבים שלא היו זמינים בעבר.",
+        "האתגר כבר אינו זמינות, אלא בחירה נכונה: איך שומרים על מראה ומגע יוקרתיים גם כשעוברים לחומר ירוק.",
+      ],
+      quote: {
+        text: "קיימות לא חייבת לבוא על חשבון החוויה — חומר נכון נראה ומרגיש פרימיום בדיוק כמו קרטון רגיל.",
+        cite: "— מתוך הבלוג של בארי אריזות",
+      },
+      sections: [
+        {
+          heading: "FSC, ממוחזר ומה שביניהם",
+          body: "תקן FSC מעיד על ייעור בר-קיימא, קרטון ממוחזר חוסך בסיבים חדשים, ויש גם שילובים של השניים. ההבדל מורגש במחיר, בגוון הבסיס ובטקסטורה — ולכן בוחרים חומר לפי הקטגוריה והמסר של המותג, לא לפי כותרת ירוקה בלבד.",
+          image:
+            "/images/generated/website-content/packaging/handled-suitcase-gift-box.png",
+        },
+        {
+          heading: "לשמור על תחושת פרימיום",
+          body: "גם בחומר ירוק אפשר להגיע לגימור עשיר: לכה מאט שמרגיעה את המראה, הבלטה שמוסיפה מגע או פויל מבוסס חומרים ממוחזרים. לפעמים דווקא המרקם הטבעי של הקרטון הממוחזר הופך ליתרון שיווקי שמספר את סיפור הקיימות בלי מילה אחת.",
+        },
       ],
     },
     en: {
       category: "Sustainability",
       title: "Recyclable stock in 2026",
       excerpt:
-        "What the market offers this year — and how to pick a stock without losing the feel.",
+        "What the market offers this year — and how to pick a stock without losing the premium feel.",
       body: [
-        "The Israeli market for recyclable board has grown meaningfully in the last few years. FSC stocks across a wide range of weights, finishes and fiber sources are now reachable in ways they weren't before.",
-        "In this post we'll map the options, explain the difference between FSC, PEFC and recycled, and walk through how our clients pick stock without sacrificing a premium feel.",
-        "The final piece will include a comparison table, category-specific recommendations and a discussion of upcoming green standards.",
+        "The Israeli market for recyclable board has grown a lot in recent years. FSC stocks across a wide range of weights, finishes and fiber sources are now reachable in ways they weren't before.",
+        "The challenge is no longer availability, but choosing well: how to keep a luxurious look and feel even when moving to a greener material.",
+      ],
+      quote: {
+        text: "Sustainability doesn't have to come at the cost of experience — the right stock looks and feels just as premium as conventional board.",
+        cite: "— From the Beeri Packaging journal",
+      },
+      sections: [
+        {
+          heading: "FSC, recycled and the space between",
+          body: "FSC certifies responsible forestry, recycled board saves virgin fiber, and there are blends of the two. The difference shows up in price, base shade and texture — so we pick stock by the brand's category and message, not by a green label alone.",
+          image:
+            "/images/generated/website-content/packaging/handled-suitcase-gift-box.png",
+        },
+        {
+          heading: "Keeping the premium feel",
+          body: "Even on a green stock you can reach a rich finish: a matte lacquer that calms the look, an emboss that adds touch, or recycled-content foil. Sometimes the natural texture of recycled board becomes the marketing advantage itself — telling the sustainability story without a single word.",
+        },
       ],
     },
   },
   {
-    slug: "press-floor-notebook",
-    date: "2026-03-22",
-    read: { he: "3 דק׳ קריאה", en: "3 min read" },
+    slug: "digital-vs-offset",
+    date: "2026-04-09",
+    read: { he: "5 דקות", en: "5 min read" },
     category: "floor",
+    image:
+      "/images/generated/hero-new-style/hero-new-style-05-diecut-process.png",
+    author: STUDIO,
+    credit: { he: "צוות הדפוס", en: "Press team" },
+    quoteImage:
+      "/images/generated/hero-new-style/hero-new-style-03-coffee-display.png",
     he: {
       category: "מהמפעל",
-      title: "פנקס מהמפעל — מרץ 2026",
+      title: "דפוס דיגיטלי או אופסט",
       excerpt:
-        "הצצה לעבודה השוטפת ביבנה: שלוש הזמנות, ארבעה דרכי דפוס, חמש דוגמאות.",
+        "איך בוחרים בין דפוס דיגיטלי לאופסט לפי כמות, גוונים ולוח זמנים.",
       body: [
-        "כל חודש אנחנו אוספים פנקס קצר מהמפעל — מה רץ, איזה לקוחות במחזור, אילו בעיות עלו ומה למדנו.",
-        "במהדורת מרץ נראה הזמנת קפסולות קפה שדרשה השבחת פויל קר על שטח גדול, אריזת בושם עם שטנץ מורכב, ועדכון חומר על קו פארמה ותיק.",
-        "הפוסט עוד לא נכתב במלואו — אנחנו ממתינים לאישור צילום מהקווים.",
+        "אחת השאלות הראשונות בכל פרויקט אריזה היא איך מדפיסים אותו. דיגיטלי ואופסט הם שני עולמות שונים, וכל אחד מצטיין בסיטואציה אחרת.",
+        "הבחירה הנכונה חוסכת זמן וכסף — ולכן כדאי להבין את ההבדלים עוד לפני שמתחילים בעיצוב.",
+      ],
+      quote: {
+        text: "אין דפוס ״טוב יותר״ — יש דפוס שמתאים יותר לכמות, ללוח הזמנים ולגוונים של הפרויקט.",
+        cite: "— מתוך הבלוג של בארי אריזות",
+      },
+      sections: [
+        {
+          heading: "דיגיטלי: מהיר וגמיש",
+          body: "דפוס דיגיטלי מתאים לסדרות קצרות, לגרסאות מרובות ולפיילוטים. אין צורך בלוחות, ההכנה מהירה ואפשר לשנות גרפיקה בין יחידה ליחידה — מושלם להשקות, למהדורות מוגבלות ולבדיקות שוק לפני ייצור גדול.",
+          image:
+            "/images/generated/website-content/packaging/tall-coffee-capsule-carton.png",
+        },
+        {
+          heading: "אופסט: עקבי ומשתלם בכמות",
+          body: "כשהכמויות גדלות, אופסט מנצח: עלות נמוכה יותר ליחידה, גוונים מדויקים וחוזרים על עצמם, ותמיכה מלאה בצבעי פנטון ובהשבחות מורכבות. זו הבחירה לקווים קבועים ולמותגים עם דרישות צבע מחמירות.",
+        },
       ],
     },
     en: {
       category: "From the floor",
-      title: "Press-floor notebook — March 2026",
+      title: "Digital or offset",
       excerpt:
-        "A snapshot from Yavne: three jobs, four print paths, five samples.",
+        "How to choose between digital and offset by quantity, color and timeline.",
       body: [
-        "Every month we collect a short notebook from the factory — what's running, who's in rotation, what came up and what we learned.",
-        "In the March edition we'll cover a coffee-capsule run that called for cold foil across large flood areas, a fragrance carton with a complex die, and a stock change on a long-running pharma line.",
-        "Full write-up is pending — we're waiting on photo clearance from the lines.",
+        "One of the first questions on any packaging project is how to print it. Digital and offset are two different worlds, and each shines in a different situation.",
+        "The right choice saves time and money — so it's worth understanding the differences before design even begins.",
+      ],
+      quote: {
+        text: "There's no “better” press — there's one that fits the run length, the timeline and the colors of the project.",
+        cite: "— From the Beeri Packaging journal",
+      },
+      sections: [
+        {
+          heading: "Digital: fast and flexible",
+          body: "Digital print suits short runs, many variants and pilots. No plates are needed, setup is quick, and artwork can change from one unit to the next — ideal for launches, limited editions and market tests before a large production run.",
+          image:
+            "/images/generated/website-content/packaging/tall-coffee-capsule-carton.png",
+        },
+        {
+          heading: "Offset: consistent and cost-effective at scale",
+          body: "As quantities grow, offset wins: a lower cost per unit, precise and repeatable colors, and full support for Pantone inks and complex finishing. It's the choice for standing lines and brands with strict color requirements.",
+        },
       ],
     },
   },

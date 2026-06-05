@@ -1,5 +1,8 @@
 // app/content/site.ts
 import type { Lang, NavLink } from "@/app/content/home";
+import { COMPANY, MAPS_HREF } from "@/app/content/company";
+
+export type FooterLink = { label: string; href: string };
 
 export type Chrome = {
   menu: string;
@@ -13,14 +16,27 @@ export type Chrome = {
   footerCopy: string;
   logoHe: string;
   logoEn: string;
+  // Footer composition
+  wordmark: string;
+  footerTagline: string;
+  footerHeritage: string;
+  footerNavHeading: string;
+  footerConnectHeading: string;
+  email: string;
+  mapsHref: string;
+  social: readonly FooterLink[];
+  legal: readonly FooterLink[];
 };
+
+const linkedinHref = COMPANY.linkedin;
+const emailAddr = COMPANY.email;
+const mapsHref = MAPS_HREF;
 
 export const navLinks: readonly NavLink[] = [
   { he: "פורטפוליו", en: "Work", href: "/portfolio" },
   { he: "השבחות", en: "Finishing", href: "/finishing" },
   { he: "קריירה", en: "Careers", href: "/careers" },
   { he: "קטלוג", en: "Catalog", href: "/catalog" },
-  { he: "בלוג", en: "Blog", href: "/blog" },
 ];
 
 export const chromeContent: Record<Lang, Chrome> = {
@@ -31,11 +47,23 @@ export const chromeContent: Record<Lang, Chrome> = {
     contact: "צור קשר",
     navLinks,
     footerEyebrow: "סטודיו ומפעל",
-    footerAddr: ["פארן 4", "יבנה"],
-    footerLinks: ["INSTAGRAM", "LINKEDIN", "תנאים", "פרטיות"],
+    footerAddr: [COMPANY.address.he.street, COMPANY.address.he.city],
+    footerLinks: ["תנאים", "פרטיות"],
     footerCopy: "© 2026 בארי אריזות. כל הזכויות שמורות.",
     logoHe: "/images/logo-he.svg",
     logoEn: "/images/logo-en.svg",
+    wordmark: "בארי אריזות",
+    footerTagline: "אריזות קרטון בהתאמה אישית — מתוכננות, מודפסות ומושבחות תחת קורת גג אחת.",
+    footerHeritage: "מאז 1964",
+    footerNavHeading: "ניווט",
+    footerConnectHeading: "יצירת קשר",
+    email: emailAddr,
+    mapsHref,
+    social: [{ label: "LinkedIn", href: linkedinHref }],
+    legal: [
+      { label: "תנאים", href: "/terms" },
+      { label: "פרטיות", href: "/privacy" },
+    ],
   },
   en: {
     menu: "Menu",
@@ -44,10 +72,22 @@ export const chromeContent: Record<Lang, Chrome> = {
     contact: "Contact",
     navLinks,
     footerEyebrow: "Studio & factory",
-    footerAddr: ["4 Paran St.", "Yavne, Israel"],
-    footerLinks: ["INSTAGRAM", "LINKEDIN", "Terms", "Privacy"],
+    footerAddr: [COMPANY.address.en.street, `${COMPANY.address.en.city}, ${COMPANY.address.en.country}`],
+    footerLinks: ["Terms", "Privacy"],
     footerCopy: "© 2026 Beeri Packaging. All rights reserved.",
     logoHe: "/images/logo-he.svg",
     logoEn: "/images/logo-en.svg",
+    wordmark: "Beeri Packaging",
+    footerTagline: "Custom carton packaging — designed, printed and finished under one roof.",
+    footerHeritage: "Since 1964",
+    footerNavHeading: "Explore",
+    footerConnectHeading: "Get in touch",
+    email: emailAddr,
+    mapsHref,
+    social: [{ label: "LinkedIn", href: linkedinHref }],
+    legal: [
+      { label: "Terms", href: "/terms" },
+      { label: "Privacy", href: "/privacy" },
+    ],
   },
 };

@@ -2,76 +2,134 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Lang } from "@/app/content/home";
 import type { Chrome } from "@/app/content/site";
+import { LinkedInGlyph, MailGlyph, PinGlyph, ArrowOut } from "./icons";
 
-export function Footer({
-  lang,
-  chrome,
-}: {
-  lang: Lang;
-  chrome: Chrome;
-}) {
-  const socialLinks = chrome.footerLinks.slice(0, 2);
-  const legalLinks = chrome.footerLinks.slice(2);
+const eyebrow =
+  "font-sans font-semibold uppercase text-teal text-[12px] tracking-[0.14em] leading-4";
+const bodyLink =
+  "font-sans text-clay text-[16px] leading-[25px] hover:text-ink transition-colors duration-300 focus-ring rounded-sm";
+
+export function Footer({ lang, chrome }: { lang: Lang; chrome: Chrome }) {
+  const isHe = lang === "he";
+  const brandName = isHe ? "בארי אריזות" : "Beeri Packaging";
 
   return (
-    <footer className="bg-bone border-t border-bone-line">
-      <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-10 md:px-12 lg:px-[64px] py-20 sm:py-28 md:py-32 lg:py-[120px] xl:py-[160px] flex flex-col md:flex-row gap-12 md:gap-10 md:items-end md:justify-between">
-        <div className="flex flex-col gap-6 md:gap-8 order-2">
-          <ul className="flex flex-wrap gap-x-8 gap-y-3">
-            {socialLinks.map((l) => (
-              <li key={l}>
-                <Link
-                  href="#"
-                  className="font-sans text-clay text-[16px] leading-[25px] uppercase underline underline-offset-4 decoration-from-font hover:text-ink transition-colors duration-300 focus-ring"
-                  aria-label={l}
-                >
-                  {l}
-                </Link>
-              </li>
+    <footer className="relative isolate overflow-hidden bg-bone text-ink border-t border-rule">
+      {/* warm top hairline accent — a nod to the brand palette */}
+      <div aria-hidden className="absolute inset-x-0 top-0 flex h-[3px]">
+        <span className="flex-1 bg-cyan" />
+        <span className="flex-1 bg-yellow" />
+        <span className="flex-1 bg-magenta" />
+        <span className="flex-1 bg-purple" />
+      </div>
+
+      <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-10 md:px-12 lg:px-[64px] pt-20 sm:pt-24 md:pt-28 lg:pt-32">
+        {/* ── Top grid ───────────────────────────────────────────── */}
+        <div className="grid grid-cols-1 gap-y-12 md:grid-cols-12 md:gap-x-10">
+          {/* Brand */}
+          <div className="flex flex-col gap-6 md:col-span-5">
+            <Link
+              href="/"
+              aria-label={brandName}
+              className="block w-fit focus-ring rounded-sm transition-opacity hover:opacity-80"
+            >
+              <Image
+                src={isHe ? chrome.logoHe : chrome.logoEn}
+                alt={brandName}
+                width={249}
+                height={64}
+                className="h-auto w-[190px] sm:w-[220px]"
+              />
+            </Link>
+            <p className="font-sans text-clay text-[16px] leading-[26px] max-w-[360px] text-balance">
+              {chrome.footerTagline}
+            </p>
+            <span className="inline-flex w-fit items-center gap-2 font-sans font-semibold uppercase text-ink text-[12px] tracking-[0.14em] leading-4">
+              <span aria-hidden className="h-2 w-2 rounded-full bg-cyan" />
+              {chrome.footerHeritage}
+            </span>
+          </div>
+
+          {/* Navigation */}
+          <nav
+            aria-label={chrome.footerNavHeading}
+            className="flex flex-col gap-4 md:col-span-3"
+          >
+            <h2 className={eyebrow}>{chrome.footerNavHeading}</h2>
+            <ul className="flex flex-col gap-2.5">
+              {chrome.navLinks.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} className={bodyLink}>
+                    {l[lang]}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Connect */}
+          <div className="flex flex-col gap-4 md:col-span-4">
+            <h2 className={eyebrow}>{chrome.footerConnectHeading}</h2>
+
+            <a href={`mailto:${chrome.email}`} className={`group inline-flex w-fit items-center gap-2.5 ${bodyLink}`}>
+              <span className="text-ink/70 transition-colors group-hover:text-ink"><MailGlyph /></span>
+              {chrome.email}
+            </a>
+
+            {chrome.social.map((s) => (
+              <a
+                key={s.href}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`group inline-flex w-fit items-center gap-2.5 ${bodyLink}`}
+              >
+                <span className="text-ink/70 transition-colors group-hover:text-[#0a66c2]"><LinkedInGlyph /></span>
+                {s.label}
+                <span aria-hidden className="text-rule transition-colors group-hover:text-ink">
+                  <ArrowOut />
+                </span>
+              </a>
             ))}
-          </ul>
-          <ul className="flex flex-wrap gap-x-8 gap-y-3">
-            {legalLinks.map((l) => (
-              <li key={l}>
-                <Link
-                  href="#"
-                  className="font-sans text-clay text-[16px] leading-[25px] uppercase underline underline-offset-4 decoration-from-font hover:text-ink transition-colors duration-300 focus-ring"
-                  aria-label={l}
-                >
-                  {l}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <p className="font-sans font-semibold uppercase text-clay text-[12px] tracking-[0.08em] leading-4 max-w-[260px]">
-            {chrome.footerCopy}
-          </p>
+
+            <a
+              href={chrome.mapsHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group mt-2 inline-flex w-fit items-start gap-2.5 focus-ring rounded-sm"
+            >
+              <span className="mt-0.5 text-ink/70 transition-colors group-hover:text-ink"><PinGlyph /></span>
+              <span className="flex flex-col gap-1">
+                <span className={eyebrow}>{chrome.footerEyebrow}</span>
+                <span className="font-sans text-clay text-[16px] leading-[24px] transition-colors group-hover:text-ink">
+                  {chrome.footerAddr[0]}, {chrome.footerAddr[1]}
+                </span>
+              </span>
+            </a>
+          </div>
         </div>
 
-        <div className="flex flex-col gap-6 md:gap-8 order-1 md:items-start">
-          <Link
-            href="/"
-            aria-label={lang === "he" ? "בארי אריזות" : "Beeri Packaging"}
-            className="block focus-ring rounded-sm transition-opacity hover:opacity-80"
-          >
-            <Image
-              src={lang === "he" ? chrome.logoHe : chrome.logoEn}
-              alt={lang === "he" ? "בארי אריזות" : "Beeri Packaging"}
-              width={249}
-              height={64}
-              className="h-auto w-[200px] sm:w-[249px]"
-            />
-          </Link>
-          <div className="flex flex-col gap-2 max-w-[320px]">
-            <span className="font-sans font-semibold uppercase text-teal text-[12px] tracking-[0.08em] leading-4">
-              {chrome.footerEyebrow}
-            </span>
-            <p className="font-sans text-clay text-[16px] leading-[25px]">
-              {chrome.footerAddr[0]}
-              <br />
-              {chrome.footerAddr[1]}
-            </p>
-          </div>
+        <div className="h-16 sm:h-20 md:h-24" />
+      </div>
+
+      {/* ── Bottom bar ───────────────────────────────────────────── */}
+      <div className="border-t border-bone-line">
+        <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-10 md:px-12 lg:px-[64px] py-6 flex flex-col-reverse gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="font-sans uppercase text-clay text-[12px] tracking-[0.08em] leading-4">
+            {chrome.footerCopy}
+          </p>
+          <ul className="flex flex-wrap gap-x-6 gap-y-2">
+            {chrome.legal.map((l) => (
+              <li key={l.label}>
+                <Link
+                  href={l.href}
+                  className="font-sans uppercase text-clay text-[12px] tracking-[0.08em] leading-4 underline underline-offset-4 decoration-rule hover:text-ink hover:decoration-ink transition-colors duration-300 focus-ring rounded-sm"
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </footer>
