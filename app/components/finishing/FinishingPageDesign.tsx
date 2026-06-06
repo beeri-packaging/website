@@ -54,7 +54,7 @@ function FeatureCard({ item }: { item: FinishingGridItem }) {
           objectPosition="50% 42%"
         />
       ) : null}
-      <div className="flex flex-1 flex-col gap-4 bg-bone p-6 text-right sm:p-8">
+      <div className="flex flex-1 flex-col gap-4 bg-bone p-6 text-start sm:p-8">
         <h2 className="font-display text-[24px] font-bold leading-[0.8] tracking-[0.05em] text-blueprint">
           {item.title}
         </h2>
@@ -82,7 +82,7 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
   return (
     <div className="bg-bone">
       <section className="mx-auto w-full max-w-[1152px] px-5 pb-[75px] pt-2 sm:px-8 lg:px-0">
-        <div className="ml-auto flex w-full max-w-[672px] flex-col items-end text-right">
+        <div className="me-auto flex w-full max-w-[672px] flex-col items-end text-start">
           <div className="mb-2 flex h-6 w-full items-center justify-end gap-4 text-magenta" dir="ltr">
             <span className="h-px w-24 bg-magenta" aria-hidden />
             <span className="font-sans text-[12px] font-extrabold uppercase leading-4 tracking-[0.08em]" dir={lang === "he" ? "rtl" : "ltr"}>
@@ -157,7 +157,7 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
               objectPosition="62% 47%"
             />
           ) : null}
-          <div className="p-8 text-right">
+          <div className="p-8 text-start">
             <p className="font-sans text-[12px] font-extrabold uppercase leading-4 tracking-[0.08em] text-purple">
               {copy.deboss.eyebrow}
             </p>
@@ -171,7 +171,7 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
         </article>
 
         <article className="flex h-auto flex-col overflow-hidden border border-blueprint bg-[#f0f0f0] lg:col-span-7 lg:h-[535px]" dir={lang === "he" ? "rtl" : "ltr"}>
-          <div className="mb-[-31px] p-8 text-right sm:p-12">
+          <div className="mb-[-31px] p-8 text-start sm:p-12">
             <h2 className="whitespace-pre-line font-display text-[24px] font-bold leading-[0.8] tracking-[0.05em] text-magenta">
               {copy.texture.title}
             </h2>
@@ -193,7 +193,7 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
 
       <section className="mx-auto w-full max-w-[1152px] px-5 pb-20 pt-0 sm:px-8 md:px-12 lg:px-0">
         <div className="flex flex-col gap-10 pt-0 md:flex-row md:items-center md:justify-between">
-          <div className="max-w-[576px] text-right">
+          <div className="max-w-[576px] text-start">
             <h2 className="font-sans text-[16px] font-normal leading-[1.56] tracking-[-0.01em] text-blueprint">
               {copy.ctaTitle}
             </h2>
@@ -225,7 +225,7 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
             </div>
             <div className="grid aspect-square w-[129px] place-items-center bg-yellow text-center">
               <div>
-                <p className="font-display text-[24px] font-bold leading-[0.8] tracking-[0.05em] text-white">
+                <p className="font-display text-[24px] font-bold leading-[0.8] tracking-[0.05em] text-blueprint">
                   {copy.isoCard.value}
                 </p>
                 <p className="mt-1 font-sans text-[12px] font-extrabold uppercase leading-4 tracking-[0.08em] text-blueprint">

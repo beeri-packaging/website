@@ -44,7 +44,7 @@ export const contactCopy: Record<Lang, ContactCopy> = {
   he: {
     closeLabel: "סגירה",
     eyebrow: "פנייה לפרויקט",
-    title: "בואו נפתח את האריזה.",
+    title: "נדבר על האריזה שלכם.",
     description: "טופס יצירת קשר — השאירו פרטים ונחזור אליכם בהקדם.",
     form: {
       fullName: { label: "שם מלא", placeholder: "דנה כהן" },
@@ -54,15 +54,15 @@ export const contactCopy: Record<Lang, ContactCopy> = {
       reason: {
         label: "סיבת הפנייה",
         options: [
-          { value: "", label: "בחרו סיבה…" },
+          { value: "", label: "בחירת סיבה…" },
           { value: "quote", label: "הצעת מחיר" },
-          { value: "meeting", label: 'תיאום פגישה עם מת"ל' },
-          { value: "other", label: "אחר" },
+          { value: "meeting", label: 'תיאום פגישה עם מת״ל' },
+          { value: "other", label: "נושא אחר" },
         ],
       },
       details: {
         label: "פרטים נוספים (לא חובה)",
-        placeholder: "ספרו לנו על הפרויקט...",
+        placeholder: "כמה מילים על המוצר והפרויקט…",
       },
       submit: "שליחת פנייה",
       sending: "שולח…",
@@ -73,8 +73,8 @@ export const contactCopy: Record<Lang, ContactCopy> = {
       fullName: "יש להזין שם מלא.",
       phone: "יש להזין מספר טלפון תקין.",
       reason: "יש לבחור סיבת פנייה.",
-      email: "כתובת אימייל לא תקינה.",
-      submitFailed: "שליחת הפנייה נכשלה. נסו שוב או התקשרו אלינו.",
+      email: "כתובת האימייל אינה תקינה.",
+      submitFailed: "שליחת הפנייה נכשלה. ניתן לנסות שוב או להתקשר אלינו.",
     },
     success: {
       title: "הפנייה נשלחה",
@@ -85,7 +85,7 @@ export const contactCopy: Record<Lang, ContactCopy> = {
   en: {
     closeLabel: "Close",
     eyebrow: "Project inquiry",
-    title: "Let's open the box.",
+    title: "Let's talk about your packaging.",
     description: "Contact form — leave your details and we'll get back to you soon.",
     form: {
       fullName: { label: "Full name", placeholder: "Dana Cohen" },
@@ -96,14 +96,14 @@ export const contactCopy: Record<Lang, ContactCopy> = {
         label: "Reason for inquiry",
         options: [
           { value: "", label: "Select a reason…" },
-          { value: "quote", label: "Price quote" },
-          { value: "meeting", label: "Schedule a meeting with an account manager (מת״ל)" },
+          { value: "quote", label: "Request a quote" },
+          { value: "meeting", label: "Meet with an account manager (מת״ל)" },
           { value: "other", label: "Something else" },
         ],
       },
       details: {
         label: "Further details (optional)",
-        placeholder: "Tell us about the project...",
+        placeholder: "A few words about the product and the project…",
       },
       submit: "Send inquiry",
       sending: "Sending…",
@@ -114,8 +114,8 @@ export const contactCopy: Record<Lang, ContactCopy> = {
       fullName: "Please enter your full name.",
       phone: "Please enter a valid phone number.",
       reason: "Please choose a reason for your inquiry.",
-      email: "That email address looks invalid.",
-      submitFailed: "Sending failed. Please try again or call us.",
+      email: "That email address doesn't look valid.",
+      submitFailed: "We couldn't send your inquiry. Please try again or call us.",
     },
     success: {
       title: "Inquiry sent",

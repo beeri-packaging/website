@@ -12,11 +12,17 @@ import type { Lang } from "../app/content/home";
 const LANGS: Lang[] = ["he", "en"];
 
 async function linkTranslations(id: string, type: string, heId: string, enId: string) {
+  // @sanity/document-internationalization v6 stores each translation as an
+  // `internationalizedArrayReferenceValue` carrying a `language` field — the
+  // Studio reads `item.language` to render the translations preview, so it MUST
+  // be present (a `_key`-only item crashes the Studio with a toUpperCase error).
   await writeClient.createOrReplace({
     _id: id, _type: "translation.metadata", schemaTypes: [type],
     translations: [
-      { _key: "he", value: { _type: "reference", _ref: heId } },
-      { _key: "en", value: { _type: "reference", _ref: enId } },
+      { _key: "he", _type: "internationalizedArrayReferenceValue", language: "he",
+        value: { _type: "reference", _ref: heId, _weak: true, _strengthenOnPublish: { type } } },
+      { _key: "en", _type: "internationalizedArrayReferenceValue", language: "en",
+        value: { _type: "reference", _ref: enId, _weak: true, _strengthenOnPublish: { type } } },
     ],
   });
 }

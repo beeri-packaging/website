@@ -76,39 +76,39 @@ export const blogIndexCopy: Record<Lang, BlogIndexCopy> = {
   he: {
     eyebrow: "יומן הסטודיו · בקרוב",
     title: ["יומן בארי", "אריזות"],
-    lead: "מחשבות, מדריכים והצצות מהסטודיו ומהמפעל.",
+    lead: "מדריכים, מחשבות והצצות מהסטודיו ומהמפעל.",
     body:
-      "כאן נפרסם בקביעות פוסטים על תכנון מבני, חומרי גלם, השבחות, פרויקטים שעובדים עליהם ומגמות בעיצוב אריזה. הפוסטים למטה הם הצצה לקראת ההשקה.",
-    comingSoon: "הכותרים למטה הם פלייסהולדרים — הפוסטים האמיתיים בעריכה.",
+      "כאן נפרסם בקביעות על תכנון מבני, חומרי גלם, השבחות, פרויקטים שעובדים עליהם ומגמות בעיצוב אריזה. הפוסטים למטה הם הצצה לקראת ההשקה.",
+    comingSoon: "הכותרים למטה הם דוגמאות — הפוסטים המלאים בעריכה.",
     readMore: "לקריאה",
     backToBlog: "חזרה לכל הפוסטים",
     publishedOn: "פורסם",
     notFoundTitle: "הפוסט עדיין לא פורסם",
     notFoundBody:
-      "הכותר הזה שמור לפוסט עתידי בבלוג של בארי אריזות. בקרוב כאן יהיה תוכן מלא — בינתיים אפשר לחזור לאינדקס.",
+      "הכותר הזה שמור לפוסט עתידי ביומן של בארי אריזות. בקרוב כאן יהיה תוכן מלא — בינתיים אפשר לחזור לרשימה.",
   },
   en: {
     eyebrow: "Studio journal · Coming soon",
     title: ["The Beeri", "journal"],
-    lead: "Notes, guides and glimpses from the studio and the floor.",
+    lead: "Guides, notes and glimpses from the studio and the floor.",
     body:
-      "We'll publish regularly on structural design, materials, finishing, in-flight projects and packaging design trends. The posts below are a preview ahead of launch.",
-    comingSoon: "The titles below are placeholders — the real posts are in edit.",
+      "We publish regularly on structural design, materials, finishing, projects in progress and packaging design trends. The posts below are a preview ahead of launch.",
+    comingSoon: "The titles below are samples — the full posts are in edit.",
     readMore: "Read",
     backToBlog: "Back to all posts",
     publishedOn: "Published",
     notFoundTitle: "Post not yet published",
     notFoundBody:
-      "This slot is reserved for a future Beeri Packaging post. Real content is on its way — for now, head back to the index.",
+      "This slot is reserved for a future Beeri Packaging post. Full content is on its way — for now, head back to the index.",
   },
 };
 
 export const categoryLabels: Record<BlogCategory, { he: string; en: string }> = {
   structural: { he: "תכנון מבני", en: "Structural" },
-  trends: { he: "מגמות עיצוב", en: "Trends" },
+  trends: { he: "מגמות עיצוב", en: "Design trends" },
   sustainability: { he: "קיימות", en: "Sustainability" },
   floor: { he: "מהמפעל", en: "From the floor" },
-  studio: { he: "מהסטודיו", en: "Studio" },
+  studio: { he: "מהסטודיו", en: "From the studio" },
 };
 
 /**
@@ -140,38 +140,38 @@ export const blogPosts: readonly BlogPost[] = [
       "/images/generated/website-content/finishing/syrah-foil-detail-v1.png",
     he: {
       category: "מגמות עיצוב",
-      title: "שפת הגימור",
+      title: "שפת ההשבחות",
       excerpt:
-        "איך פויל, לכה והבלטה הופכים אריזת קרטון פשוטה לחוויית פרימיום שמרגישים עוד לפני השימוש.",
+        "איך פויל, לכה סלקטיבית והבלטה הופכים אריזת קרטון מתקפלת פשוטה לחוויית פרימיום שמרגישים עוד לפני הפתיחה.",
       body: [
-        "אריזה טובה היא לא קישוט. היא עוזרת למותג להגיד משהו ברור — יוקרה, ניקיון, טבעיות או חגיגיות. במארזי קוסמטיקה, פארמה ויין הגימור הוא חלק מהמסר, ולא רק עיטור על הקרטון.",
-        "כאן נכנסות השבחות הדפוס: פויל, לכה סלקטיבית והבלטה שמוסיפים מגע, ברק ועומק — ומעלים את הערך הנתפס של המוצר עוד לפני שפותחים אותו.",
+        "אריזה טובה היא לא קישוט. היא עוזרת למותג להגיד משהו ברור — יוקרה, נקיות, טבעיות או חגיגיות. באריזות קוסמטיקה, פארמה ויין ההשבחה היא חלק מהמסר, לא עיטור על הקרטון.",
+        "כאן נכנסות השבחות הדפוס: פויל, לכה סלקטיבית והבלטה, שמוסיפות מגע, ברק ועומק ומעלות את הערך הנתפס של המוצר עוד לפני שפותחים אותו.",
       ],
       quote: {
-        text: "האריזה היא המפגש הראשון בין המותג ללקוח — וכשהגימור מדויק, המוצר מרגיש נכון עוד לפני השימוש.",
-        cite: "— מתוך הבלוג של בארי אריזות",
+        text: "האריזה היא המפגש הראשון בין המותג ללקוח — וכשההשבחה מדויקת, המוצר מרגיש נכון עוד לפני השימוש.",
+        cite: "— מתוך היומן של בארי אריזות",
       },
       sections: [
         {
           heading: "מה הלקוח רואה ומרגיש",
-          body: "באריזות פרימיום הלקוח לא רק מסתכל. הוא מחזיק, פותח ומעביר אצבע על הלוגו ומרגיש את החומר. זה רגע קטן, אבל הוא משפיע ישירות על הערך הנתפס של המוצר. לכה שמבליטה פרט, פויל שמחזיר אור או הבלטה שמוסיפה עומק — כל אחד מהם גורם לאריזה להרגיש מושקעת יותר.",
+          body: "באריזות פרימיום הלקוח לא רק מסתכל. הוא מחזיק, פותח, מעביר אצבע על הלוגו ומרגיש את החומר. רגע קטן, אבל הוא משפיע ישירות על הערך הנתפס של המוצר. לכה שמבליטה פרט, פויל שמחזיר אור או הבלטה שמוסיפה עומק — כל אחד מהם גורם לאריזה להרגיש מושקעת יותר.",
           image:
             "/images/generated/hero-new-style/hero-new-style-04-black-gold-bottle.png",
         },
         {
           heading: "לכה, פויל והבלטה",
-          body: "לכה סלקטיבית מוחלת על אזורים מסוימים בלבד, להדגשת לוגו או פרט גרפי. פויל מוסיף ברק ונוכחות מטאלית כנקודת מוקד ברורה. הבלטה ודיבוס יוצרים תחושת מגע ועומק. שימוש מדוד תמיד עדיף על עומס — אזור אחד מדויק שווה יותר מהכול.",
+          body: "לכה סלקטיבית מוחלת על אזורים נבחרים בלבד, להדגשת לוגו או פרט גרפי. פויל מוסיף ברק ונוכחות מטאלית כנקודת מוקד ברורה. הבלטה ודיבוס יוצרים מגע ועומק. שימוש מדוד עדיף תמיד על עומס — אזור אחד מדויק שווה יותר מהכול.",
         },
       ],
     },
     en: {
-      category: "Trends",
+      category: "Design trends",
       title: "The language of finishing",
       excerpt:
-        "How foil, lacquer and emboss turn a plain carton into a premium experience you feel before you even open it.",
+        "How foil, spot varnish and emboss turn a plain folding carton into a premium experience you feel before you open it.",
       body: [
-        "Good packaging isn't decoration. It helps a brand say something clear — luxury, cleanliness, natural, or celebration. On cosmetics, pharma and wine cartons, the finish is part of the message, not just an ornament on the board.",
-        "This is where print finishing comes in: foil, spot lacquer and emboss add touch, shine and depth — raising the product's perceived value before anyone even opens it.",
+        "Good packaging isn't decoration. It helps a brand say something clear — luxury, cleanliness, natural, or celebration. On cosmetics, pharma and wine cartons, the finish is part of the message, not an ornament on the board.",
+        "This is where print finishing comes in: foil, spot varnish and emboss add touch, shine and depth, and raise the product's perceived value before anyone opens it.",
       ],
       quote: {
         text: "The package is the first meeting between a brand and its customer — when the finish is precise, the product feels right before it's even used.",
@@ -180,13 +180,13 @@ export const blogPosts: readonly BlogPost[] = [
       sections: [
         {
           heading: "What the customer sees and feels",
-          body: "On premium packaging the customer doesn't just look. They hold it, open it, run a finger over the logo and feel the material. It's a small moment, but it directly shapes the product's perceived value. A lacquer that lifts a detail, a foil that catches the light, or an emboss that adds depth — each one makes the package feel more considered.",
+          body: "On premium packaging the customer doesn't just look. They hold it, open it, run a finger over the logo and feel the material. A small moment, but one that directly shapes the product's perceived value. A varnish that lifts a detail, a foil that catches the light, an emboss that adds depth — each makes the package feel more considered.",
           image:
             "/images/generated/hero-new-style/hero-new-style-04-black-gold-bottle.png",
         },
         {
-          heading: "Lacquer, foil and emboss",
-          body: "Spot lacquer is applied only to chosen areas, to highlight a logo or a graphic detail. Foil adds shine and a metallic presence as a clear focal point. Emboss and deboss create touch and depth. Restraint always beats overload — one precise area is worth more than covering everything.",
+          heading: "Varnish, foil and emboss",
+          body: "Spot varnish is applied only to chosen areas, to highlight a logo or a graphic detail. Foil adds shine and a metallic presence as a clear focal point. Emboss and deboss create touch and depth. Restraint always beats overload — one precise area is worth more than covering everything.",
         },
       ],
     },
@@ -205,25 +205,25 @@ export const blogPosts: readonly BlogPost[] = [
       category: "תכנון מבני",
       title: "האנטומיה של אריזת יין",
       excerpt:
-        "מה הופך אריזת יין טובה — מהדייליין הראשון ועד הקופסה שמגיעה למדף?",
+        "מה הופך אריזת יין טובה — מהדייליין הראשון ועד הקופסה שמגיעה למדף.",
       body: [
         "אריזת יין טובה מתחילה הרבה לפני הדפוס. היא מתחילה בשאלות פשוטות: מה גובה הבקבוק, מה קוטר הצוואר, איך הלקוח יחזיק את הקופסה במדף ואיך היא תיארז על משטח.",
         "כל החלטה כזו משפיעה על המבנה, על כמות הקרטון ועל המחיר הסופי — ולכן התכנון המבני הוא הלב של אריזת יין מצליחה.",
       ],
       quote: {
-        text: "אריזה של יין נמדדת ברגע שמרימים אותה מהמדף — היא צריכה להרגיש יציבה, נקייה ובטוחה.",
-        cite: "— מתוך הבלוג של בארי אריזות",
+        text: "אריזת יין נמדדת ברגע שמרימים אותה מהמדף — היא צריכה להרגיש יציבה, נקייה ובטוחה.",
+        cite: "— מתוך היומן של בארי אריזות",
       },
       sections: [
         {
           heading: "מהבקבוק לדייליין",
-          body: "מודדים את הבקבוק, מוסיפים מרווחי בטיחות ובונים דייליין ראשוני. כאן נקבעים סוג הסגירה, חוזק הדפנות והאם צריך מגירה פנימית או חוצץ שיחזיק את הבקבוק במקום. דייליין מדויק חוסך תיקונים יקרים בהמשך.",
+          body: "מודדים את הבקבוק, מוסיפים מרווחי בטיחות ובונים דייליין ראשוני. כאן נקבעים סוג הסגירה, חוזק הדפנות והשאלה אם צריך מגירה פנימית או חוצץ שיחזיק את הבקבוק במקום. דייליין מדויק חוסך תיקונים יקרים בהמשך.",
           image:
             "/images/generated/hero-new-style/hero-new-style-01-wine-foil.png",
         },
         {
           heading: "חומר, דפוס והשבחה",
-          body: "אחרי שהמבנה נעול בוחרים קרטון במשקל מתאים, מתאימים את הדפוס לגוון התווית ומוסיפים השבחה נקודתית — פויל על הלוגו או לכה שמדגישה את שם היקב. השילוב הנכון בין מבנה לגימור הוא מה שגורם לאריזה להרגיש יקרה.",
+          body: "אחרי שהמבנה נעול בוחרים קרטון במשקל מתאים, מתאימים את הדפוס לגוון התווית ומוסיפים השבחה נקודתית — פויל על הלוגו או לכה שמדגישה את שם היקב. השילוב הנכון בין מבנה להשבחה הוא מה שגורם לאריזה להרגיש יקרה.",
         },
       ],
     },
@@ -272,22 +272,22 @@ export const blogPosts: readonly BlogPost[] = [
         "מה השוק מציע השנה — ואיך בוחרים חומר בלי לוותר על תחושת פרימיום.",
       body: [
         "השוק הישראלי של קרטון בר-מיחזור התרחב מאוד בשנים האחרונות. אפשר היום למצוא קרטוני FSC במגוון משקלים, גימורים ומקורות סיבים שלא היו זמינים בעבר.",
-        "האתגר כבר אינו זמינות, אלא בחירה נכונה: איך שומרים על מראה ומגע יוקרתיים גם כשעוברים לחומר ירוק.",
+        "האתגר כבר אינו זמינות, אלא בחירה נכונה: איך שומרים על מראה ומגע יוקרתיים גם במעבר לחומר בר-קיימא.",
       ],
       quote: {
         text: "קיימות לא חייבת לבוא על חשבון החוויה — חומר נכון נראה ומרגיש פרימיום בדיוק כמו קרטון רגיל.",
-        cite: "— מתוך הבלוג של בארי אריזות",
+        cite: "— מתוך היומן של בארי אריזות",
       },
       sections: [
         {
           heading: "FSC, ממוחזר ומה שביניהם",
-          body: "תקן FSC מעיד על ייעור בר-קיימא, קרטון ממוחזר חוסך בסיבים חדשים, ויש גם שילובים של השניים. ההבדל מורגש במחיר, בגוון הבסיס ובטקסטורה — ולכן בוחרים חומר לפי הקטגוריה והמסר של המותג, לא לפי כותרת ירוקה בלבד.",
+          body: "תקן FSC מעיד על ייעור בר-קיימא, קרטון ממוחזר חוסך בסיבים חדשים, ויש גם שילובים של השניים. ההבדל מורגש במחיר, בגוון הבסיס ובמרקם — ולכן בוחרים חומר לפי הקטגוריה והמסר של המותג, לא לפי כותרת ירוקה בלבד.",
           image:
             "/images/generated/website-content/packaging/handled-suitcase-gift-box.png",
         },
         {
           heading: "לשמור על תחושת פרימיום",
-          body: "גם בחומר ירוק אפשר להגיע לגימור עשיר: לכה מאט שמרגיעה את המראה, הבלטה שמוסיפה מגע או פויל מבוסס חומרים ממוחזרים. לפעמים דווקא המרקם הטבעי של הקרטון הממוחזר הופך ליתרון שיווקי שמספר את סיפור הקיימות בלי מילה אחת.",
+          body: "גם בחומר בר-קיימא אפשר להגיע להשבחה עשירה: לכה מאט שמרגיעה את המראה, הבלטה שמוסיפה מגע או פויל מבוסס חומרים ממוחזרים. לעיתים דווקא המרקם הטבעי של הקרטון הממוחזר הופך ליתרון שיווקי, שמספר את סיפור הקיימות בלי מילה אחת.",
         },
       ],
     },
@@ -339,19 +339,19 @@ export const blogPosts: readonly BlogPost[] = [
         "הבחירה הנכונה חוסכת זמן וכסף — ולכן כדאי להבין את ההבדלים עוד לפני שמתחילים בעיצוב.",
       ],
       quote: {
-        text: "אין דפוס ״טוב יותר״ — יש דפוס שמתאים יותר לכמות, ללוח הזמנים ולגוונים של הפרויקט.",
-        cite: "— מתוך הבלוג של בארי אריזות",
+        text: "אין דפוס „טוב יותר” — יש דפוס שמתאים יותר לכמות, ללוח הזמנים ולגוונים של הפרויקט.",
+        cite: "— מתוך היומן של בארי אריזות",
       },
       sections: [
         {
           heading: "דיגיטלי: מהיר וגמיש",
-          body: "דפוס דיגיטלי מתאים לסדרות קצרות, לגרסאות מרובות ולפיילוטים. אין צורך בלוחות, ההכנה מהירה ואפשר לשנות גרפיקה בין יחידה ליחידה — מושלם להשקות, למהדורות מוגבלות ולבדיקות שוק לפני ייצור גדול.",
+          body: "דפוס דיגיטלי מתאים לסדרות קצרות, לגרסאות מרובות ולפיילוטים. אין צורך בלוחות, ההכנה מהירה ואפשר לשנות גרפיקה בין יחידה ליחידה — מתאים להשקות, למהדורות מוגבלות ולבדיקות שוק לפני ייצור בכמות גדולה.",
           image:
             "/images/generated/website-content/packaging/tall-coffee-capsule-carton.png",
         },
         {
           heading: "אופסט: עקבי ומשתלם בכמות",
-          body: "כשהכמויות גדלות, אופסט מנצח: עלות נמוכה יותר ליחידה, גוונים מדויקים וחוזרים על עצמם, ותמיכה מלאה בצבעי פנטון ובהשבחות מורכבות. זו הבחירה לקווים קבועים ולמותגים עם דרישות צבע מחמירות.",
+          body: "כשהכמויות גדלות, אופסט משתלם יותר: עלות נמוכה יותר ליחידה, גוונים מדויקים וחוזרים על עצמם ותמיכה מלאה בצבעי פנטון ובהשבחות מורכבות. זו הבחירה לקווים קבועים ולמותגים עם דרישות צבע מחמירות.",
         },
       ],
     },
@@ -371,13 +371,13 @@ export const blogPosts: readonly BlogPost[] = [
       sections: [
         {
           heading: "Digital: fast and flexible",
-          body: "Digital print suits short runs, many variants and pilots. No plates are needed, setup is quick, and artwork can change from one unit to the next — ideal for launches, limited editions and market tests before a large production run.",
+          body: "Digital print suits short runs, multiple versions and pilots. No plates are needed, setup is quick, and artwork can change from one unit to the next — a fit for launches, limited editions and market tests before a large production run.",
           image:
             "/images/generated/website-content/packaging/tall-coffee-capsule-carton.png",
         },
         {
           heading: "Offset: consistent and cost-effective at scale",
-          body: "As quantities grow, offset wins: a lower cost per unit, precise and repeatable colors, and full support for Pantone inks and complex finishing. It's the choice for standing lines and brands with strict color requirements.",
+          body: "As quantities grow, offset becomes more cost-effective: a lower cost per unit, precise and repeatable colors, and full support for Pantone inks and complex finishing. It's the choice for standing lines and brands with strict color requirements.",
         },
       ],
     },

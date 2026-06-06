@@ -1,9 +1,10 @@
 "use client";
 
-import { useId, useRef, useState } from "react";
+import { useId, useRef, useState, useTransition } from "react";
 import type { Lang } from "@/app/content/home";
 import type { CareerRole } from "@/app/content/careers";
 import { jobApplicationCopy } from "@/app/content/jobApplication";
+import { submitJobApplication } from "@/app/actions/jobApplication";
 import { useContactDialog } from "@/app/components/contact/ContactDialogProvider";
 import {
   Dialog,
@@ -57,11 +58,14 @@ export function JobApplicationDialog({
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [fileName, setFileName] = useState<string | null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
 
   function resetForm() {
     setSubmitted(false);
     setErrors({});
     setFileName(null);
+    setSubmitError(null);
   }
 
   function handleOpenChange(next: boolean) {
@@ -86,19 +90,24 @@ export function JobApplicationDialog({
       return;
     }
 
-    // Submission is stubbed for now — wire to a Server Action / email later.
-    const payload = {
-      role: role?.code ?? null,
-      name,
-      phone,
-      email,
-      message: String(data.get("message") ?? "").trim(),
-      cv: fileName,
-    };
-    console.info("[job-application] submit", payload);
-
     setErrors({});
-    setSubmitted(true);
+    setSubmitError(null);
+    // Carry the role context (the form has no visible role inputs).
+    data.set("roleCode", role?.code ?? "");
+    data.set("roleTitle", role?.title ?? "");
+
+    startTransition(async () => {
+      const res = await submitJobApplication(data);
+      if (res.ok) {
+        setSubmitted(true);
+        return;
+      }
+      setSubmitError(
+        res.error === "file_too_large"
+          ? copy.errors.fileTooLarge
+          : copy.errors.submitFailed,
+      );
+    });
   }
 
   const title = role?.title ?? copy.aside.fallbackTitle;
@@ -137,6 +146,16 @@ export function JobApplicationDialog({
               </header>
 
               <form className="flex flex-col gap-5" onSubmit={handleSubmit} noValidate>
+                {/* Honeypot — off-screen; bots that fill it are dropped server-side. */}
+                <input
+                  type="text"
+                  name="company_url"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden
+                  className="absolute h-0 w-0 overflow-hidden opacity-0"
+                  style={{ insetInlineStart: "-9999px" }}
+                />
                 {role ? (
                   <div className="flex flex-col gap-2">
                     <span className="font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-clay/70">
@@ -232,11 +251,22 @@ export function JobApplicationDialog({
                   />
                 </div>
 
+                {submitError ? (
+                  <p
+                    role="alert"
+                    className="font-sans text-[13px] font-semibold text-magenta-deep"
+                  >
+                    {submitError}
+                  </p>
+                ) : null}
+
                 <button
                   type="submit"
-                  className="mt-1 inline-flex items-center justify-center border border-ink bg-teal px-6 py-5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] text-bone shadow-[6px_6px_0_var(--cyan)] transition-transform hover:-translate-y-0.5 focus-ring"
+                  disabled={isPending}
+                  aria-busy={isPending}
+                  className="mt-1 inline-flex items-center justify-center border border-ink bg-teal px-6 py-5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] text-bone shadow-[6px_6px_0_var(--cyan)] transition-transform hover:-translate-y-0.5 focus-ring disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0"
                 >
-                  {copy.form.submit}
+                  {isPending ? copy.form.sending : copy.form.submit}
                 </button>
               </form>
             </div>
@@ -347,7 +377,7 @@ function Field({
         className={FIELD_CLASS}
       />
       {error ? (
-        <span id={`${id}-error`} className="font-sans text-[12px] text-magenta">
+        <span id={`${id}-error`} className="font-sans text-[12px] text-magenta-deep">
           {error}
         </span>
       ) : null}

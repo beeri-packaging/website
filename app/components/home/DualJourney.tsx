@@ -118,18 +118,24 @@ function JourneyCard({
       className="journey-card-reveal group relative block h-[480px] sm:h-[600px] md:h-full overflow-hidden cursor-pointer focus-ring"
     >
       <div className="parallax-img absolute inset-0">
-        <Image
-          src={panel.src}
-          alt={panel.title}
-          fill
-          // Overrequest ~20% beyond the card width so the parallax
-          // scale(1.22) inside .parallax-img doesn't upscale a tighter
-          // crop. 60vw on desktop, 70vw on tablet, full width on mobile.
-          sizes="(min-width: 1280px) 60vw, (min-width: 768px) 70vw, 100vw"
-          quality={90}
-          className="object-cover"
-          priority={priority}
-        />
+        {panel.src ? (
+          <Image
+            src={panel.src}
+            alt={panel.title}
+            fill
+            // Overrequest ~20% beyond the card width so the parallax
+            // scale(1.22) inside .parallax-img doesn't upscale a tighter
+            // crop. 60vw on desktop, 70vw on tablet, full width on mobile.
+            sizes="(min-width: 1280px) 60vw, (min-width: 768px) 70vw, 100vw"
+            quality={90}
+            className="object-cover"
+            priority={priority}
+          />
+        ) : (
+          // No image (e.g. an editor added a panel without one) — fall back to a
+          // solid accent panel instead of crashing next/image on an empty src.
+          <div className={`h-full w-full ${accentBg}`} aria-hidden />
+        )}
       </div>
       <div
         className={`absolute inset-0 ${
@@ -176,7 +182,7 @@ function JourneyCard({
               {panel.link}
               <span
                 aria-hidden
-                className={`absolute left-0 right-0 -bottom-1 h-px transform origin-right scale-x-0 transition-transform duration-500 group-hover:scale-x-100 ${
+                className={`absolute start-0 end-0 -bottom-1 h-px transform scale-x-0 transition-transform duration-500 group-hover:scale-x-100 ltr:origin-left rtl:origin-right ${
                   isDark ? "bg-bone" : "bg-ink"
                 }`}
               />

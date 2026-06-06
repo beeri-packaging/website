@@ -1,17 +1,26 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, useTransition, type FormEvent } from "react";
 import type { CareersCopy } from "@/app/content/careers";
+import { submitNewsletterSignup } from "@/app/actions/newsletter";
 
 export function CareersNewsletter({ copy }: { copy: CareersCopy }) {
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
 
-  // Delivery is not wired to a backend yet; for now we just acknowledge in
-  // place. Crucially we preventDefault so the form never does a cross-locale
-  // GET to "/careers" (which redirected /en users to /he and dropped the value).
+  // preventDefault so the form never does a cross-locale GET to "/careers"
+  // (which redirected /en users to /he and dropped the value); deliver the
+  // signup to the company inbox via a Server Action instead.
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSubmitted(true);
+    const data = new FormData(event.currentTarget);
+    setError(null);
+    startTransition(async () => {
+      const res = await submitNewsletterSignup(data);
+      if (res.ok) setSubmitted(true);
+      else setError(copy.newsletterError);
+    });
   }
 
   return (
@@ -26,25 +35,43 @@ export function CareersNewsletter({ copy }: { copy: CareersCopy }) {
           </p>
         </div>
 
-        <form className="grid gap-3 sm:grid-cols-[1fr_144px]" onSubmit={handleSubmit} noValidate>
-          <input
-            name="email"
-            type="email"
-            required
-            disabled={submitted}
-            aria-label={copy.emailPlaceholder}
-            placeholder={copy.emailPlaceholder}
-            className="h-[50px] min-w-0 border border-ink bg-bone px-4 font-sans text-[16px] font-light text-ink outline-none placeholder:text-clay/60 focus:border-purple disabled:opacity-60"
-          />
-          <button
-            type="submit"
-            disabled={submitted}
+        <div>
+          <form className="grid gap-3 sm:grid-cols-[1fr_144px]" onSubmit={handleSubmit} noValidate>
+            {/* Honeypot — off-screen; bots that fill it are dropped server-side. */}
+            <input
+              type="text"
+              name="company_url"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden
+              className="absolute h-0 w-0 overflow-hidden opacity-0"
+              style={{ insetInlineStart: "-9999px" }}
+            />
+            <input
+              name="email"
+              type="email"
+              required
+              disabled={submitted || isPending}
+              aria-label={copy.emailPlaceholder}
+              placeholder={copy.emailPlaceholder}
+              className="h-[50px] min-w-0 border border-ink bg-bone px-4 font-sans text-[16px] font-light text-ink outline-none placeholder:text-clay/60 focus:border-purple disabled:opacity-60"
+            />
+            <button
+              type="submit"
+              disabled={submitted || isPending}
+              aria-busy={isPending}
+              className="h-[50px] bg-purple px-8 font-sans text-[14px] font-bold tracking-[0.08em] text-bone transition-colors hover:bg-purple/90 focus-ring disabled:bg-ink disabled:opacity-90"
+            >
+              {submitted ? "✓" : isPending ? "…" : copy.newsletterCta}
+            </button>
+          </form>
+          <p
             aria-live="polite"
-            className="h-[50px] bg-purple px-8 font-sans text-[14px] font-bold tracking-[0.08em] text-bone transition-colors hover:bg-purple/90 focus-ring disabled:bg-ink"
+            className={`mt-3 min-h-[1.25rem] font-sans text-[14px] ${error ? "text-magenta-deep" : "text-clay"}`}
           >
-            {submitted ? "✓" : copy.newsletterCta}
-          </button>
-        </form>
+            {submitted ? copy.newsletterSuccess : error ?? ""}
+          </p>
+        </div>
       </div>
     </section>
   );

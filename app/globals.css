@@ -13,7 +13,8 @@
   --gold: #ffe177;           /* CTA section bg */
   --gold-deep: #231b00;
   --logo-dark: #24296a;      /* T/Logo/Dark — section headings (journey, tech, FAQ) */
-  --magenta: #c846a3;        /* P/Magenta — section eyebrows */
+  --magenta: #c846a3;        /* P/Magenta — section eyebrows (decorative; ~3.8:1 on bone) */
+  --magenta-deep: #a32f7f;   /* Accessible magenta for TEXT on light (~5.9:1 on bone) */
   --purple: #6f50a6;         /* P/Purple — customer-path eyebrow + "שטנץ מדויק" card bg */
   --blueprint: #292d78;      /* Original-style page panels + borders */
   --blueprint-soft: #3a3d88;
@@ -40,6 +41,7 @@
   --color-gold-deep: var(--gold-deep);
   --color-logo-dark: var(--logo-dark);
   --color-magenta: var(--magenta);
+  --color-magenta-deep: var(--magenta-deep);
   --color-purple: var(--purple);
   --color-blueprint: var(--blueprint);
   --color-blueprint-soft: var(--blueprint-soft);

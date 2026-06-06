@@ -80,7 +80,7 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
     eyebrow: "קטלוג / 2026",
     title: ["כשהמבנה", "פוגש מותג"],
     intro:
-      "אינדקס של אריזות קרטון ממותגות, מאורגן לפי תעשייה: קוסמטיקה, פארמה, יין ומשקאות. מתכנון מבני ודיוק שטנץ ועד חומר, דפוס והשבחות.",
+      "אינדקס אריזות הקרטון הממותגות שלנו, מסודר לפי תעשייה: קוסמטיקה, פארמה, יין ומשקאות. מתכנון מבני ודיוק השטנץ ועד הבחירה בחומר, בדפוס ובהשבחות — הכול תחת קורת גג אחת.",
     specCard: ["מפעל: יבנה, ישראל", "סטטוס: פעיל / משנת 1964", "מזהה: BR-2026"],
     categories: [
       {
@@ -92,12 +92,12 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
         items: [
           {
             key: "serum",
-            name: "סרום פרימיום",
-            description: "קופסה קשיחה עם מגירה פנימית, חיתוך חלון ופויל למוצר טיפוח.",
+            name: "קופסת סרום פרימיום",
+            description: "קופסת קרטון קשיח עם מגירה פנימית, חלון שטנץ ופויל — מציגה את מוצר הטיפוח ומגינה עליו על המדף.",
             image: catalogImages.serum,
             tags: [
               { label: "פויל זהב", tone: "outline" },
-              { label: "ניתן למחזור", tone: "cyan" },
+              { label: "ניתן למיחזור", tone: "cyan" },
             ],
             overlayLabel: "תצוגת שטנץ",
             overlaySpecs: ['סטייה: ±0.01 מ"מ', "חומר: קרטון קשיח"],
@@ -105,7 +105,7 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
           {
             key: "ampoule",
             name: "מארז אמפולות",
-            description: "מבנה עם חוצץ פנימי וסימון סדרה לאמפולות ומוצרי פארמה.",
+            description: "מבנה עם חוצץ פנימי וסימון סדרה — שומר על האמפולות במקומן ומתאים לדרישות הפארמה.",
             image: catalogImages.ampoule,
             tags: [
               { label: "סימון סדרה", tone: "outline" },
@@ -115,8 +115,8 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
           },
           {
             key: "cream",
-            name: "צנצנת קרם",
-            description: "אריזת קרטון ממוחזר עם חלון ומגירה לצנצנת קרם.",
+            name: "מארז צנצנת קרם",
+            description: "אריזת קרטון ממוחזר עם חלון ומגירה — מציגה את צנצנת הקרם ומחזיקה אותה יציב.",
             image: catalogImages.cream,
             tags: [
               { label: "חלון", tone: "outline" },
@@ -126,7 +126,7 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
           {
             key: "perfume",
             name: "קופסת בושם",
-            description: "מבנה קשיח עם הבלטה ולכה סלקטיבית לבקבוק בושם.",
+            description: "מבנה קרטון קשיח עם הבלטה ולכה סלקטיבית — נותן לבקבוק הבושם נוכחות מדף ותחושת יוקרה במגע.",
             image: catalogImages.perfume,
             tags: [
               { label: "הבלטה", tone: "outline" },
@@ -147,7 +147,7 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
             series: "סדרת יין",
             name: "מארז שי ליין",
             description:
-              "מארז קרטון קשיח לבקבוק יין, עם תמיכה פנימית, חיתוך צורני והשבחות פויל ולכה. מתאים למארזי שי ולסדרות עונתיות.",
+              "מארז קרטון קשיח לבקבוק יין, עם תמיכה פנימית, שטנץ צורני והשבחות פויל ולכה. מגן על הבקבוק במשלוח ומעמיד אותו כמתנה. מתאים למארזי שי ולסדרות עונתיות.",
             image: catalogImages.wine,
             specs: [
               { label: "משקל", value: "350 גרם" },
@@ -158,13 +158,13 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
           {
             key: "whiskey",
             series: "סדרת פרימיום",
-            name: "מארז וויסקי",
+            name: "מארז וויסקי פרימיום",
             description:
-              "מארז פרימיום לבקבוק וויסקי, עם חלון, פויל ולכה סלקטיבית. תמיכה פנימית להגנה ולנשיאה.",
+              "מארז פרימיום לבקבוק וויסקי, עם חלון, פויל ולכה סלקטיבית. תמיכה פנימית שמגינה על הבקבוק ומקלה על הנשיאה.",
             image: catalogImages.whiskey,
             specs: [
               { label: "אספקה", value: "72ש׳" },
-              { label: "תקן", value: "ISO" },
+              { label: "תקן", value: "ISO 9001:2015" },
             ],
             cta: "להורדת מפרט (PDF)",
           },
@@ -181,7 +181,7 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
             key: "modular-system",
             name: "מערכת מארזים מודולרית",
             description:
-              "מערכת חוצצים ומגירות מודולרית לסדרות מוצרים. תכנון מדויק לשמירה על המוצר, על המדף ועל חוויית הפתיחה.",
+              "מערכת חוצצים ומגירות מודולרית לסדרות מוצרים. תכנון מדויק ששומר על המוצר, על נוכחות המדף ועל חוויית הפתיחה.",
             specs: [
               { label: "סטייה", value: "±0.01MM" },
               { label: "שטנץ", value: "צורני" },
@@ -196,7 +196,7 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
     eyebrow: "Catalog / 2026",
     title: ["When structure", "meets brand"],
     intro:
-      "An index of branded carton packaging, organized by industry: cosmetics, pharma, wine & spirits. From structural design and die-cut precision to material, print and finishing.",
+      "An index of our branded folding-carton packaging, organized by industry: cosmetics, pharma, wine & spirits. From structural design and die-cut precision to material, print and finishing — all under one roof.",
     specCard: ["Plant: Yavne, Israel", "Status: Active / since 1964", "ID: BR-2026"],
     categories: [
       {
@@ -208,8 +208,8 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
         items: [
           {
             key: "serum",
-            name: "Premium serum",
-            description: "Rigid box with an inner drawer, window cut and foil for a skincare product.",
+            name: "Premium serum box",
+            description: "Rigid carton box with an inner drawer, die-cut window and foil — presents the skincare product and protects it on the shelf.",
             image: catalogImages.serum,
             tags: [
               { label: "Gold foil", tone: "outline" },
@@ -221,7 +221,7 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
           {
             key: "ampoule",
             name: "Ampoule pack",
-            description: "Structure with an inner divider and series marking for ampoules and pharma.",
+            description: "Structure with an inner divider and series marking — holds the ampoules in place and meets pharma requirements.",
             image: catalogImages.ampoule,
             tags: [
               { label: "Series marking", tone: "outline" },
@@ -231,8 +231,8 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
           },
           {
             key: "cream",
-            name: "Cream jar",
-            description: "Recycled carton pack with a window and drawer for a cream jar.",
+            name: "Cream jar pack",
+            description: "Recycled carton pack with a window and drawer — presents the cream jar and holds it steady.",
             image: catalogImages.cream,
             tags: [
               { label: "Window", tone: "outline" },
@@ -242,7 +242,7 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
           {
             key: "perfume",
             name: "Perfume box",
-            description: "Rigid structure with deboss and spot varnish for a perfume bottle.",
+            description: "Rigid carton structure with deboss and spot varnish — gives the perfume bottle shelf presence and a premium feel in hand.",
             image: catalogImages.perfume,
             tags: [
               { label: "Deboss", tone: "outline" },
@@ -263,7 +263,7 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
             series: "Wine series",
             name: "Wine gift box",
             description:
-              "A rigid carton case for a wine bottle, with inner support, shaped die-cut and foil & varnish finishing. Suited to gift sets and seasonal series.",
+              "A rigid carton case for a wine bottle, with inner support, shaped die-cut and foil & varnish finishing. Protects the bottle in transit and presents it as a gift. Suited to gift sets and seasonal series.",
             image: catalogImages.wine,
             specs: [
               { label: "Weight", value: "350 g" },
@@ -274,13 +274,13 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
           {
             key: "whiskey",
             series: "Premium series",
-            name: "Whiskey case",
+            name: "Premium whiskey case",
             description:
-              "A premium case for a whiskey bottle, with a window, foil and spot varnish. Inner support for protection and carrying.",
+              "A premium case for a whiskey bottle, with a window, foil and spot varnish. Inner support that protects the bottle and makes it easy to carry.",
             image: catalogImages.whiskey,
             specs: [
               { label: "Lead time", value: "72h" },
-              { label: "Standard", value: "ISO" },
+              { label: "Standard", value: "ISO 9001:2015" },
             ],
             cta: "Download spec (PDF)",
           },
@@ -297,7 +297,7 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
             key: "modular-system",
             name: "Modular packaging system",
             description:
-              "A modular system of dividers and drawers for product series. Precise engineering to protect the product, the shelf and the unboxing experience.",
+              "A modular system of dividers and drawers for product series. Precise engineering that protects the product, earns shelf presence and elevates the unboxing experience.",
             specs: [
               { label: "Tolerance", value: "±0.01MM" },
               { label: "Die-cut", value: "Shaped" },

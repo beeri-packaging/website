@@ -295,6 +295,9 @@ export function toCareersCopy(doc: Awaited<ReturnType<typeof getCareers>>, local
     newsletterBody: doc.newsletterBody ?? fb.newsletterBody,
     emailPlaceholder: doc.emailPlaceholder ?? fb.emailPlaceholder,
     newsletterCta: doc.newsletterCta ?? fb.newsletterCta,
+    // UI-only feedback strings — sourced from bundled copy (not in the GROQ projection).
+    newsletterSuccess: fb.newsletterSuccess,
+    newsletterError: fb.newsletterError,
   } as CareersCopy;
 }
 

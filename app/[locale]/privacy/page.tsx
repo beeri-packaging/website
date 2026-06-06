@@ -5,11 +5,12 @@ import { PlaceholderShell } from "@/app/components/placeholder/PlaceholderShell"
 import { LegalDocument } from "@/app/components/legal/LegalDocument";
 import { privacyDoc } from "@/app/content/legal";
 import { getChrome, toChrome } from "@/sanity/queries";
+import { pageSeo } from "@/lib/site";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const doc = privacyDoc[locale as Lang];
-  return { title: doc.title, description: doc.intro[0] };
+  return { title: doc.title, description: doc.intro[0], ...pageSeo(locale, "/privacy", doc.title, doc.intro[0]) };
 }
 
 export default async function PrivacyPage({ params }: { params: Promise<{ locale: string }> }) {

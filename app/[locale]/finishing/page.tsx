@@ -4,11 +4,13 @@ import type { Lang } from "@/app/content/home";
 import { PlaceholderShell } from "@/app/components/placeholder/PlaceholderShell";
 import { FinishingPageDesign } from "@/app/components/finishing/FinishingPageDesign";
 import { getFinishing, toFinishingCopy, getChrome, toChrome } from "@/sanity/queries";
+import { pageSeo } from "@/lib/site";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const copy = toFinishingCopy(await getFinishing(locale as Lang), locale as Lang);
-  return { title: copy.title.join(" "), description: copy.intro };
+  const title = copy.title.join(" ");
+  return { title, description: copy.intro, ...pageSeo(locale, "/finishing", title, copy.intro) };
 }
 
 export default async function FinishingPage({ params }: { params: Promise<{ locale: string }> }) {

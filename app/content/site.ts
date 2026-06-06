@@ -34,8 +34,9 @@ const mapsHref = MAPS_HREF;
 
 export const navLinks: readonly NavLink[] = [
   { he: "השבחות", en: "Finishing", href: "/finishing" },
-  { he: "ג׳ורנל", en: "Journal", href: "/careers" },
+  { he: "יומן", en: "Journal", href: "/careers" },
   { he: "קטלוג", en: "Catalog", href: "/catalog" },
+  { he: "אודות", en: "About", href: "/about" },
 ];
 
 export const chromeContent: Record<Lang, Chrome> = {
@@ -43,7 +44,7 @@ export const chromeContent: Record<Lang, Chrome> = {
     menu: "תפריט",
     close: "סגירה",
     lang: "שפה",
-    contact: "צור קשר",
+    contact: "ליצירת קשר",
     navLinks,
     footerEyebrow: "סטודיו ומפעל",
     footerAddr: [COMPANY.address.he.street, COMPANY.address.he.city],
@@ -52,8 +53,8 @@ export const chromeContent: Record<Lang, Chrome> = {
     logoHe: "/images/logo-he.svg",
     logoEn: "/images/logo-en.svg",
     wordmark: "בארי אריזות",
-    footerTagline: "אריזות קרטון בהתאמה אישית — מתוכננות, מודפסות ומושבחות תחת קורת גג אחת.",
-    footerHeritage: "מאז 1964",
+    footerTagline: "אריזות קרטון בהתאמה אישית — תכנון, דפוס והשבחה תחת קורת גג אחת.",
+    footerHeritage: "משנת 1964",
     footerNavHeading: "ניווט",
     footerConnectHeading: "יצירת קשר",
     email: emailAddr,
@@ -77,7 +78,7 @@ export const chromeContent: Record<Lang, Chrome> = {
     logoHe: "/images/logo-he.svg",
     logoEn: "/images/logo-en.svg",
     wordmark: "Beeri Packaging",
-    footerTagline: "Custom carton packaging — designed, printed and finished under one roof.",
+    footerTagline: "Custom folding-carton packaging — designed, printed and finished under one roof.",
     footerHeritage: "Since 1964",
     footerNavHeading: "Explore",
     footerConnectHeading: "Get in touch",

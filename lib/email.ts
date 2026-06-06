@@ -1,5 +1,11 @@
 import { Resend } from "resend";
 
+export type EmailAttachment = {
+  filename: string;
+  /** Raw file bytes; Resend accepts a Buffer here. */
+  content: Buffer;
+};
+
 export type SendEmailArgs = {
   to: string;
   from: string;
@@ -7,6 +13,7 @@ export type SendEmailArgs = {
   html: string;
   text: string;
   replyTo?: string;
+  attachments?: EmailAttachment[];
 };
 
 /**
@@ -26,6 +33,7 @@ export async function sendEmail(args: SendEmailArgs): Promise<boolean> {
     html: args.html,
     text: args.text,
     replyTo: args.replyTo,
+    attachments: args.attachments,
   });
   if (error) throw new Error(error.message);
   return true;
