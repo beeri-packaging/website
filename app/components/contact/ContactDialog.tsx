@@ -193,7 +193,7 @@ export function ContactDialog({ lang, open, onOpenChange }: ContactDialogProps) 
                   {errors.reason ? (
                     <span
                       id={`${formId}-reason-error`}
-                      className="font-sans text-[12px] text-magenta"
+                      className="font-sans text-[12px] text-magenta-deep"
                     >
                       {copy.errors.reason}
                     </span>
@@ -237,7 +237,7 @@ export function ContactDialog({ lang, open, onOpenChange }: ContactDialogProps) 
                     {submitError ? (
                       <p
                         role="alert"
-                        className="font-sans text-[12px] text-magenta text-start"
+                        className="font-sans text-[12px] text-magenta-deep text-start"
                       >
                         {submitError}
                       </p>
@@ -305,7 +305,7 @@ function Field({
         className={FIELD_CLASS}
       />
       {error ? (
-        <span id={`${id}-error`} className="font-sans text-[12px] text-magenta">
+        <span id={`${id}-error`} className="font-sans text-[12px] text-magenta-deep">
           {error}
         </span>
       ) : null}

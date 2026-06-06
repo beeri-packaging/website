@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import { Link } from "@/i18n/navigation";
 import type { Lang } from "@/app/content/home";
 import type { Chrome } from "@/app/content/site";
@@ -15,6 +18,52 @@ export function MobileDrawer({
   lang: Lang;
   chrome: Chrome;
 }) {
+  const panelRef = useRef<HTMLElement>(null);
+
+  // Real-dialog behavior: move focus in on open, trap Tab inside, close on
+  // Escape, and restore focus to the trigger on close. (role="dialog" +
+  // aria-modal promise this; without it keyboard/SR users stay stranded behind
+  // the backdrop.)
+  useEffect(() => {
+    if (!open) return;
+    const panel = panelRef.current;
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    const focusables = () =>
+      Array.from(
+        panel?.querySelectorAll<HTMLElement>(
+          'a[href],button:not([disabled]),input:not([disabled]),[tabindex]:not([tabindex="-1"])',
+        ) ?? [],
+      );
+
+    focusables()[0]?.focus();
+
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const items = focusables();
+      if (items.length === 0) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      previouslyFocused?.focus?.();
+    };
+  }, [open, onClose]);
+
   if (!open) return null;
 
   return (
@@ -25,6 +74,7 @@ export function MobileDrawer({
         className="fixed inset-0 z-40 bg-ink/40 backdrop-blur-sm lg:hidden animate-drawer-bg"
       />
       <aside
+        ref={panelRef}
         id="mobile-drawer"
         role="dialog"
         aria-modal="true"
@@ -57,7 +107,13 @@ export function MobileDrawer({
                     aria-hidden
                     className="inline-flex h-9 w-9 items-center justify-center text-ink transition-transform duration-300 group-hover:-translate-x-1 rtl:group-hover:-translate-x-1 ltr:group-hover:translate-x-1"
                   >
-                    <svg width="22" height="14" viewBox="0 0 22 14" fill="none">
+                    <svg
+                      width="22"
+                      height="14"
+                      viewBox="0 0 22 14"
+                      fill="none"
+                      className="ltr:-scale-x-100"
+                    >
                       <path
                         d="M21 7H1M7 1L1 7l6 6"
                         stroke="currentColor"

@@ -33,11 +33,17 @@ export type JobApplicationCopy = {
     message: { label: string; placeholder: string; optional: string };
     cv: { label: string; button: string; empty: string; optional: string };
     submit: string;
+    /** Button label while the application is being sent. */
+    sending: string;
   };
   errors: {
     name: string;
     phone: string;
     email: string;
+    /** Shown when delivery fails (network/provider/misconfig). */
+    submitFailed: string;
+    /** Shown when the chosen CV exceeds the size limit. */
+    fileTooLarge: string;
   };
   success: {
     title: string;
@@ -53,35 +59,35 @@ export const jobApplicationCopy: Record<Lang, JobApplicationCopy> = {
     aside: {
       eyebrow: "קריירה",
       kicker: "● הצטרפות לצוות",
-      lead: "בארי אריזות מייצרת אריזות קרטון בהתאמה אישית מאז 1964. מסטודיו ותכנון מבני ועד דפוס וייצור — הכול תחת קורת גג אחת, ועם אנשים טובים שגדלים איתנו.",
+      lead: "בארי אריזות מייצרת אריזות קרטון מתקפל בהתאמה אישית מאז 1964. מתכנון מבני ודייליין ועד דפוס, השבחות וייצור — הכול תחת קורת גג אחת, עם צוות שמלווה כל פרויקט מהתחלה ועד הסוף.",
       perks: [
         {
           title: "יציבות",
-          body: "חברה ותיקה ויציבה, עם דורות של ניסיון בענף האריזה.",
+          body: "חברה ותיקה ויציבה, חלק מקבוצת דפוס בארי, עם דורות של ניסיון בענף האריזה.",
         },
         {
           title: "צוות",
-          body: "אנשי מקצוע שעובדים יחד מהאפיון הראשון ועד האספקה.",
+          body: "אנשי מקצוע שעובדים יחד — מהאפיון הראשון ועד האספקה ללקוח.",
         },
         {
           title: "התמקצעות",
-          body: "מפעל מתקדם והזדמנות אמיתית ללמוד ולצמוח מקצועית.",
+          body: "מפעל מתקדם והזדמנות אמיתית ללמוד את כל שרשרת הייצור ולצמוח מקצועית.",
         },
       ],
-      codeLabel: 'מק"ט',
+      codeLabel: "מק״ט",
       fallbackTitle: "הגשת מועמדות",
       inquire: "יש לי שאלה — לפנייה כללית",
     },
     form: {
       heading: "פרטי המועמד/ת",
-      intro: "להשאיר פרטים ולצרף קורות חיים — ונחזור אליכם/ן בהקדם.",
+      intro: "משאירים פרטים ומצרפים קורות חיים — ונחזור אליכם בהקדם.",
       roleLabel: "המשרה",
-      name: { label: "שם מלא", placeholder: "שם פרטי ומשפחה" },
+      name: { label: "שם מלא", placeholder: "שם פרטי ושם משפחה" },
       phone: { label: "טלפון", placeholder: "05X-0000000" },
-      email: { label: 'דוא"ל', placeholder: "name@example.com" },
+      email: { label: "דוא״ל", placeholder: "name@example.com" },
       message: {
         label: "כמה מילים",
-        placeholder: "מה חשוב שנדע? קצת רקע, ניסיון או למה דווקא בארי.",
+        placeholder: "מה חשוב שנדע? רקע קצר, ניסיון רלוונטי, או למה דווקא בארי.",
         optional: "(לא חובה)",
       },
       cv: {
@@ -91,15 +97,18 @@ export const jobApplicationCopy: Record<Lang, JobApplicationCopy> = {
         optional: "(לא חובה)",
       },
       submit: "שליחת מועמדות",
+      sending: "שולח…",
     },
     errors: {
       name: "יש להזין שם מלא.",
       phone: "יש להזין מספר טלפון תקין.",
-      email: 'יש להזין כתובת דוא"ל תקינה.',
+      email: "יש להזין כתובת דוא״ל תקינה.",
+      submitFailed: "השליחה נכשלה. ניתן לנסות שוב או לכתוב לנו במייל.",
+      fileTooLarge: "הקובץ גדול מדי (עד 5MB).",
     },
     success: {
       title: "המועמדות נשלחה",
-      body: "תודה על הפנייה. צוות הגיוס יעבור על הפרטים ויחזור בהקדם.",
+      body: "תודה שפניתם. צוות הגיוס יעבור על הפרטים ויחזור אליכם בהקדם.",
       close: "סגירה",
     },
   },
@@ -109,19 +118,19 @@ export const jobApplicationCopy: Record<Lang, JobApplicationCopy> = {
     aside: {
       eyebrow: "Careers",
       kicker: "● Join the team",
-      lead: "Beeri Packaging has built custom carton packaging since 1964. From studio and structural design to print and production — all under one roof, with good people who grow with us.",
+      lead: "Beeri Packaging has built custom folding-carton packaging since 1964. From structural design and dielines to print, finishing, and production — all under one roof, with a team that sees every project through.",
       perks: [
         {
           title: "Stability",
-          body: "A long-established, steady company with generations of packaging experience.",
+          body: "A long-established, steady company, part of the Beeri Print Group, with generations of packaging experience.",
         },
         {
           title: "Team",
-          body: "Professionals who work together from the first brief to delivery.",
+          body: "Professionals who work together — from the first brief to delivery.",
         },
         {
           title: "Craft",
-          body: "An advanced plant and a real chance to learn and grow professionally.",
+          body: "An advanced plant and a real chance to learn the full production chain and grow professionally.",
         },
       ],
       codeLabel: "SKU",
@@ -130,14 +139,14 @@ export const jobApplicationCopy: Record<Lang, JobApplicationCopy> = {
     },
     form: {
       heading: "Applicant details",
-      intro: "Leave your details and attach a resume — we'll be in touch soon.",
+      intro: "Leave your details and attach a resume — and we'll be in touch soon.",
       roleLabel: "Role",
       name: { label: "Full name", placeholder: "First and last name" },
       phone: { label: "Phone", placeholder: "05X-0000000" },
       email: { label: "Email", placeholder: "name@example.com" },
       message: {
         label: "A few words",
-        placeholder: "What should we know? A little background, experience, or why Beeri.",
+        placeholder: "What should we know? A short background, relevant experience, or why Beeri.",
         optional: "(optional)",
       },
       cv: {
@@ -147,11 +156,14 @@ export const jobApplicationCopy: Record<Lang, JobApplicationCopy> = {
         optional: "(optional)",
       },
       submit: "Send application",
+      sending: "Sending…",
     },
     errors: {
       name: "Please enter your full name.",
       phone: "Please enter a valid phone number.",
       email: "Please enter a valid email address.",
+      submitFailed: "Something went wrong. Please try again or email us.",
+      fileTooLarge: "That file is too large (up to 5MB).",
     },
     success: {
       title: "Application sent",

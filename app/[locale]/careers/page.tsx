@@ -4,11 +4,13 @@ import type { Lang } from "@/app/content/home";
 import { PlaceholderShell } from "@/app/components/placeholder/PlaceholderShell";
 import { CareersPageDesign } from "@/app/components/careers/CareersPageDesign";
 import { getCareers, toCareersCopy, getChrome, toChrome } from "@/sanity/queries";
+import { pageSeo } from "@/lib/site";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const copy = toCareersCopy(await getCareers(locale as Lang), locale as Lang);
-  return { title: copy.title.join(" "), description: copy.intro };
+  const title = copy.title.join(" ");
+  return { title, description: copy.intro, ...pageSeo(locale, "/careers", title, copy.intro) };
 }
 
 export default async function CareersPage({ params }: { params: Promise<{ locale: string }> }) {

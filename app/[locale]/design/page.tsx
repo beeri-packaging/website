@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "מערכת העיצוב · בארי אריזות",
   description:
     "ערכת המיתוג של בארי אריזות — צבעים, טיפוגרפיה, מרווחים ורכיבי יסוד. מקור אמת אחד לכל הדפים.",
+  // Dev-only style guide — never index it, even if it's reachable.
+  robots: { index: false, follow: false },
 };
 
 /* ──────────────────────────────────────────────────────────────
@@ -105,6 +108,8 @@ function SectionHead({
 }
 
 export default function DesignSystemPage() {
+  // Dev-only playground — 404 in production so it never ships to the public site.
+  if (process.env.NODE_ENV === "production") notFound();
   return (
     <main className="bg-bone text-ink">
       {/* ── Top bar ── */}

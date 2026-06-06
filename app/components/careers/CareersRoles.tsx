@@ -100,6 +100,7 @@ export function CareersRoles({
                 key={filter.key}
                 type="button"
                 aria-pressed={selected}
+                aria-controls="careers-roles-list"
                 onClick={() => onDepartmentChange(filter.key)}
                 className={`border border-ink px-5 py-2.5 font-sans text-[12px] font-bold transition-colors focus-ring ${
                   selected
@@ -114,7 +115,12 @@ export function CareersRoles({
         </div>
       </div>
 
-      <div className="mt-8 grid gap-5">
+      <div
+        id="careers-roles-list"
+        aria-live="polite"
+        aria-atomic="false"
+        className="mt-8 grid gap-5"
+      >
         {roles.length > 0 ? (
           roles.map((role) => (
             <RoleRow key={role.code} role={role} apply={apply} lang={lang} />

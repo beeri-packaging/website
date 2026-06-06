@@ -35,6 +35,10 @@ export type CareersCopy = {
   newsletterBody: string;
   emailPlaceholder: string;
   newsletterCta: string;
+  /** Inline confirmation after a successful newsletter signup. */
+  newsletterSuccess: string;
+  /** Inline error if the newsletter signup fails to send. */
+  newsletterError: string;
 };
 
 export const careersImages = {
@@ -47,7 +51,7 @@ export const careersCopy: Record<Lang, CareersCopy> = {
     eyebrow: "קריירה בבארי",
     title: ["מצטרפים", "לעשייה"],
     intro:
-      "בארי אריזות מחברת סטודיו, תכנון מבני, דפוס וייצור. כאן מתפרסמות משרות פתוחות והצצות לעשייה.",
+      "בבארי אריזות הסטודיו, התכנון המבני, הדפוס והייצור עובדים תחת קורת גג אחת. כאן מתפרסמות המשרות הפתוחות, לצד הצצה אל העבודה היומיומית.",
     searchPlaceholder: "חיפוש משרה",
     searchButtonLabel: "חיפוש",
     articles: [
@@ -56,7 +60,7 @@ export const careersCopy: Record<Lang, CareersCopy> = {
         meta: "מרץ 2025",
         title: ["מהצורך של הלקוח לאריזה", "שמוכנה לייצור"],
         body:
-          "הצוותים שלנו עובדים יחד על כל שלב: אפיון מוצר, דייליין, חומרי גלם, דפוס, השבחות, הדבקה, בקרת איכות ואספקה.",
+          "כל פרויקט מתחיל בשאלה אחת: מה האריזה צריכה לעשות. משם מובילים הצוותים את המוצר דרך אפיון, דייליין, בחירת חומר גלם, קדם-דפוס וייצור — עד אריזה שעוברת לפסים ועומדת על המדף.",
         image: careersImages.feature,
         theme: "feature",
       },
@@ -64,20 +68,20 @@ export const careersCopy: Record<Lang, CareersCopy> = {
         tag: "איכות",
         title: ["בקרת איכות"],
         body:
-          "בדיקות לאורך הייצור מוודאות שכל אריזה עומדת בדרישות הלקוח והתקנים.",
+          "בדיקות לאורך הייצור מוודאות שכל אריזה עומדת בדרישות הלקוח ובתקני ISO 9001:2015 ו־FSSC 22000.",
         cta: "לקריאה",
         theme: "plain",
       },
       {
         tag: "ייצור",
-        title: ["דיוק בדפוס", "וגימור"],
+        title: ["דיוק בדפוס", "ובגימור"],
         theme: "yellow",
       },
       {
         tag: "פיתוח",
         title: ["מעבדת החומרים"],
         body:
-          "בדיקות חומר, קיפול וחיזוקים עוזרות להפוך רעיון לאריזה שאפשר לייצר שוב ושוב.",
+          "בדיקות חומר, שטנץ וקיפול הופכות רעיון לאריזה שמחזיקה בשינוע, נפתחת כמו שצריך וניתנת לייצור חוזר.",
         image: careersImages.materials,
         theme: "image",
       },
@@ -85,7 +89,7 @@ export const careersCopy: Record<Lang, CareersCopy> = {
         tag: "מבט מבפנים",
         title: ["פרטים", "קטנים קובעים"],
         body:
-          "מילימטרים, צבע וקיפול משפיעים על המוצר, על המדף ועל חוויית הלקוח.",
+          "מילימטר בדייליין, גוון בדפוס וקו קיפול — כל אחד מהם משפיע על המוצר, על נוכחותו במדף ועל הרגע שבו הלקוח פותח את האריזה.",
         cta: "לכל התהליכים",
         theme: "wide",
       },
@@ -110,7 +114,7 @@ export const careersCopy: Record<Lang, CareersCopy> = {
       {
         code: "#BR-409",
         status: "פתוח",
-        title: "מבקר/ת איכות ייצור",
+        title: "מבקר/ת איכות בייצור",
         scope: "משרה מלאה",
         location: "יבנה",
         department: "production",
@@ -126,15 +130,17 @@ export const careersCopy: Record<Lang, CareersCopy> = {
     ],
     newsletterTitle: ["עדכוני", "קריירה"],
     newsletterBody:
-      "רוצים לשמוע כשנפתחות משרות חדשות? השאירו מייל ונעדכן כשיש תפקיד רלוונטי.",
+      "רוצים לדעת כשנפתחת משרה חדשה? השאירו כתובת מייל, ונעדכן כשיתפנה תפקיד שמתאים לכם.",
     emailPlaceholder: "כתובת מייל",
     newsletterCta: "הרשמה",
+    newsletterSuccess: "נרשמתם — נעדכן אתכם כשיתפנה תפקיד מתאים.",
+    newsletterError: "ההרשמה נכשלה. ניתן לנסות שוב.",
   },
   en: {
     eyebrow: "Careers at Beeri",
     title: ["Join", "the work"],
     intro:
-      "Beeri Packaging connects studio, structural planning, print and production. Open roles and behind-the-scenes notes live here.",
+      "At Beeri Packaging, studio, structural design, print and production all sit under one roof. This is where open roles are posted, alongside a look at the day-to-day work.",
     searchPlaceholder: "Search role",
     searchButtonLabel: "Search",
     articles: [
@@ -143,7 +149,7 @@ export const careersCopy: Record<Lang, CareersCopy> = {
         meta: "March 2025",
         title: ["From a client need", "to production-ready packaging"],
         body:
-          "Our teams work together across every step: product brief, dieline, stock, print, finishing, gluing, quality control and delivery.",
+          "Every project starts with one question: what does the packaging need to do. From there our teams carry the product through brief, dieline, stock selection, prepress and production — to a carton that runs on the line and holds its own on the shelf.",
         image: careersImages.feature,
         theme: "feature",
       },
@@ -151,7 +157,7 @@ export const careersCopy: Record<Lang, CareersCopy> = {
         tag: "Quality",
         title: ["Quality control"],
         body:
-          "Checks throughout production make sure every package meets client requirements and standards.",
+          "Checks throughout production confirm every carton meets client requirements and our ISO 9001:2015 and FSSC 22000 standards.",
         cta: "Read",
         theme: "plain",
       },
@@ -164,7 +170,7 @@ export const careersCopy: Record<Lang, CareersCopy> = {
         tag: "Development",
         title: ["Materials lab"],
         body:
-          "Material, fold and reinforcement tests help turn an idea into packaging that can be produced again and again.",
+          "Material, die-cut and fold tests turn an idea into a carton that survives shipping, opens the way it should and can be produced again and again.",
         image: careersImages.materials,
         theme: "image",
       },
@@ -172,7 +178,7 @@ export const careersCopy: Record<Lang, CareersCopy> = {
         tag: "Inside view",
         title: ["Small", "details decide"],
         body:
-          "Millimeters, color and folds affect the product, the shelf and the customer experience.",
+          "A millimeter on the dieline, a shade on press, a fold line — each one shapes the product, its presence on the shelf and the moment the customer opens the box.",
         cta: "All processes",
         theme: "wide",
       },
@@ -197,7 +203,7 @@ export const careersCopy: Record<Lang, CareersCopy> = {
       {
         code: "#BR-409",
         status: "Open",
-        title: "Production quality inspector",
+        title: "Quality inspector, production",
         scope: "Full time",
         location: "Yavne",
         department: "production",
@@ -213,8 +219,10 @@ export const careersCopy: Record<Lang, CareersCopy> = {
     ],
     newsletterTitle: ["Career", "updates"],
     newsletterBody:
-      "Want to hear when new roles open? Leave an email and we will send relevant updates.",
+      "Want to know when a new role opens? Leave your email and we will reach out when a position fits.",
     emailPlaceholder: "Email address",
     newsletterCta: "Subscribe",
+    newsletterSuccess: "You're in — we'll reach out when a role fits.",
+    newsletterError: "Signup failed. Please try again.",
   },
 };

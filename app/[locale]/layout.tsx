@@ -7,7 +7,7 @@ import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity/visual-editing";
 import { routing } from "@/i18n/routing";
 import { SanityLive } from "@/sanity/live";
-import { SITE_URL } from "@/lib/site";
+import { SITE_URL, alternatesFor } from "@/lib/site";
 import { OrganizationJsonLd } from "@/app/components/seo/JsonLd";
 import { ContactDialogProvider } from "@/app/components/contact/ContactDialogProvider";
 import type { Lang } from "@/app/content/home";
@@ -38,10 +38,7 @@ export async function generateMetadata({
     metadataBase: new URL(SITE_URL),
     title: { default: t("title"), template: `%s · ${t("siteName")}` },
     description: t("description"),
-    alternates: {
-      canonical: `/${locale}`,
-      languages: { he: "/he", en: "/en", "x-default": "/he" },
-    },
+    alternates: alternatesFor(locale, ""),
     openGraph: {
       title: t("title"),
       description: t("description"),
@@ -55,6 +52,11 @@ export async function generateMetadata({
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
+
+// ISR: statically prerender, then re-fetch from Sanity at most once per minute
+// so editors' add/remove/edit changes reach the live site without a redeploy.
+// Applies to every page nested under this locale layout.
+export const revalidate = 60;
 
 export default async function LocaleLayout({
   children,
@@ -90,7 +92,10 @@ export default async function LocaleLayout({
             {children}
           </ContactDialogProvider>
         </NextIntlClientProvider>
-        <SanityLive />
+        {/* Live + Visual editing only in draft mode (Studio preview). For
+            normal visitors they're inert and only emit a CORS console warning,
+            so gating them keeps the production console clean and the page light. */}
+        {isDraftMode && <SanityLive />}
         {isDraftMode && <VisualEditing />}
       </body>
     </html>
