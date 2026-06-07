@@ -33,12 +33,6 @@ export type AboutStandard = {
   body: string;
 };
 
-export type AboutProduct = {
-  src: string;
-  caption: string;
-  sector: string;
-};
-
 export type AboutCopy = {
   // Hero
   eyebrow: string;
@@ -71,11 +65,6 @@ export type AboutCopy = {
   qualityEyebrow: string;
   qualityTitle: string;
   standards: readonly AboutStandard[];
-  // Clients / product gallery
-  clientsEyebrow: string;
-  clientsTitle: string;
-  clientsBody: string;
-  gallery: readonly AboutProduct[];
   // CTA
   ctaTitle: string;
   ctaPrimary: string;
@@ -96,17 +85,6 @@ export const aboutImages = {
     digital: "/images/about/production/digital-press.png",
     dieCut: "/images/about/production/die-cutting.png",
     finishing: "/images/about/production/finishing-line.jpg",
-  },
-  products: {
-    osem: "/images/about/products/osem.png",
-    tabor: "/images/about/products/tabor-wine.jpg",
-    moroccanoil: "/images/about/products/moroccanoil.png",
-    ahava: "/images/about/products/ahava.png",
-    wineSet: "/images/about/products/wine-gift-set.jpg",
-    chocolate: "/images/about/products/chocolate.png",
-    premium: "/images/about/products/premium-spirits.png",
-    cosmetics: "/images/about/products/cosmetics.png",
-    food: "/images/about/products/food.png",
   },
 } as const;
 
@@ -231,22 +209,6 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
       },
     ],
 
-    clientsEyebrow: "לקוחות",
-    clientsTitle: "מותגים שבוחרים בנו",
-    clientsBody:
-      "ממדפי רשתות המזון ועד מותגי הקוסמטיקה המובילים — מבחר מהאריזות שייצרנו עבור הלקוחות שלנו.",
-    gallery: [
-      { src: aboutImages.products.osem, caption: "אוסם", sector: "מזון" },
-      { src: aboutImages.products.tabor, caption: "יקב תבור", sector: "יין" },
-      { src: aboutImages.products.moroccanoil, caption: "Moroccanoil", sector: "קוסמטיקה" },
-      { src: aboutImages.products.ahava, caption: "AHAVA", sector: "קוסמטיקה" },
-      { src: aboutImages.products.wineSet, caption: "מארז יין", sector: "יין ומשקאות" },
-      { src: aboutImages.products.chocolate, caption: "פרלינים", sector: "ממתקים" },
-      { src: aboutImages.products.premium, caption: "מארז פרימיום", sector: "פרימיום" },
-      { src: aboutImages.products.cosmetics, caption: "מארז קוסמטיקה", sector: "קוסמטיקה" },
-      { src: aboutImages.products.food, caption: "מוצר מזון", sector: "מזון" },
-    ],
-
     ctaTitle: "בואו נתכנן יחד את האריזה הבאה שלכם.",
     ctaPrimary: "ליצירת קשר",
     ctaSecondary: "צפייה בקטלוג",
@@ -368,22 +330,6 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
         title: "Food safety · FSSC 22000",
         body: "Food-safety management across the supply chain — critical for food, cosmetics and pharma packaging.",
       },
-    ],
-
-    clientsEyebrow: "Clients",
-    clientsTitle: "Brands that choose us",
-    clientsBody:
-      "From supermarket shelves to leading cosmetics brands — a selection of the packaging we've produced for our clients.",
-    gallery: [
-      { src: aboutImages.products.osem, caption: "Osem", sector: "Food" },
-      { src: aboutImages.products.tabor, caption: "Tabor Winery", sector: "Wine" },
-      { src: aboutImages.products.moroccanoil, caption: "Moroccanoil", sector: "Cosmetics" },
-      { src: aboutImages.products.ahava, caption: "AHAVA", sector: "Cosmetics" },
-      { src: aboutImages.products.wineSet, caption: "Wine gift set", sector: "Wine & spirits" },
-      { src: aboutImages.products.chocolate, caption: "Pralines", sector: "Confectionery" },
-      { src: aboutImages.products.premium, caption: "Premium boxset", sector: "Premium" },
-      { src: aboutImages.products.cosmetics, caption: "Cosmetics range", sector: "Cosmetics" },
-      { src: aboutImages.products.food, caption: "Food product", sector: "Food" },
     ],
 
     ctaTitle: "Let's plan your next package together.",

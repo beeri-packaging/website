@@ -4,7 +4,6 @@ import { Link } from "@/i18n/navigation";
 import { aboutImages, type AboutCopy } from "@/app/content/about";
 import { ContactTriggerButton } from "@/app/components/contact/ContactTriggerButton";
 import { AboutTimeline } from "./AboutTimeline";
-import { ProductGallery } from "./ProductGallery";
 
 /** Tracked micro-label with a leading rule, matching the site's section eyebrows. */
 function Eyebrow({ children }: { children: ReactNode }) {
@@ -248,15 +247,7 @@ export function AboutPageDesign({ copy }: { copy: AboutCopy }) {
         </div>
       </section>
 
-      {/* 7 — CLIENT PRODUCT GALLERY */}
-      <ProductGallery
-        eyebrow={copy.clientsEyebrow}
-        title={copy.clientsTitle}
-        body={copy.clientsBody}
-        items={copy.gallery}
-      />
-
-      {/* 8 — CTA */}
+      {/* 7 — CTA */}
       <section className="mx-auto w-full max-w-[1152px] px-5 pb-24 pt-0 sm:px-8 lg:px-0">
         <div className="flex flex-col gap-8 border-t border-rule pt-12 md:flex-row md:items-center md:justify-between">
           <h2 className="max-w-[520px] font-display text-[32px] leading-[0.95] text-blueprint sm:text-[40px]">
