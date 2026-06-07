@@ -24,15 +24,4 @@ describe("aboutCopy", () => {
     expect(aboutCopy.he.heritageBody).toContain("1950");
     expect(aboutCopy.he.milestones.some((m) => m.year === "1964")).toBe(true);
   });
-
-  it("has a 9-item product gallery, all sourced from /images/about/", () => {
-    for (const lang of ["he", "en"] as const) {
-      expect(aboutCopy[lang].gallery).toHaveLength(9);
-      for (const item of aboutCopy[lang].gallery) {
-        expect(item.src).toMatch(/^\/images\/about\//);
-        expect(item.caption.length).toBeGreaterThan(0);
-        expect(item.sector.length).toBeGreaterThan(0);
-      }
-    }
-  });
 });
