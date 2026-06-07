@@ -206,37 +206,36 @@ export function BlogArticle({
     <article className="relative overflow-clip">
       <div className="mx-auto w-full max-w-[1200px] px-5 py-16 sm:px-8 sm:py-20 md:px-12 lg:px-16 lg:py-28">
         {/* ── Hero: asymmetric editorial ──────────────────────────────── */}
-        <header className="flex flex-col gap-10 lg:gap-0">
-          <div className="relative z-10 flex flex-col gap-6 lg:w-6/12 lg:self-start">
+        <header className="flex flex-col gap-10">
+          <div className="flex flex-col gap-6 text-start">
             <span
               className={`inline-flex w-fit items-center px-3 py-1 font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] ${categoryChipClass[post.category]}`}
             >
               {badge}
             </span>
             <h1 className="font-display text-h1 text-balance text-logo-dark">{post.title}</h1>
-            <p className="font-sans text-[20px] font-extrabold leading-[1.08] text-clay sm:text-[24px]">
+            <p className="max-w-[640px] font-sans text-[20px] font-extrabold leading-[1.08] text-clay sm:text-[24px]">
               {post.excerpt}
             </p>
           </div>
 
           {post.image ? (
-            <div className="relative isolate lg:-mt-16 lg:w-8/12 lg:self-end">
-              {/* Floating brand accent peeking from the lower start corner (Figma 531:532). */}
+            <div className="relative w-full sm:w-[46%] sm:self-end">
+              {/* Floating brand accent — yellow square layered over magenta (Figma 531:532). */}
               <span
                 aria-hidden
-                className="pointer-events-none absolute -bottom-5 -start-5 z-0 h-20 w-20 bg-yellow sm:h-24 sm:w-24"
-              />
-              <span
-                aria-hidden
-                className="pointer-events-none absolute -bottom-2 -start-9 z-0 h-12 w-10 bg-magenta"
-              />
-              <div className="relative z-10 aspect-[16/10] w-full overflow-hidden border border-ink bg-sand">
+                className="pointer-events-none absolute -bottom-6 -start-6 z-0 block h-20 w-20 sm:h-24 sm:w-24"
+              >
+                <span className="absolute inset-0 -translate-x-1.5 translate-y-1.5 bg-magenta" />
+                <span className="absolute inset-0 bg-yellow" />
+              </span>
+              <div className="relative z-10 aspect-[3/2] w-full overflow-hidden border border-ink bg-sand">
                 <Image
                   src={post.image}
                   alt={post.imageAlt ?? post.title}
                   fill
                   priority
-                  sizes="(min-width: 1024px) 80vw, 100vw"
+                  sizes="(min-width: 640px) 46vw, 100vw"
                   className="object-cover"
                 />
               </div>
@@ -244,13 +243,16 @@ export function BlogArticle({
           ) : null}
         </header>
 
-        {/* ── Body: metadata sidebar + content canvas ─────────────────── */}
-        <div className="mt-16 grid grid-cols-1 gap-10 sm:mt-20 lg:grid-cols-12 lg:gap-12">
-          <div className="lg:col-span-3">
+        {/* ── Body: content canvas (reading-start) + metadata sidebar ───
+             Figma 473:471 — in RTL the article reads on the start (right)
+             edge and the metadata sits at the end (left). Explicit column
+             placement mirrors with `dir` and keeps both on row 1. */}
+        <div className="mt-16 grid grid-cols-1 gap-10 sm:mt-20 lg:grid-cols-12 lg:gap-x-6 lg:gap-y-0">
+          <div className="lg:col-span-3 lg:col-start-10 lg:row-start-1">
             <MetaSidebar post={post} lang={lang} />
           </div>
 
-          <div className="flex flex-col gap-10 lg:col-span-8 lg:col-start-5">
+          <div className="flex flex-col gap-10 lg:col-span-7 lg:col-start-2 lg:row-start-1">
             <div className="flex flex-col gap-5">
               {post.body.map((p, i) => (
                 <p
