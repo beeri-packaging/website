@@ -40,9 +40,9 @@ export function LegalDocument({ doc, lang }: { doc: LegalDoc; lang: Lang }) {
         {/* Sections */}
         <div className="mt-12 flex flex-col gap-10">
           {doc.sections.map((section, i) => (
-            <section key={i} className="border-t border-rule pt-8">
+            <section key={i} className="reveal border-t border-rule pt-8">
               <h2 className="flex items-baseline gap-3 font-display text-[24px] font-bold leading-[1] text-ink sm:text-[28px]">
-                <span className="font-sans text-[14px] font-extrabold tracking-[0.08em] text-magenta">
+                <span className="font-sans text-[14px] font-extrabold tracking-[0.08em] text-magenta-deep">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <span>{section.heading}</span>
@@ -70,7 +70,7 @@ export function LegalDocument({ doc, lang }: { doc: LegalDoc; lang: Lang }) {
         </div>
 
         {/* Contact block */}
-        <section className="mt-12 border border-ink bg-sand/60 p-6 sm:p-8">
+        <section className="reveal mt-12 border border-ink bg-sand/60 p-6 sm:p-8">
           <h2 className="font-display text-[22px] font-bold leading-[1] text-ink sm:text-[24px]">
             {doc.contactHeading}
           </h2>

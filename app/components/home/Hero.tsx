@@ -18,7 +18,7 @@ export function Hero({ lang, t, heroImage }: { lang: Lang; t: HomeCopy; heroImag
           src={heroImage}
           alt=""
           fill
-          priority
+          preload
           sizes="100vw"
           className="object-cover scale-[1.04] motion-safe:transition-transform motion-safe:duration-[3000ms] motion-safe:ease-out"
         />

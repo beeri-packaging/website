@@ -61,10 +61,10 @@ function CatalogHero({ copy }: { copy: CatalogCopy }) {
 // ── Category header — numbered yellow tag (start) · hairline · count (end) ────
 function CategoryHeader({ category }: { category: CatalogCategory }) {
   return (
-    <div className="flex items-center gap-4">
-      <span className="shrink-0 border border-ink bg-yellow px-4 py-[5px] font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-yellow-deep">
+    <div className="reveal flex items-center gap-4">
+      <h2 className="shrink-0 border border-ink bg-yellow px-4 py-[5px] font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-yellow-deep">
         {category.number} / {category.name}
-      </span>
+      </h2>
       <span className="h-px flex-1 bg-ink/20" aria-hidden />
       <span className="shrink-0 font-sans text-[16px] font-light text-clay">
         {category.count}
@@ -205,7 +205,7 @@ function ModularCard({ item }: { item: CatalogItem }) {
         <div dir="ltr" className="mt-2 flex flex-wrap justify-center gap-8 sm:gap-12">
           {item.specs.map((spec) => (
             <div key={spec.label} className="flex flex-col items-center">
-              <span dir="auto" className="font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-magenta">
+              <span dir="auto" className="font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-magenta-deep">
                 {spec.label}
               </span>
               <span className="font-display text-[24px] font-bold tracking-[0.05em] text-ink">
@@ -224,21 +224,21 @@ function CategorySection({ category }: { category: CatalogCategory }) {
     <section className={`${SECTION} mt-20 sm:mt-28`}>
       <CategoryHeader category={category} />
       {category.layout === "grid" ? (
-        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="reveal mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {category.items.map((item) => (
             <GridCard key={item.key} item={item} categoryName={category.name} />
           ))}
         </div>
       ) : null}
       {category.layout === "feature" ? (
-        <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="reveal mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
           {category.items.map((item) => (
             <FeatureCard key={item.key} item={item} categoryName={category.name} />
           ))}
         </div>
       ) : null}
       {category.layout === "modular" ? (
-        <div className="mt-12">
+        <div className="reveal mt-12">
           {category.items.map((item) => (
             <ModularCard key={item.key} item={item} />
           ))}

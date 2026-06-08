@@ -17,23 +17,33 @@ const PUBLISHER = {
   logo: { "@type": "ImageObject", url: LOGO_URL },
 } as const;
 
-export function OrganizationJsonLd() {
+const ORG_DESCRIPTION: Record<Lang, string> = {
+  he: "יצרנית אריזות קרטון ממותגות בהתאמה אישית משנת 1964 — תכנון מבני, דפוס דיגיטלי ואופסט, שטנץ, הדבקה והשבחות לתעשיות הפארמה, המזון, הקוסמטיקה והיין.",
+  en: "Custom folding-carton packaging manufacturer since 1964 — structural design, offset & digital print, and finishing for cosmetics, pharma, food and wine brands.",
+};
+
+export function OrganizationJsonLd({ locale = "he" }: { locale?: Lang }) {
+  const addr = COMPANY.address[locale];
   const data = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    name: COMPANY.nameEn,
-    alternateName: COMPANY.nameHe,
-    legalName: COMPANY.legalNameEn,
+    // Organization + ProfessionalService (a LocalBusiness subtype) on one
+    // node so the real Yavne address is attached to the business entity.
+    "@type": ["Organization", "ProfessionalService"],
+    "@id": `${SITE_URL}/#organization`,
+    name: locale === "he" ? COMPANY.nameHe : COMPANY.nameEn,
+    alternateName: locale === "he" ? COMPANY.nameEn : COMPANY.nameHe,
+    legalName: locale === "he" ? COMPANY.legalNameHe : COMPANY.legalNameEn,
     url: SITE_URL,
     logo: LOGO_URL,
+    image: LOGO_URL,
     foundingDate: String(COMPANY.foundingYear),
     email: COMPANY.email,
-    description:
-      "Custom folding-carton packaging manufacturer — structural design, offset & digital print, and finishing for cosmetics, pharma, food and wine brands.",
+    inLanguage: locale,
+    description: ORG_DESCRIPTION[locale],
     address: {
       "@type": "PostalAddress",
-      streetAddress: COMPANY.address.en.street,
-      addressLocality: COMPANY.address.en.city,
+      streetAddress: addr.street,
+      addressLocality: addr.city,
       addressCountry: "IL",
     },
     sameAs: [COMPANY.linkedin],

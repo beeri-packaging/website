@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import type { FinishingCopy, FinishingGridItem } from "@/app/content/finishing";
@@ -83,7 +81,7 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
     <div className="bg-bone">
       <section className="mx-auto w-full max-w-[1152px] px-5 pb-[75px] pt-2 sm:px-8 lg:px-0">
         <div className="me-auto flex w-full max-w-[672px] flex-col items-end text-start">
-          <div className="mb-2 flex h-6 w-full items-center justify-end gap-4 text-magenta" dir="ltr">
+          <div className="mb-2 flex h-6 w-full items-center justify-end gap-4 text-magenta-deep" dir="ltr">
             <span className="h-px w-24 bg-magenta" aria-hidden />
             <span className="font-sans text-[12px] font-extrabold uppercase leading-4 tracking-[0.08em]" dir={lang === "he" ? "rtl" : "ltr"}>
               {copy.feature.eyebrow}
@@ -106,12 +104,12 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
         className="mx-auto grid w-full max-w-[1152px] grid-cols-1 gap-6 px-5 pb-20 sm:px-8 md:px-12 lg:grid-cols-12 lg:px-0"
         dir="ltr"
       >
-        <div className="lg:col-span-8" dir={lang === "he" ? "rtl" : "ltr"}>
+        <div className="reveal lg:col-span-8" dir={lang === "he" ? "rtl" : "ltr"}>
           <FeatureCard item={copy.feature} />
         </div>
 
-        <div className="grid gap-6 lg:col-span-4" dir={lang === "he" ? "rtl" : "ltr"}>
-          <aside className="relative border border-blueprint bg-blueprint px-8 pb-[113px] pt-8 text-bone">
+        <div className="reveal grid gap-6 lg:col-span-4" dir={lang === "he" ? "rtl" : "ltr"}>
+          <aside className="relative border border-blueprint bg-blueprint px-8 pb-[113px] pt-8 text-start text-bone" dir="ltr">
             <div className="mb-12 flex items-start justify-between gap-5">
               <h2 className="font-display text-[24px] font-bold leading-[0.8] tracking-[0.05em]">
                 {copy.metricsTitle}
@@ -120,15 +118,15 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
                 <PrecisionArmIcon />
               </span>
             </div>
-            <dl className="grid gap-6">
+            <dl className="grid gap-6" dir={lang === "he" ? "rtl" : "ltr"}>
               {copy.metrics.map((metric) => (
-                <div key={metric.label} className="flex items-start justify-between border-b border-bone/20 pb-[9px]">
-                  <dd className="font-sans text-[12px] font-extrabold uppercase leading-4 tracking-[0.08em] text-cyan">
-                    {metric.value}
-                  </dd>
+                <div key={metric.label} className="flex items-start justify-between gap-4 border-b border-bone/20 pb-[9px]">
                   <dt className="font-sans text-[12px] font-extrabold uppercase leading-4 tracking-[0.08em] text-bone/60">
                     {metric.label}
                   </dt>
+                  <dd className="font-sans text-[12px] font-extrabold uppercase leading-4 tracking-[0.08em] text-cyan">
+                    {metric.value}
+                  </dd>
                 </div>
               ))}
             </dl>
@@ -147,7 +145,7 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
           </aside>
         </div>
 
-        <article className="overflow-hidden border border-blueprint bg-bone lg:col-span-5" dir={lang === "he" ? "rtl" : "ltr"}>
+        <article className="reveal overflow-hidden border border-blueprint bg-bone lg:col-span-5" dir={lang === "he" ? "rtl" : "ltr"}>
           {copy.deboss.image ? (
             <FinishImage
               src={copy.deboss.image}
@@ -170,7 +168,7 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
           </div>
         </article>
 
-        <article className="flex h-auto flex-col overflow-hidden border border-blueprint bg-[#f0f0f0] lg:col-span-7 lg:h-[535px]" dir={lang === "he" ? "rtl" : "ltr"}>
+        <article className="reveal flex h-auto flex-col overflow-hidden border border-blueprint bg-[#f0f0f0] lg:col-span-7 lg:h-[535px]" dir={lang === "he" ? "rtl" : "ltr"}>
           <div className="mb-[-31px] p-8 text-start sm:p-12">
             <h2 className="whitespace-pre-line font-display text-[24px] font-bold leading-[0.8] tracking-[0.05em] text-magenta">
               {copy.texture.title}
@@ -193,7 +191,7 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
 
       <section className="mx-auto w-full max-w-[1152px] px-5 pb-20 pt-0 sm:px-8 md:px-12 lg:px-0">
         <div className="flex flex-col gap-10 pt-0 md:flex-row md:items-center md:justify-between">
-          <div className="max-w-[576px] text-start">
+          <div className="reveal max-w-[576px] text-start">
             <h2 className="font-sans text-[16px] font-normal leading-[1.56] tracking-[-0.01em] text-blueprint">
               {copy.ctaTitle}
             </h2>
@@ -212,13 +210,13 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="reveal grid grid-cols-2 gap-4">
             <div className="grid aspect-square w-[129px] place-items-center border border-blueprint text-center">
               <div>
                 <p className="font-display text-[24px] font-bold leading-[0.8] tracking-[0.05em] text-blueprint">
                   {copy.sampleCard.value}
                 </p>
-                <p className="mt-1 font-sans text-[12px] font-extrabold uppercase leading-4 tracking-[0.08em] text-magenta">
+                <p className="mt-1 font-sans text-[12px] font-extrabold uppercase leading-4 tracking-[0.08em] text-magenta-deep">
                   {copy.sampleCard.label}
                 </p>
               </div>

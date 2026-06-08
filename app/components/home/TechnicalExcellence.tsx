@@ -21,7 +21,7 @@ export function TechnicalExcellence({
     >
       <div className="mx-auto w-full max-w-[1264px] px-6 sm:px-8 md:px-12 lg:ps-[64px] lg:pe-[79px] flex flex-col gap-10 md:gap-12 lg:gap-[46px]">
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,452px)] gap-10 lg:gap-[140px] xl:gap-[170px] lg:items-center">
-          <div className="flex flex-col gap-6 lg:gap-8 lg:items-start">
+          <div className="reveal flex flex-col gap-6 lg:gap-8 lg:items-start">
             <h2 className="font-display text-logo-dark text-[44px] sm:text-[64px] lg:text-[80px] xl:text-[96px] leading-[1] text-balance max-w-[493px] text-start">
               {t.techTitle}
             </h2>
@@ -30,20 +30,20 @@ export function TechnicalExcellence({
             </p>
           </div>
 
-          <ul className="flex flex-col w-full max-w-[452px]">
+          <ul className="reveal flex flex-col w-full max-w-[452px]">
             {capabilities.map((c) => (
                 <li
                   key={c.n}
                   className="group flex items-center justify-end gap-8 sm:gap-16 md:gap-[80px] lg:gap-[110px] border-b border-rule pb-px transition-colors duration-300 hover:border-ink"
                 >
-                  <span className="font-display text-magenta text-[72px] sm:text-[88px] md:text-[96px] leading-[38px] tabular-nums shrink-0 w-[59px] text-end transition-colors duration-300 group-hover:text-ink py-3">
+                  <span className="font-display text-magenta text-[72px] sm:text-[88px] md:text-[96px] leading-[38px] tabular-nums shrink-0 w-[59px] text-end transition-colors duration-300 group-hover:text-ink py-4">
                     {c.n}
                   </span>
-                  <div className="flex flex-col gap-1 text-start w-[262px] max-w-full py-3">
+                  <div className="flex flex-col gap-2 text-start w-[262px] max-w-full py-4">
                     <h3 className="font-display text-ink text-[22px] sm:text-[24px] leading-[1.05] tracking-[0.04em]">
                       {c.title}
                     </h3>
-                    <p className="font-sans text-clay text-[16px] leading-[25px] tracking-[-0.16px]">
+                    <p className="font-sans text-clay text-[16px] leading-[24px] tracking-[-0.16px] text-pretty">
                       {c.body}
                     </p>
                   </div>
@@ -53,7 +53,7 @@ export function TechnicalExcellence({
         </div>
 
         {/* Bento grid — 12-col, 800px tall on desktop. */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 md:h-[640px] lg:h-[760px] xl:h-[800px]">
+        <div className="reveal grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 md:h-[640px] lg:h-[760px] xl:h-[800px]">
           {/* Stacked cards column — DOM-first so it lands on the RTL start
               (right) side, matching Figma. */}
           <div className="md:col-span-5 grid grid-rows-[402fr_366fr] gap-6 md:gap-8 h-full min-h-[640px] md:min-h-0">

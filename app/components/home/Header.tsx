@@ -38,7 +38,6 @@ export function Header({
             alt={lang === "he" ? "בארי אריזות" : "Beeri Packaging"}
             width={249}
             height={64}
-            preload
             className="h-11 sm:h-12 md:h-14 w-auto"
           />
         </Link>

@@ -11,7 +11,7 @@ export function LangPill({
   compact?: boolean;
 }) {
   const pathname = usePathname();
-  const inactive = "text-clay/70 hover:text-ink transition-colors duration-200";
+  const inactive = "text-clay/80 hover:text-ink transition-colors duration-200";
   const active = "text-ink";
   return (
     <div

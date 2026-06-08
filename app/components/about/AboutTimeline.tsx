@@ -18,14 +18,14 @@ export function AboutTimeline({
   return (
     <section className="bg-blueprint text-bone">
       <div className="mx-auto w-full max-w-[1152px] px-5 py-20 sm:px-8 md:py-28 lg:px-0">
-        <div className="max-w-[640px] text-start">
+        <div className="reveal max-w-[640px] text-start">
           <div className="mb-3 flex items-center gap-3 text-cyan">
             <span className="h-px w-12 bg-cyan" aria-hidden />
             <span className="font-sans text-[12px] font-extrabold uppercase tracking-[0.08em]">
               {eyebrow}
             </span>
           </div>
-          <h2 className="font-display text-[40px] leading-[0.9] sm:text-[52px]">{title}</h2>
+          <h2 className="font-display text-[40px] leading-[0.95] sm:text-[52px] lg:text-[64px]">{title}</h2>
         </div>
 
         <div className="relative mt-14">
@@ -35,7 +35,7 @@ export function AboutTimeline({
           />
           <ol className="grid gap-10 md:grid-cols-5 md:gap-x-6">
             {milestones.map((m) => (
-              <li key={m.year} className="relative text-start">
+              <li key={m.year} className="reveal relative text-start">
                 <span
                   className="block h-[11px] w-[11px] rounded-full bg-cyan ring-4 ring-blueprint"
                   aria-hidden
