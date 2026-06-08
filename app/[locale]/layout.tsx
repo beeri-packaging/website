@@ -10,6 +10,7 @@ import { SanityLive } from "@/sanity/live";
 import { SITE_URL, alternatesFor } from "@/lib/site";
 import { OrganizationJsonLd } from "@/app/components/seo/JsonLd";
 import { ContactDialogProvider } from "@/app/components/contact/ContactDialogProvider";
+import { RevealOnScroll } from "@/app/components/system/RevealOnScroll";
 import type { Lang } from "@/app/content/home";
 import "../globals.css";
 
@@ -25,6 +26,9 @@ const openSans = Open_Sans({
   subsets: ["hebrew", "latin"],
   weight: ["400", "600", "700", "800"],
   display: "swap",
+  // Body/label face — never the LCP element (all headings ride on Karantina),
+  // so we skip preloading it to free the initial connection for the hero.
+  preload: false,
 });
 
 export async function generateMetadata({
@@ -80,13 +84,19 @@ export default async function LocaleLayout({
       className={`${karantina.variable} ${openSans.variable} antialiased`}
     >
       <body className="flex flex-col bg-bone text-ink">
+        {/* JS-disabled fallback: scroll reveals start hidden in CSS, so show
+            them at rest when the observer can't run. */}
+        <noscript>
+          <style>{`.reveal{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
+        <RevealOnScroll />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:start-3 focus:z-[100] focus:bg-ink focus:text-bone focus:px-4 focus:py-2 focus:rounded-[5px] focus:font-sans focus:text-[14px]"
         >
           {locale === "he" ? "דלג לתוכן" : "Skip to content"}
         </a>
-        <OrganizationJsonLd />
+        <OrganizationJsonLd locale={locale as Lang} />
         <NextIntlClientProvider>
           <ContactDialogProvider lang={locale as Lang}>
             {children}

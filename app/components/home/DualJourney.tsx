@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import type { HomeCopy, Lang } from "@/app/content/home";
 import type { HomeJourneyPanel } from "@/sanity/queries";
+import { createRevealObserver } from "@/lib/revealObserver";
 import { ArrowRtl } from "./icons";
 
 export function DualJourney({ lang, t, panels }: { lang: Lang; t: HomeCopy; panels: readonly HomeJourneyPanel[] }) {
@@ -18,17 +19,12 @@ export function DualJourney({ lang, t, panels }: { lang: Lang; t: HomeCopy; pane
     const stack = stackRef.current;
     if (!stack) return;
     const cards = stack.querySelectorAll<HTMLElement>(".journey-card-reveal");
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.18, rootMargin: "0px 0px -10% 0px" }
-    );
+    // Wider threshold/margin than the generic .reveal — these cards are large
+    // and we want them committed before they're fully on screen.
+    const observer = createRevealObserver({
+      threshold: 0.18,
+      rootMargin: "0px 0px -10% 0px",
+    });
     cards.forEach((card) => observer.observe(card));
     return () => observer.disconnect();
   }, []);
@@ -45,7 +41,7 @@ export function DualJourney({ lang, t, panels }: { lang: Lang; t: HomeCopy; pane
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-2 px-6 sm:px-8 md:px-2 items-end pb-8 sm:pb-10 md:pb-12">
         <div className="flex flex-col gap-3 md:px-6 lg:px-[72px]">
-          <span className="font-sans font-extrabold uppercase text-magenta text-[11px] sm:text-[12px] tracking-[0.08em] leading-4">
+          <span className="font-sans font-extrabold uppercase text-magenta-deep text-[11px] sm:text-[12px] tracking-[0.08em] leading-4">
             {t.journeyEyebrow}
           </span>
           <h2 className="font-display text-logo-dark text-[40px] sm:text-[52px] md:text-[60px] lg:text-[64px] leading-[1.02] text-balance max-w-[535px]">
@@ -114,7 +110,6 @@ function JourneyCard({
     <Link
       href={href}
       data-pair={pairIndex}
-      aria-label={panel.title}
       className="journey-card-reveal group relative block h-[480px] sm:h-[600px] md:h-full overflow-hidden cursor-pointer focus-ring"
     >
       <div className="parallax-img absolute inset-0">
@@ -129,7 +124,7 @@ function JourneyCard({
             sizes="(min-width: 1280px) 60vw, (min-width: 768px) 70vw, 100vw"
             quality={90}
             className="object-cover"
-            priority={priority}
+            preload={priority}
           />
         ) : (
           // No image (e.g. an editor added a panel without one) — fall back to a

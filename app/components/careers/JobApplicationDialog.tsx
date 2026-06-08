@@ -132,7 +132,7 @@ export function JobApplicationDialog({
                     {copy.aside.eyebrow}
                   </span>
                   {role?.code ? (
-                    <span className="font-sans text-[12px] font-bold text-clay/75">
+                    <span className="font-sans text-[12px] font-bold text-clay/80">
                       {role.code}
                     </span>
                   ) : null}
@@ -158,7 +158,7 @@ export function JobApplicationDialog({
                 />
                 {role ? (
                   <div className="flex flex-col gap-2">
-                    <span className="font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-clay/70">
+                    <span className="font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-clay/80">
                       {copy.form.roleLabel}
                     </span>
                     <div className="flex items-center gap-2 border border-ink bg-sand px-4 py-3 font-sans text-[15px] font-semibold text-ink">
@@ -203,7 +203,7 @@ export function JobApplicationDialog({
                 <div className="flex flex-col gap-2">
                   <label
                     htmlFor={`${formId}-message`}
-                    className="flex items-center gap-2 font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-clay/70"
+                    className="flex items-center gap-2 font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-clay/80"
                   >
                     {copy.form.message.label}
                     <span className="font-normal normal-case text-clay/50">
@@ -220,7 +220,7 @@ export function JobApplicationDialog({
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <span className="flex items-center gap-2 font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-clay/70">
+                  <span className="flex items-center gap-2 font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-clay/80">
                     {copy.form.cv.label}
                     <span className="font-normal normal-case text-clay/50">
                       {copy.form.cv.optional}
@@ -235,7 +235,7 @@ export function JobApplicationDialog({
                       <PaperclipIcon />
                       {copy.form.cv.button}
                     </button>
-                    <span className="min-w-0 truncate font-sans text-[13px] text-clay/70">
+                    <span className="min-w-0 truncate font-sans text-[13px] text-clay/80">
                       {fileName ?? copy.form.cv.empty}
                     </span>
                   </div>
@@ -361,7 +361,7 @@ function Field({
     <div className="flex flex-col gap-2">
       <label
         htmlFor={id}
-        className="font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-clay/70"
+        className="font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-clay/80"
       >
         {label}
       </label>

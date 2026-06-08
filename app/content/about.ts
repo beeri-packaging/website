@@ -18,6 +18,8 @@ export type AboutStat = {
   value: string;
   label: string;
   sub?: string;
+  /** Tile fill: plain (bone + blueprint border), magenta, or yellow. */
+  tone?: "plain" | "magenta" | "yellow";
 };
 
 export type AboutCapability = {
@@ -61,6 +63,9 @@ export type AboutCopy = {
   capabilities: readonly AboutCapability[];
   capsFinishingCta: string;
   capsCatalogCta: string;
+  // Partners / clients
+  partnersEyebrow: string;
+  partnersTitle: string;
   // Quality
   qualityEyebrow: string;
   qualityTitle: string;
@@ -155,10 +160,15 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
     statsEyebrow: "במספרים",
     statsTitle: "המפעל שלנו ביבנה",
     stats: [
-      { value: "7,900", label: 'מ"ר ייצור ומשרדים', sub: 'ועוד 3,000 מ"ר מרלו"ג' },
       { value: "כ־140", label: "עובדים", sub: "100 ייצור · 40 מטה" },
+      {
+        value: "7,900",
+        label: 'מ"ר ייצור ומשרדים',
+        sub: 'ועוד 3,000 מ"ר מרלו"ג',
+        tone: "magenta",
+      },
+      { value: "1964", label: "שנת הקמה", tone: "yellow" },
       { value: "3+2", label: "משמרות ביממה", sub: "דפוס · גימורים" },
-      { value: "1964", label: "שנת הקמה" },
     ],
 
     capsEyebrow: "יכולות",
@@ -193,6 +203,9 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
     ],
     capsFinishingCta: "לעמוד ההשבחות",
     capsCatalogCta: "לקטלוג המוצרים",
+
+    partnersEyebrow: "מבין לקוחותינו",
+    partnersTitle: "שותפות מנצחת",
 
     qualityEyebrow: "תקנים",
     qualityTitle: "איכות ובטיחות מזון",
@@ -278,10 +291,15 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
     statsEyebrow: "By the numbers",
     statsTitle: "Our Yavne plant",
     stats: [
-      { value: "7,900", label: "m² production & offices", sub: "+3,000 m² logistics center" },
       { value: "~140", label: "employees", sub: "100 production · 40 staff" },
+      {
+        value: "7,900",
+        label: "m² production & offices",
+        sub: "+3,000 m² logistics center",
+        tone: "magenta",
+      },
+      { value: "1964", label: "established", tone: "yellow" },
       { value: "3+2", label: "shifts a day", sub: "print · finishing" },
-      { value: "1964", label: "established" },
     ],
 
     capsEyebrow: "Capabilities",
@@ -316,6 +334,9 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
     ],
     capsFinishingCta: "Explore finishing",
     capsCatalogCta: "Browse the catalog",
+
+    partnersEyebrow: "Among our clients",
+    partnersTitle: "Winning partnerships",
 
     qualityEyebrow: "Standards",
     qualityTitle: "Quality & food safety",

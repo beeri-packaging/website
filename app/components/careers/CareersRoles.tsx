@@ -30,7 +30,7 @@ function RoleRow({
   role: CareerRole;
 }) {
   return (
-    <article className="flex flex-col gap-6 border border-ink bg-bone p-6 sm:p-8 md:flex-row md:items-center md:justify-between">
+    <article className="reveal flex flex-col gap-6 border border-ink bg-bone p-6 sm:p-8 md:flex-row md:items-center md:justify-between">
       <div className="min-w-0">
         <div className="flex flex-wrap items-center gap-3">
           <span className="bg-yellow px-3 py-1 font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-yellow-deep">
@@ -86,7 +86,7 @@ export function CareersRoles({
 }) {
   return (
     <section className="mx-auto w-full max-w-[1280px] px-5 pb-24 sm:px-8 md:px-12 lg:px-20">
-      <div className="flex flex-col gap-6 border-b border-ink pb-6 md:flex-row md:items-end md:justify-between">
+      <div className="reveal flex flex-col gap-6 border-b border-ink pb-6 md:flex-row md:items-end md:justify-between">
         <h2 className="flex items-center gap-4 font-display text-[56px] font-bold leading-none text-ink sm:text-[64px]">
           <span className="h-7 w-7 bg-yellow" aria-hidden />
           {title}

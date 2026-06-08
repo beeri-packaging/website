@@ -1,8 +1,15 @@
 "use client";
 
-import { useId, useState, useTransition } from "react";
+import {
+  useEffect,
+  useId,
+  useImperativeHandle,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
 import type { Lang } from "@/app/content/home";
-import { contactCopy } from "@/app/content/contact";
+import { contactCopy, type ContactReasonOption } from "@/app/content/contact";
 import {
   validateContactInquiry,
   type ContactFieldErrors,
@@ -28,10 +35,10 @@ type ContactDialogProps = {
 
 /** Underline-style field shared by every text input/textarea (Figma spec). */
 const FIELD_CLASS =
-  "w-full border-b-2 border-ink/20 bg-transparent px-3 pb-3 pt-2 font-sans text-[16px] text-ink text-start outline-none transition-colors placeholder:text-clay-soft/55 focus:border-ink aria-[invalid=true]:border-magenta";
+  "w-full border-b-2 border-ink/20 bg-transparent px-3 pb-3 pt-[9px] font-sans text-[20px] leading-[25px] text-ink text-start outline-none transition-colors placeholder:text-clay-soft/55 focus:border-ink aria-[invalid=true]:border-magenta";
 
 const LABEL_CLASS =
-  "font-sans text-[16px] font-light leading-[25px] text-clay text-start";
+  "font-sans text-[16px] font-light leading-[25px] tracking-[-0.16px] text-clay text-start";
 
 export function ContactDialog({ lang, open, onOpenChange }: ContactDialogProps) {
   const copy = contactCopy[lang];
@@ -40,6 +47,10 @@ export function ContactDialog({ lang, open, onOpenChange }: ContactDialogProps) 
   const [errors, setErrors] = useState<ContactFieldErrors>({});
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  // Lets the dialog veto its own Escape-close while the reason menu is open.
+  const reasonMenuRef = useRef<{ isOpen: () => boolean; close: () => void } | null>(
+    null,
+  );
 
   function handleOpenChange(next: boolean) {
     onOpenChange(next);
@@ -91,6 +102,13 @@ export function ContactDialog({ lang, open, onOpenChange }: ContactDialogProps) 
         closeLabel={copy.closeLabel}
         showClose={false}
         className="max-w-[920px] border border-ink shadow-[8px_8px_0_var(--yellow),0_25px_50px_-12px_rgba(0,0,0,0.25)]"
+        onEscapeKeyDown={(event) => {
+          // When the reason menu is open, Escape closes the menu, not the dialog.
+          if (reasonMenuRef.current?.isOpen()) {
+            event.preventDefault();
+            reasonMenuRef.current.close();
+          }
+        }}
       >
         {/* Custom close cluster (X + label), inline-end / top — mirrors the Figma. */}
         <DialogClose
@@ -103,17 +121,17 @@ export function ContactDialog({ lang, open, onOpenChange }: ContactDialogProps) 
           </span>
         </DialogClose>
 
-        <DialogMain className="px-6 pb-12 pt-16 sm:px-12 sm:pb-16 md:px-16 md:pt-[68px]">
+        <DialogMain className="px-6 pb-10 pt-14 sm:px-12 sm:pb-12 md:px-16 md:pt-[56px] md:pb-[48px]">
           {submitted ? (
             <SuccessPanel copy={copy} />
           ) : (
             <div className="flex flex-col gap-10 md:gap-12">
               {/* Header — yellow accent rule on the inline-start edge. */}
               <header className="flex w-full flex-col gap-2 border-s-4 border-magenta ps-7 text-start">
-                <span className="font-sans text-[16px] font-semibold uppercase tracking-[0.5px] text-clay">
+                <span className="font-sans text-[12px] font-extrabold uppercase tracking-[0.96px] text-clay">
                   {copy.eyebrow}
                 </span>
-                <DialogTitle className="text-logo-dark text-[44px] leading-[0.74] sm:text-[72px] md:text-[88px] lg:text-[104px]">
+                <DialogTitle className="text-logo-dark text-[36px] leading-[0.85] sm:text-[52px] md:text-[60px] lg:text-[68px]">
                   {copy.title}
                 </DialogTitle>
                 <DialogDescription className="sr-only">
@@ -122,7 +140,7 @@ export function ContactDialog({ lang, open, onOpenChange }: ContactDialogProps) 
               </header>
 
               <form
-                className="grid w-full grid-cols-1 gap-x-12 gap-y-8 sm:grid-cols-2"
+                className="grid w-full grid-cols-1 gap-x-12 gap-y-10 sm:grid-cols-2"
                 onSubmit={handleSubmit}
                 noValidate
               >
@@ -162,34 +180,33 @@ export function ContactDialog({ lang, open, onOpenChange }: ContactDialogProps) 
                   autoComplete="organization"
                 />
 
-                {/* Reason — required native select styled as an underline field. */}
+                {/* Reason — required custom dropdown styled as an underline field. */}
                 <div className="flex flex-col gap-2 sm:col-span-2">
-                  <label htmlFor={`${formId}-reason`} className={LABEL_CLASS}>
+                  <label
+                    id={`${formId}-reason-label`}
+                    htmlFor={`${formId}-reason`}
+                    className={LABEL_CLASS}
+                  >
                     {copy.form.reason.label}
                   </label>
-                  <div className="relative">
-                    <select
-                      id={`${formId}-reason`}
-                      name="reason"
-                      defaultValue=""
-                      aria-invalid={errors.reason ? true : undefined}
-                      aria-describedby={
-                        errors.reason ? `${formId}-reason-error` : undefined
-                      }
-                      className={`${FIELD_CLASS} cursor-pointer appearance-none pe-10`}
-                    >
-                      {copy.form.reason.options.map((option) => (
-                        <option
-                          key={option.value || "placeholder"}
-                          value={option.value}
-                          disabled={option.value === ""}
-                        >
-                          {option.label}
-                        </option>
-                      ))}
-                    </select>
-                    <ChevronGlyph className="pointer-events-none absolute end-2 top-1/2 -translate-y-1/2 text-ink" />
-                  </div>
+                  <ReasonSelect
+                    controlRef={reasonMenuRef}
+                    id={`${formId}-reason`}
+                    labelId={`${formId}-reason-label`}
+                    options={copy.form.reason.options}
+                    placeholder={
+                      copy.form.reason.options.find((o) => !o.value)?.label ?? ""
+                    }
+                    invalid={Boolean(errors.reason)}
+                    errorId={
+                      errors.reason ? `${formId}-reason-error` : undefined
+                    }
+                    onSelect={() =>
+                      setErrors((prev) =>
+                        prev.reason ? { ...prev, reason: undefined } : prev,
+                      )
+                    }
+                  />
                   {errors.reason ? (
                     <span
                       id={`${formId}-reason-error`}
@@ -313,6 +330,193 @@ function Field({
   );
 }
 
+/**
+ * Accessible single-select dropdown (combobox + listbox) styled as the same
+ * underline field as the text inputs. Feeds the form via a hidden `reason`
+ * input so the existing FormData submit path is unchanged.
+ */
+function ReasonSelect({
+  id,
+  labelId,
+  options,
+  placeholder,
+  invalid,
+  errorId,
+  onSelect,
+  controlRef,
+}: {
+  id: string;
+  labelId: string;
+  options: readonly ContactReasonOption[];
+  placeholder: string;
+  invalid?: boolean;
+  errorId?: string;
+  onSelect?: () => void;
+  controlRef?: React.RefObject<{
+    isOpen: () => boolean;
+    close: () => void;
+  } | null>;
+}) {
+  const items = options.filter((o) => o.value);
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState<ContactReasonValue | "">("");
+  const [active, setActive] = useState(0);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const openRef = useRef(false);
+  const selected = items.find((o) => o.value === value);
+
+  useEffect(() => {
+    openRef.current = open;
+  }, [open]);
+
+  // The parent Dialog owns the document-level Escape listener (capture phase,
+  // registered first), so it must be the one to veto its own close. Expose the
+  // menu's open-state + a close() so the dialog's onEscapeKeyDown can do that.
+  useImperativeHandle(
+    controlRef,
+    () => ({
+      isOpen: () => openRef.current,
+      close: () => {
+        setOpen(false);
+        buttonRef.current?.focus();
+      },
+    }),
+    [],
+  );
+
+  function openMenu(index?: number) {
+    const sel = items.findIndex((o) => o.value === value);
+    setActive(index ?? (sel >= 0 ? sel : 0));
+    setOpen(true);
+  }
+
+  function close(focus = true) {
+    setOpen(false);
+    if (focus) buttonRef.current?.focus();
+  }
+
+  function choose(index: number) {
+    const opt = items[index];
+    if (!opt) return;
+    setValue(opt.value);
+    onSelect?.();
+    close();
+  }
+
+  // Dismiss on outside pointer. (Escape is handled by the parent Dialog via
+  // controlRef, since its Escape listener wins the capture phase.)
+  useEffect(() => {
+    if (!open) return;
+    function onPointerDown(event: PointerEvent) {
+      if (rootRef.current && !rootRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => document.removeEventListener("pointerdown", onPointerDown);
+  }, [open]);
+
+  function handleKeyDown(event: React.KeyboardEvent<HTMLButtonElement>) {
+    switch (event.key) {
+      case "ArrowDown":
+        event.preventDefault();
+        if (!open) openMenu();
+        else setActive((a) => Math.min(items.length - 1, a + 1));
+        break;
+      case "ArrowUp":
+        event.preventDefault();
+        if (!open) openMenu(items.length - 1);
+        else setActive((a) => Math.max(0, a - 1));
+        break;
+      case "Home":
+        if (open) {
+          event.preventDefault();
+          setActive(0);
+        }
+        break;
+      case "End":
+        if (open) {
+          event.preventDefault();
+          setActive(items.length - 1);
+        }
+        break;
+      case "Enter":
+      case " ":
+        event.preventDefault();
+        if (open) choose(active);
+        else openMenu();
+        break;
+      // Escape is handled by a capture-phase listener while open (see effect).
+      case "Tab":
+        if (open) close(false);
+        break;
+    }
+  }
+
+  return (
+    <div ref={rootRef} className="relative">
+      <input type="hidden" name="reason" value={value} />
+      <button
+        ref={buttonRef}
+        type="button"
+        id={id}
+        role="combobox"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-controls={`${id}-list`}
+        aria-labelledby={`${labelId} ${id}`}
+        aria-activedescendant={open ? `${id}-opt-${active}` : undefined}
+        aria-invalid={invalid || undefined}
+        aria-describedby={errorId}
+        data-open={open}
+        onClick={() => (open ? close() : openMenu())}
+        onKeyDown={handleKeyDown}
+        className="flex w-full items-center justify-between gap-2 border-b-2 border-ink/20 bg-transparent px-3 pb-3 pt-[9px] font-sans text-[20px] leading-[25px] text-start outline-none transition-colors focus-visible:border-ink data-[open=true]:border-ink aria-[invalid=true]:border-magenta"
+      >
+        <span className={selected ? "text-ink" : "text-clay-soft/55"}>
+          {selected ? selected.label : placeholder}
+        </span>
+        <ChevronGlyph
+          className={`size-5 shrink-0 text-ink transition-transform duration-200 ${
+            open ? "rotate-180" : ""
+          }`}
+        />
+      </button>
+
+      {open ? (
+        <ul
+          id={`${id}-list`}
+          role="listbox"
+          aria-labelledby={labelId}
+          tabIndex={-1}
+          className="absolute inset-x-0 top-[calc(100%+8px)] z-20 border border-ink bg-bone py-1 shadow-[6px_6px_0_rgba(27,28,26,0.12)]"
+        >
+          {items.map((option, index) => {
+            const isActive = index === active;
+            const isSelected = value === option.value;
+            return (
+              <li
+                key={option.value}
+                id={`${id}-opt-${index}`}
+                role="option"
+                aria-selected={isSelected}
+                onMouseEnter={() => setActive(index)}
+                onClick={() => choose(index)}
+                className={`cursor-pointer px-3 py-2.5 font-sans text-[18px] leading-[24px] text-start transition-colors ${
+                  isActive ? "bg-sand" : ""
+                } ${isSelected ? "font-semibold text-magenta-deep" : "text-ink"}`}
+              >
+                {option.label}
+              </li>
+            );
+          })}
+        </ul>
+      ) : null}
+    </div>
+  );
+}
+
 function SuccessPanel({ copy }: { copy: (typeof contactCopy)[Lang] }) {
   return (
     <div className="flex min-h-[320px] flex-col items-start justify-center gap-5 border-s-4 border-yellow ps-7 text-start">
@@ -355,7 +559,7 @@ function ChevronGlyph({ className }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 16 16"
-      className={`size-4 ${className ?? ""}`}
+      className={className ?? "size-5"}
       fill="none"
       stroke="currentColor"
       strokeWidth={1.6}

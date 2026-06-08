@@ -25,7 +25,7 @@ export function CareersNewsletter({ copy }: { copy: CareersCopy }) {
 
   return (
     <section className="mx-auto w-full max-w-[1280px] px-5 pb-24 sm:px-8 md:px-12 lg:px-20">
-      <div className="grid gap-8 border-t-2 border-ink pt-12 md:grid-cols-[minmax(260px,460px)_1fr] md:items-center">
+      <div className="reveal grid gap-8 border-t-2 border-ink pt-12 md:grid-cols-[minmax(260px,460px)_1fr] md:items-center">
         <div>
           <h2 className="font-display text-[56px] font-bold leading-none text-ink sm:text-[80px] lg:text-[96px]">
             {copy.newsletterTitle.join(" ")}

@@ -12,12 +12,12 @@ export function Faq({ t, items }: { lang: Lang; t: HomeCopy; items: readonly { n
       className="bg-bone py-20 sm:py-24 md:py-28 lg:py-24 scroll-mt-[80px] flex flex-col"
     >
       <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-8 md:px-12 lg:px-20 flex flex-col gap-10 md:gap-14 lg:gap-8 xl:gap-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-end">
+        <div className="reveal grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-end">
           <p className="font-sans text-clay text-[16px] sm:text-[18px] md:text-[20px] lg:text-[17px] xl:text-[20px] leading-[1.5] max-w-[454px] md:order-2">
             {t.faqBody}
           </p>
           <div className="flex flex-col gap-3 sm:gap-4 text-start md:order-1">
-            <span className="font-sans font-extrabold uppercase text-magenta text-[11px] sm:text-[12px] tracking-[0.08em] leading-4">
+            <span className="font-sans font-extrabold uppercase text-magenta-deep text-[11px] sm:text-[12px] tracking-[0.08em] leading-4">
               {t.faqEyebrow}
             </span>
             <h2 className="font-display text-logo-dark text-[44px] sm:text-[64px] lg:text-[80px] xl:text-[96px] leading-[1] text-balance max-w-[532px]">
@@ -26,7 +26,7 @@ export function Faq({ t, items }: { lang: Lang; t: HomeCopy; items: readonly { n
           </div>
         </div>
 
-        <ul className="flex flex-col border-t border-rule">
+        <ul className="reveal flex flex-col border-t border-rule">
           {items.map((item, i) => {
             const isOpen = openIndex === i;
             return (

@@ -1,8 +1,16 @@
 "use client";
 
 import { createContext, useCallback, useContext, useState } from "react";
+import dynamic from "next/dynamic";
 import type { Lang } from "@/app/content/home";
-import { ContactDialog } from "./ContactDialog";
+
+// The contact dialog pulls in the Radix Dialog runtime (~100 KB). It's only
+// needed once a visitor actually opens it, so its chunk is loaded on first
+// open (client-only) rather than shipped in every route's initial bundle.
+const ContactDialog = dynamic(
+  () => import("./ContactDialog").then((m) => m.ContactDialog),
+  { ssr: false },
+);
 
 type ContactDialogContextValue = {
   /** Open the global contact dialog. */
@@ -36,12 +44,19 @@ export function ContactDialogProvider({
   children: React.ReactNode;
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  const open = useCallback(() => setIsOpen(true), []);
+  // Defer mounting the dialog (and loading its chunk) until the first open.
+  const [mounted, setMounted] = useState(false);
+  const open = useCallback(() => {
+    setMounted(true);
+    setIsOpen(true);
+  }, []);
 
   return (
     <ContactDialogContext.Provider value={{ open }}>
       {children}
-      <ContactDialog lang={lang} open={isOpen} onOpenChange={setIsOpen} />
+      {mounted ? (
+        <ContactDialog lang={lang} open={isOpen} onOpenChange={setIsOpen} />
+      ) : null}
     </ContactDialogContext.Provider>
   );
 }

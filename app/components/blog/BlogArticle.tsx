@@ -68,7 +68,7 @@ function MetaSidebar({
 function QuoteBlock({ post }: { post: LocalizedPost }) {
   if (!post.quote) return null;
   return (
-    <div className="flex flex-col items-stretch gap-8 pt-6 sm:flex-row-reverse sm:items-center">
+    <div className="reveal flex flex-col items-stretch gap-8 pt-6 sm:flex-row-reverse sm:items-center">
       {post.quoteImage ? (
         <div className="relative aspect-square w-full shrink-0 overflow-hidden border border-ink bg-sand sm:w-[44%]">
           <Image
@@ -85,7 +85,7 @@ function QuoteBlock({ post }: { post: LocalizedPost }) {
           {post.quote.text}
         </p>
         {post.quote.cite ? (
-          <cite className="font-sans text-[20px] not-italic text-magenta">
+          <cite className="font-sans text-[20px] not-italic text-magenta-deep">
             {post.quote.cite}
           </cite>
         ) : null}
@@ -103,7 +103,7 @@ function Section({
   index: number;
 }) {
   return (
-    <section className="flex flex-col gap-6">
+    <section className="reveal flex flex-col gap-6">
       <h2 className="font-display text-h2 text-ink">
         <span className="text-cyan">{`0${index + 1}.`}</span>{" "}
         {section.heading}
@@ -147,7 +147,7 @@ function RelatedCard({
     >
       <span
         className={`font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] ${
-          dark ? "text-bone/80" : "text-magenta"
+          dark ? "text-bone/80" : "text-magenta-deep"
         }`}
       >
         {label} / 0{index + 1}
@@ -275,13 +275,13 @@ export function BlogArticle({
         {/* ── More to explore: related posts ──────────────────────────── */}
         {related.length > 0 ? (
           <div className="mt-20 flex flex-col gap-10 sm:mt-28">
-            <div className="flex items-end justify-between gap-6 border-b border-ink pb-4">
+            <div className="reveal flex items-end justify-between gap-6 border-b border-ink pb-4">
               <h2 className="font-display text-h1 text-ink">
                 {t.moreFromBlog}
               </h2>
               <Link
                 href="/careers"
-                className="group inline-flex items-center gap-2 pb-2 font-sans text-[14px] font-bold uppercase tracking-[0.08em] text-magenta underline decoration-from-font underline-offset-2 transition-colors duration-300 hover:text-ink focus-ring"
+                className="group inline-flex items-center gap-2 pb-2 font-sans text-[14px] font-bold uppercase tracking-[0.08em] text-magenta-deep underline decoration-from-font underline-offset-2 transition-colors duration-300 hover:text-ink focus-ring"
               >
                 <span
                   aria-hidden
@@ -295,7 +295,7 @@ export function BlogArticle({
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            <div className="reveal grid grid-cols-1 gap-8 md:grid-cols-3">
               {related.map((rp, i) => (
                 <RelatedCard
                   key={rp.slug}

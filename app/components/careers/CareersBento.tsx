@@ -41,7 +41,7 @@ function FeatureArticle({ article, lang }: { article: CareersArticle; lang: Lang
   return (
     <article
       dir={lang === "he" ? "rtl" : "ltr"}
-      className="relative overflow-hidden border border-ink bg-sand lg:col-start-1 lg:col-span-8 lg:row-start-1 lg:row-span-2 lg:h-full"
+      className="reveal relative overflow-hidden border border-ink bg-sand lg:col-start-1 lg:col-span-8 lg:row-start-1 lg:row-span-2 lg:h-full"
     >
       <span className="absolute inset-x-0 top-0 h-1 bg-magenta" aria-hidden />
       <RibbonFlag color="bg-magenta" />
@@ -90,7 +90,7 @@ function PlainArticle({ article, lang }: { article: CareersArticle; lang: Lang }
   return (
     <article
       dir={lang === "he" ? "rtl" : "ltr"}
-      className="relative border border-ink bg-mist p-6 sm:p-8 lg:col-start-9 lg:col-span-4 lg:row-start-1 lg:h-full"
+      className="reveal relative border border-ink bg-mist p-6 sm:p-8 lg:col-start-9 lg:col-span-4 lg:row-start-1 lg:h-full"
     >
       <RibbonFlag color="bg-cyan" />
       <ArticleTag tone="cyan">{article.tag}</ArticleTag>
@@ -121,7 +121,7 @@ function YellowArticle({ article, lang }: { article: CareersArticle; lang: Lang 
   return (
     <article
       dir={lang === "he" ? "rtl" : "ltr"}
-      className="relative overflow-hidden border border-ink bg-yellow p-6 sm:p-8 lg:col-start-9 lg:col-span-4 lg:row-start-2 lg:h-full"
+      className="reveal relative overflow-hidden border border-ink bg-yellow p-6 sm:p-8 lg:col-start-9 lg:col-span-4 lg:row-start-2 lg:h-full"
     >
       <div
         aria-hidden
@@ -151,7 +151,7 @@ function ImageArticle({ article, lang }: { article: CareersArticle; lang: Lang }
   return (
     <article
       dir={lang === "he" ? "rtl" : "ltr"}
-      className="overflow-hidden border border-ink bg-bone lg:col-start-1 lg:col-span-4 lg:row-start-3 lg:row-span-2 lg:flex lg:h-full lg:flex-col"
+      className="reveal overflow-hidden border border-ink bg-bone lg:col-start-1 lg:col-span-4 lg:row-start-3 lg:row-span-2 lg:flex lg:h-full lg:flex-col"
     >
       {article.image ? (
         <div className="relative aspect-[1.08] bg-ink lg:aspect-auto lg:flex-1">
@@ -183,10 +183,10 @@ function WideArticle({ article, lang }: { article: CareersArticle; lang: Lang })
   return (
     <article
       dir={lang === "he" ? "rtl" : "ltr"}
-      className="grid gap-8 border border-ink bg-bone p-6 sm:p-8 md:grid-cols-[1fr_auto] md:items-center lg:col-start-5 lg:col-span-8 lg:row-start-3 lg:h-full"
+      className="reveal grid gap-8 border border-ink bg-bone p-6 sm:p-8 md:grid-cols-[1fr_auto] md:items-center lg:col-start-5 lg:col-span-8 lg:row-start-3 lg:h-full"
     >
       <div>
-        <p className="font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-magenta">
+        <p className="font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-magenta-deep">
           {article.tag}
         </p>
         <h2 className="mt-3 font-display text-[48px] font-bold leading-[0.92] text-ink sm:text-[64px]">

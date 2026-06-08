@@ -8,7 +8,7 @@ import { AboutTimeline } from "./AboutTimeline";
 /** Tracked micro-label with a leading rule, matching the site's section eyebrows. */
 function Eyebrow({ children }: { children: ReactNode }) {
   return (
-    <div className="mb-3 flex items-center gap-3 text-magenta">
+    <div className="mb-3 flex items-center gap-3 text-magenta-deep">
       <span className="h-px w-12 bg-magenta" aria-hidden />
       <span className="font-sans text-[12px] font-extrabold uppercase tracking-[0.08em]">
         {children}
@@ -24,7 +24,7 @@ export function AboutPageDesign({ copy }: { copy: AboutCopy }) {
       <section className="mx-auto w-full max-w-[1152px] px-5 pb-16 pt-4 sm:px-8 md:pb-24 md:pt-8 lg:px-0">
         <div className="max-w-[760px] text-start">
           <Eyebrow>{copy.eyebrow}</Eyebrow>
-          <h1 className="font-display text-[64px] leading-[0.92] text-blueprint sm:text-[82px] md:text-[96px]">
+          <h1 className="font-display text-[60px] leading-[0.86] text-blueprint sm:text-[88px] lg:text-[128px]">
             {copy.title.map((line) => (
               <span key={line} className="block">
                 {line}
@@ -40,9 +40,9 @@ export function AboutPageDesign({ copy }: { copy: AboutCopy }) {
       {/* 2 — HERITAGE / PARENT GROUP */}
       <section className="mx-auto w-full max-w-[1152px] px-5 pb-20 sm:px-8 md:pb-28 lg:px-0">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
-          <div className="text-start lg:col-span-7">
+          <div className="reveal text-start lg:col-span-7">
             <Eyebrow>{copy.heritageEyebrow}</Eyebrow>
-            <h2 className="font-display text-[40px] leading-[0.9] text-blueprint sm:text-[52px]">
+            <h2 className="font-display text-[40px] leading-[0.95] text-blueprint sm:text-[52px] lg:text-[64px]">
               {copy.heritageTitle}
             </h2>
             <p className="mt-5 max-w-[560px] font-sans text-[16px] leading-[1.56] text-clay">
@@ -72,7 +72,7 @@ export function AboutPageDesign({ copy }: { copy: AboutCopy }) {
           </div>
 
           {/* Black-and-white heritage triptych */}
-          <div className="lg:col-span-5">
+          <div className="reveal lg:col-span-5">
             <div className="grid grid-cols-2 gap-3">
               <div className="relative col-span-2 aspect-[16/9] overflow-hidden border border-blueprint bg-sand">
                 <Image
@@ -103,7 +103,7 @@ export function AboutPageDesign({ copy }: { copy: AboutCopy }) {
                 />
               </div>
             </div>
-            <p className="mt-3 font-sans text-[11px] font-extrabold uppercase tracking-[0.08em] text-clay/70">
+            <p className="mt-3 font-sans text-[11px] font-extrabold uppercase tracking-[0.08em] text-clay/80">
               {copy.heritageImageCaption}
             </p>
           </div>
@@ -121,34 +121,47 @@ export function AboutPageDesign({ copy }: { copy: AboutCopy }) {
       <section className="mx-auto w-full max-w-[1152px] px-5 py-20 sm:px-8 md:py-28 lg:px-0">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-7">
-            <div className="text-start">
+            <div className="reveal text-start">
               <Eyebrow>{copy.statsEyebrow}</Eyebrow>
-              <h2 className="font-display text-[40px] leading-[0.9] text-blueprint sm:text-[52px]">
+              <h2 className="font-display text-[44px] leading-[0.92] text-blueprint sm:text-[64px] lg:text-[96px]">
                 {copy.statsTitle}
               </h2>
             </div>
             <dl className="mt-8 grid grid-cols-2 gap-4">
-              {copy.stats.map((s, i) => {
-                const variant =
-                  i === 0
-                    ? "bg-blueprint text-bone"
-                    : i === 3
-                      ? "bg-yellow text-blueprint"
-                      : "border border-blueprint bg-bone text-blueprint";
-                const valueColor = i === 0 ? "text-cyan" : "text-blueprint";
-                const subColor =
-                  i === 0 ? "text-bone/70" : i === 3 ? "text-blueprint/70" : "text-clay";
+              {copy.stats.map((s) => {
+                const tone = s.tone ?? "plain";
+                const tile =
+                  tone === "magenta"
+                    ? "bg-magenta"
+                    : tone === "yellow"
+                      ? "bg-yellow"
+                      : "border border-blueprint bg-bone";
+                const valueColor = tone === "magenta" ? "text-cyan" : "text-blueprint";
+                const labelColor =
+                  tone === "magenta"
+                    ? "text-bone"
+                    : tone === "yellow"
+                      ? "text-blueprint/75"
+                      : "text-blueprint";
+                const subColor = tone === "magenta" ? "text-bone/70" : "text-clay";
                 return (
-                  <div key={s.label} className={`flex flex-col justify-between p-6 ${variant}`}>
-                    <dt className={`font-display text-[44px] leading-[0.85] sm:text-[52px] ${valueColor}`}>
+                  <div
+                    key={s.label}
+                    className={`reveal flex h-[150px] flex-col justify-between p-6 text-start ${tile}`}
+                  >
+                    <dt className={`font-display text-[52px] leading-none sm:text-[64px] ${valueColor}`}>
                       {s.value}
                     </dt>
-                    <dd className="mt-6">
-                      <span className="block font-sans text-[13px] font-extrabold uppercase tracking-[0.06em]">
+                    <dd>
+                      <span
+                        className={`block font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] ${labelColor}`}
+                      >
                         {s.label}
                       </span>
                       {s.sub ? (
-                        <span className={`mt-1 block font-sans text-[12px] ${subColor}`}>
+                        <span
+                          className={`mt-1 block font-sans text-[16px] font-light leading-[1.4] tracking-[-0.01em] ${subColor}`}
+                        >
                           {s.sub}
                         </span>
                       ) : null}
@@ -158,7 +171,7 @@ export function AboutPageDesign({ copy }: { copy: AboutCopy }) {
               })}
             </dl>
           </div>
-          <div className="relative min-h-[320px] overflow-hidden border border-blueprint bg-sand lg:col-span-5">
+          <div className="reveal relative min-h-[320px] overflow-hidden border border-blueprint bg-sand lg:col-span-5">
             <Image
               src={aboutImages.production.floor}
               alt={copy.statsTitle}
@@ -172,9 +185,9 @@ export function AboutPageDesign({ copy }: { copy: AboutCopy }) {
 
       {/* 5 — CAPABILITIES */}
       <section className="mx-auto w-full max-w-[1152px] px-5 pb-20 sm:px-8 md:pb-28 lg:px-0">
-        <div className="max-w-[640px] text-start">
+        <div className="reveal max-w-[640px] text-start">
           <Eyebrow>{copy.capsEyebrow}</Eyebrow>
-          <h2 className="font-display text-[40px] leading-[0.9] text-blueprint sm:text-[52px]">
+          <h2 className="font-display text-[44px] leading-[0.92] text-blueprint sm:text-[64px] lg:text-[96px]">
             {copy.capsTitle}
           </h2>
           <p className="mt-5 font-sans text-[16px] leading-[1.56] text-clay">{copy.capsBody}</p>
@@ -196,7 +209,7 @@ export function AboutPageDesign({ copy }: { copy: AboutCopy }) {
 
         <ul className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {copy.capabilities.map((c) => (
-            <li key={c.step} className="flex flex-col overflow-hidden border border-blueprint bg-bone">
+            <li key={c.step} className="reveal flex flex-col overflow-hidden border border-blueprint bg-bone">
               {c.image ? (
                 <div className="relative aspect-[4/3] bg-sand">
                   <Image
@@ -209,7 +222,7 @@ export function AboutPageDesign({ copy }: { copy: AboutCopy }) {
                 </div>
               ) : null}
               <div className="flex flex-1 flex-col p-5 text-start">
-                <span className="font-display text-[22px] leading-none text-magenta">{c.step}</span>
+                <span className="font-display text-[22px] leading-none text-magenta-deep">{c.step}</span>
                 <h3 className="mt-2 font-display text-[22px] leading-[0.95] tracking-[0.03em] text-blueprint">
                   {c.title}
                 </h3>
@@ -220,11 +233,38 @@ export function AboutPageDesign({ copy }: { copy: AboutCopy }) {
         </ul>
       </section>
 
-      {/* 6 — QUALITY */}
-      <section className="mx-auto w-full max-w-[1152px] px-5 pb-20 sm:px-8 md:pb-28 lg:px-0">
-        <div className="max-w-[640px] text-start">
+      {/* 6 — PARTNERS / CLIENTS (full-bleed magenta band) */}
+      <section className="w-full border-t border-ink bg-magenta">
+        <div className="mx-auto w-full max-w-[1152px] px-5 py-16 sm:px-8 md:py-24 lg:px-0">
+          <div className="reveal flex flex-col items-end gap-2 text-end">
+            <span className="font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-cyan">
+              {copy.partnersEyebrow}
+            </span>
+            <h2 className="font-display text-[56px] leading-[0.74] text-bone sm:text-[88px] lg:text-[128px]">
+              {copy.partnersTitle}
+            </h2>
+          </div>
+          <ul className="mt-10 grid grid-cols-3 gap-6 sm:grid-cols-6 md:mt-16 md:gap-8">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <li key={i} className="reveal flex justify-center">
+                {/* Logo slot — placeholder until client marks are supplied. */}
+                <span className="inline-block shadow-[4px_4px_0_var(--ink)]">
+                  <span
+                    aria-hidden
+                    className="block size-[80px] rounded-full border-2 border-cyan bg-bone/5 md:size-[96px]"
+                  />
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* 7 — QUALITY */}
+      <section className="mx-auto w-full max-w-[1152px] px-5 py-20 sm:px-8 md:py-28 lg:px-0">
+        <div className="reveal max-w-[640px] text-start">
           <Eyebrow>{copy.qualityEyebrow}</Eyebrow>
-          <h2 className="font-display text-[40px] leading-[0.9] text-blueprint sm:text-[52px]">
+          <h2 className="font-display text-[40px] leading-[0.95] text-blueprint sm:text-[52px] lg:text-[64px]">
             {copy.qualityTitle}
           </h2>
         </div>
@@ -232,7 +272,7 @@ export function AboutPageDesign({ copy }: { copy: AboutCopy }) {
           {copy.standards.map((s) => (
             <article
               key={s.code}
-              className="flex flex-col border border-blueprint bg-bone p-8 text-start"
+              className="reveal flex flex-col border border-blueprint bg-bone p-8 text-start"
             >
               <div className="flex items-baseline gap-3">
                 <span className="font-display text-[32px] leading-none text-blueprint">{s.code}</span>
@@ -247,9 +287,9 @@ export function AboutPageDesign({ copy }: { copy: AboutCopy }) {
         </div>
       </section>
 
-      {/* 7 — CTA */}
+      {/* 8 — CTA */}
       <section className="mx-auto w-full max-w-[1152px] px-5 pb-24 pt-0 sm:px-8 lg:px-0">
-        <div className="flex flex-col gap-8 border-t border-rule pt-12 md:flex-row md:items-center md:justify-between">
+        <div className="reveal flex flex-col gap-8 border-t border-rule pt-12 md:flex-row md:items-center md:justify-between">
           <h2 className="max-w-[520px] font-display text-[32px] leading-[0.95] text-blueprint sm:text-[40px]">
             {copy.ctaTitle}
           </h2>
