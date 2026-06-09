@@ -44,10 +44,10 @@ describe("blog mappers", () => {
     const labels = toCategoryLabels(null, "en");
     expect(labels.structural).toBe(categoryLabels.structural.en);
   });
-  it("blog index uses the Insights name", () => {
-    expect(blogIndexCopy.he.title).toEqual(["תובנות", "מהסטודיו"]);
-    expect(blogIndexCopy.en.title).toEqual(["Insights", "from the studio"]);
-    expect(blogIndexCopy.he.eyebrow).toContain("תובנות");
+  it("blog index uses the Journal name", () => {
+    expect(blogIndexCopy.he.title).toEqual(["יומן", "מהסטודיו"]);
+    expect(blogIndexCopy.en.title).toEqual(["The", "Journal"]);
+    expect(blogIndexCopy.he.eyebrow).toContain("יומן");
   });
 });
 

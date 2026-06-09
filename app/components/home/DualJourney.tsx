@@ -104,8 +104,8 @@ function JourneyCard({
   const isDark = panel.theme === "dark";
   const accentBg = panel.accent === "purple" ? "bg-purple" : "bg-yellow";
   // Two tracks: the purple "customer path" panels lead to the process page;
-  // the yellow "timeline" panels lead to the company/journal page.
-  const href = panel.accent === "yellow" ? "/careers" : "/finishing";
+  // the yellow "timeline" panels lead to the journal page.
+  const href = panel.accent === "yellow" ? "/blog" : "/finishing";
   return (
     <Link
       href={href}

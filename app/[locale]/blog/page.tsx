@@ -11,6 +11,8 @@ import {
   toCategoryLabels,
   getChrome,
   toChrome,
+  getCareers,
+  toCareersCopy,
 } from "@/sanity/queries";
 import { routing } from "@/i18n/routing";
 import { pageSeo } from "@/lib/site";
@@ -46,11 +48,12 @@ export default async function BlogIndexPage({
   setRequestLocale(locale);
   const lang = locale as Lang;
   const settings = await getBlogSettings(lang);
-  const [posts, copy, labels, chrome] = [
+  const [posts, copy, labels, chrome, careers] = [
     await getAllPosts(lang),
     toBlogIndexCopy(settings, lang),
     toCategoryLabels(settings, lang),
     toChrome(await getChrome(lang), lang),
+    toCareersCopy(await getCareers(lang), lang),
   ];
   return (
     <PlaceholderShell chrome={chrome}>
@@ -60,6 +63,11 @@ export default async function BlogIndexPage({
         chrome={insightsChrome[lang]}
         labels={labels}
         lang={lang}
+        roles={careers.roles}
+        roleFilters={careers.filters}
+        rolesTitle={careers.rolesTitle}
+        apply={careers.apply}
+        noRoles={careers.noRoles}
       />
     </PlaceholderShell>
   );

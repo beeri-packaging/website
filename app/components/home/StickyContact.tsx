@@ -15,7 +15,7 @@ export function StickyContact({ lang, chrome }: { lang: Lang; chrome: Chrome }) 
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       aria-label={chrome.contact}
-      className="fixed bottom-3 right-3 sm:bottom-6 sm:right-6 md:bottom-12 md:right-12 z-40 group inline-flex items-center gap-3 sm:gap-6 bg-magenta hover:bg-ink text-bone rounded-none px-3.5 sm:px-8 py-3 sm:py-4 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] transition-all duration-300 hover:translate-y-[-2px]"
+      className="fixed bottom-3 right-3 sm:bottom-6 sm:right-6 md:bottom-12 md:right-12 z-40 group inline-flex items-center gap-3 sm:gap-6 bg-magenta-deep hover:bg-ink text-bone rounded-none px-3.5 sm:px-8 py-3 sm:py-4 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] transition-all duration-300 hover:translate-y-[-2px]"
     >
       <svg
         width="20"

@@ -74,22 +74,22 @@ export type BlogIndexCopy = {
 
 export const blogIndexCopy: Record<Lang, BlogIndexCopy> = {
   he: {
-    eyebrow: "תובנות · מהסטודיו ומהמפעל",
-    title: ["תובנות", "מהסטודיו"],
+    eyebrow: "יומן · מהסטודיו ומהמפעל",
+    title: ["יומן", "מהסטודיו"],
     lead: "מדריכים, מחשבות והצצות מתהליך העבודה — מהתכנון המבני ועד הדפוס וההשבחה.",
     body:
-      "כאן אנחנו כותבים על תכנון מבני, חומרי גלם, השבחות ומגמות בעיצוב אריזה. תובנות קצרות מהצוות שמתכנן, מדפיס ומייצר.",
+      "כאן אנחנו כותבים על תכנון מבני, חומרי גלם, השבחות ומגמות בעיצוב אריזה — מבט מקרוב מהצוות שמתכנן, מדפיס ומייצר.",
     comingSoon: "הכותרים למטה הם דוגמאות — הפוסטים המלאים בעריכה.",
     readMore: "לקריאה",
     backToBlog: "חזרה לכל הפוסטים",
     publishedOn: "פורסם",
     notFoundTitle: "הפוסט עדיין לא פורסם",
     notFoundBody:
-      "הכותר הזה שמור לפוסט עתידי בתובנות של בארי אריזות. בקרוב כאן יהיה תוכן מלא — בינתיים אפשר לחזור לרשימה.",
+      "הכותר הזה שמור לפוסט עתידי ביומן של בארי אריזות. בקרוב כאן יהיה תוכן מלא — בינתיים אפשר לחזור לרשימה.",
   },
   en: {
-    eyebrow: "Insights · from the studio & the floor",
-    title: ["Insights", "from the studio"],
+    eyebrow: "Journal · from the studio & the floor",
+    title: ["The", "Journal"],
     lead: "Guides, notes and glimpses from the work — from structural design to print and finishing.",
     body:
       "We write here about structural design, materials, finishing and packaging-design trends. Short notes from the team that designs, prints and produces.",
@@ -117,9 +117,9 @@ export type InsightsChrome = {
 
 export const insightsChrome: Record<Lang, InsightsChrome> = {
   he: {
-    searchPlaceholder: "חיפוש תובנה",
+    searchPlaceholder: "חיפוש ביומן",
     searchButtonLabel: "חיפוש",
-    newsletterTitle: ["עדכוני", "תובנות"],
+    newsletterTitle: ["עדכוני", "יומן"],
     newsletterBody:
       "רוצים לקבל פוסט חדש כשהוא עולה? השאירו כתובת מייל ונעדכן.",
     emailPlaceholder: "כתובת מייל",
@@ -128,9 +128,9 @@ export const insightsChrome: Record<Lang, InsightsChrome> = {
     newsletterError: "ההרשמה נכשלה. ניתן לנסות שוב.",
   },
   en: {
-    searchPlaceholder: "Search insights",
+    searchPlaceholder: "Search the journal",
     searchButtonLabel: "Search",
-    newsletterTitle: ["Insights", "updates"],
+    newsletterTitle: ["Journal", "updates"],
     newsletterBody:
       "Want each new post as it goes live? Leave your email and we'll let you know.",
     emailPlaceholder: "Email address",

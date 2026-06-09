@@ -35,8 +35,8 @@ export async function submitNewsletterSignup(
 
   const source = singleLine(String(formData.get("source") ?? "careers"));
   const isInsights = source === "insights";
-  const subjectHe = isInsights ? "הרשמה לעדכוני תובנות" : "הרשמה לעדכוני קריירה";
-  const bodyHe = isInsights ? "נרשם/ה חדש/ה לעדכוני תובנות" : "נרשם/ה חדש/ה לעדכוני קריירה";
+  const subjectHe = isInsights ? "הרשמה לעדכוני יומן" : "הרשמה לעדכוני קריירה";
+  const bodyHe = isInsights ? "נרשם/ה חדש/ה לעדכוני יומן" : "נרשם/ה חדש/ה לעדכוני קריירה";
 
   const to = process.env.CONTACT_TO_EMAIL || COMPANY.email;
   const from = process.env.CONTACT_FROM_EMAIL || "";
