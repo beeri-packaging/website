@@ -74,25 +74,25 @@ export type BlogIndexCopy = {
 
 export const blogIndexCopy: Record<Lang, BlogIndexCopy> = {
   he: {
-    eyebrow: "יומן הסטודיו · בקרוב",
-    title: ["יומן בארי", "אריזות"],
-    lead: "מדריכים, מחשבות והצצות מהסטודיו ומהמפעל.",
+    eyebrow: "תובנות · מהסטודיו ומהמפעל",
+    title: ["תובנות", "מהסטודיו"],
+    lead: "מדריכים, מחשבות והצצות מתהליך העבודה — מהתכנון המבני ועד הדפוס וההשבחה.",
     body:
-      "כאן נפרסם בקביעות על תכנון מבני, חומרי גלם, השבחות, פרויקטים שעובדים עליהם ומגמות בעיצוב אריזה. הפוסטים למטה הם הצצה לקראת ההשקה.",
+      "כאן אנחנו כותבים על תכנון מבני, חומרי גלם, השבחות ומגמות בעיצוב אריזה. תובנות קצרות מהצוות שמתכנן, מדפיס ומייצר.",
     comingSoon: "הכותרים למטה הם דוגמאות — הפוסטים המלאים בעריכה.",
     readMore: "לקריאה",
     backToBlog: "חזרה לכל הפוסטים",
     publishedOn: "פורסם",
     notFoundTitle: "הפוסט עדיין לא פורסם",
     notFoundBody:
-      "הכותר הזה שמור לפוסט עתידי ביומן של בארי אריזות. בקרוב כאן יהיה תוכן מלא — בינתיים אפשר לחזור לרשימה.",
+      "הכותר הזה שמור לפוסט עתידי בתובנות של בארי אריזות. בקרוב כאן יהיה תוכן מלא — בינתיים אפשר לחזור לרשימה.",
   },
   en: {
-    eyebrow: "Studio journal · Coming soon",
-    title: ["The Beeri", "journal"],
-    lead: "Guides, notes and glimpses from the studio and the floor.",
+    eyebrow: "Insights · from the studio & the floor",
+    title: ["Insights", "from the studio"],
+    lead: "Guides, notes and glimpses from the work — from structural design to print and finishing.",
     body:
-      "We publish regularly on structural design, materials, finishing, projects in progress and packaging design trends. The posts below are a preview ahead of launch.",
+      "We write here about structural design, materials, finishing and packaging-design trends. Short notes from the team that designs, prints and produces.",
     comingSoon: "The titles below are samples — the full posts are in edit.",
     readMore: "Read",
     backToBlog: "Back to all posts",
@@ -100,6 +100,43 @@ export const blogIndexCopy: Record<Lang, BlogIndexCopy> = {
     notFoundTitle: "Post not yet published",
     notFoundBody:
       "This slot is reserved for a future Beeri Packaging post. Full content is on its way — for now, head back to the index.",
+  },
+};
+
+/** Static UI chrome for the Insights index (search + newsletter). */
+export type InsightsChrome = {
+  searchPlaceholder: string;
+  searchButtonLabel: string;
+  newsletterTitle: readonly [string, string];
+  newsletterBody: string;
+  emailPlaceholder: string;
+  newsletterCta: string;
+  newsletterSuccess: string;
+  newsletterError: string;
+};
+
+export const insightsChrome: Record<Lang, InsightsChrome> = {
+  he: {
+    searchPlaceholder: "חיפוש תובנה",
+    searchButtonLabel: "חיפוש",
+    newsletterTitle: ["עדכוני", "תובנות"],
+    newsletterBody:
+      "רוצים לקבל פוסט חדש כשהוא עולה? השאירו כתובת מייל ונעדכן.",
+    emailPlaceholder: "כתובת מייל",
+    newsletterCta: "הרשמה",
+    newsletterSuccess: "נרשמתם — נעדכן כשיעלה פוסט חדש.",
+    newsletterError: "ההרשמה נכשלה. ניתן לנסות שוב.",
+  },
+  en: {
+    searchPlaceholder: "Search insights",
+    searchButtonLabel: "Search",
+    newsletterTitle: ["Insights", "updates"],
+    newsletterBody:
+      "Want each new post as it goes live? Leave your email and we'll let you know.",
+    emailPlaceholder: "Email address",
+    newsletterCta: "Subscribe",
+    newsletterSuccess: "You're in — we'll email you when a new post is live.",
+    newsletterError: "Signup failed. Please try again.",
   },
 };
 
