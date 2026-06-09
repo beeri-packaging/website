@@ -419,6 +419,134 @@ export const blogPosts: readonly BlogPost[] = [
       ],
     },
   },
+  {
+    slug: "from-sketch-to-prototype",
+    date: "2026-03-30",
+    read: { he: "5 דקות", en: "5 min read" },
+    category: "studio",
+    image:
+      "/images/generated/website-content/packaging/open-capability-presentation-box.png",
+    author: STUDIO,
+    credit: STUDIO,
+    quoteImage:
+      "/images/generated/website-content/packaging/closed-textured-capability-box.png",
+    he: {
+      category: "מהסטודיו",
+      title: "מהסקיצה לדגם",
+      excerpt:
+        "איך רעיון הופך לדגם פיזי שאפשר להחזיק ביד — שלב הביניים שחוסך טעויות יקרות בייצור.",
+      body: [
+        "לפני שמדפיסים אלפי יחידות, בונים דגם אחד. הדגם הפיזי הוא הדרך הזולה ביותר לגלות בעיות — קיפול שלא נסגר, מידה שלא מדויקת או חולשה במבנה.",
+        "בסטודיו אנחנו עוברים מסקיצה לדייליין ולדגם חתוך ביד, ורק כשהדגם עובד ממשיכים לייצור.",
+      ],
+      quote: {
+        text: "דגם אחד ביד שווה יותר מעשרה מסכי תלת-ממד — הוא חושף את מה שהמסך מסתיר.",
+        cite: "— מתוך התובנות של בארי אריזות",
+      },
+      sections: [
+        {
+          heading: "סקיצה, דייליין ודגם",
+          body: "מתחילים בסקיצה גסה שמגדירה גודל ופתיחה, ממשיכים לדייליין מדויק שמתרגם את הרעיון לקווי חיתוך וקיפול, ומסיימים בדגם חתוך ביד מאותו קרטון שיֵצא בפועל. כך בודקים שהאריזה נסגרת, יציבה ונוחה לפתיחה לפני שמתחייבים לייצור.",
+          image:
+            "/images/generated/website-content/packaging/closed-textured-capability-box.png",
+        },
+        {
+          heading: "מה הדגם חושף",
+          body: "דגם פיזי מגלה את מה שקשה לראות במסך: עובי הקרטון שמשנה מידות, קיפול שמתנגד, או לשונית סגירה חלשה. תיקון בשלב הזה עולה דקות — אותו תיקון אחרי שהוקם שטנץ עולה הרבה יותר.",
+        },
+      ],
+    },
+    en: {
+      category: "From the studio",
+      title: "From sketch to prototype",
+      excerpt:
+        "How an idea becomes a physical model you can hold — the in-between step that saves expensive production mistakes.",
+      body: [
+        "Before printing thousands of units, we build one model. The physical prototype is the cheapest way to catch problems — a fold that won't close, a measurement that's off, a weak point in the structure.",
+        "In the studio we go from sketch to dieline to a hand-cut prototype, and only move to production once the model works.",
+      ],
+      quote: {
+        text: "One prototype in hand beats ten 3D renders — it reveals what the screen hides.",
+        cite: "— From the Beeri Packaging insights",
+      },
+      sections: [
+        {
+          heading: "Sketch, dieline and model",
+          body: "We start with a rough sketch that sets size and opening, move to a precise dieline that translates the idea into cut and fold lines, and finish with a model hand-cut from the same board the job will run on. That confirms the package closes, stands and opens well before we commit to production.",
+          image:
+            "/images/generated/website-content/packaging/closed-textured-capability-box.png",
+        },
+        {
+          heading: "What the model reveals",
+          body: "A physical model surfaces what's hard to see on screen: board thickness that shifts measurements, a fold that resists, a weak closing tab. Fixing it here costs minutes — the same fix after a cutting die is built costs far more.",
+        },
+      ],
+    },
+  },
+  {
+    slug: "display-windows",
+    date: "2026-03-18",
+    read: { he: "4 דקות", en: "4 min read" },
+    category: "structural",
+    image:
+      "/images/generated/website-content/packaging/cosmetics-drawer-window-sleeve.png",
+    author: STUDIO,
+    credit: FLOOR,
+    quoteImage:
+      "/images/generated/website-content/packaging/kraft-sweets-window-box.png",
+    he: {
+      category: "תכנון מבני",
+      title: "חלון התצוגה באריזה",
+      excerpt:
+        "מתי חלון במוצר עוזר למכירה ומתי הוא רק מחליש את הקופסה — והאיזון הנכון ביניהם.",
+      body: [
+        "חלון באריזה נותן ללקוח לראות את המוצר עצמו, וזה יתרון מכירתי ברור. אבל כל חלון הוא גם חור בקרטון — והוא משפיע על החוזק ועל הייצור.",
+        "השאלה היא לא אם להוסיף חלון, אלא איפה ובאיזה גודל, כדי לשמור על מבנה יציב ועל מראה נקי.",
+      ],
+      quote: {
+        text: "חלון טוב מראה בדיוק את מה שצריך — ולא סנטימטר יותר.",
+        cite: "— מתוך התובנות של בארי אריזות",
+      },
+      sections: [
+        {
+          heading: "מתי חלון עובד",
+          body: "חלון משתלם כשהמוצר עצמו הוא נקודת המכירה: ממתק, מוצר טיפוח או פריט בעל צבע וצורה ייחודיים. במקרים האלה החלון מקצר את ההחלטה של הלקוח במדף. כדאי למקם אותו במקום שמראה את החלק היפה של המוצר ולא את האריזה הפנימית.",
+          image:
+            "/images/generated/website-content/packaging/kraft-sweets-window-box.png",
+        },
+        {
+          heading: "המחיר המבני",
+          body: "כל חלון מחליש את הדופן ודורש לעיתים סלי PVC או חיזוק נוסף. חלון גדול מדי או קרוב מדי לקו קיפול עלול לגרום לאריזה להתעוות בשינוע. תכנון נכון שומר על מרווח מהקיפולים ומאזן בין חשיפת המוצר ליציבות הקופסה.",
+        },
+      ],
+    },
+    en: {
+      category: "Structural",
+      title: "The display window",
+      excerpt:
+        "When a window helps the sale and when it just weakens the box — and the right balance between them.",
+      body: [
+        "A window lets the customer see the product itself, a clear selling advantage. But every window is also a hole in the board — and it affects strength and production.",
+        "The question isn't whether to add a window, but where and how large, to keep a stable structure and a clean look.",
+      ],
+      quote: {
+        text: "A good window shows exactly what it needs to — and not a centimeter more.",
+        cite: "— From the Beeri Packaging insights",
+      },
+      sections: [
+        {
+          heading: "When a window works",
+          body: "A window pays off when the product is the selling point: a sweet, a beauty product, an item with distinctive color or shape. There the window shortens the customer's decision at the shelf. Place it to show the product's best part, not the inner packaging.",
+          image:
+            "/images/generated/website-content/packaging/kraft-sweets-window-box.png",
+        },
+        {
+          heading: "The structural cost",
+          body: "Every window weakens the wall and sometimes needs a PVC pane or extra reinforcement. A window that's too large or too close to a fold line can warp the box in transit. Good design keeps clearance from the folds and balances product visibility against box stability.",
+        },
+      ],
+    },
+  },
 ];
 
 export function getBlogPost(slug: string): BlogPost | undefined {
