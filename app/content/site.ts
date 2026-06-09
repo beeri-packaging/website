@@ -37,6 +37,7 @@ export const navLinks: readonly NavLink[] = [
   { he: "השבחות", en: "Finishing", href: "/finishing" },
   { he: "תובנות", en: "Insights", href: "/blog" },
   { he: "קטלוג", en: "Catalog", href: "/catalog" },
+  { he: "קריירה", en: "Careers", href: "/careers" },
 ];
 
 export const chromeContent: Record<Lang, Chrome> = {
