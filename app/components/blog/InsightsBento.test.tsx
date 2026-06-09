@@ -1,7 +1,9 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
+import { NextIntlClientProvider } from "next-intl";
 import { InsightsBento } from "./InsightsBento";
 import type { LocalizedPost } from "@/sanity/queries";
+import type { Lang } from "@/app/content/home";
 
 function post(slug: string, category: LocalizedPost["category"]): LocalizedPost {
   return {
@@ -25,12 +27,20 @@ const posts: LocalizedPost[] = [
   post("f", "structural"),
 ];
 
+function renderBento(posts: readonly LocalizedPost[], lang: Lang, labels: Record<LocalizedPost["category"], string>, readLabel: string) {
+  return render(
+    <NextIntlClientProvider locale={lang} messages={{}}>
+      <InsightsBento posts={posts} lang={lang} labels={labels} readLabel={readLabel} />
+    </NextIntlClientProvider>,
+  );
+}
+
 describe("InsightsBento", () => {
   it("renders one card per post, each linking to its article", () => {
-    render(<InsightsBento posts={posts} lang="en" labels={{
+    renderBento(posts, "en", {
       structural: "Structural", trends: "Trends", sustainability: "Sustainability",
       floor: "Floor", studio: "Studio",
-    }} readLabel="Read" />);
+    }, "Read");
     for (const p of posts) {
       const link = screen.getByRole("link", { name: new RegExp(`Title ${p.slug}`) });
       expect(link).toHaveAttribute("href", `/en/blog/${p.slug}`);
@@ -39,10 +49,10 @@ describe("InsightsBento", () => {
 
   it("caps at six cards even if more posts are passed", () => {
     const many = [...posts, post("g", "trends")];
-    render(<InsightsBento posts={many} lang="he" labels={{
+    renderBento(many, "he", {
       structural: "מבני", trends: "מגמות", sustainability: "קיימות",
       floor: "מהמפעל", studio: "סטודיו",
-    }} readLabel="לקריאה" />);
+    }, "לקריאה");
     expect(screen.queryByRole("link", { name: /Title g/ })).toBeNull();
   });
 });

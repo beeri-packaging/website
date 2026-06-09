@@ -3,6 +3,7 @@ import type { Lang } from "@/app/content/home";
 import { categoryChipClass, type BlogCategory } from "@/app/content/blog";
 import type { LocalizedPost } from "@/sanity/queries";
 import { ArrowGlyph } from "@/app/components/home/icons";
+import { Link } from "@/i18n/navigation";
 
 type Labels = Record<BlogCategory, string>;
 
@@ -28,8 +29,8 @@ function ReadRow({ lang, label }: { lang: Lang; label: string }) {
 /** Large feature card with hero image (top-start of the grid). */
 function FeatureCard({ post, lang, labels, readLabel }: CardProps) {
   return (
-    <a
-      href={`/${lang}/blog/${post.slug}`}
+    <Link
+      href={`/blog/${post.slug}`}
       aria-label={post.title}
       dir={lang === "he" ? "rtl" : "ltr"}
       className="reveal group relative flex flex-col overflow-hidden border border-ink bg-sand focus-ring lg:col-start-1 lg:col-span-8 lg:row-start-1 lg:row-span-2"
@@ -54,7 +55,7 @@ function FeatureCard({ post, lang, labels, readLabel }: CardProps) {
           <Image src={post.image} alt={post.imageAlt ?? post.title} fill sizes="(min-width:1024px) 58vw, 100vw" className="object-cover grayscale transition-[filter] group-hover:grayscale-0" />
         </div>
       ) : null}
-    </a>
+    </Link>
   );
 }
 
@@ -63,8 +64,8 @@ function TextCard({
   post, lang, labels, readLabel, className, surface,
 }: CardProps & { className: string; surface: string }) {
   return (
-    <a
-      href={`/${lang}/blog/${post.slug}`}
+    <Link
+      href={`/blog/${post.slug}`}
       aria-label={post.title}
       dir={lang === "he" ? "rtl" : "ltr"}
       className={`reveal group flex flex-col border border-ink ${surface} p-6 focus-ring sm:p-8 ${className}`}
@@ -75,15 +76,15 @@ function TextCard({
       </h3>
       <p className="mt-4 font-sans text-[15px] leading-[1.6] text-clay">{post.excerpt}</p>
       <ReadRow lang={lang} label={readLabel} />
-    </a>
+    </Link>
   );
 }
 
 /** Image-led card for the bottom row. */
 function ImageCard({ post, lang, labels, readLabel, className }: CardProps & { className: string }) {
   return (
-    <a
-      href={`/${lang}/blog/${post.slug}`}
+    <Link
+      href={`/blog/${post.slug}`}
       aria-label={post.title}
       dir={lang === "he" ? "rtl" : "ltr"}
       className={`reveal group flex flex-col overflow-hidden border border-ink bg-bone focus-ring ${className}`}
@@ -100,7 +101,7 @@ function ImageCard({ post, lang, labels, readLabel, className }: CardProps & { c
         </h3>
         <ReadRow lang={lang} label={readLabel} />
       </div>
-    </a>
+    </Link>
   );
 }
 
