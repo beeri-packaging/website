@@ -27,7 +27,7 @@ function ReadRow({ lang, label }: { lang: Lang; label: string }) {
 }
 
 /** Large feature card with hero image (top-start of the grid). */
-function FeatureCard({ post, lang, labels, readLabel }: CardProps) {
+function FeatureCard({ post, lang, labels }: CardProps) {
   return (
     <Link
       href={`/blog/${post.slug}`}
