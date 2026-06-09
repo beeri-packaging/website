@@ -154,7 +154,9 @@ export const categoryLabels: Record<BlogCategory, { he: string; en: string }> = 
  */
 export const categoryChipClass: Record<BlogCategory, string> = {
   structural: "bg-cyan text-cyan-deep",
-  trends: "bg-magenta text-bone",
+  // magenta-deep (not plain magenta) so bone text clears WCAG AA — plain magenta
+  // is decorative-only (~3.8:1 on bone); magenta-deep is the accessible token.
+  trends: "bg-magenta-deep text-bone",
   sustainability: "bg-yellow text-cyan-deep",
   floor: "bg-purple text-bone",
   studio: "bg-gold text-gold-deep",
