@@ -17,9 +17,9 @@ export type CareerRole = {
   scope: string;
   location: string;
   department: "all" | "production" | "studio";
-  /** Optional editorial description — rendered in the job-application dialog aside. */
+  /** על התפקיד — 2–4 plain sentences shown in the application dialog. */
   description?: string;
-  /** Optional bullet highlights for the role — rendered in the job-application dialog aside. */
+  /** Up to 5 short bullet lines (what you'll do / what's needed). */
   highlights?: readonly string[];
 };
 
@@ -114,6 +114,13 @@ export const careersCopy: Record<Lang, CareersCopy> = {
         scope: "משרה מלאה",
         location: "יבנה",
         department: "production",
+        description: "ניהול מערך האיכות של המפעל ביבנה — מליווי תהליכי הייצור השוטפים ועד שמירה על תקני ISO 9001:2015 ו־FSSC 22000. התפקיד משלב עבודה מול רצפת הייצור, הספקים והלקוחות, עם אחריות מלאה על תיעוד, בקרה ושיפור מתמיד.",
+        highlights: [
+          "הובלת תהליכי בקרת איכות לאורך כל שרשרת הייצור",
+          "אחזקת הסמכות ISO 9001:2015 ו־FSSC 22000 והכנה למבדקים",
+          "טיפול באי-התאמות ובתלונות לקוח, כולל הפקת לקחים",
+          "ניסיון בתפקיד איכות בתעשייה — יתרון לדפוס או אריזות",
+        ],
       },
       {
         code: "#BR-409",
@@ -122,6 +129,13 @@ export const careersCopy: Record<Lang, CareersCopy> = {
         scope: "משרה מלאה",
         location: "יבנה",
         department: "production",
+        description: "בקרת איכות שוטפת על רצפת הייצור: בדיקת גיליונות, צבע, חיתוך והדבקה מול דרישות ההזמנה, לפני שהאריזה יוצאת ללקוח. עבודה בצמוד למפעילי המכונות ולרכז/ת האיכות, בסביבה תעשייתית מתקדמת.",
+        highlights: [
+          "בדיקות איכות בקבלת חומר גלם, במהלך הייצור ובמוצר המוגמר",
+          "עצירה ודיווח על אי-התאמות בזמן אמת",
+          "עבודה לפי נוהלי ISO ותיעוד מסודר של הבדיקות",
+          "דיוק, ירידה לפרטים ונכונות לעבודה במשמרות",
+        ],
       },
       {
         code: "#BR-312",
@@ -130,6 +144,13 @@ export const careersCopy: Record<Lang, CareersCopy> = {
         scope: "משרה מלאה",
         location: "יבנה",
         department: "studio",
+        description: "הובלת פרויקטים של אריזות מהאפיון הראשון ועד האספקה: תיאום בין הסטודיו, התכנון המבני, הדפוס והייצור, מול לוחות זמנים ותקציב. התפקיד מתאים למי שאוהב/ת לראות מוצר נולד — משרטוט דייליין ועד מדף החנות.",
+        highlights: [
+          "ניהול לוחות זמנים, עדיפויות ותקשורת מול הלקוח לאורך הפרויקט",
+          "תיאום בין צוותי הסטודיו, קדם-הדפוס והייצור",
+          "מעקב אחר עלויות, חומרי גלם וזמינות מכונות",
+          "ניסיון בניהול פרויקטים בתעשייה או בדפוס — יתרון משמעותי",
+        ],
       },
     ],
     newsletterTitle: ["עדכוני", "קריירה"],
@@ -203,6 +224,13 @@ export const careersCopy: Record<Lang, CareersCopy> = {
         scope: "Full time",
         location: "Yavne",
         department: "production",
+        description: "Own the plant's quality system in Yavne — from supporting day-to-day production to maintaining our ISO 9001:2015 and FSSC 22000 certifications. The role combines floor work with suppliers and customers, with full ownership of documentation, control and continuous improvement.",
+        highlights: [
+          "Lead quality-control processes across the entire production chain",
+          "Maintain ISO 9001:2015 and FSSC 22000 certifications and audit readiness",
+          "Handle non-conformities and customer complaints, including lessons learned",
+          "Industry quality experience — print or packaging an advantage",
+        ],
       },
       {
         code: "#BR-409",
@@ -211,6 +239,13 @@ export const careersCopy: Record<Lang, CareersCopy> = {
         scope: "Full time",
         location: "Yavne",
         department: "production",
+        description: "Hands-on quality control on the production floor: checking sheets, color, cutting and gluing against order specs before packaging ships to the customer. You'll work alongside machine operators and the quality coordinator in an advanced industrial environment.",
+        highlights: [
+          "Quality checks at raw-material intake, during production and on finished goods",
+          "Stop and report non-conformities in real time",
+          "Work to ISO procedures with orderly inspection records",
+          "Precision, attention to detail and willingness to work shifts",
+        ],
       },
       {
         code: "#BR-312",
@@ -219,6 +254,13 @@ export const careersCopy: Record<Lang, CareersCopy> = {
         scope: "Full time",
         location: "Yavne",
         department: "studio",
+        description: "Lead packaging projects from first brief to delivery: coordinating studio, structural design, print and production against timelines and budget. A fit for someone who loves seeing a product come to life — from dieline sketch to store shelf.",
+        highlights: [
+          "Manage timelines, priorities and client communication across each project",
+          "Coordinate studio, prepress and production teams",
+          "Track costs, raw materials and machine availability",
+          "Project-management experience in industry or print — a real advantage",
+        ],
       },
     ],
     newsletterTitle: ["Career", "updates"],
