@@ -127,8 +127,11 @@ function JourneyCard({
             // Overrequest ~20% beyond the card width so the parallax
             // scale(1.22) inside .parallax-img doesn't upscale a tighter
             // crop. 60vw on desktop, 70vw on tablet, full width on mobile.
+            // Default q75 (same as the hero, which renders even larger):
+            // sharpness under the parallax scale is covered by the width
+            // overrequest above, and q90 doubled the bytes these six panels
+            // pull in during initial load, competing with the hero LCP.
             sizes="(min-width: 1280px) 60vw, (min-width: 768px) 70vw, 100vw"
-            quality={90}
             className="object-cover"
             preload={priority}
           />
