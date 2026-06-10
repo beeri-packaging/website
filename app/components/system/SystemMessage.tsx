@@ -30,7 +30,7 @@ export function SystemMessage({
           </div>
 
           {code ? (
-            <p className="mt-7 font-display text-[96px] font-normal leading-[0.78] text-ink sm:text-[140px] md:text-[168px]">
+            <p className="mt-7 font-display text-[96px] font-normal leading-[0.78] text-magenta sm:text-[140px] md:text-[168px]">
               {code}
             </p>
           ) : null}

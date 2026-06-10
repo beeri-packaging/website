@@ -74,11 +74,11 @@ export type BlogIndexCopy = {
 
 export const blogIndexCopy: Record<Lang, BlogIndexCopy> = {
   he: {
-    eyebrow: "יומן הסטודיו · בקרוב",
-    title: ["יומן בארי", "אריזות"],
-    lead: "מדריכים, מחשבות והצצות מהסטודיו ומהמפעל.",
+    eyebrow: "יומן · מהסטודיו ומהמפעל",
+    title: ["יומן", "מהסטודיו"],
+    lead: "מדריכים, מחשבות והצצות מתהליך העבודה — מהתכנון המבני ועד הדפוס וההשבחה.",
     body:
-      "כאן נפרסם בקביעות על תכנון מבני, חומרי גלם, השבחות, פרויקטים שעובדים עליהם ומגמות בעיצוב אריזה. הפוסטים למטה הם הצצה לקראת ההשקה.",
+      "כאן אנחנו כותבים על תכנון מבני, חומרי גלם, השבחות ומגמות בעיצוב אריזה — מבט מקרוב מהצוות שמתכנן, מדפיס ומייצר.",
     comingSoon: "הכותרים למטה הם דוגמאות — הפוסטים המלאים בעריכה.",
     readMore: "לקריאה",
     backToBlog: "חזרה לכל הפוסטים",
@@ -88,11 +88,11 @@ export const blogIndexCopy: Record<Lang, BlogIndexCopy> = {
       "הכותר הזה שמור לפוסט עתידי ביומן של בארי אריזות. בקרוב כאן יהיה תוכן מלא — בינתיים אפשר לחזור לרשימה.",
   },
   en: {
-    eyebrow: "Studio journal · Coming soon",
-    title: ["The Beeri", "journal"],
-    lead: "Guides, notes and glimpses from the studio and the floor.",
+    eyebrow: "Journal · from the studio & the floor",
+    title: ["The", "Journal"],
+    lead: "Guides, notes and glimpses from the work — from structural design to print and finishing.",
     body:
-      "We publish regularly on structural design, materials, finishing, projects in progress and packaging design trends. The posts below are a preview ahead of launch.",
+      "We write here about structural design, materials, finishing and packaging-design trends. Short notes from the team that designs, prints and produces.",
     comingSoon: "The titles below are samples — the full posts are in edit.",
     readMore: "Read",
     backToBlog: "Back to all posts",
@@ -100,6 +100,43 @@ export const blogIndexCopy: Record<Lang, BlogIndexCopy> = {
     notFoundTitle: "Post not yet published",
     notFoundBody:
       "This slot is reserved for a future Beeri Packaging post. Full content is on its way — for now, head back to the index.",
+  },
+};
+
+/** Static UI chrome for the Insights index (search + newsletter). */
+export type InsightsChrome = {
+  searchPlaceholder: string;
+  searchButtonLabel: string;
+  newsletterTitle: readonly [string, string];
+  newsletterBody: string;
+  emailPlaceholder: string;
+  newsletterCta: string;
+  newsletterSuccess: string;
+  newsletterError: string;
+};
+
+export const insightsChrome: Record<Lang, InsightsChrome> = {
+  he: {
+    searchPlaceholder: "חיפוש ביומן",
+    searchButtonLabel: "חיפוש",
+    newsletterTitle: ["עדכוני", "יומן"],
+    newsletterBody:
+      "רוצים לקבל פוסט חדש כשהוא עולה? השאירו כתובת מייל ונעדכן.",
+    emailPlaceholder: "כתובת מייל",
+    newsletterCta: "הרשמה",
+    newsletterSuccess: "נרשמתם — נעדכן כשיעלה פוסט חדש.",
+    newsletterError: "ההרשמה נכשלה. ניתן לנסות שוב.",
+  },
+  en: {
+    searchPlaceholder: "Search the journal",
+    searchButtonLabel: "Search",
+    newsletterTitle: ["Journal", "updates"],
+    newsletterBody:
+      "Want each new post as it goes live? Leave your email and we'll let you know.",
+    emailPlaceholder: "Email address",
+    newsletterCta: "Subscribe",
+    newsletterSuccess: "You're in — we'll email you when a new post is live.",
+    newsletterError: "Signup failed. Please try again.",
   },
 };
 
@@ -117,7 +154,9 @@ export const categoryLabels: Record<BlogCategory, { he: string; en: string }> = 
  */
 export const categoryChipClass: Record<BlogCategory, string> = {
   structural: "bg-cyan text-cyan-deep",
-  trends: "bg-magenta text-bone",
+  // magenta-deep (not plain magenta) so bone text clears WCAG AA — plain magenta
+  // is decorative-only (~3.8:1 on bone); magenta-deep is the accessible token.
+  trends: "bg-magenta-deep text-bone",
   sustainability: "bg-yellow text-cyan-deep",
   floor: "bg-purple text-bone",
   studio: "bg-gold text-gold-deep",
@@ -378,6 +417,134 @@ export const blogPosts: readonly BlogPost[] = [
         {
           heading: "Offset: consistent and cost-effective at scale",
           body: "As quantities grow, offset becomes more cost-effective: a lower cost per unit, precise and repeatable colors, and full support for Pantone inks and complex finishing. It's the choice for standing lines and brands with strict color requirements.",
+        },
+      ],
+    },
+  },
+  {
+    slug: "from-sketch-to-prototype",
+    date: "2026-03-30",
+    read: { he: "5 דקות", en: "5 min read" },
+    category: "studio",
+    image:
+      "/images/generated/website-content/packaging/open-capability-presentation-box.png",
+    author: STUDIO,
+    credit: STUDIO,
+    quoteImage:
+      "/images/generated/website-content/packaging/closed-textured-capability-box.png",
+    he: {
+      category: "מהסטודיו",
+      title: "מהסקיצה לדגם",
+      excerpt:
+        "איך רעיון הופך לדגם פיזי שאפשר להחזיק ביד — שלב הביניים שחוסך טעויות יקרות בייצור.",
+      body: [
+        "לפני שמדפיסים אלפי יחידות, בונים דגם אחד. הדגם הפיזי הוא הדרך הזולה ביותר לגלות בעיות — קיפול שלא נסגר, מידה שלא מדויקת או חולשה במבנה.",
+        "בסטודיו אנחנו עוברים מסקיצה לדייליין ולדגם חתוך ביד, ורק כשהדגם עובד ממשיכים לייצור.",
+      ],
+      quote: {
+        text: "דגם אחד ביד שווה יותר מעשרה מסכי תלת-ממד — הוא חושף את מה שהמסך מסתיר.",
+        cite: "— מתוך התובנות של בארי אריזות",
+      },
+      sections: [
+        {
+          heading: "סקיצה, דייליין ודגם",
+          body: "מתחילים בסקיצה גסה שמגדירה גודל ופתיחה, ממשיכים לדייליין מדויק שמתרגם את הרעיון לקווי חיתוך וקיפול, ומסיימים בדגם חתוך ביד מאותו קרטון שיֵצא בפועל. כך בודקים שהאריזה נסגרת, יציבה ונוחה לפתיחה לפני שמתחייבים לייצור.",
+          image:
+            "/images/generated/website-content/packaging/closed-textured-capability-box.png",
+        },
+        {
+          heading: "מה הדגם חושף",
+          body: "דגם פיזי מגלה את מה שקשה לראות במסך: עובי הקרטון שמשנה מידות, קיפול שמתנגד, או לשונית סגירה חלשה. תיקון בשלב הזה עולה דקות — אותו תיקון אחרי שהוקם שטנץ עולה הרבה יותר.",
+        },
+      ],
+    },
+    en: {
+      category: "From the studio",
+      title: "From sketch to prototype",
+      excerpt:
+        "How an idea becomes a physical model you can hold — the in-between step that saves expensive production mistakes.",
+      body: [
+        "Before printing thousands of units, we build one model. The physical prototype is the cheapest way to catch problems — a fold that won't close, a measurement that's off, a weak point in the structure.",
+        "In the studio we go from sketch to dieline to a hand-cut prototype, and only move to production once the model works.",
+      ],
+      quote: {
+        text: "One prototype in hand beats ten 3D renders — it reveals what the screen hides.",
+        cite: "— From the Beeri Packaging insights",
+      },
+      sections: [
+        {
+          heading: "Sketch, dieline and model",
+          body: "We start with a rough sketch that sets size and opening, move to a precise dieline that translates the idea into cut and fold lines, and finish with a model hand-cut from the same board the job will run on. That confirms the package closes, stands and opens well before we commit to production.",
+          image:
+            "/images/generated/website-content/packaging/closed-textured-capability-box.png",
+        },
+        {
+          heading: "What the model reveals",
+          body: "A physical model surfaces what's hard to see on screen: board thickness that shifts measurements, a fold that resists, a weak closing tab. Fixing it here costs minutes — the same fix after a cutting die is built costs far more.",
+        },
+      ],
+    },
+  },
+  {
+    slug: "display-windows",
+    date: "2026-03-18",
+    read: { he: "4 דקות", en: "4 min read" },
+    category: "structural",
+    image:
+      "/images/generated/website-content/packaging/cosmetics-drawer-window-sleeve.png",
+    author: STUDIO,
+    credit: FLOOR,
+    quoteImage:
+      "/images/generated/website-content/packaging/kraft-sweets-window-box.png",
+    he: {
+      category: "תכנון מבני",
+      title: "חלון התצוגה באריזה",
+      excerpt:
+        "מתי חלון במוצר עוזר למכירה ומתי הוא רק מחליש את הקופסה — והאיזון הנכון ביניהם.",
+      body: [
+        "חלון באריזה נותן ללקוח לראות את המוצר עצמו, וזה יתרון מכירתי ברור. אבל כל חלון הוא גם חור בקרטון — והוא משפיע על החוזק ועל הייצור.",
+        "השאלה היא לא אם להוסיף חלון, אלא איפה ובאיזה גודל, כדי לשמור על מבנה יציב ועל מראה נקי.",
+      ],
+      quote: {
+        text: "חלון טוב מראה בדיוק את מה שצריך — ולא סנטימטר יותר.",
+        cite: "— מתוך התובנות של בארי אריזות",
+      },
+      sections: [
+        {
+          heading: "מתי חלון עובד",
+          body: "חלון משתלם כשהמוצר עצמו הוא נקודת המכירה: ממתק, מוצר טיפוח או פריט בעל צבע וצורה ייחודיים. במקרים האלה החלון מקצר את ההחלטה של הלקוח במדף. כדאי למקם אותו במקום שמראה את החלק היפה של המוצר ולא את האריזה הפנימית.",
+          image:
+            "/images/generated/website-content/packaging/kraft-sweets-window-box.png",
+        },
+        {
+          heading: "המחיר המבני",
+          body: "כל חלון מחליש את הדופן ודורש לעיתים סלי PVC או חיזוק נוסף. חלון גדול מדי או קרוב מדי לקו קיפול עלול לגרום לאריזה להתעוות בשינוע. תכנון נכון שומר על מרווח מהקיפולים ומאזן בין חשיפת המוצר ליציבות הקופסה.",
+        },
+      ],
+    },
+    en: {
+      category: "Structural",
+      title: "The display window",
+      excerpt:
+        "When a window helps the sale and when it just weakens the box — and the right balance between them.",
+      body: [
+        "A window lets the customer see the product itself, a clear selling advantage. But every window is also a hole in the board — and it affects strength and production.",
+        "The question isn't whether to add a window, but where and how large, to keep a stable structure and a clean look.",
+      ],
+      quote: {
+        text: "A good window shows exactly what it needs to — and not a centimeter more.",
+        cite: "— From the Beeri Packaging insights",
+      },
+      sections: [
+        {
+          heading: "When a window works",
+          body: "A window pays off when the product is the selling point: a sweet, a beauty product, an item with distinctive color or shape. There the window shortens the customer's decision at the shelf. Place it to show the product's best part, not the inner packaging.",
+          image:
+            "/images/generated/website-content/packaging/kraft-sweets-window-box.png",
+        },
+        {
+          heading: "The structural cost",
+          body: "Every window weakens the wall and sometimes needs a PVC pane or extra reinforcement. A window that's too large or too close to a fold line can warp the box in transit. Good design keeps clearance from the folds and balances product visibility against box stability.",
         },
       ],
     },

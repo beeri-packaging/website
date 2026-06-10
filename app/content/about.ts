@@ -22,17 +22,11 @@ export type AboutStat = {
   tone?: "plain" | "magenta" | "yellow";
 };
 
-export type AboutCapability = {
-  step: string;
-  title: string;
-  body: string;
-  image?: string;
-};
-
-export type AboutStandard = {
-  code: string;
-  title: string;
-  body: string;
+export type AboutClient = {
+  /** Company name — rendered as a wordmark, and used as the logo's alt text. */
+  name: string;
+  /** Optional logo file under /public (e.g. "/images/clients/company.svg"). Falls back to a text wordmark. */
+  logo?: string;
 };
 
 export type AboutCopy = {
@@ -56,20 +50,10 @@ export type AboutCopy = {
   statsEyebrow: string;
   statsTitle: string;
   stats: readonly AboutStat[];
-  // Capabilities
-  capsEyebrow: string;
-  capsTitle: string;
-  capsBody: string;
-  capabilities: readonly AboutCapability[];
-  capsFinishingCta: string;
-  capsCatalogCta: string;
   // Partners / clients
   partnersEyebrow: string;
   partnersTitle: string;
-  // Quality
-  qualityEyebrow: string;
-  qualityTitle: string;
-  standards: readonly AboutStandard[];
+  clients: readonly AboutClient[];
   // CTA
   ctaTitle: string;
   ctaPrimary: string;
@@ -171,55 +155,19 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
       { value: "3+2", label: "משמרות ביממה", sub: "דפוס · גימורים" },
     ],
 
-    capsEyebrow: "יכולות",
-    capsTitle: "מקצה לקצה, תחת קורת גג אחת",
-    capsBody:
-      "מתכנון מבני ועד הפצה — כל שלב בייצור האריזה נמצא אצלנו בבית. כך לוחות הזמנים מתקצרים והאיכות נשמרת אחידה לכל אורך הדרך.",
-    capabilities: [
-      {
-        step: "01",
-        title: "דפוס אופסט ודיגיטלי",
-        body: "מכונות היידלברג וקמורי לצד דפוס דיגיטלי HP Indigo — לסדרות קצרות ובינוניות כאחד.",
-        image: aboutImages.production.offset,
-      },
-      {
-        step: "02",
-        title: "השבחות",
-        body: "פויל, הבלטה, לכה ולמינציה בטכנולוגיות MGI ו־UV.",
-        image: aboutImages.production.finishing,
-      },
-      {
-        step: "03",
-        title: "שטנץ והדבקה",
-        body: "חמש מכונות פירוק וארבע מכונות הדבקה להרכבת האריזה.",
-        image: aboutImages.production.dieCut,
-      },
-      {
-        step: "04",
-        title: "מרכז לוגיסטי",
-        body: 'מרלו"ג בשטח 3,000 מ"ר לאחסון והפצה מסודרת עד הלקוח.',
-        image: aboutImages.production.floor,
-      },
-    ],
-    capsFinishingCta: "לעמוד ההשבחות",
-    capsCatalogCta: "לקטלוג המוצרים",
-
     partnersEyebrow: "מבין לקוחותינו",
     partnersTitle: "שותפות מנצחת",
-
-    qualityEyebrow: "תקנים",
-    qualityTitle: "איכות ובטיחות מזון",
-    standards: [
-      {
-        code: "ISO 9001",
-        title: "ניהול איכות",
-        body: "תקן בינלאומי שמבטיח תהליך ייצור עקבי, שעומד בדרישות הלקוח לאורך זמן.",
-      },
-      {
-        code: "ISO 22000",
-        title: "בטיחות מזון · FSSC 22000",
-        body: "ניהול בטיחות מזון לכל שרשרת האספקה — קריטי לאריזות מזון, קוסמטיקה ופארמה.",
-      },
+    // Names sourced from the company deck (slides 7–9). Rendered as wordmarks until logo
+    // files are dropped into /public/images/clients/ and referenced via the `logo` field.
+    clients: [
+      { name: "Strauss" },
+      { name: "Osem" },
+      { name: "Tnuva" },
+      { name: "Elite" },
+      { name: "SodaStream" },
+      { name: "Moroccanoil" },
+      { name: "AHAVA" },
+      { name: "Dr. Fischer" },
     ],
 
     ctaTitle: "בואו נתכנן יחד את האריזה הבאה שלכם.",
@@ -302,55 +250,19 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
       { value: "3+2", label: "shifts a day", sub: "print · finishing" },
     ],
 
-    capsEyebrow: "Capabilities",
-    capsTitle: "End to end, under one roof",
-    capsBody:
-      "From structural design to distribution, every step of making a carton lives in-house. That shortens lead times and keeps quality consistent the whole way through.",
-    capabilities: [
-      {
-        step: "01",
-        title: "Offset & digital print",
-        body: "Heidelberg and Komori presses alongside HP Indigo digital — for short and medium runs alike.",
-        image: aboutImages.production.offset,
-      },
-      {
-        step: "02",
-        title: "Finishing",
-        body: "Foil, embossing, varnish and lamination with MGI and UV technology.",
-        image: aboutImages.production.finishing,
-      },
-      {
-        step: "03",
-        title: "Die-cutting & gluing",
-        body: "Five die-cutters and four gluing lines assemble the carton.",
-        image: aboutImages.production.dieCut,
-      },
-      {
-        step: "04",
-        title: "Logistics center",
-        body: "A 3,000 m² warehouse for orderly storage and delivery to the customer.",
-        image: aboutImages.production.floor,
-      },
-    ],
-    capsFinishingCta: "Explore finishing",
-    capsCatalogCta: "Browse the catalog",
-
     partnersEyebrow: "Among our clients",
     partnersTitle: "Winning partnerships",
-
-    qualityEyebrow: "Standards",
-    qualityTitle: "Quality & food safety",
-    standards: [
-      {
-        code: "ISO 9001",
-        title: "Quality management",
-        body: "The international standard for a consistent process that meets customer requirements over time.",
-      },
-      {
-        code: "ISO 22000",
-        title: "Food safety · FSSC 22000",
-        body: "Food-safety management across the supply chain — critical for food, cosmetics and pharma packaging.",
-      },
+    // Names sourced from the company deck (slides 7–9). Rendered as wordmarks until logo
+    // files are dropped into /public/images/clients/ and referenced via the `logo` field.
+    clients: [
+      { name: "Strauss" },
+      { name: "Osem" },
+      { name: "Tnuva" },
+      { name: "Elite" },
+      { name: "SodaStream" },
+      { name: "Moroccanoil" },
+      { name: "AHAVA" },
+      { name: "Dr. Fischer" },
     ],
 
     ctaTitle: "Let's plan your next package together.",

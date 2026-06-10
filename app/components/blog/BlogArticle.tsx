@@ -105,7 +105,7 @@ function Section({
   return (
     <section className="reveal flex flex-col gap-6">
       <h2 className="font-display text-h2 text-ink">
-        <span className="text-cyan">{`0${index + 1}.`}</span>{" "}
+        <span className="text-teal">{`0${index + 1}.`}</span>{" "}
         {section.heading}
       </h2>
       <p className="font-sans text-[16px] font-light leading-[1.6] text-ink/90">
@@ -280,7 +280,7 @@ export function BlogArticle({
                 {t.moreFromBlog}
               </h2>
               <Link
-                href="/careers"
+                href="/blog"
                 className="group inline-flex items-center gap-2 pb-2 font-sans text-[14px] font-bold uppercase tracking-[0.08em] text-magenta-deep underline decoration-from-font underline-offset-2 transition-colors duration-300 hover:text-ink focus-ring"
               >
                 <span

@@ -14,8 +14,8 @@ export const LOCALES = ["he", "en"] as const;
 export const ROUTES = [
   "",
   "/finishing",
-  "/careers",
   "/catalog",
+  "/blog",
   "/about",
   "/terms",
   "/privacy",

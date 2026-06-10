@@ -31,7 +31,7 @@ export default function NotFound() {
             {t.eyebrow}
           </span>
         </div>
-        <p className="mt-6 font-display text-[120px] font-bold leading-[0.8] text-ink sm:text-[160px]">
+        <p className="mt-6 font-display text-[120px] font-bold leading-[0.8] text-magenta sm:text-[160px]">
           {t.code}
         </p>
         <h1 className="mt-2 font-display text-[40px] font-bold leading-[0.95] text-ink sm:text-[56px]">

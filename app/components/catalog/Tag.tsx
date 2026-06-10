@@ -6,7 +6,7 @@ export function Tag({ tag }: { tag: CatalogTag }) {
     outline: "border-ink text-ink",
     cyan: "border-ink bg-cyan text-ink",
     purple: "border-ink bg-purple text-bone",
-    magenta: "border-ink bg-magenta text-bone",
+    magenta: "border-ink bg-magenta-deep text-bone",
   }[tag.tone];
   return (
     <span

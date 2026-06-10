@@ -133,10 +133,10 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
           </aside>
 
           <aside className="border border-blueprint bg-bone p-[33px]">
-            <blockquote className="ms-auto max-w-[274px] font-sans text-[16px] font-normal leading-[1.56] tracking-[-0.01em] text-blueprint">
+            <blockquote className="me-auto max-w-[274px] font-sans text-[16px] font-normal leading-[1.56] tracking-[-0.01em] text-blueprint">
               {copy.quote}
             </blockquote>
-            <div className="mt-6 flex items-center justify-end gap-2">
+            <div className="mt-6 flex items-center justify-start gap-2">
               <span className="font-sans text-[12px] font-extrabold uppercase leading-4 tracking-[0.08em] text-blueprint">
                 {copy.quoteBy}
               </span>

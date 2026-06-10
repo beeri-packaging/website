@@ -33,6 +33,11 @@ export async function submitNewsletterSignup(
   const email = singleLine(String(formData.get("email") ?? ""));
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return { ok: false };
 
+  const source = singleLine(String(formData.get("source") ?? "careers"));
+  const isInsights = source === "insights";
+  const subjectHe = isInsights ? "הרשמה לעדכוני יומן" : "הרשמה לעדכוני קריירה";
+  const bodyHe = isInsights ? "נרשם/ה חדש/ה לעדכוני יומן" : "נרשם/ה חדש/ה לעדכוני קריירה";
+
   const to = process.env.CONTACT_TO_EMAIL || COMPANY.email;
   const from = process.env.CONTACT_FROM_EMAIL || "";
   if (!process.env.RESEND_API_KEY || !from) {
@@ -46,9 +51,9 @@ export async function submitNewsletterSignup(
     const sent = await sendEmail({
       to,
       from,
-      subject: singleLine(`הרשמה לעדכוני קריירה — ${email}`),
-      text: `נרשם/ה חדש/ה לעדכוני קריירה: ${email}`,
-      html: `<p dir="rtl" style="font-family:Arial,sans-serif;font-size:15px">נרשם/ה חדש/ה לעדכוני קריירה:<br><b>${escapeHtml(email)}</b></p>`,
+      subject: singleLine(`${subjectHe} — ${email}`),
+      text: `${bodyHe}: ${email}`,
+      html: `<p dir="rtl" style="font-family:Arial,sans-serif;font-size:15px">${escapeHtml(bodyHe)}:<br><b>${escapeHtml(email)}</b></p>`,
       replyTo: email,
     });
     return { ok: sent };

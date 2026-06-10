@@ -1,0 +1,62 @@
+import type { ReactNode } from "react";
+import { describe, it, expect, vi } from "vitest";
+import { render, screen } from "@testing-library/react";
+import { InsightsBento } from "./InsightsBento";
+import type { LocalizedPost } from "@/sanity/queries";
+
+// The i18n Link prepends the locale at runtime (next-intl's job). For this unit
+// test we mock it to a plain anchor and assert the path the component passes to
+// it, keeping the test isolated from next-intl's runtime.
+vi.mock("@/i18n/navigation", () => ({
+  Link: ({ href, children, ...props }: { href: string; children: ReactNode }) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
+  ),
+}));
+
+function post(slug: string, category: LocalizedPost["category"]): LocalizedPost {
+  return {
+    slug,
+    date: "2026-05-20",
+    read: "5 min",
+    category,
+    image: `/images/${slug}.png`,
+    title: `Title ${slug}`,
+    excerpt: `Excerpt ${slug}`,
+    body: ["b"],
+  };
+}
+
+const posts: LocalizedPost[] = [
+  post("a", "trends"),
+  post("b", "structural"),
+  post("c", "sustainability"),
+  post("d", "floor"),
+  post("e", "studio"),
+  post("f", "structural"),
+];
+
+const labels = {
+  structural: "Structural",
+  trends: "Trends",
+  sustainability: "Sustainability",
+  floor: "Floor",
+  studio: "Studio",
+};
+
+describe("InsightsBento", () => {
+  it("renders one card per post, each linking to its article", () => {
+    render(<InsightsBento posts={posts} lang="en" labels={labels} readLabel="Read" />);
+    for (const p of posts) {
+      const link = screen.getByRole("link", { name: new RegExp(`Title ${p.slug}`) });
+      expect(link).toHaveAttribute("href", `/blog/${p.slug}`);
+    }
+  });
+
+  it("caps at six cards even if more posts are passed", () => {
+    const many = [...posts, post("g", "trends")];
+    render(<InsightsBento posts={many} lang="he" labels={labels} readLabel="לקריאה" />);
+    expect(screen.queryByRole("link", { name: /Title g/ })).toBeNull();
+  });
+});

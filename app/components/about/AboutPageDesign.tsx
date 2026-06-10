@@ -61,7 +61,7 @@ export function AboutPageDesign({ copy }: { copy: AboutCopy }) {
             <div className="mt-10 grid gap-px border border-rule bg-rule sm:grid-cols-3">
               {copy.heritageItems.map((it) => (
                 <div key={it.year} className="bg-bone p-5 text-start">
-                  <p className="font-display text-[28px] leading-none text-cyan">{it.year}</p>
+                  <p className="font-display text-[28px] leading-none text-teal">{it.year}</p>
                   <p className="mt-2 font-sans text-[13px] font-extrabold uppercase tracking-[0.06em] text-blueprint">
                     {it.name}
                   </p>
@@ -183,60 +183,10 @@ export function AboutPageDesign({ copy }: { copy: AboutCopy }) {
         </div>
       </section>
 
-      {/* 5 — CAPABILITIES */}
-      <section className="mx-auto w-full max-w-[1152px] px-5 pb-20 sm:px-8 md:pb-28 lg:px-0">
-        <div className="reveal max-w-[640px] text-start">
-          <Eyebrow>{copy.capsEyebrow}</Eyebrow>
-          <h2 className="font-display text-[44px] leading-[0.92] text-blueprint sm:text-[64px] lg:text-[96px]">
-            {copy.capsTitle}
-          </h2>
-          <p className="mt-5 font-sans text-[16px] leading-[1.56] text-clay">{copy.capsBody}</p>
-          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
-            <Link
-              href="/finishing"
-              className="inline-flex items-center font-sans text-[14px] font-bold tracking-[0.04em] text-purple underline underline-offset-4 focus-ring"
-            >
-              {copy.capsFinishingCta}
-            </Link>
-            <Link
-              href="/catalog"
-              className="inline-flex items-center font-sans text-[14px] font-bold tracking-[0.04em] text-purple underline underline-offset-4 focus-ring"
-            >
-              {copy.capsCatalogCta}
-            </Link>
-          </div>
-        </div>
-
-        <ul className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {copy.capabilities.map((c) => (
-            <li key={c.step} className="reveal flex flex-col overflow-hidden border border-blueprint bg-bone">
-              {c.image ? (
-                <div className="relative aspect-[4/3] bg-sand">
-                  <Image
-                    src={c.image}
-                    alt={c.title}
-                    fill
-                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                    className="object-contain p-4"
-                  />
-                </div>
-              ) : null}
-              <div className="flex flex-1 flex-col p-5 text-start">
-                <span className="font-display text-[22px] leading-none text-magenta-deep">{c.step}</span>
-                <h3 className="mt-2 font-display text-[22px] leading-[0.95] tracking-[0.03em] text-blueprint">
-                  {c.title}
-                </h3>
-                <p className="mt-2 font-sans text-[14px] leading-[1.5] text-clay">{c.body}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* 6 — PARTNERS / CLIENTS (full-bleed magenta band) */}
+      {/* 5 — PARTNERS / CLIENTS (full-bleed magenta band) */}
       <section className="w-full border-t border-ink bg-magenta">
         <div className="mx-auto w-full max-w-[1152px] px-5 py-16 sm:px-8 md:py-24 lg:px-0">
-          <div className="reveal flex flex-col items-end gap-2 text-end">
+          <div className="reveal flex flex-col items-start gap-2 text-start">
             <span className="font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-cyan">
               {copy.partnersEyebrow}
             </span>
@@ -244,50 +194,33 @@ export function AboutPageDesign({ copy }: { copy: AboutCopy }) {
               {copy.partnersTitle}
             </h2>
           </div>
-          <ul className="mt-10 grid grid-cols-3 gap-6 sm:grid-cols-6 md:mt-16 md:gap-8">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <li key={i} className="reveal flex justify-center">
-                {/* Logo slot — placeholder until client marks are supplied. */}
-                <span className="inline-block shadow-[4px_4px_0_var(--ink)]">
-                  <span
-                    aria-hidden
-                    className="block size-[80px] rounded-full border-2 border-cyan bg-bone/5 md:size-[96px]"
-                  />
-                </span>
+
+          <ul className="mt-10 grid grid-cols-2 gap-5 sm:grid-cols-3 md:mt-16 md:gap-6 lg:grid-cols-4">
+            {copy.clients.map((client) => (
+              <li key={client.name} className="reveal">
+                <div className="flex aspect-[3/2] items-center justify-center border-2 border-ink bg-bone p-6 shadow-[6px_6px_0_var(--ink)]">
+                  {client.logo ? (
+                    <Image
+                      src={client.logo}
+                      alt={client.name}
+                      width={200}
+                      height={96}
+                      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+                      className="h-auto max-h-[72px] w-auto max-w-full object-contain grayscale"
+                    />
+                  ) : (
+                    <span className="text-center font-sans text-[clamp(15px,2.2vw,21px)] font-extrabold uppercase tracking-[0.02em] text-ink">
+                      {client.name}
+                    </span>
+                  )}
+                </div>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      {/* 7 — QUALITY */}
-      <section className="mx-auto w-full max-w-[1152px] px-5 py-20 sm:px-8 md:py-28 lg:px-0">
-        <div className="reveal max-w-[640px] text-start">
-          <Eyebrow>{copy.qualityEyebrow}</Eyebrow>
-          <h2 className="font-display text-[40px] leading-[0.95] text-blueprint sm:text-[52px] lg:text-[64px]">
-            {copy.qualityTitle}
-          </h2>
-        </div>
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
-          {copy.standards.map((s) => (
-            <article
-              key={s.code}
-              className="reveal flex flex-col border border-blueprint bg-bone p-8 text-start"
-            >
-              <div className="flex items-baseline gap-3">
-                <span className="font-display text-[32px] leading-none text-blueprint">{s.code}</span>
-                <span className="h-px flex-1 bg-rule" aria-hidden />
-              </div>
-              <h3 className="mt-4 font-sans text-[14px] font-extrabold uppercase tracking-[0.06em] text-teal">
-                {s.title}
-              </h3>
-              <p className="mt-2 font-sans text-[15px] leading-[1.56] text-clay">{s.body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      {/* 8 — CTA */}
+      {/* 6 — CTA */}
       <section className="mx-auto w-full max-w-[1152px] px-5 pb-24 pt-0 sm:px-8 lg:px-0">
         <div className="reveal flex flex-col gap-8 border-t border-rule pt-12 md:flex-row md:items-center md:justify-between">
           <h2 className="max-w-[520px] font-display text-[32px] leading-[0.95] text-blueprint sm:text-[40px]">
