@@ -304,13 +304,6 @@ export function JobApplicationDialog({
                 {copy.aside.inquire}
               </button>
             </div>
-
-            <span
-              className="pointer-events-none select-none font-display text-[80px] font-bold leading-none text-bone/10 lg:text-[104px]"
-              aria-hidden
-            >
-              1964
-            </span>
           </div>
         </DialogAside>
       </DialogContent>
