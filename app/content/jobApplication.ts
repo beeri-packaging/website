@@ -13,6 +13,8 @@ export type JobApplicationCopy = {
   aside: {
     eyebrow: string;
     kicker: string;
+    /** Heading above the role-specific description (replaces the generic pitch). */
+    detailsTitle: string;
     lead: string;
     perks: readonly JobApplicationPerk[];
     /** Small label above the role code, mirrors the spec-sheet מק״ט tag. */
@@ -26,11 +28,9 @@ export type JobApplicationCopy = {
     heading: string;
     /** Short line under the title; also the dialog's accessible description. */
     intro: string;
-    roleLabel: string;
     name: { label: string; placeholder: string };
     phone: { label: string; placeholder: string };
     email: { label: string; placeholder: string };
-    message: { label: string; placeholder: string; optional: string };
     cv: { label: string; button: string; empty: string; optional: string };
     submit: string;
     /** Button label while the application is being sent. */
@@ -59,6 +59,7 @@ export const jobApplicationCopy: Record<Lang, JobApplicationCopy> = {
     aside: {
       eyebrow: "קריירה",
       kicker: "● הצטרפות לצוות",
+      detailsTitle: "על התפקיד",
       lead: "בארי אריזות מייצרת אריזות קרטון מתקפל בהתאמה אישית מאז 1964. מתכנון מבני ודייליין ועד דפוס, השבחות וייצור — הכול תחת קורת גג אחת, עם צוות שמלווה כל פרויקט מהתחלה ועד הסוף.",
       perks: [
         {
@@ -81,15 +82,9 @@ export const jobApplicationCopy: Record<Lang, JobApplicationCopy> = {
     form: {
       heading: "פרטי המועמד/ת",
       intro: "משאירים פרטים ומצרפים קורות חיים — ונחזור אליכם בהקדם.",
-      roleLabel: "המשרה",
       name: { label: "שם מלא", placeholder: "שם פרטי ושם משפחה" },
       phone: { label: "טלפון", placeholder: "05X-0000000" },
       email: { label: "דוא״ל", placeholder: "name@example.com" },
-      message: {
-        label: "כמה מילים",
-        placeholder: "מה חשוב שנדע? רקע קצר, ניסיון רלוונטי, או למה דווקא בארי.",
-        optional: "(לא חובה)",
-      },
       cv: {
         label: "קורות חיים",
         button: "בחירת קובץ",
@@ -118,6 +113,7 @@ export const jobApplicationCopy: Record<Lang, JobApplicationCopy> = {
     aside: {
       eyebrow: "Careers",
       kicker: "● Join the team",
+      detailsTitle: "About the role",
       lead: "Beeri Packaging has built custom folding-carton packaging since 1964. From structural design and dielines to print, finishing, and production — all under one roof, with a team that sees every project through.",
       perks: [
         {
@@ -140,15 +136,9 @@ export const jobApplicationCopy: Record<Lang, JobApplicationCopy> = {
     form: {
       heading: "Applicant details",
       intro: "Leave your details and attach a resume — and we'll be in touch soon.",
-      roleLabel: "Role",
       name: { label: "Full name", placeholder: "First and last name" },
       phone: { label: "Phone", placeholder: "05X-0000000" },
       email: { label: "Email", placeholder: "name@example.com" },
-      message: {
-        label: "A few words",
-        placeholder: "What should we know? A short background, relevant experience, or why Beeri.",
-        optional: "(optional)",
-      },
       cv: {
         label: "Resume",
         button: "Choose file",

@@ -19,8 +19,11 @@ import {
 
 type JobApplicationDialogProps = {
   lang: Lang;
-  /** Role being applied to — drives the title, the aside code tag and the read-only role field. */
-  role?: Pick<CareerRole, "code" | "title">;
+  /** Role being applied to — drives the title, the aside code tag and the role details panel. */
+  role?: Pick<
+    CareerRole,
+    "code" | "title" | "scope" | "location" | "description" | "highlights"
+  >;
   /** Trigger button label (defaults to the localized "Apply"). */
   triggerLabel?: string;
   /** Override the trigger button styling. */
@@ -145,6 +148,12 @@ export function JobApplicationDialog({
                 </DialogDescription>
               </header>
 
+              {role?.description ? (
+                <div className="border border-ink bg-sand p-5 md:hidden">
+                  <RoleDetails role={role} copy={copy} />
+                </div>
+              ) : null}
+
               <form className="flex flex-col gap-5" onSubmit={handleSubmit} noValidate>
                 {/* Honeypot — off-screen; bots that fill it are dropped server-side. */}
                 <input
@@ -156,18 +165,6 @@ export function JobApplicationDialog({
                   className="absolute h-0 w-0 overflow-hidden opacity-0"
                   style={{ insetInlineStart: "-9999px" }}
                 />
-                {role ? (
-                  <div className="flex flex-col gap-2">
-                    <span className="font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-clay/80">
-                      {copy.form.roleLabel}
-                    </span>
-                    <div className="flex items-center gap-2 border border-ink bg-sand px-4 py-3 font-sans text-[15px] font-semibold text-ink">
-                      {role.title}
-                      <span className="text-clay/60">{role.code}</span>
-                    </div>
-                  </div>
-                ) : null}
-
                 <Field
                   id={`${formId}-name`}
                   name="name"
@@ -197,25 +194,6 @@ export function JobApplicationDialog({
                     autoComplete="email"
                     dir="ltr"
                     error={errors.email}
-                  />
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label
-                    htmlFor={`${formId}-message`}
-                    className="flex items-center gap-2 font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-clay/80"
-                  >
-                    {copy.form.message.label}
-                    <span className="font-normal normal-case text-clay/50">
-                      {copy.form.message.optional}
-                    </span>
-                  </label>
-                  <textarea
-                    id={`${formId}-message`}
-                    name="message"
-                    rows={3}
-                    placeholder={copy.form.message.placeholder}
-                    className={`${FIELD_CLASS} resize-none`}
                   />
                 </div>
 
@@ -282,32 +260,39 @@ export function JobApplicationDialog({
                 <span>{role?.code ?? "—"}</span>
               </div>
 
-              <div className="flex flex-col gap-4">
-                <span className="font-sans text-[11px] font-bold tracking-[0.08em] text-purple">
-                  {copy.aside.kicker}
-                </span>
-                <p className="text-balance font-sans text-[17px] leading-[1.6] text-bone/85">
-                  {copy.aside.lead}
-                </p>
-              </div>
-
-              <span className="h-px w-full border-t border-dashed border-cyan/60" />
-
-              <ul className="flex flex-col gap-5">
-                {copy.aside.perks.map((perk) => (
-                  <li
-                    key={perk.title}
-                    className="flex flex-col gap-1 border-s-2 border-cyan ps-4"
-                  >
-                    <span className="font-sans text-[13px] font-bold text-bone">
-                      {perk.title}
+              {role?.description ? (
+                <>
+                  <RoleDetails role={role} copy={copy} dark />
+                  <span className="h-px w-full border-t border-dashed border-cyan/60" />
+                </>
+              ) : (
+                <>
+                  <div className="flex flex-col gap-4">
+                    <span className="font-sans text-[11px] font-bold tracking-[0.08em] text-purple">
+                      {copy.aside.kicker}
                     </span>
-                    <span className="font-sans text-[13px] leading-[1.5] text-bone/65">
-                      {perk.body}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+                    <p className="text-balance font-sans text-[17px] leading-[1.6] text-bone/85">
+                      {copy.aside.lead}
+                    </p>
+                  </div>
+                  <span className="h-px w-full border-t border-dashed border-cyan/60" />
+                  <ul className="flex flex-col gap-5">
+                    {copy.aside.perks.map((perk) => (
+                      <li
+                        key={perk.title}
+                        className="flex flex-col gap-1 border-s-2 border-cyan ps-4"
+                      >
+                        <span className="font-sans text-[13px] font-bold text-bone">
+                          {perk.title}
+                        </span>
+                        <span className="font-sans text-[13px] leading-[1.5] text-bone/65">
+                          {perk.body}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
 
               <button
                 type="button"
@@ -380,6 +365,58 @@ function Field({
         <span id={`${id}-error`} className="font-sans text-[12px] text-magenta-deep">
           {error}
         </span>
+      ) : null}
+    </div>
+  );
+}
+
+function RoleDetails({
+  role,
+  copy,
+  dark,
+}: {
+  role: NonNullable<JobApplicationDialogProps["role"]>;
+  copy: (typeof jobApplicationCopy)[Lang];
+  dark?: boolean;
+}) {
+  return (
+    <div className="flex flex-col gap-4">
+      <span
+        className={`font-sans text-[11px] font-bold tracking-[0.08em] ${
+          dark ? "text-purple" : "text-clay/80"
+        }`}
+      >
+        {copy.aside.detailsTitle}
+      </span>
+      {role.scope || role.location ? (
+        <span
+          className={`font-sans text-[13px] font-semibold ${
+            dark ? "text-bone/70" : "text-clay/80"
+          }`}
+        >
+          {[role.scope, role.location].filter(Boolean).join(" · ")}
+        </span>
+      ) : null}
+      <p
+        className={`text-balance font-sans text-[16px] leading-[1.6] ${
+          dark ? "text-bone/85" : "text-clay"
+        }`}
+      >
+        {role.description}
+      </p>
+      {role.highlights?.length ? (
+        <ul className="flex flex-col gap-3 pt-1">
+          {role.highlights.map((line) => (
+            <li
+              key={line}
+              className={`border-s-2 border-cyan ps-4 font-sans text-[13px] leading-[1.5] ${
+                dark ? "text-bone/75" : "text-clay"
+              }`}
+            >
+              {line}
+            </li>
+          ))}
+        </ul>
       ) : null}
     </div>
   );

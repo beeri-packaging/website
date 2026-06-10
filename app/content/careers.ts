@@ -17,6 +17,10 @@ export type CareerRole = {
   scope: string;
   location: string;
   department: "all" | "production" | "studio";
+  /** Optional editorial description — rendered in the job-application dialog aside. */
+  description?: string;
+  /** Optional bullet highlights for the role — rendered in the job-application dialog aside. */
+  highlights?: readonly string[];
 };
 
 export type CareersCopy = {
