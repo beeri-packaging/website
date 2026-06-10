@@ -28,12 +28,17 @@ export function AboutTimeline({
           <h2 className="font-display text-[40px] leading-[0.95] sm:text-[52px] lg:text-[64px]">{title}</h2>
         </div>
 
-        <div className="mt-14">
+        <div className="relative mt-14">
+          {/* Dieline-style dashed track running behind the dots (desktop only). */}
+          <span
+            className="absolute inset-x-0 top-[5px] hidden border-t border-dashed border-cyan/50 md:block"
+            aria-hidden
+          />
           <ol className="grid gap-10 md:grid-cols-5 md:gap-x-6">
             {milestones.map((m) => (
-              <li key={m.year} className="reveal text-start">
+              <li key={m.year} className="reveal relative text-start">
                 <span
-                  className="block h-[11px] w-[11px] rounded-full bg-yellow"
+                  className="block h-[11px] w-[11px] rounded-full bg-yellow ring-4 ring-blueprint"
                   aria-hidden
                 />
                 <p className="mt-2.5 font-sans text-[12px] font-extrabold uppercase leading-[16px] tracking-[0.08em] text-yellow">
