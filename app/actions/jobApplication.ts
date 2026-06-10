@@ -40,7 +40,6 @@ export async function submitJobApplication(
   const name = singleLine(String(formData.get("name") ?? ""));
   const phone = singleLine(String(formData.get("phone") ?? ""));
   const email = singleLine(String(formData.get("email") ?? ""));
-  const message = String(formData.get("message") ?? "").trim();
   const roleCode = singleLine(String(formData.get("roleCode") ?? ""));
   const roleTitle = singleLine(String(formData.get("roleTitle") ?? ""));
 
@@ -72,7 +71,6 @@ export async function submitJobApplication(
     ["שם מלא", name],
     ["טלפון", phone],
     ["אימייל", email],
-    ["הודעה", message || "—"],
     ['קו"ח', attachments ? `מצורף (${attachments[0].filename})` : "לא צורף"],
   ];
   const text = rows.map(([k, v]) => `${k}: ${v}`).join("\n");

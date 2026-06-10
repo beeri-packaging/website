@@ -148,7 +148,7 @@ export function JobApplicationDialog({
                 </DialogDescription>
               </header>
 
-              {role?.description ? (
+              {role?.description || role?.highlights?.length ? (
                 <div className="border border-ink bg-sand p-5 md:hidden">
                   <RoleDetails role={role} copy={copy} />
                 </div>
@@ -260,7 +260,7 @@ export function JobApplicationDialog({
                 <span>{role?.code ?? "—"}</span>
               </div>
 
-              {role?.description ? (
+              {role?.description || role?.highlights?.length ? (
                 <>
                   <RoleDetails role={role} copy={copy} dark />
                   <span className="h-px w-full border-t border-dashed border-cyan/60" />
@@ -397,18 +397,20 @@ function RoleDetails({
           {[role.scope, role.location].filter(Boolean).join(" · ")}
         </span>
       ) : null}
-      <p
-        className={`text-balance font-sans text-[16px] leading-[1.6] ${
-          dark ? "text-bone/85" : "text-clay"
-        }`}
-      >
-        {role.description}
-      </p>
+      {role.description ? (
+        <p
+          className={`text-balance font-sans text-[16px] leading-[1.6] ${
+            dark ? "text-bone/85" : "text-clay"
+          }`}
+        >
+          {role.description}
+        </p>
+      ) : null}
       {role.highlights?.length ? (
         <ul className="flex flex-col gap-3 pt-1">
-          {role.highlights.map((line) => (
+          {role.highlights.map((line, index) => (
             <li
-              key={line}
+              key={`${index}-${line}`}
               className={`border-s-2 border-cyan ps-4 font-sans text-[13px] leading-[1.5] ${
                 dark ? "text-bone/75" : "text-clay"
               }`}

@@ -112,4 +112,14 @@ describe("JobApplicationDialog", () => {
     expect(screen.queryByText("כמה מילים")).not.toBeInTheDocument();
     expect(screen.queryByText("המשרה")).not.toBeInTheDocument();
   });
+
+  it("shows highlights even when the role has no description", () => {
+    renderDialog("he", {
+      role: { ...role, highlights: ["עבודה במשמרות"] },
+      triggerLabel: "להגשה",
+    });
+    fireEvent.click(screen.getByRole("button", { name: "להגשה" }));
+    expect(screen.getAllByText("עבודה במשמרות").length).toBeGreaterThan(0);
+    expect(screen.queryByText(he.aside.lead)).not.toBeInTheDocument();
+  });
 });
