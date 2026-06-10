@@ -5,7 +5,7 @@ import type { Lang } from "@/app/content/home";
 import type { BlogIndexCopy, InsightsChrome, BlogCategory } from "@/app/content/blog";
 import type { LocalizedPost } from "@/sanity/queries";
 import type { CareerRole } from "@/app/content/careers";
-import { InsightsHero } from "@/app/components/blog/InsightsHero";
+import { InsightsHero, type CategoryFilter } from "@/app/components/blog/InsightsHero";
 import { InsightsBento } from "@/app/components/blog/InsightsBento";
 import { InsightsNewsletter } from "@/app/components/blog/InsightsNewsletter";
 import { CareersRoles } from "@/app/components/careers/CareersRoles";
@@ -34,15 +34,18 @@ export function InsightsPageDesign({
   noRoles: string;
 }) {
   const [query, setQuery] = useState("");
+  const [category, setCategory] = useState<CategoryFilter>("all");
   const [department, setDepartment] = useState<CareerRole["department"]>("all");
 
   const visible = useMemo(() => {
     const q = query.trim().toLocaleLowerCase();
-    if (!q) return posts;
-    return posts.filter((p) =>
-      [p.title, p.excerpt, labels[p.category]].join(" ").toLocaleLowerCase().includes(q),
+    return posts.filter(
+      (p) =>
+        (category === "all" || p.category === category) &&
+        (!q ||
+          [p.title, p.excerpt, labels[p.category]].join(" ").toLocaleLowerCase().includes(q)),
     );
-  }, [posts, labels, query]);
+  }, [posts, labels, query, category]);
 
   const visibleRoles = useMemo(
     () => roles.filter((role) => department === "all" || role.department === department),
@@ -51,7 +54,15 @@ export function InsightsPageDesign({
 
   return (
     <div className="bg-bone">
-      <InsightsHero copy={copy} chrome={chrome} query={query} onQueryChange={setQuery} />
+      <InsightsHero
+        copy={copy}
+        chrome={chrome}
+        labels={labels}
+        query={query}
+        onQueryChange={setQuery}
+        category={category}
+        onCategoryChange={setCategory}
+      />
       <InsightsBento posts={visible} lang={lang} labels={labels} readLabel={copy.readMore} />
       <CareersRoles
         apply={apply}

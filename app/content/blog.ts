@@ -107,6 +107,8 @@ export const blogIndexCopy: Record<Lang, BlogIndexCopy> = {
 export type InsightsChrome = {
   searchPlaceholder: string;
   searchButtonLabel: string;
+  filterLabel: string;
+  filterAll: string;
   newsletterTitle: readonly [string, string];
   newsletterBody: string;
   emailPlaceholder: string;
@@ -119,6 +121,8 @@ export const insightsChrome: Record<Lang, InsightsChrome> = {
   he: {
     searchPlaceholder: "חיפוש ביומן",
     searchButtonLabel: "חיפוש",
+    filterLabel: "סינון לפי נושא",
+    filterAll: "כל הנושאים",
     newsletterTitle: ["עדכוני", "יומן"],
     newsletterBody:
       "רוצים לקבל פוסט חדש כשהוא עולה? השאירו כתובת מייל ונעדכן.",
@@ -130,6 +134,8 @@ export const insightsChrome: Record<Lang, InsightsChrome> = {
   en: {
     searchPlaceholder: "Search the journal",
     searchButtonLabel: "Search",
+    filterLabel: "Filter by topic",
+    filterAll: "All topics",
     newsletterTitle: ["Journal", "updates"],
     newsletterBody:
       "Want each new post as it goes live? Leave your email and we'll let you know.",

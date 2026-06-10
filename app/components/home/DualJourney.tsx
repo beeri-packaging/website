@@ -54,34 +54,35 @@ export function DualJourney({ lang, t, panels }: { lang: Lang; t: HomeCopy; pane
       </div>
 
       {/*
-       * Each row is a non-sticky `journey-row-track` (one viewport tall on
-       * desktop) that hosts a named `view-timeline`. Inside it, the
-       * `journey-row-pin` is `position: sticky` and consumes that timeline,
-       * so its image keeps drifting throughout the pinned scroll and rows
-       * 2/3 can wipe in over the previous row with `clip-path`. See
-       * globals.css for the keyframes and timeline wiring.
+       * Deck stacking: the stack is one tall containing block and each row
+       * is a sticky child pinned below the fixed header. A row stays pinned
+       * — with the next row sliding up over it — until the whole stack has
+       * scrolled past, so the page background can never show through
+       * between rows. On mobile the row/grid wrappers collapse to
+       * `display: contents` and the six cards themselves become the sticky
+       * children, stacking one by one. Image drift and the covered-row
+       * dim/zoom are scrubbed by a single view-timeline hosted on the
+       * non-sticky stack (a pinned sticky element freezes its own view()
+       * timeline). See globals.css for the timeline wiring.
        */}
       <div ref={stackRef} className="journey-stack relative">
         {rows.map((row, rowIndex) => (
           <div
             key={rowIndex}
-            className={`journey-row-track journey-row-track--${rowIndex + 1}`}
+            className={`journey-row journey-row--${rowIndex + 1} max-md:contents md:sticky md:top-[80px] md:h-[calc(100svh-80px)] md:px-2 md:overflow-hidden`}
+            style={{ zIndex: rowIndex + 1 }}
           >
-            <div
-              className="journey-row-pin md:sticky md:top-[80px] md:h-[calc(100svh-80px)] px-2 overflow-hidden"
-              style={{ zIndex: rowIndex + 1 }}
-            >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 h-full">
-                {row.map((panel, j) => (
-                  <JourneyCard
-                    key={panel.key}
-                    panel={panel}
-                    lang={lang}
-                    priority={false}
-                    pairIndex={j}
-                  />
-                ))}
-              </div>
+            <div className="journey-row-zoom max-md:contents md:grid md:grid-cols-2 md:gap-2 md:h-full">
+              {row.map((panel, j) => (
+                <JourneyCard
+                  key={panel.key}
+                  panel={panel}
+                  lang={lang}
+                  priority={false}
+                  pairIndex={j}
+                  stackIndex={rowIndex * 2 + j}
+                />
+              ))}
             </div>
           </div>
         ))}
@@ -95,11 +96,13 @@ function JourneyCard({
   lang,
   priority,
   pairIndex,
+  stackIndex,
 }: {
   panel: HomeJourneyPanel;
   lang: Lang;
   priority: boolean;
   pairIndex: number;
+  stackIndex: number;
 }) {
   const isDark = panel.theme === "dark";
   const accentBg = panel.accent === "purple" ? "bg-purple" : "bg-yellow";
@@ -110,7 +113,10 @@ function JourneyCard({
     <Link
       href={href}
       data-pair={pairIndex}
-      className="journey-card-reveal group relative block h-[480px] sm:h-[600px] md:h-full overflow-hidden cursor-pointer focus-ring"
+      // z-index orders the mobile card deck (later cards slide over earlier
+      // ones); on desktop it's inert inside each row's stacking context.
+      style={{ zIndex: stackIndex + 1 }}
+      className="journey-card-reveal group relative max-md:sticky max-md:top-16 max-md:mx-2 block h-[480px] sm:h-[600px] md:h-full overflow-hidden cursor-pointer focus-ring"
     >
       <div className="parallax-img absolute inset-0">
         {panel.src ? (

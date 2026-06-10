@@ -3,6 +3,7 @@ import { Link } from "@/i18n/navigation";
 import type { Lang } from "@/app/content/home";
 import type { Chrome } from "@/app/content/site";
 import { LinkedInGlyph, MailGlyph, PinGlyph, ArrowOut } from "./icons";
+import { LangPill } from "./LangPill";
 
 const eyebrow =
   "font-sans font-semibold uppercase text-teal text-[12px] tracking-[0.14em] leading-4";
@@ -114,22 +115,26 @@ export function Footer({ lang, chrome }: { lang: Lang; chrome: Chrome }) {
 
       {/* ── Bottom bar ───────────────────────────────────────────── */}
       <div className="border-t border-bone-line">
-        <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-10 md:px-12 lg:px-[64px] py-6 flex flex-col-reverse gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-10 md:px-12 lg:px-[64px] py-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <p className="font-sans uppercase text-clay text-[12px] tracking-[0.08em] leading-4">
             {chrome.footerCopy}
           </p>
-          <ul className="flex flex-wrap gap-x-6 gap-y-2">
-            {chrome.legal.map((l) => (
-              <li key={l.label}>
-                <Link
-                  href={l.href}
-                  className="font-sans uppercase text-clay text-[12px] tracking-[0.08em] leading-4 underline underline-offset-4 decoration-rule hover:text-ink hover:decoration-ink transition-colors duration-300 focus-ring rounded-sm"
-                >
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+            <ul className="flex flex-wrap gap-x-6 gap-y-2">
+              {chrome.legal.map((l) => (
+                <li key={l.label}>
+                  <Link
+                    href={l.href}
+                    className="font-sans uppercase text-clay text-[12px] tracking-[0.08em] leading-4 underline underline-offset-4 decoration-rule hover:text-ink hover:decoration-ink transition-colors duration-300 focus-ring rounded-sm"
+                  >
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <span aria-hidden className="hidden sm:block h-4 w-px bg-rule" />
+            <LangPill lang={lang} compact />
+          </div>
         </div>
       </div>
     </footer>

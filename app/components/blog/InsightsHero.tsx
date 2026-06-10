@@ -1,7 +1,8 @@
 "use client";
 
 import type { FormEvent } from "react";
-import type { BlogIndexCopy, InsightsChrome } from "@/app/content/blog";
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import type { BlogIndexCopy, InsightsChrome, BlogCategory } from "@/app/content/blog";
 
 function FilterIcon() {
   return (
@@ -15,17 +16,26 @@ function FilterIcon() {
   );
 }
 
+export type CategoryFilter = BlogCategory | "all";
+
+const menuItem =
+  "flex cursor-pointer select-none items-center gap-2.5 px-4 py-2.5 font-sans text-[12px] font-bold uppercase tracking-[0.08em] text-ink outline-none data-[highlighted]:bg-ink data-[highlighted]:text-bone";
+
 export function InsightsHero({
-  copy, chrome, query, onQueryChange,
+  copy, chrome, labels, query, onQueryChange, category, onCategoryChange,
 }: {
   copy: BlogIndexCopy;
   chrome: InsightsChrome;
+  labels: Record<BlogCategory, string>;
   query: string;
   onQueryChange: (value: string) => void;
+  category: CategoryFilter;
+  onCategoryChange: (value: CategoryFilter) => void;
 }) {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
   }
+  const filtered = category !== "all";
   return (
     <section className="mx-auto w-full max-w-[1280px] px-5 pt-8 sm:px-8 sm:pt-12 md:px-12 md:pt-16 lg:px-20">
       <div className="flex flex-col gap-8 border-b border-ink pb-8 md:gap-12 md:flex-row md:items-end md:justify-between md:pb-10">
@@ -39,13 +49,42 @@ export function InsightsHero({
           </p>
         </div>
         <form className="flex w-full shrink-0 gap-3 md:w-auto" onSubmit={handleSubmit} role="search">
-          <button
-            type="submit"
-            aria-label={chrome.searchButtonLabel}
-            className="grid h-[50px] w-[52px] shrink-0 place-items-center border border-ink bg-bone text-ink transition-colors hover:bg-ink hover:text-bone focus-ring"
-          >
-            <FilterIcon />
-          </button>
+          <DropdownMenu.Root>
+            <DropdownMenu.Trigger asChild>
+              <button
+                type="button"
+                aria-label={chrome.filterLabel}
+                className={`grid h-[50px] w-[52px] shrink-0 place-items-center border border-ink transition-colors focus-ring data-[state=open]:bg-ink data-[state=open]:text-bone ${
+                  filtered ? "bg-yellow text-ink" : "bg-bone text-ink hover:bg-ink hover:text-bone"
+                }`}
+              >
+                <FilterIcon />
+              </button>
+            </DropdownMenu.Trigger>
+            <DropdownMenu.Portal>
+              <DropdownMenu.Content
+                align="start"
+                sideOffset={6}
+                className="z-50 min-w-[200px] border border-ink bg-bone py-1.5 shadow-[4px_4px_0_0_var(--ink)]"
+              >
+                <DropdownMenu.RadioGroup
+                  value={category}
+                  onValueChange={(value) => onCategoryChange(value as CategoryFilter)}
+                >
+                  <DropdownMenu.RadioItem value="all" className={menuItem}>
+                    <Marker active={category === "all"} />
+                    {chrome.filterAll}
+                  </DropdownMenu.RadioItem>
+                  {(Object.keys(labels) as BlogCategory[]).map((key) => (
+                    <DropdownMenu.RadioItem key={key} value={key} className={menuItem}>
+                      <Marker active={category === key} />
+                      {labels[key]}
+                    </DropdownMenu.RadioItem>
+                  ))}
+                </DropdownMenu.RadioGroup>
+              </DropdownMenu.Content>
+            </DropdownMenu.Portal>
+          </DropdownMenu.Root>
           <input
             name="q"
             aria-label={chrome.searchPlaceholder}
@@ -57,5 +96,15 @@ export function InsightsHero({
         </form>
       </div>
     </section>
+  );
+}
+
+/* Square swatch marker — filled yellow when the row is the active filter. */
+function Marker({ active }: { active: boolean }) {
+  return (
+    <span
+      aria-hidden
+      className={`h-2.5 w-2.5 shrink-0 border border-current ${active ? "bg-yellow" : "bg-transparent"}`}
+    />
   );
 }

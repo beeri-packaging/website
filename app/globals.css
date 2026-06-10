@@ -371,25 +371,26 @@ html {
 }
 
 /* ────────────────────────────────────────────────────────────────
- * DUAL-JOURNEY SCROLL STORY
+ * DUAL-JOURNEY DECK STACKING
  * ────────────────────────────────────────────────────────────────
  *
- * Three rows of two cards stack on desktop using sticky pins. The
- * tricky part: when an element is `position: sticky` its visibility
- * stops changing while it's pinned, so a `view()` timeline bound to
- * it freezes in place — the image's drift would lock the moment the
- * row got pinned.
+ * The six cards behave like a card deck: each row (desktop) or card
+ * (mobile) pins below the fixed header and STAYS pinned while the
+ * next one slides up over it, so the page background can never show
+ * through between rows. This is the classic sticky-stacking pattern
+ * (CSS-Tricks / scroll-driven-animations.style "stacking cards"):
+ * the rows are sticky children of one tall `.journey-stack`, which
+ * is their containing block — a row only unpins once the whole stack
+ * has scrolled past. The core effect is pure `position: sticky`, so
+ * it works in every browser.
  *
- * Fix from the modern playbook (Builder.io's Apple-style guide,
- * Codrops' sticky-grid technique): host the view-timeline on the
- * OUTER non-sticky `.journey-row-track`, then bind animations on the
- * INNER sticky `.journey-row-pin` and its descendants to that named
- * timeline. The track scrolls naturally, so its progress keeps
- * advancing throughout the entire pinned scroll of the row.
- *
- * Each row gets its own scope (--jrow1 / --jrow2 / --jrow3) so the
- * image drift, the row wipe-in, and any future per-row animations
- * stay independent.
+ * Scroll-driven animations (image drift, covered-row dim/zoom) can't
+ * ride a view() timeline on the rows themselves — a sticky element's
+ * viewport position freezes while pinned, freezing its timeline. So
+ * one named timeline lives on the NON-sticky `.journey-stack` and
+ * every descendant animation binds to it with `animation-range`
+ * slices. The stack keeps scrolling naturally, so progress keeps
+ * advancing the entire time rows are pinned.
  */
 
 .parallax-img {
@@ -397,62 +398,90 @@ html {
   transform: scale(1.18);
 }
 
-/* ── Modern path: scroll-driven animations with named timelines ── */
+/* ── Modern path: scroll-driven drift + covered-row depth cues ── */
 @supports (animation-timeline: --x) {
-  /* Each row track owns one viewport of scroll. The pin sticks inside
-   * it for that duration; once the track's bottom passes the header,
-   * the next track takes over. */
-  .journey-row-track--1 { view-timeline-name: --jrow1; }
-  .journey-row-track--2 { view-timeline-name: --jrow2; }
-  .journey-row-track--3 { view-timeline-name: --jrow3; }
-  .journey-row-track {
+  .journey-stack {
+    view-timeline-name: --jstack;
     view-timeline-axis: block;
   }
 
-  /* Continuous Ken-Burns drift on each image, scrubbed by its row's
-   * named timeline — keeps moving the whole time the row is pinned. */
-  .journey-row-track .parallax-img {
-    animation: row-image-drift linear both;
-    animation-range: cover 0% cover 100%;
+  /* Continuous Ken-Burns drift, scrubbed by the stack timeline. Each
+   * row's slice maps to its on-screen window, so every image keeps
+   * moving the whole time it's visible — including while pinned. */
+  .journey-stack .parallax-img {
+    animation: journey-image-drift linear both;
+    animation-timeline: --jstack;
   }
-  .journey-row-track--1 .parallax-img { animation-timeline: --jrow1; }
-  .journey-row-track--2 .parallax-img { animation-timeline: --jrow2; }
-  .journey-row-track--3 .parallax-img { animation-timeline: --jrow3; }
+  .journey-row--1 .parallax-img { animation-range: cover 0% cover 55%; }
+  .journey-row--2 .parallax-img { animation-range: cover 20% cover 80%; }
+  .journey-row--3 .parallax-img { animation-range: cover 45% cover 100%; }
 
-  @keyframes row-image-drift {
+  @keyframes journey-image-drift {
     from { transform: translate3d(0, -8%, 0) scale(1.22); }
     to   { transform: translate3d(0, 8%, 0) scale(1.22); }
   }
 
-  /* Rows 2 and 3 wipe in over the previous row instead of popping on
-   * via z-index. clip-path goes from "fully clipped from the top"
-   * (nothing visible) to "no clip" (fully revealed), so the new row
-   * appears to slide up from the bottom edge of the viewport. A small
-   * counter-translate on the image inside keeps it from feeling like
-   * a paper cut-out. */
+  /* Depth cue while a row is being covered: it dims and zooms back
+   * slightly, as if pressed into the page by the row sliding over it.
+   * The ranges map to where each row gets overlaid on the stack
+   * timeline (row N is covered during the Nth viewport of stack
+   * scroll; row 3 is never covered). The zoom lives on the inner
+   * `.journey-row-zoom` grid so the row's overflow-hidden clips it —
+   * edges can't peek out past the row. Desktop-only: on mobile the
+   * row wrappers are `display: contents` and generate no boxes, and
+   * the per-card slide-over already reads clearly at that size. */
   @media (min-width: 768px) {
-    .journey-row-track--2 .journey-row-pin,
-    .journey-row-track--3 .journey-row-pin {
-      animation: row-wipe-in linear both;
-      /* Gentler, longer reveal so the row eases in over more scroll
-       * distance instead of snapping over a short window. */
-      animation-range: entry 8% cover 48%;
-      /* Promote to its own layer so the clip-path/transform reveal is
-       * composited on the GPU instead of repainting each frame. */
-      will-change: clip-path, transform;
+    .journey-row::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      background: var(--ink);
+      opacity: 0;
+      pointer-events: none;
     }
-    .journey-row-track--2 .journey-row-pin { animation-timeline: --jrow2; }
-    .journey-row-track--3 .journey-row-pin { animation-timeline: --jrow3; }
+    .journey-row--1::after {
+      animation: journey-cover-dim linear both;
+      animation-timeline: --jstack;
+      animation-range: cover 24% cover 49%;
+    }
+    .journey-row--2::after {
+      animation: journey-cover-dim linear both;
+      animation-timeline: --jstack;
+      animation-range: cover 49% cover 74%;
+    }
+    .journey-row--1 .journey-row-zoom {
+      animation: journey-cover-zoom linear both;
+      animation-timeline: --jstack;
+      animation-range: cover 24% cover 49%;
+      will-change: transform;
+    }
+    .journey-row--2 .journey-row-zoom {
+      animation: journey-cover-zoom linear both;
+      animation-timeline: --jstack;
+      animation-range: cover 49% cover 74%;
+      will-change: transform;
+    }
 
-    @keyframes row-wipe-in {
-      from {
-        clip-path: inset(100% 0 0 0);
-        transform: translateY(-2vh);
-      }
-      to {
-        clip-path: inset(0 0 0 0);
-        transform: translateY(0);
-      }
+    @keyframes journey-cover-dim {
+      from { opacity: 0; }
+      to   { opacity: 0.32; }
+    }
+    @keyframes journey-cover-zoom {
+      from { transform: scale(1); }
+      to   { transform: scale(1.045); }
+    }
+  }
+
+  /* The global reduced-motion rule zeroes durations, but scrubbed
+   * timelines ignore duration — disable them explicitly. The deck
+   * still stacks (that's scroll position, not animation); images sit
+   * on their static base crop. */
+  @media (prefers-reduced-motion: reduce) {
+    .journey-stack .parallax-img,
+    .journey-row::after,
+    .journey-row-zoom {
+      animation: none !important;
     }
   }
 }

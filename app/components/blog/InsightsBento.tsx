@@ -7,10 +7,12 @@ import { Link } from "@/i18n/navigation";
 
 type Labels = Record<BlogCategory, string>;
 
-function Chip({ category, label }: { category: BlogCategory; label: string }) {
+/* Slanted ribbon tag — angled trailing edge per the Figma journal design.
+   `tone` overrides the category color when the card surface would swallow it. */
+function Chip({ category, label, tone }: { category: BlogCategory; label: string; tone?: string }) {
   return (
     <span
-      className={`${categoryChipClass[category]} inline-flex min-h-6 items-center px-3 py-1 font-sans text-[11px] font-extrabold uppercase tracking-[0.08em]`}
+      className={`${tone ?? categoryChipClass[category]} inline-flex w-fit min-h-6 items-center ps-3 pe-5 py-1 font-sans text-[11px] font-extrabold uppercase tracking-[0.08em] [clip-path:polygon(0_0,100%_0,calc(100%-10px)_100%,0_100%)] rtl:[clip-path:polygon(0_0,100%_0,100%_100%,10px_100%)]`}
     >
       {label}
     </span>
@@ -51,18 +53,18 @@ function FeatureCard({ post, lang, labels }: CardProps) {
         </p>
       </div>
       {post.image ? (
-        <div className="relative mt-auto aspect-[16/9] border-t border-ink bg-bone">
-          <Image src={post.image} alt={post.imageAlt ?? post.title} fill sizes="(min-width:1024px) 58vw, 100vw" className="object-cover grayscale transition-[filter] group-hover:grayscale-0" />
+        <div className="relative mt-auto aspect-[16/9] overflow-hidden border-t border-ink bg-bone">
+          <Image src={post.image} alt={post.imageAlt ?? post.title} fill sizes="(min-width:1024px) 58vw, 100vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
         </div>
       ) : null}
     </Link>
   );
 }
 
-/** Solid-color text card (no image). `accent` picks the surface tint. */
+/** Solid-color text card (no image). `surface` picks the tint; `body` the excerpt color. */
 function TextCard({
-  post, lang, labels, readLabel, className, surface,
-}: CardProps & { className: string; surface: string }) {
+  post, lang, labels, readLabel, className, surface, body = "text-clay", chipTone,
+}: CardProps & { className: string; surface: string; body?: string; chipTone?: string }) {
   return (
     <Link
       href={`/blog/${post.slug}`}
@@ -70,11 +72,11 @@ function TextCard({
       dir={lang === "he" ? "rtl" : "ltr"}
       className={`reveal group flex flex-col border border-ink ${surface} p-6 focus-ring sm:p-8 ${className}`}
     >
-      <Chip category={post.category} label={labels[post.category]} />
+      <Chip category={post.category} label={labels[post.category]} tone={chipTone} />
       <h3 className="mt-6 font-display text-[34px] font-bold leading-none text-ink sm:text-[40px]">
         {post.title}
       </h3>
-      <p className="mt-4 font-sans text-[15px] leading-[1.6] text-clay">{post.excerpt}</p>
+      <p className={`mt-4 font-sans text-[15px] leading-[1.6] ${body}`}>{post.excerpt}</p>
       <ReadRow lang={lang} label={readLabel} />
     </Link>
   );
@@ -90,8 +92,8 @@ function ImageCard({ post, lang, labels, readLabel, className }: CardProps & { c
       className={`reveal group flex flex-col overflow-hidden border border-ink bg-bone focus-ring ${className}`}
     >
       {post.image ? (
-        <div className="relative aspect-[1.5] border-b border-ink bg-ink">
-          <Image src={post.image} alt={post.imageAlt ?? post.title} fill sizes="(min-width:1024px) 30vw, 100vw" className="object-cover grayscale transition-[filter] group-hover:grayscale-0" />
+        <div className="relative aspect-[1.5] overflow-hidden border-b border-ink bg-ink">
+          <Image src={post.image} alt={post.imageAlt ?? post.title} fill sizes="(min-width:1024px) 30vw, 100vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
         </div>
       ) : null}
       <div className="flex flex-1 flex-col p-6 sm:p-8">
@@ -129,7 +131,7 @@ export function InsightsBento({
     >
       {p0 ? <FeatureCard post={p0} {...common} /> : null}
       {p1 ? <TextCard post={p1} {...common} surface="bg-mist" className="lg:col-start-9 lg:col-span-4 lg:row-start-1" /> : null}
-      {p2 ? <TextCard post={p2} {...common} surface="bg-bone" className="lg:col-start-9 lg:col-span-4 lg:row-start-2" /> : null}
+      {p2 ? <TextCard post={p2} {...common} surface="bg-yellow" body="text-yellow-deep/80" chipTone="bg-ink text-bone" className="lg:col-start-9 lg:col-span-4 lg:row-start-2" /> : null}
       {p3 ? <ImageCard post={p3} {...common} className="lg:col-start-1 lg:col-span-4 lg:row-start-3" /> : null}
       {p4 ? <TextCard post={p4} {...common} surface="bg-sand" className="lg:col-start-5 lg:col-span-4 lg:row-start-3" /> : null}
       {p5 ? <TextCard post={p5} {...common} surface="bg-bone" className="lg:col-start-9 lg:col-span-4 lg:row-start-3" /> : null}

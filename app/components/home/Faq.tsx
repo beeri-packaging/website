@@ -39,7 +39,7 @@ export function Faq({ t, items }: { lang: Lang; t: HomeCopy; items: readonly { n
                   onClick={() => setOpenIndex(isOpen ? null : i)}
                   className="group w-full flex items-center justify-between gap-4 sm:gap-8 md:gap-12 py-4 sm:py-5 md:py-6 lg:py-4 xl:py-6 text-start cursor-pointer focus-ring"
                 >
-                  <span className="font-display text-teal text-[36px] sm:text-[56px] md:text-[80px] lg:text-[88px] xl:text-[96px] leading-[0.4] text-center tabular-nums w-[44px] sm:w-[80px] md:w-[110px] lg:w-[110px] xl:w-[120px] shrink-0 transition-colors duration-300 group-hover:text-ink">
+                  <span className="font-display text-cyan text-[36px] sm:text-[56px] md:text-[80px] lg:text-[88px] xl:text-[96px] leading-[0.4] text-center tabular-nums w-[44px] sm:w-[80px] md:w-[110px] lg:w-[110px] xl:w-[120px] shrink-0 transition-colors duration-300 group-hover:text-ink">
                     {item.n}
                   </span>
                   <span className="flex-1 font-sans font-extrabold text-ink text-[16px] sm:text-[20px] md:text-[24px] leading-[1.3] text-start">
