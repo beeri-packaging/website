@@ -35,10 +35,10 @@ type ContactDialogProps = {
 
 /** Underline-style field shared by every text input/textarea (Figma spec). */
 const FIELD_CLASS =
-  "w-full border-b-2 border-ink/20 bg-transparent px-3 pb-3 pt-[9px] font-sans text-[20px] leading-[25px] text-ink text-start outline-none transition-colors placeholder:text-clay-soft/55 focus:border-ink aria-[invalid=true]:border-magenta";
+  "w-full border-b-2 border-ink/20 bg-transparent px-3 pb-2.5 pt-[9px] font-sans text-[17px] leading-[24px] text-ink text-start outline-none transition-colors placeholder:text-clay-soft/55 focus:border-ink aria-[invalid=true]:border-magenta sm:pb-3 sm:text-[20px] sm:leading-[25px]";
 
 const LABEL_CLASS =
-  "font-sans text-[16px] font-light leading-[25px] tracking-[-0.16px] text-clay text-start";
+  "font-sans text-[14px] font-light leading-[22px] tracking-[-0.16px] text-clay text-start sm:text-[16px] sm:leading-[25px]";
 
 export function ContactDialog({ lang, open, onOpenChange }: ContactDialogProps) {
   const copy = contactCopy[lang];
@@ -121,17 +121,17 @@ export function ContactDialog({ lang, open, onOpenChange }: ContactDialogProps) 
           </span>
         </DialogClose>
 
-        <DialogMain className="px-6 pb-10 pt-14 sm:px-12 sm:pb-12 md:px-16 md:pt-[56px] md:pb-[48px]">
+        <DialogMain className="px-5 pb-6 pt-12 sm:px-12 sm:pb-10 sm:pt-14 md:px-16 md:pt-11 md:pb-8">
           {submitted ? (
             <SuccessPanel copy={copy} />
           ) : (
-            <div className="flex flex-col gap-10 md:gap-12">
+            <div className="flex flex-col gap-6 sm:gap-9 md:gap-10">
               {/* Header — yellow accent rule on the inline-start edge. */}
-              <header className="flex w-full flex-col gap-2 border-s-4 border-magenta ps-7 text-start">
+              <header className="flex w-full flex-col gap-2 border-s-4 border-magenta ps-5 text-start sm:ps-7">
                 <span className="font-sans text-[12px] font-extrabold uppercase tracking-[0.96px] text-clay">
                   {copy.eyebrow}
                 </span>
-                <DialogTitle className="text-logo-dark text-[36px] leading-[0.85] sm:text-[52px] md:text-[60px] lg:text-[68px]">
+                <DialogTitle className="text-logo-dark text-[36px] leading-[0.85] sm:text-[48px] md:text-[56px] lg:text-[64px]">
                   {copy.title}
                 </DialogTitle>
                 <DialogDescription className="sr-only">
@@ -140,7 +140,7 @@ export function ContactDialog({ lang, open, onOpenChange }: ContactDialogProps) 
               </header>
 
               <form
-                className="grid w-full grid-cols-1 gap-x-12 gap-y-10 sm:grid-cols-2"
+                className="grid w-full grid-cols-1 gap-x-8 gap-y-5 sm:grid-cols-2 sm:gap-y-7 md:gap-x-12 md:gap-y-8"
                 onSubmit={handleSubmit}
                 noValidate
               >
@@ -227,7 +227,7 @@ export function ContactDialog({ lang, open, onOpenChange }: ContactDialogProps) 
                     name="details"
                     rows={3}
                     placeholder={copy.form.details.placeholder}
-                    className={`${FIELD_CLASS} resize-none pb-4`}
+                    className={`${FIELD_CLASS} h-[76px] resize-none pb-3 sm:h-auto sm:pb-4`}
                   />
                 </div>
 
@@ -246,7 +246,7 @@ export function ContactDialog({ lang, open, onOpenChange }: ContactDialogProps) 
                 </div>
 
                 {/* Submit row — button on the inline-end, consent on the inline-start. */}
-                <div className="mt-2 flex flex-col-reverse items-stretch justify-between gap-6 sm:col-span-2 sm:flex-row sm:items-center">
+                <div className="flex flex-col-reverse items-stretch justify-between gap-4 sm:col-span-2 sm:flex-row sm:items-center sm:gap-6">
                   <div className="flex flex-col gap-2">
                     <p className="max-w-[320px] font-sans text-[12px] font-extrabold uppercase leading-[16px] tracking-[0.08em] text-clay text-start">
                       {copy.form.consent}
@@ -264,7 +264,7 @@ export function ContactDialog({ lang, open, onOpenChange }: ContactDialogProps) 
                     type="submit"
                     disabled={isPending}
                     aria-busy={isPending}
-                    className="group inline-flex shrink-0 items-center justify-center gap-3 border border-ink bg-cyan px-12 py-5 font-sans text-[14px] font-bold tracking-[0.08em] text-yellow-deep shadow-[8px_8px_0_var(--yellow)] transition-transform duration-300 hover:-translate-y-0.5 focus-ring disabled:cursor-not-allowed disabled:opacity-70"
+                    className="group inline-flex shrink-0 items-center justify-center gap-3 border border-ink bg-cyan px-8 py-4 font-sans text-[14px] font-bold tracking-[0.08em] text-yellow-deep shadow-[8px_8px_0_var(--yellow)] transition-transform duration-300 hover:-translate-y-0.5 focus-ring disabled:cursor-not-allowed disabled:opacity-70 sm:px-12 sm:py-5"
                   >
                     {isPending ? copy.form.sending : copy.form.submit}
                     <span
@@ -472,7 +472,7 @@ function ReasonSelect({
         data-open={open}
         onClick={() => (open ? close() : openMenu())}
         onKeyDown={handleKeyDown}
-        className="flex w-full items-center justify-between gap-2 border-b-2 border-ink/20 bg-transparent px-3 pb-3 pt-[9px] font-sans text-[20px] leading-[25px] text-start outline-none transition-colors focus-visible:border-ink data-[open=true]:border-ink aria-[invalid=true]:border-magenta"
+        className="flex w-full items-center justify-between gap-2 border-b-2 border-ink/20 bg-transparent px-3 pb-2.5 pt-[9px] font-sans text-[17px] leading-[24px] text-start outline-none transition-colors focus-visible:border-ink data-[open=true]:border-ink aria-[invalid=true]:border-magenta sm:pb-3 sm:text-[20px] sm:leading-[25px]"
       >
         <span className={selected ? "text-ink" : "text-clay-soft/55"}>
           {selected ? selected.label : placeholder}
@@ -503,7 +503,7 @@ function ReasonSelect({
                 aria-selected={isSelected}
                 onMouseEnter={() => setActive(index)}
                 onClick={() => choose(index)}
-                className={`cursor-pointer px-3 py-2.5 font-sans text-[18px] leading-[24px] text-start transition-colors ${
+                className={`cursor-pointer px-3 py-2.5 font-sans text-[16px] leading-[22px] text-start transition-colors sm:text-[18px] sm:leading-[24px] ${
                   isActive ? "bg-sand" : ""
                 } ${isSelected ? "font-semibold text-magenta-deep" : "text-ink"}`}
               >
@@ -519,14 +519,14 @@ function ReasonSelect({
 
 function SuccessPanel({ copy }: { copy: (typeof contactCopy)[Lang] }) {
   return (
-    <div className="flex min-h-[320px] flex-col items-start justify-center gap-5 border-s-4 border-yellow ps-7 text-start">
+    <div className="flex min-h-[280px] flex-col items-start justify-center gap-5 border-s-4 border-yellow ps-5 text-start sm:min-h-[320px] sm:ps-7">
       <span
-        className="inline-flex size-14 items-center justify-center border border-ink bg-yellow text-yellow-deep shadow-[6px_6px_0_var(--yellow)]"
+        className="inline-flex size-12 items-center justify-center border border-ink bg-yellow text-yellow-deep shadow-[6px_6px_0_var(--yellow)] sm:size-14"
         aria-hidden
       >
         <CheckGlyph />
       </span>
-      <DialogTitle className="text-[44px] leading-[0.96] sm:text-[56px]">
+      <DialogTitle className="text-[38px] leading-[0.96] sm:text-[56px]">
         {copy.success.title}
       </DialogTitle>
       <DialogDescription className="max-w-[44ch] font-sans text-[16px] leading-[1.6] text-clay">
