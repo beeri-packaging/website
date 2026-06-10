@@ -16,7 +16,7 @@ export function AboutTimeline({
   milestones: readonly AboutMilestone[];
 }) {
   return (
-    <section className="bg-blueprint text-bone">
+    <section id="timeline" className="bg-blueprint text-bone scroll-mt-[80px]">
       <div className="mx-auto w-full max-w-[1152px] px-5 py-20 sm:px-8 md:py-28 lg:px-0">
         <div className="reveal max-w-[640px] text-start">
           <div className="mb-3 flex items-center gap-3 text-cyan">

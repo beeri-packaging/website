@@ -38,7 +38,7 @@ export function AboutPageDesign({ copy }: { copy: AboutCopy }) {
       </section>
 
       {/* 2 — HERITAGE / PARENT GROUP */}
-      <section className="mx-auto w-full max-w-[1152px] px-5 pb-20 sm:px-8 md:pb-28 lg:px-0">
+      <section id="heritage" className="mx-auto w-full max-w-[1152px] px-5 pb-20 sm:px-8 md:pb-28 lg:px-0 scroll-mt-[80px]">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="reveal text-start lg:col-span-7">
             <Eyebrow>{copy.heritageEyebrow}</Eyebrow>
@@ -118,7 +118,7 @@ export function AboutPageDesign({ copy }: { copy: AboutCopy }) {
       />
 
       {/* 4 — BY THE NUMBERS */}
-      <section className="mx-auto w-full max-w-[1152px] px-5 py-20 sm:px-8 md:py-28 lg:px-0">
+      <section id="numbers" className="mx-auto w-full max-w-[1152px] px-5 py-20 sm:px-8 md:py-28 lg:px-0 scroll-mt-[80px]">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-7">
             <div className="reveal text-start">
@@ -184,7 +184,7 @@ export function AboutPageDesign({ copy }: { copy: AboutCopy }) {
       </section>
 
       {/* 5 — PARTNERS / CLIENTS (full-bleed magenta band) */}
-      <section className="w-full border-t border-ink bg-magenta">
+      <section id="clients" className="w-full border-t border-ink bg-magenta scroll-mt-[80px]">
         <div className="mx-auto w-full max-w-[1152px] px-5 py-16 sm:px-8 md:py-24 lg:px-0">
           <div className="reveal flex flex-col items-start gap-2 text-start">
             <span className="font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-cyan">
