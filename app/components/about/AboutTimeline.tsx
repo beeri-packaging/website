@@ -29,9 +29,10 @@ export function AboutTimeline({
         </div>
 
         <div className="relative mt-14">
-          {/* Dieline-style dashed track running behind the dots (desktop only). */}
+          {/* Soft track running behind the dots (desktop only) — a straight
+              hairline that fades out toward both ends. */}
           <span
-            className="absolute inset-x-0 top-[5px] hidden border-t border-dashed border-cyan/50 md:block"
+            className="absolute inset-x-0 top-[5px] hidden h-px bg-gradient-to-r from-transparent via-cyan/40 to-transparent md:block"
             aria-hidden
           />
           <ol className="grid gap-10 md:grid-cols-5 md:gap-x-6">
