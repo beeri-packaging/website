@@ -261,7 +261,7 @@ export const careersQuery = defineQuery(`*[_type == "careers" && language == $lo
   articles[]{ tag, meta, title, body, cta, theme,
     "imageUrl": image.asset->url, "imageLegacy": image.legacyImagePath },
   filters[]{ key, label },
-  roles[]{ code, status, title, scope, location, department }
+  roles[]{ code, status, title, scope, location, department, description, highlights }
 }`);
 
 export async function getCareers(locale: Lang) {
