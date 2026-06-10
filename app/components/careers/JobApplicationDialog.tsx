@@ -255,11 +255,6 @@ export function JobApplicationDialog({
         <DialogAside className="bg-ink text-bone">
           <div className="flex h-full flex-col justify-between p-10 lg:p-12">
             <div className="flex flex-col gap-8">
-              <div className="inline-flex w-fit items-center gap-2 border border-cyan bg-cyan px-2.5 py-1 font-sans text-[10px] font-bold tracking-[0.04em] text-cyan-deep">
-                <span className="opacity-70">{copy.aside.codeLabel}:</span>
-                <span>{role?.code ?? "—"}</span>
-              </div>
-
               {role?.description || role?.highlights?.length ? (
                 <>
                   <RoleDetails role={role} copy={copy} dark />

@@ -17,8 +17,6 @@ export type JobApplicationCopy = {
     detailsTitle: string;
     lead: string;
     perks: readonly JobApplicationPerk[];
-    /** Small label above the role code, mirrors the spec-sheet מק״ט tag. */
-    codeLabel: string;
     /** Fallback heading when no specific role is being applied to. */
     fallbackTitle: string;
     /** Secondary action — opens the global contact dialog for a general question. */
@@ -75,7 +73,6 @@ export const jobApplicationCopy: Record<Lang, JobApplicationCopy> = {
           body: "מפעל מתקדם והזדמנות אמיתית ללמוד את כל שרשרת הייצור ולצמוח מקצועית.",
         },
       ],
-      codeLabel: "מק״ט",
       fallbackTitle: "הגשת מועמדות",
       inquire: "יש לי שאלה — לפנייה כללית",
     },
@@ -129,7 +126,6 @@ export const jobApplicationCopy: Record<Lang, JobApplicationCopy> = {
           body: "An advanced plant and a real chance to learn the full production chain and grow professionally.",
         },
       ],
-      codeLabel: "SKU",
       fallbackTitle: "Apply now",
       inquire: "Have a question — general inquiry",
     },
