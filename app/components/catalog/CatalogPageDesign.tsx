@@ -253,9 +253,11 @@ export function CatalogPageDesign({ copy, lang }: { copy: CatalogCopy; lang: Lan
     <CatalogModalProvider lang={lang}>
       <div className="bg-bone pb-24 sm:pb-32">
         <CatalogHero copy={copy} />
-        {copy.categories.map((category) => (
-          <CategorySection key={category.key} category={category} />
-        ))}
+        <div id="catalog" className="scroll-mt-[80px]">
+          {copy.categories.map((category) => (
+            <CategorySection key={category.key} category={category} />
+          ))}
+        </div>
       </div>
     </CatalogModalProvider>
   );

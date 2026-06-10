@@ -85,7 +85,7 @@ export function CareersRoles({
   title: string;
 }) {
   return (
-    <section className="mx-auto w-full max-w-[1280px] px-5 pb-24 sm:px-8 md:px-12 lg:px-20">
+    <section id="roles" className="mx-auto w-full max-w-[1280px] px-5 pb-24 sm:px-8 md:px-12 lg:px-20 scroll-mt-[80px]">
       <div className="reveal flex flex-col gap-6 border-b border-ink pb-6 md:flex-row md:items-end md:justify-between">
         <h2 className="flex items-center gap-4 font-display text-[56px] font-bold leading-none text-ink sm:text-[64px]">
           <span className="h-7 w-7 bg-yellow" aria-hidden />
