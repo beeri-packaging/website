@@ -33,11 +33,15 @@ export function Header({
           }}
           className="block shrink-0 focus-ring rounded-sm transition-opacity hover:opacity-80"
         >
+          {/* Fixed header → always above the fold; on pages without a hero
+              image the logo is the LCP element, so load it with priority. */}
           <Image
             src={lang === "he" ? chrome.logoHe : chrome.logoEn}
             alt={lang === "he" ? "בארי אריזות" : "Beeri Packaging"}
             width={249}
             height={64}
+            preload
+            fetchPriority="high"
             className="h-11 sm:h-12 md:h-14 w-auto"
           />
         </Link>

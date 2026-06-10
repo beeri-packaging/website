@@ -19,6 +19,9 @@ export function Hero({ lang, t, heroImage }: { lang: Lang; t: HomeCopy; heroImag
           alt=""
           fill
           preload
+          // The hero is the LCP element on every viewport: jump the queue
+          // ahead of the lazy below-fold images on a throttled connection.
+          fetchPriority="high"
           sizes="100vw"
           className="object-cover scale-[1.04] motion-safe:transition-transform motion-safe:duration-[3000ms] motion-safe:ease-out"
         />
