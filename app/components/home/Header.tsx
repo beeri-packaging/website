@@ -11,11 +11,13 @@ export function Header({
   menuOpen,
   setMenuOpen,
   chrome,
+  logoPriority = false,
 }: {
   lang: Lang;
   menuOpen: boolean;
   setMenuOpen: (b: boolean) => void;
   chrome: Chrome;
+  logoPriority?: boolean;
 }) {
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-bone/85 backdrop-blur-md border-b border-bone-line">
@@ -40,8 +42,8 @@ export function Header({
             alt={lang === "he" ? "בארי אריזות" : "Beeri Packaging"}
             width={249}
             height={64}
-            preload
-            fetchPriority="high"
+            preload={logoPriority}
+            fetchPriority={logoPriority ? "high" : undefined}
             className="h-11 sm:h-12 md:h-14 w-auto"
           />
         </Link>

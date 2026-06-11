@@ -107,8 +107,9 @@ function JourneyCard({
             // tablet/desktop. Keep the browser's chosen image close to the
             // real card width; oversized lazy panels were the main PageSpeed
             // "image delivery" finding on the home page.
-            sizes="(min-width: 1280px) 50vw, (min-width: 768px) 58vw, 100vw"
-            quality={70}
+            sizes="(min-width: 1280px) 50vw, (min-width: 768px) 58vw, 34vw"
+            quality={60}
+            fetchPriority="low"
             className="object-cover"
             preload={priority}
           />

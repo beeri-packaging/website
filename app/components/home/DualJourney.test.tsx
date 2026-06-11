@@ -58,9 +58,11 @@ describe("DualJourney", () => {
 
   it("keeps journey image requests close to the rendered card size", () => {
     render(<DualJourney lang="en" t={homeCopy.en} panels={panels} />);
-    expect(screen.getByAltText("Title customer")).toHaveAttribute(
+    const image = screen.getByAltText("Title customer");
+    expect(image).toHaveAttribute(
       "sizes",
-      "(min-width: 1280px) 50vw, (min-width: 768px) 58vw, 100vw",
+      "(min-width: 1280px) 50vw, (min-width: 768px) 58vw, 34vw",
     );
+    expect(image).toHaveAttribute("fetchPriority", "low");
   });
 });

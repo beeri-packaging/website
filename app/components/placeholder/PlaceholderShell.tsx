@@ -60,6 +60,7 @@ export function PlaceholderShell({
           menuOpen={menuOpen}
           setMenuOpen={setMenuOpen}
           chrome={resolved}
+          logoPriority
         />
         <MobileDrawer
           open={menuOpen}

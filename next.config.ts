@@ -17,10 +17,11 @@ const nextConfig: NextConfig = {
     // Next 16 requires non-default quality values to be opted into here.
     // Everything now ships at the q75 default (the journey panels dropped
     // their q90 override — it doubled the bytes competing with the hero LCP);
-    // 70 is used for below-fold journey imagery, while 75 remains the default.
+    // 60/70 are used for below-fold journey imagery, while 75 remains the default.
     // 90 stays allowed so q=90 URLs in already-cached prerendered HTML keep
     // resolving instead of 400ing.
-    qualities: [70, 75, 90],
+    qualities: [60, 70, 75, 90],
+    formats: ["image/avif", "image/webp"],
     // Keep optimized variants cached for a year. The cache is keyed by the
     // source + transform params, so a changed source still yields a fresh
     // entry — this only lifts repeat-view delivery.

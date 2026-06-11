@@ -19,10 +19,10 @@ export function Hero({ lang, t, heroImage }: { lang: Lang; t: HomeCopy; heroImag
           alt=""
           fill
           preload
-          // The hero is the LCP element on every viewport: jump the queue
-          // ahead of the lazy below-fold images on a throttled connection.
+          // The hero is the LCP element. Lighthouse expects the preload
+          // request itself to carry a high priority hint on throttled mobile.
           fetchPriority="high"
-          sizes="100vw"
+          sizes="(max-width: 767px) 80vw, 100vw"
           className="object-cover scale-[1.04] motion-safe:transition-transform motion-safe:duration-[3000ms] motion-safe:ease-out"
         />
         <div className="absolute inset-x-0 bottom-0 h-[260px] sm:h-[340px] md:h-[420px] bg-gradient-to-t from-bone via-bone/70 to-transparent" />
@@ -40,12 +40,11 @@ export function Hero({ lang, t, heroImage }: { lang: Lang; t: HomeCopy; heroImag
       <div className="pointer-events-none absolute inset-y-0 right-8 lg:right-16 hidden lg:block w-px bg-gradient-to-b from-transparent via-ink/10 to-transparent" />
 
       <div className="relative flex flex-col items-center gap-4 sm:gap-6 text-center px-5 sm:px-6 max-w-[742px] w-full">
-        <Eyebrow className="animate-rise">{t.eyebrow}</Eyebrow>
+        <Eyebrow>{t.eyebrow}</Eyebrow>
 
         <h1
-          className="font-display font-bold text-ink leading-[0.82] sm:leading-[0.74] md:leading-[0.7] animate-rise"
+          className="font-display font-bold text-ink leading-[0.82] sm:leading-[0.74] md:leading-[0.7]"
           style={{
-            animationDelay: "120ms",
             fontSize: "clamp(48px, 13.5vw, 128px)",
           }}
         >
@@ -54,8 +53,7 @@ export function Hero({ lang, t, heroImage }: { lang: Lang; t: HomeCopy; heroImag
         </h1>
 
         <div
-          className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4 sm:pt-6 w-full sm:w-auto animate-rise"
-          style={{ animationDelay: "240ms" }}
+          className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4 sm:pt-6 w-full sm:w-auto"
         >
           <ContactTriggerButton
             className={cn(buttonVariants({ variant: "primary", size: "md" }), "group")}
