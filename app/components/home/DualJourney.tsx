@@ -1,34 +1,11 @@
-"use client";
-
-import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import type { HomeCopy, Lang } from "@/app/content/home";
 import type { HomeJourneyPanel } from "@/sanity/queries";
-import { createRevealObserver } from "@/lib/revealObserver";
 import { ArrowRtl } from "./icons";
+import { JourneyRevealObserver } from "./JourneyRevealObserver";
 
 export function DualJourney({ lang, t, panels }: { lang: Lang; t: HomeCopy; panels: readonly HomeJourneyPanel[] }) {
-  const stackRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    // Add `is-visible` to each card once it intersects the viewport.
-    // We do this with IntersectionObserver instead of CSS scroll-driven
-    // animations because view() timelines freeze when their element gets
-    // pinned by position: sticky, leaving cards stuck at opacity 0.
-    const stack = stackRef.current;
-    if (!stack) return;
-    const cards = stack.querySelectorAll<HTMLElement>(".journey-card-reveal");
-    // Wider threshold/margin than the generic .reveal — these cards are large
-    // and we want them committed before they're fully on screen.
-    const observer = createRevealObserver({
-      threshold: 0.18,
-      rootMargin: "0px 0px -10% 0px",
-    });
-    cards.forEach((card) => observer.observe(card));
-    return () => observer.disconnect();
-  }, []);
-
   const rows: HomeJourneyPanel[][] = [];
   for (let i = 0; i < panels.length; i += 2) {
     rows.push(panels.slice(i, i + 2));
@@ -65,7 +42,8 @@ export function DualJourney({ lang, t, panels }: { lang: Lang; t: HomeCopy; pane
        * non-sticky stack (a pinned sticky element freezes its own view()
        * timeline). See globals.css for the timeline wiring.
        */}
-      <div ref={stackRef} className="journey-stack relative">
+      <JourneyRevealObserver rootId="journey" />
+      <div className="journey-stack relative">
         {rows.map((row, rowIndex) => (
           <div
             key={rowIndex}
@@ -125,14 +103,12 @@ function JourneyCard({
             src={panel.src}
             alt={panel.title}
             fill
-            // Overrequest ~20% beyond the card width so the parallax
-            // scale(1.22) inside .parallax-img doesn't upscale a tighter
-            // crop. 60vw on desktop, 70vw on tablet, full width on mobile.
-            // Default q75 (same as the hero, which renders even larger):
-            // sharpness under the parallax scale is covered by the width
-            // overrequest above, and q90 doubled the bytes these six panels
-            // pull in during initial load, competing with the hero LCP.
-            sizes="(min-width: 1280px) 60vw, (min-width: 768px) 70vw, 100vw"
+            // These cards are one column of a two-column sticky deck on
+            // tablet/desktop. Keep the browser's chosen image close to the
+            // real card width; oversized lazy panels were the main PageSpeed
+            // "image delivery" finding on the home page.
+            sizes="(min-width: 1280px) 50vw, (min-width: 768px) 58vw, 100vw"
+            quality={70}
             className="object-cover"
             preload={priority}
           />
