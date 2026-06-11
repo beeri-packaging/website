@@ -59,6 +59,8 @@ export type HomeCopy = {
   bento1Body: string;
   bento2Title: string;
   bento2Body: string;
+  /** Accessible name for the image-only bento card that links to the catalog. */
+  bentoCatalogLabel: string;
   badge1: string;
   badge2: string;
   faqEyebrow: string;
@@ -163,6 +165,7 @@ export const homeCopy: Record<Lang, HomeCopy> = {
     bento1Body: "חיתוך צורני שבונה את מבנה הקופסה — הפתחים, החלונות והקיפולים — בדיוק שהמוצר דורש.",
     bento2Title: "מעבדת פיתוח",
     bento2Body: "בודקים חומרים, מבנים, חיזוקים וחוויית פתיחה, והופכים רעיון לאריזה שאפשר לייצר בקנה מידה.",
+    bentoCatalogLabel: "לקטלוג האריזות",
     badge1: "350 גרם",
     badge2: "חומר ניתן למחזור",
     faqEyebrow: "שאלות נפוצות",
@@ -189,6 +192,7 @@ export const homeCopy: Record<Lang, HomeCopy> = {
     bento1Body: "A profile cut that builds the box itself — openings, windows and folds exactly where the product needs them.",
     bento2Title: "Material lab",
     bento2Body: "We test stock, structures, reinforcements and the opening experience, turning an idea into a package you can produce at scale.",
+    bentoCatalogLabel: "Browse the packaging catalog",
     badge1: "350 gsm",
     badge2: "Recyclable stock",
     faqEyebrow: "FAQ",

@@ -49,6 +49,9 @@ export async function generateMetadata({
       siteName: t("siteName"),
       locale,
       type: "website",
+      // Explicit openGraph objects replace the parent's resolved one, which
+      // drops the app/opengraph-image.png file convention — re-attach it.
+      images: ["/opengraph-image.png"],
     },
   };
 }

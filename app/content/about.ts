@@ -157,17 +157,16 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
 
     partnersEyebrow: "מבין לקוחותינו",
     partnersTitle: "שותפות מנצחת",
-    // Names sourced from the company deck (slides 7–9). Rendered as wordmarks until logo
-    // files are dropped into /public/images/clients/ and referenced via the `logo` field.
+    // Names sourced from the company deck (slides 7–9).
     clients: [
-      { name: "Strauss" },
-      { name: "Osem" },
-      { name: "Tnuva" },
-      { name: "Elite" },
-      { name: "SodaStream" },
-      { name: "Moroccanoil" },
-      { name: "AHAVA" },
-      { name: "Dr. Fischer" },
+      { name: "Strauss", logo: "/images/clients/strauss.svg" },
+      { name: "Osem", logo: "/images/clients/osem.svg" },
+      { name: "Tnuva", logo: "/images/clients/tnuva.svg" },
+      { name: "Elite", logo: "/images/clients/elite.png" },
+      { name: "SodaStream", logo: "/images/clients/sodastream.svg" },
+      { name: "Moroccanoil", logo: "/images/clients/moroccanoil.png" },
+      { name: "AHAVA", logo: "/images/clients/ahava.svg" },
+      { name: "Dr. Fischer", logo: "/images/clients/dr-fischer.png" },
     ],
 
     ctaTitle: "בואו נתכנן יחד את האריזה הבאה שלכם.",
@@ -198,13 +197,15 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
       },
       {
         year: "1950",
-        name: "Be'eri Printers",
+        name: "Beeri Print",
         body: "The Negev's first printing house, owned by Kibbutz Be'eri.",
       },
     ],
     heritageImageCaption: "From the group's printing heritage",
     groupLinkLabel: "Visit the group site",
-    groupLinkHref: "https://en.beeriprint.co.il",
+    // The group site exists only in Hebrew — en.beeriprint.co.il is a dead
+    // parking domain with an expired certificate.
+    groupLinkHref: "https://beeriprint.co.il",
 
     timelineEyebrow: "Milestones",
     timelineTitle: "Coming together, growing",
@@ -252,17 +253,16 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
 
     partnersEyebrow: "Among our clients",
     partnersTitle: "Winning partnerships",
-    // Names sourced from the company deck (slides 7–9). Rendered as wordmarks until logo
-    // files are dropped into /public/images/clients/ and referenced via the `logo` field.
+    // Names sourced from the company deck (slides 7–9).
     clients: [
-      { name: "Strauss" },
-      { name: "Osem" },
-      { name: "Tnuva" },
-      { name: "Elite" },
-      { name: "SodaStream" },
-      { name: "Moroccanoil" },
-      { name: "AHAVA" },
-      { name: "Dr. Fischer" },
+      { name: "Strauss", logo: "/images/clients/strauss.svg" },
+      { name: "Osem", logo: "/images/clients/osem.svg" },
+      { name: "Tnuva", logo: "/images/clients/tnuva.svg" },
+      { name: "Elite", logo: "/images/clients/elite.png" },
+      { name: "SodaStream", logo: "/images/clients/sodastream.svg" },
+      { name: "Moroccanoil", logo: "/images/clients/moroccanoil.png" },
+      { name: "AHAVA", logo: "/images/clients/ahava.svg" },
+      { name: "Dr. Fischer", logo: "/images/clients/dr-fischer.png" },
     ],
 
     ctaTitle: "Let's plan your next package together.",

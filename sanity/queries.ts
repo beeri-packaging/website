@@ -55,6 +55,7 @@ export type HomeDoc = {
   bento1Body: string;
   bento2Title: string;
   bento2Body: string;
+  bentoCatalogLabel?: string;
   badge1: string;
   badge2: string;
   faqEyebrow: string;
@@ -119,6 +120,7 @@ export function toHomeCopy(doc: HomeDoc | null, locale: Lang): HomeCopy {
     bento1Body: doc.bento1Body ?? fallback.bento1Body,
     bento2Title: doc.bento2Title ?? fallback.bento2Title,
     bento2Body: doc.bento2Body ?? fallback.bento2Body,
+    bentoCatalogLabel: doc.bentoCatalogLabel ?? fallback.bentoCatalogLabel,
     badge1: doc.badge1 ?? fallback.badge1,
     badge2: doc.badge2 ?? fallback.badge2,
     faqEyebrow: doc.faqEyebrow ?? fallback.faqEyebrow,
@@ -261,7 +263,7 @@ export const careersQuery = defineQuery(`*[_type == "careers" && language == $lo
   articles[]{ tag, meta, title, body, cta, theme,
     "imageUrl": image.asset->url, "imageLegacy": image.legacyImagePath },
   filters[]{ key, label },
-  roles[]{ code, status, title, scope, location, department }
+  roles[]{ code, status, title, scope, location, department, description, highlights }
 }`);
 
 export async function getCareers(locale: Lang) {

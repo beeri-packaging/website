@@ -9,6 +9,7 @@ import { Faq } from "@/app/components/home/Faq";
 import { CallToAction } from "@/app/components/home/CallToAction";
 import { Footer } from "@/app/components/home/Footer";
 import { StickyContact } from "@/app/components/home/StickyContact";
+import { FaqJsonLd } from "@/app/components/seo/JsonLd";
 
 export default async function Home({
   params,
@@ -29,6 +30,7 @@ export default async function Home({
         <Hero lang={lang} t={home.copy} heroImage={home.heroImage} />
         <DualJourney lang={lang} t={home.copy} panels={home.journeyPanels} />
         <TechnicalExcellence lang={lang} t={home.copy} capabilities={home.capabilities} bentoServiceImage={home.bentoServiceImage} />
+        <FaqJsonLd items={home.faqItems} locale={lang} />
         <Faq lang={lang} t={home.copy} items={home.faqItems} />
         <CallToAction lang={lang} t={home.copy} />
       </main>

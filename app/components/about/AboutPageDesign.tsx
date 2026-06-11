@@ -198,16 +198,17 @@ export function AboutPageDesign({ copy }: { copy: AboutCopy }) {
           <ul className="mt-10 grid grid-cols-2 gap-5 sm:grid-cols-3 md:mt-16 md:gap-6 lg:grid-cols-4">
             {copy.clients.map((client) => (
               <li key={client.name} className="reveal">
-                <div className="flex aspect-[3/2] items-center justify-center border-2 border-ink bg-bone p-6 shadow-[6px_6px_0_var(--ink)]">
+                <div className="flex aspect-[3/2] items-center justify-center border-2 border-ink bg-bone p-4 shadow-[6px_6px_0_var(--ink)]">
                   {client.logo ? (
-                    <Image
-                      src={client.logo}
-                      alt={client.name}
-                      width={200}
-                      height={96}
-                      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-                      className="h-auto max-h-[72px] w-auto max-w-full object-contain grayscale"
-                    />
+                    <span className="relative block h-[clamp(72px,8vw,112px)] w-[92%]">
+                      <Image
+                        src={client.logo}
+                        alt={client.name}
+                        fill
+                        sizes="(min-width: 1024px) 18vw, (min-width: 640px) 26vw, 38vw"
+                        className="object-contain mix-blend-multiply"
+                      />
+                    </span>
                   ) : (
                     <span className="text-center font-sans text-[clamp(15px,2.2vw,21px)] font-extrabold uppercase tracking-[0.02em] text-ink">
                       {client.name}

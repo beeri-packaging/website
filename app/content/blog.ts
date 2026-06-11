@@ -176,7 +176,7 @@ export const blogPosts: readonly BlogPost[] = [
   {
     slug: "finishing-language",
     date: "2026-05-20",
-    read: { he: "6 דקות", en: "6 min read" },
+    read: { he: "2 דקות", en: "2 min read" },
     category: "trends",
     image: "/images/generated/hero-new-style/hero-new-style-01-wine-foil.png",
     author: STUDIO,
@@ -239,7 +239,7 @@ export const blogPosts: readonly BlogPost[] = [
   {
     slug: "anatomy-of-a-wine-carton",
     date: "2026-05-12",
-    read: { he: "5 דקות", en: "5 min read" },
+    read: { he: "2 דקות", en: "2 min read" },
     category: "structural",
     image:
       "/images/generated/website-content/packaging/gold-wine-insert-handle-box.png",
@@ -302,7 +302,7 @@ export const blogPosts: readonly BlogPost[] = [
   {
     slug: "recyclable-stock-2026",
     date: "2026-04-28",
-    read: { he: "5 דקות", en: "5 min read" },
+    read: { he: "2 דקות", en: "2 min read" },
     category: "sustainability",
     image:
       "/images/generated/website-content/packaging/kraft-sweets-window-box.png",
@@ -366,7 +366,7 @@ export const blogPosts: readonly BlogPost[] = [
   {
     slug: "digital-vs-offset",
     date: "2026-04-09",
-    read: { he: "5 דקות", en: "5 min read" },
+    read: { he: "2 דקות", en: "2 min read" },
     category: "floor",
     image:
       "/images/generated/hero-new-style/hero-new-style-05-diecut-process.png",
@@ -430,7 +430,7 @@ export const blogPosts: readonly BlogPost[] = [
   {
     slug: "from-sketch-to-prototype",
     date: "2026-03-30",
-    read: { he: "5 דקות", en: "5 min read" },
+    read: { he: "2 דקות", en: "2 min read" },
     category: "studio",
     image:
       "/images/generated/website-content/packaging/open-capability-presentation-box.png",
@@ -449,14 +449,14 @@ export const blogPosts: readonly BlogPost[] = [
       ],
       quote: {
         text: "דגם אחד ביד שווה יותר מעשרה מסכי תלת-ממד — הוא חושף את מה שהמסך מסתיר.",
-        cite: "— מתוך התובנות של בארי אריזות",
+        cite: "— מתוך היומן של בארי אריזות",
       },
       sections: [
         {
           heading: "סקיצה, דייליין ודגם",
           body: "מתחילים בסקיצה גסה שמגדירה גודל ופתיחה, ממשיכים לדייליין מדויק שמתרגם את הרעיון לקווי חיתוך וקיפול, ומסיימים בדגם חתוך ביד מאותו קרטון שיֵצא בפועל. כך בודקים שהאריזה נסגרת, יציבה ונוחה לפתיחה לפני שמתחייבים לייצור.",
           image:
-            "/images/generated/website-content/packaging/closed-textured-capability-box.png",
+            "/images/generated/hero-new-style/hero-new-style-05-diecut-process.png",
         },
         {
           heading: "מה הדגם חושף",
@@ -475,14 +475,14 @@ export const blogPosts: readonly BlogPost[] = [
       ],
       quote: {
         text: "One prototype in hand beats ten 3D renders — it reveals what the screen hides.",
-        cite: "— From the Beeri Packaging insights",
+        cite: "— From the Beeri Packaging journal",
       },
       sections: [
         {
           heading: "Sketch, dieline and model",
           body: "We start with a rough sketch that sets size and opening, move to a precise dieline that translates the idea into cut and fold lines, and finish with a model hand-cut from the same board the job will run on. That confirms the package closes, stands and opens well before we commit to production.",
           image:
-            "/images/generated/website-content/packaging/closed-textured-capability-box.png",
+            "/images/generated/hero-new-style/hero-new-style-05-diecut-process.png",
         },
         {
           heading: "What the model reveals",
@@ -494,7 +494,7 @@ export const blogPosts: readonly BlogPost[] = [
   {
     slug: "display-windows",
     date: "2026-03-18",
-    read: { he: "4 דקות", en: "4 min read" },
+    read: { he: "2 דקות", en: "2 min read" },
     category: "structural",
     image:
       "/images/generated/website-content/packaging/cosmetics-drawer-window-sleeve.png",
@@ -513,14 +513,14 @@ export const blogPosts: readonly BlogPost[] = [
       ],
       quote: {
         text: "חלון טוב מראה בדיוק את מה שצריך — ולא סנטימטר יותר.",
-        cite: "— מתוך התובנות של בארי אריזות",
+        cite: "— מתוך היומן של בארי אריזות",
       },
       sections: [
         {
           heading: "מתי חלון עובד",
           body: "חלון משתלם כשהמוצר עצמו הוא נקודת המכירה: ממתק, מוצר טיפוח או פריט בעל צבע וצורה ייחודיים. במקרים האלה החלון מקצר את ההחלטה של הלקוח במדף. כדאי למקם אותו במקום שמראה את החלק היפה של המוצר ולא את האריזה הפנימית.",
           image:
-            "/images/generated/website-content/packaging/kraft-sweets-window-box.png",
+            "/images/generated/website-content/packaging/beer-carrier-window-carton.png",
         },
         {
           heading: "המחיר המבני",
@@ -539,14 +539,14 @@ export const blogPosts: readonly BlogPost[] = [
       ],
       quote: {
         text: "A good window shows exactly what it needs to — and not a centimeter more.",
-        cite: "— From the Beeri Packaging insights",
+        cite: "— From the Beeri Packaging journal",
       },
       sections: [
         {
           heading: "When a window works",
           body: "A window pays off when the product is the selling point: a sweet, a beauty product, an item with distinctive color or shape. There the window shortens the customer's decision at the shelf. Place it to show the product's best part, not the inner packaging.",
           image:
-            "/images/generated/website-content/packaging/kraft-sweets-window-box.png",
+            "/images/generated/website-content/packaging/beer-carrier-window-carton.png",
         },
         {
           heading: "The structural cost",

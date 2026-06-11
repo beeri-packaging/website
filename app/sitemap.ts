@@ -9,19 +9,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "x-default": `${SITE_URL}/he${route}`,
   });
 
-  const staticEntries: MetadataRoute.Sitemap = ROUTES.map((route) => ({
-    url: `${SITE_URL}/he${route}`,
-    lastModified: new Date("2026-06-04"),
-    alternates: { languages: langs(route) },
-  }));
+  // Every locale version is its own <url> entry (Google's hreflang-in-sitemap
+  // guidance expects each language version enumerated for discovery).
+  const staticEntries: MetadataRoute.Sitemap = LOCALES.flatMap((locale) =>
+    ROUTES.map((route) => ({
+      url: `${SITE_URL}/${locale}${route}`,
+      lastModified: new Date("2026-06-04"),
+      alternates: { languages: langs(route) },
+    })),
+  );
 
-  // Blog posts — one entry per slug (slugs are shared across locales).
+  // Blog posts — one entry per slug per locale (slugs are shared across locales).
   const posts = await getAllPosts("he");
-  const postEntries: MetadataRoute.Sitemap = posts.map((p) => ({
-    url: `${SITE_URL}/he/blog/${p.slug}`,
-    lastModified: p.date ? new Date(p.date) : undefined,
-    alternates: { languages: langs(`/blog/${p.slug}`) },
-  }));
+  const postEntries: MetadataRoute.Sitemap = LOCALES.flatMap((locale) =>
+    posts.map((p) => ({
+      url: `${SITE_URL}/${locale}/blog/${p.slug}`,
+      lastModified: p.date ? new Date(p.date) : undefined,
+      alternates: { languages: langs(`/blog/${p.slug}`) },
+    })),
+  );
 
   return [...staticEntries, ...postEntries];
 }

@@ -16,8 +16,9 @@ describe("aboutCopy", () => {
   });
 
   it("links out to the parent group site per locale", () => {
+    // The group site exists only in Hebrew — en.beeriprint.co.il is dead.
     expect(aboutCopy.he.groupLinkHref).toBe("https://beeriprint.co.il");
-    expect(aboutCopy.en.groupLinkHref).toBe("https://en.beeriprint.co.il");
+    expect(aboutCopy.en.groupLinkHref).toBe("https://beeriprint.co.il");
   });
 
   it("keeps the 1950 group heritage distinct from the 1964 entity", () => {

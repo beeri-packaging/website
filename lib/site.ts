@@ -58,6 +58,9 @@ export function pageSeo(
       description,
       url: `/${locale}${route}`,
       type: "website" as const,
+      // Explicit openGraph objects replace the parent's resolved one, which
+      // drops the app/opengraph-image.png file convention — re-attach it.
+      images: ["/opengraph-image.png"],
     },
   };
 }
