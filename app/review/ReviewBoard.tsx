@@ -11,6 +11,11 @@ import type { ReviewImage, ReviewPage, ReviewSection } from "./reviewContent";
  * image choice and note per image. All feedback lives in localStorage so the
  * client never loses work, and can be exported to a single text report to send
  * back. No backend — this is a self-contained, shareable approval surface.
+ *
+ * Presentation follows the brand's print language: pages are numbered like
+ * proof sheets, overall progress is a thin ink bar under the header, and a
+ * section's chosen status colors its start edge so a scan of the page shows
+ * the state at a glance.
  */
 
 const STORAGE_KEY = "beeri-content-review-v1";
@@ -39,6 +44,13 @@ const IMAGE_DECISION_LABEL: Record<ImageDecision, string> = {
   replace: "להחליף",
 };
 
+/** Status → start-edge accent on the section card. */
+const SECTION_STATUS_EDGE: Record<SectionStatus, string> = {
+  approved: "border-s-cyan-deep",
+  changes: "border-s-magenta",
+  discuss: "border-s-yellow-deep",
+};
+
 // ── persistence ─────────────────────────────────────────────────────────
 
 function loadState(): FeedbackState {
@@ -60,6 +72,21 @@ function loadState(): FeedbackState {
 
 function fileName(src: string): string {
   return src.split("/").pop() ?? src;
+}
+
+function sectionHasFeedback(
+  section: ReviewSection,
+  state: FeedbackState,
+): boolean {
+  const sf = state.sections[section.id];
+  if (sf?.status || sf?.note?.trim()) return true;
+  return (section.images ?? []).some((img) => {
+    const inf = state.images[img.id];
+    return (
+      !!inf &&
+      (!!inf.decision || !!inf.note?.trim() || (!!inf.chosen && inf.chosen !== img.src))
+    );
+  });
 }
 
 function buildReport(pages: readonly ReviewPage[], state: FeedbackState): string {
@@ -117,6 +144,7 @@ export function ReviewBoard({ pages }: { pages: readonly ReviewPage[] }) {
   const [state, setState] = useState<FeedbackState>(EMPTY);
   const [hydrated, setHydrated] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [activePage, setActivePage] = useState<string | null>(null);
 
   // Hydrate from localStorage after mount. This must run post-mount (not via a
   // lazy initializer) so the server and first client render both start from
@@ -137,6 +165,25 @@ export function ReviewBoard({ pages }: { pages: readonly ReviewPage[] }) {
     }
   }, [state, hydrated]);
 
+  // Scrollspy: highlight the page currently in view in both navigations.
+  useEffect(() => {
+    const targets = pages
+      .map((p) => document.getElementById(p.id))
+      .filter((el): el is HTMLElement => !!el);
+    if (!targets.length) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible[0]) setActivePage(visible[0].target.id);
+      },
+      { rootMargin: "-30% 0px -55% 0px" },
+    );
+    targets.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [pages]);
+
   const setSection = (id: string, patch: SectionFeedback) =>
     setState((s) => ({
       ...s,
@@ -149,28 +196,28 @@ export function ReviewBoard({ pages }: { pages: readonly ReviewPage[] }) {
       images: { ...s.images, [id]: { ...s.images[id], ...patch } },
     }));
 
-  // Progress: how many sections carry any feedback.
-  const { reviewed, total } = useMemo(() => {
-    let r = 0;
-    let t = 0;
+  // Progress per page + overall, and the status breakdown for the footer.
+  const progress = useMemo(() => {
+    const perPage = new Map<string, { reviewed: number; total: number }>();
+    let reviewed = 0;
+    let total = 0;
+    const byStatus: Record<SectionStatus, number> = {
+      approved: 0,
+      changes: 0,
+      discuss: 0,
+    };
     for (const page of pages) {
+      let r = 0;
       for (const section of page.sections) {
-        t += 1;
-        const sf = state.sections[section.id];
-        const hasSection = !!sf?.status || !!sf?.note?.trim();
-        const hasImage = (section.images ?? []).some((img) => {
-          const inf = state.images[img.id];
-          return (
-            !!inf &&
-            (!!inf.decision ||
-              !!inf.note?.trim() ||
-              (!!inf.chosen && inf.chosen !== img.src))
-          );
-        });
-        if (hasSection || hasImage) r += 1;
+        if (sectionHasFeedback(section, state)) r += 1;
+        const status = state.sections[section.id]?.status;
+        if (status) byStatus[status] += 1;
       }
+      perPage.set(page.id, { reviewed: r, total: page.sections.length });
+      reviewed += r;
+      total += page.sections.length;
     }
-    return { reviewed: r, total: t };
+    return { perPage, reviewed, total, byStatus };
   }, [pages, state]);
 
   const download = () => {
@@ -205,91 +252,191 @@ export function ReviewBoard({ pages }: { pages: readonly ReviewPage[] }) {
     return [...map.entries()];
   }, [pages]);
 
+  const pct = progress.total ? (progress.reviewed / progress.total) * 100 : 0;
+
   return (
     <div className="min-h-screen">
       {/* ── Top bar ─────────────────────────────────────────────── */}
       <header className="sticky top-0 z-30 border-b border-rule bg-bone/95 backdrop-blur">
-        <div className="ds-container flex flex-wrap items-center justify-between gap-3 py-4">
-          <div>
+        <div className="ds-container flex items-center justify-between gap-3 py-3">
+          <div className="min-w-0">
             <p className="ds-eyebrow text-magenta-deep">בארי אריזות · אישור תוכן</p>
-            <h1 className="font-display text-h4 leading-none">
+            <h1 className="truncate font-display text-h4 leading-none">
               סקירת תוכן האתר
             </h1>
           </div>
-          <div className="flex items-center gap-3">
-            <span className="font-sans text-[13px] text-clay">
-              {reviewed} / {total} סקשנים נסקרו
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+            <span className="font-sans text-[13px] tabular-nums text-clay">
+              {progress.reviewed}/{progress.total}
+              <span className="ms-1 hidden text-clay-soft sm:inline">נסקרו</span>
             </span>
-            <button onClick={copy} className="ds-btn ds-btn--outline !px-5 !py-2.5 !text-[13px]">
+            <button
+              onClick={copy}
+              className="ds-btn ds-btn--outline hidden !px-5 !py-2.5 !text-[13px] sm:inline-flex"
+            >
               {copied ? "הועתק ✓" : "העתקת משוב"}
             </button>
-            <button onClick={download} className="ds-btn ds-btn--solid !px-5 !py-2.5 !text-[13px]">
+            <button onClick={download} className="ds-btn ds-btn--solid !px-4 !py-2.5 !text-[13px] sm:!px-5">
               הורדת משוב
             </button>
           </div>
         </div>
+
+        {/* Overall progress — a thin ink bar, like a press sheet filling up. */}
+        <div className="h-[3px] w-full bg-rule/60" aria-hidden>
+          <div
+            className="h-full bg-ink transition-[width] duration-500 ease-out"
+            style={{ width: `${pct}%` }}
+          />
+        </div>
+
+        {/* Mobile wayfinder: page chips, sticky with the header. */}
+        <nav className="border-t border-rule/60 lg:hidden" aria-label="עמודים לסקירה">
+          <div className="flex gap-1.5 overflow-x-auto px-4 py-2">
+            {pages.map((page, i) => {
+              const p = progress.perPage.get(page.id);
+              const done = !!p && p.total > 0 && p.reviewed >= p.total;
+              const active = activePage === page.id;
+              return (
+                <a
+                  key={page.id}
+                  href={`#${page.id}`}
+                  className={`flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 font-sans text-[12px] transition-colors ${
+                    active
+                      ? "border-ink bg-ink text-bone"
+                      : "border-rule bg-bone text-clay"
+                  }`}
+                >
+                  <span className="tabular-nums opacity-60">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  {page.title}
+                  {done && <span aria-label="הושלם">✓</span>}
+                </a>
+              );
+            })}
+          </div>
+        </nav>
       </header>
 
-      <div className="ds-container grid gap-8 py-8 lg:grid-cols-[220px_1fr]">
-        {/* ── Side nav ──────────────────────────────────────────── */}
-        <nav className="lg:sticky lg:top-24 lg:self-start">
-          <div className="mb-4 rounded-[5px] border border-rule bg-sand p-4">
+      <div className="ds-container grid gap-8 py-8 lg:grid-cols-[230px_1fr]">
+        {/* ── Side rail (desktop) ───────────────────────────────── */}
+        <nav className="hidden lg:sticky lg:top-24 lg:block lg:max-h-[calc(100vh-7rem)] lg:self-start lg:overflow-y-auto">
+          <div className="mb-5 rounded-[5px] border border-rule bg-sand p-4">
             <p className="font-sans text-[13px] leading-relaxed text-clay">
-              עברו עמוד-עמוד. בכל סקשן סמנו סטטוס והוסיפו הערה חופשית, ובחרו את
-              התמונה המועדפת. הכול נשמר אוטומטית בדפדפן — בסיום לחצו
-              «הורדת משוב» ושלחו את הקובץ.
+              עברו עמוד-עמוד: סמנו סטטוס לכל סקשן, בחרו תמונה מועדפת והוסיפו
+              הערות. הכול נשמר אוטומטית — בסיום לחצו «הורדת משוב» ושלחו לנו את
+              הקובץ.
             </p>
           </div>
           {groups.map(([group, groupPages]) => (
-            <div key={group} className="mb-4">
+            <div key={group} className="mb-5">
               <p className="ds-eyebrow mb-2 text-clay-soft">{group}</p>
-              <ul className="space-y-1">
-                {groupPages.map((page) => (
-                  <li key={page.id}>
-                    <a
-                      href={`#${page.id}`}
-                      className="link-underline font-sans text-[14px] text-ink"
-                    >
-                      {page.title}
-                    </a>
-                  </li>
-                ))}
+              <ul>
+                {groupPages.map((page) => {
+                  const p = progress.perPage.get(page.id);
+                  const done = !!p && p.total > 0 && p.reviewed >= p.total;
+                  const started = !!p && p.reviewed > 0;
+                  const active = activePage === page.id;
+                  return (
+                    <li key={page.id}>
+                      <a
+                        href={`#${page.id}`}
+                        aria-current={active ? "true" : undefined}
+                        className={`-ms-px flex items-center justify-between gap-2 border-s-2 py-1.5 pe-1 ps-3 font-sans text-[14px] transition-colors ${
+                          active
+                            ? "border-magenta text-ink"
+                            : "border-transparent text-clay hover:border-rule hover:text-ink"
+                        }`}
+                      >
+                        <span className={`min-w-0 truncate ${active ? "font-semibold" : ""}`}>
+                          {page.title}
+                        </span>
+                        <span
+                          className={`shrink-0 font-sans text-[11px] tabular-nums ${
+                            done ? "text-cyan-deep" : started ? "text-clay" : "text-clay-soft/70"
+                          }`}
+                        >
+                          {done ? "✓" : `${p?.reviewed ?? 0}/${p?.total ?? 0}`}
+                        </span>
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}
         </nav>
 
         {/* ── Pages ─────────────────────────────────────────────── */}
-        <main className="min-w-0 space-y-16">
-          {pages.map((page) => (
-            <section key={page.id} id={page.id} className="scroll-mt-24">
-              <div className="mb-6 border-b-2 border-ink pb-3">
-                <p className="ds-eyebrow text-magenta-deep">{page.group}</p>
-                <h2 className="font-display text-h2 leading-none">{page.title}</h2>
-                <p className="mt-1 font-sans text-[13px] text-clay-soft" dir="ltr">
-                  {page.path}
-                </p>
-                {page.intro && (
-                  <p className="mt-2 font-sans text-[15px] text-clay">{page.intro}</p>
-                )}
-              </div>
+        <main className="min-w-0">
+          {/* Mobile instructions — once, not sticky. */}
+          <p className="mb-8 rounded-[5px] border border-rule bg-sand p-4 font-sans text-[13px] leading-relaxed text-clay lg:hidden">
+            סמנו סטטוס לכל סקשן, בחרו תמונה מועדפת והוסיפו הערות. הכול נשמר
+            אוטומטית — בסיום לחצו «הורדת משוב» ושלחו לנו את הקובץ.
+          </p>
 
-              <div className="space-y-6">
-                {page.sections.map((section) => (
-                  <SectionCard
-                    key={section.id}
-                    section={section}
-                    feedback={state.sections[section.id]}
-                    images={state.images}
-                    onSection={(patch) => setSection(section.id, patch)}
-                    onImage={setImage}
-                  />
-                ))}
-              </div>
-            </section>
-          ))}
+          <div className="space-y-16">
+          {pages.map((page, i) => {
+            const p = progress.perPage.get(page.id);
+            return (
+              <section key={page.id} id={page.id} className="scroll-mt-36 lg:scroll-mt-28">
+                <div className="mb-6 border-b-2 border-ink pb-3">
+                  <div className="flex items-end justify-between gap-4">
+                    <div className="min-w-0">
+                      <p className="ds-eyebrow text-magenta-deep">{page.group}</p>
+                      <h2 className="font-display text-h2 leading-none">
+                        <span className="me-2 text-clay-soft/60">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        {page.title}
+                      </h2>
+                    </div>
+                    <div className="shrink-0 pb-1 text-end">
+                      <a
+                        href={page.path}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="link-underline font-sans text-[13px] font-semibold text-ink"
+                      >
+                        צפייה בעמוד באתר ↗
+                      </a>
+                      <p className="mt-1 font-sans text-[12px] tabular-nums text-clay-soft">
+                        {p?.reviewed ?? 0}/{p?.total ?? 0} סקשנים נסקרו
+                      </p>
+                    </div>
+                  </div>
+                  {page.intro && (
+                    <p className="mt-2 font-sans text-[15px] text-clay">{page.intro}</p>
+                  )}
+                </div>
+
+                <div className="space-y-6">
+                  {page.sections.map((section) => (
+                    <SectionCard
+                      key={section.id}
+                      section={section}
+                      feedback={state.sections[section.id]}
+                      images={state.images}
+                      onSection={(patch) => setSection(section.id, patch)}
+                      onImage={setImage}
+                    />
+                  ))}
+                </div>
+              </section>
+            );
+          })}
 
           <footer className="border-t border-rule pt-6 text-center">
+            <p className="mb-4 font-sans text-[13px] text-clay">
+              <span className="text-cyan-deep">{progress.byStatus.approved} מאושר</span>
+              {" · "}
+              <span className="text-magenta-deep">
+                {progress.byStatus.changes} צריך תיקון
+              </span>
+              {" · "}
+              <span className="text-yellow-deep">{progress.byStatus.discuss} לדיון</span>
+            </p>
             <button onClick={download} className="ds-btn ds-btn--solid">
               הורדת קובץ המשוב
             </button>
@@ -297,6 +444,7 @@ export function ReviewBoard({ pages }: { pages: readonly ReviewPage[] }) {
               הקובץ מסכם את כל הסטטוסים, ההערות ובחירות התמונות — שלחו אותו אלינו.
             </p>
           </footer>
+          </div>
         </main>
       </div>
     </div>
@@ -318,8 +466,13 @@ function SectionCard({
   onSection: (patch: SectionFeedback) => void;
   onImage: (id: string, patch: ImageFeedback) => void;
 }) {
+  const edge = feedback?.status
+    ? SECTION_STATUS_EDGE[feedback.status]
+    : "border-s-transparent";
   return (
-    <article className="ds-card rounded-[6px] p-5 sm:p-6">
+    <article
+      className={`ds-card rounded-[6px] border-s-4 p-5 transition-colors sm:p-6 ${edge}`}
+    >
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
           <h3 className="font-display text-h4 leading-tight">{section.title}</h3>
@@ -389,16 +542,18 @@ function StatusToggle({
     { key: "discuss", cls: "data-[on=true]:bg-yellow data-[on=true]:text-yellow-deep" },
   ];
   return (
-    <div className="flex shrink-0 gap-1.5">
+    <div className="flex shrink-0 gap-1.5" role="group" aria-label="סטטוס הסקשן">
       {opts.map((o) => (
         <button
           key={o.key}
           data-on={value === o.key}
+          aria-pressed={value === o.key}
           onClick={() => onChange(o.key)}
-          className={`ds-tag rounded-full border border-rule !text-[11px] transition ${o.cls} ${
+          className={`ds-tag rounded-full border border-rule !px-3.5 !py-1.5 !text-[12px] transition ${o.cls} ${
             value === o.key ? "border-transparent" : "bg-bone text-clay hover:border-ink"
           }`}
         >
+          {value === o.key && <span aria-hidden className="me-1">✓</span>}
           {SECTION_STATUS_LABEL[o.key]}
         </button>
       ))}
@@ -428,6 +583,7 @@ function ImageCard({
           {(["keep", "replace"] as ImageDecision[]).map((d) => (
             <button
               key={d}
+              aria-pressed={feedback?.decision === d}
               onClick={() =>
                 onChange({ decision: feedback?.decision === d ? undefined : d })
               }
@@ -468,6 +624,7 @@ function ImageCard({
                 <button
                   key={alt}
                   onClick={() => onChange({ chosen: alt })}
+                  aria-pressed={isChosen}
                   title={isCurrent ? "התמונה הנוכחית" : `אפשרות ${i + 1}`}
                   className={`relative shrink-0 overflow-hidden rounded-[4px] border-2 transition ${
                     isChosen ? "border-ink" : "border-transparent hover:border-rule"
@@ -479,8 +636,16 @@ function ImageCard({
                     alt={`${image.label} — אפשרות ${i + 1}`}
                     loading="lazy"
                     decoding="async"
-                    className="size-16 bg-sand object-contain"
+                    className="size-20 bg-sand object-contain"
                   />
+                  {isChosen && (
+                    <span
+                      aria-hidden
+                      className="absolute end-1 top-1 grid size-4 place-items-center rounded-full bg-ink text-[10px] leading-none text-bone"
+                    >
+                      ✓
+                    </span>
+                  )}
                   {isCurrent && (
                     <span className="absolute inset-x-0 bottom-0 bg-ink/80 py-0.5 text-center text-[9px] text-bone">
                       נוכחית
