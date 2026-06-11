@@ -106,9 +106,10 @@ function JourneyCard({
 }) {
   const isDark = panel.theme === "dark";
   const accentBg = panel.accent === "purple" ? "bg-purple" : "bg-yellow";
-  // Two tracks: the purple "customer path" panels lead to the process page;
-  // the yellow "timeline" panels lead to the journal page.
-  const href = panel.accent === "yellow" ? "/blog" : "/finishing";
+  // Two tracks matching the link labels: yellow "timeline" panels deep-link to
+  // the About page's milestone timeline; purple "customer path" panels scroll
+  // to the process section further down this page.
+  const href = panel.accent === "yellow" ? "/about#timeline" : "#excellence";
   return (
     <Link
       href={href}
