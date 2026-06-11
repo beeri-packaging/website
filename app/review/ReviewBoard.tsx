@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { sendReviewFeedback } from "@/app/actions/reviewFeedback";
 import type { ReviewImage, ReviewPage, ReviewSection } from "./reviewContent";
 
 /**
@@ -16,6 +18,10 @@ import type { ReviewImage, ReviewPage, ReviewSection } from "./reviewContent";
  * proof sheets, overall progress is a thin ink bar under the header, and a
  * section's chosen status colors its start edge so a scan of the page shows
  * the state at a glance.
+ *
+ * Each page can be previewed live in a modal — a same-origin iframe of the real
+ * route — so the client sees exactly what they're approving without leaving the
+ * board. The preview is always the live page, never a stale screenshot.
  */
 
 const STORAGE_KEY = "beeri-content-review-v1";
@@ -27,9 +33,25 @@ type SectionFeedback = { status?: SectionStatus; note?: string };
 type ImageFeedback = { decision?: ImageDecision; chosen?: string; note?: string };
 
 type FeedbackState = {
+  /** Who is giving the feedback — shown on the sent report. */
+  name?: string;
   sections: Record<string, SectionFeedback>;
   images: Record<string, ImageFeedback>;
 };
+
+/** A page the client can preview live in the modal. */
+type PreviewTarget = {
+  path: string;
+  title: string;
+  group?: string;
+  /** Literal text snippets (longest first) used to scroll-to + highlight the
+   *  matching section inside the live iframe. Empty → show the page top. */
+  find?: readonly string[];
+  /** Label of the section being focused, for the modal's chrome. */
+  focusLabel?: string;
+};
+
+type SendStatus = "idle" | "sending" | "sent" | "error";
 
 const EMPTY: FeedbackState = { sections: {}, images: {} };
 
@@ -60,6 +82,7 @@ function loadState(): FeedbackState {
     if (!raw) return EMPTY;
     const parsed = JSON.parse(raw) as Partial<FeedbackState>;
     return {
+      name: parsed.name,
       sections: parsed.sections ?? {},
       images: parsed.images ?? {},
     };
@@ -72,6 +95,29 @@ function loadState(): FeedbackState {
 
 function fileName(src: string): string {
   return src.split("/").pop() ?? src;
+}
+
+/**
+ * Build the list of literal text snippets used to locate a section inside the
+ * live page. The bullets quote real on-page copy (e.g. 'כותרת: "…"'), so we pull
+ * every quoted run — straight or curly quotes — and try the longest (most
+ * specific) first. An explicit `previewText` always takes priority.
+ */
+function previewQueries(section: ReviewSection): string[] {
+  const found: string[] = [];
+  const sources = [section.summary, ...section.bullets].filter(
+    (s): s is string => !!s,
+  );
+  const quote = /[“"„]([^“”"„]{3,})[”"]|'([^']{3,})'/g;
+  for (const src of sources) {
+    let m: RegExpExecArray | null;
+    while ((m = quote.exec(src)) !== null) {
+      const text = (m[1] ?? m[2] ?? "").trim();
+      if (text.length >= 3 && !found.includes(text)) found.push(text);
+    }
+  }
+  found.sort((a, b) => b.length - a.length);
+  return section.previewText ? [section.previewText, ...found] : found;
 }
 
 function sectionHasFeedback(
@@ -92,6 +138,7 @@ function sectionHasFeedback(
 function buildReport(pages: readonly ReviewPage[], state: FeedbackState): string {
   const lines: string[] = [];
   lines.push("משוב על תוכן האתר — בארי אריזות");
+  if (state.name?.trim()) lines.push(`מאת: ${state.name.trim()}`);
   lines.push(`נוצר: ${new Date().toLocaleDateString("he-IL")}`);
   lines.push("=".repeat(48));
 
@@ -143,8 +190,9 @@ function buildReport(pages: readonly ReviewPage[], state: FeedbackState): string
 export function ReviewBoard({ pages }: { pages: readonly ReviewPage[] }) {
   const [state, setState] = useState<FeedbackState>(EMPTY);
   const [hydrated, setHydrated] = useState(false);
-  const [copied, setCopied] = useState(false);
   const [activePage, setActivePage] = useState<string | null>(null);
+  const [preview, setPreview] = useState<PreviewTarget | null>(null);
+  const [sendStatus, setSendStatus] = useState<SendStatus>("idle");
 
   // Hydrate from localStorage after mount. This must run post-mount (not via a
   // lazy initializer) so the server and first client render both start from
@@ -196,6 +244,8 @@ export function ReviewBoard({ pages }: { pages: readonly ReviewPage[] }) {
       images: { ...s.images, [id]: { ...s.images[id], ...patch } },
     }));
 
+  const setName = (name: string) => setState((s) => ({ ...s, name }));
+
   // Progress per page + overall, and the status breakdown for the footer.
   const progress = useMemo(() => {
     const perPage = new Map<string, { reviewed: number; total: number }>();
@@ -220,26 +270,18 @@ export function ReviewBoard({ pages }: { pages: readonly ReviewPage[] }) {
     return { perPage, reviewed, total, byStatus };
   }, [pages, state]);
 
-  const download = () => {
+  const send = useCallback(async () => {
+    setSendStatus("sending");
     const report = buildReport(pages, state);
-    const blob = new Blob([report], { type: "text/plain;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `beeri-content-review-${new Date().toISOString().slice(0, 10)}.txt`;
-    a.click();
-    URL.revokeObjectURL(url);
-  };
-
-  const copy = async () => {
+    const who = state.name?.trim() ? `${state.name.trim()} · ` : "";
+    const summary = `${who}${progress.reviewed}/${progress.total} נסקרו · ${progress.byStatus.approved} מאושר · ${progress.byStatus.changes} צריך תיקון · ${progress.byStatus.discuss} לדיון`;
     try {
-      await navigator.clipboard.writeText(buildReport(pages, state));
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      const res = await sendReviewFeedback({ report, summary });
+      setSendStatus(res.ok ? "sent" : "error");
     } catch {
-      /* clipboard blocked */
+      setSendStatus("error");
     }
-  };
+  }, [pages, state, progress]);
 
   // Group pages for the side navigation.
   const groups = useMemo(() => {
@@ -252,7 +294,8 @@ export function ReviewBoard({ pages }: { pages: readonly ReviewPage[] }) {
     return [...map.entries()];
   }, [pages]);
 
-  const pct = progress.total ? (progress.reviewed / progress.total) * 100 : 0;
+  const pct = progress.total ? Math.round((progress.reviewed / progress.total) * 100) : 0;
+  const allDone = progress.total > 0 && progress.reviewed >= progress.total;
 
   return (
     <div className="min-h-screen">
@@ -266,19 +309,15 @@ export function ReviewBoard({ pages }: { pages: readonly ReviewPage[] }) {
             </h1>
           </div>
           <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-            <span className="font-sans text-[13px] tabular-nums text-clay">
-              {progress.reviewed}/{progress.total}
-              <span className="ms-1 hidden text-clay-soft sm:inline">נסקרו</span>
-            </span>
-            <button
-              onClick={copy}
-              className="ds-btn ds-btn--outline hidden !px-5 !py-2.5 !text-[13px] sm:inline-flex"
-            >
-              {copied ? "הועתק ✓" : "העתקת משוב"}
-            </button>
-            <button onClick={download} className="ds-btn ds-btn--solid !px-4 !py-2.5 !text-[13px] sm:!px-5">
-              הורדת משוב
-            </button>
+            <div className="hidden text-end sm:block">
+              <p className="font-sans text-[13px] font-semibold tabular-nums text-ink leading-none">
+                {pct}%
+              </p>
+              <p className="mt-1 font-sans text-[11px] tabular-nums text-clay-soft leading-none">
+                {progress.reviewed}/{progress.total} נסקרו
+              </p>
+            </div>
+            <SendButton status={sendStatus} onSend={send} />
           </div>
         </div>
 
@@ -319,16 +358,10 @@ export function ReviewBoard({ pages }: { pages: readonly ReviewPage[] }) {
         </nav>
       </header>
 
-      <div className="ds-container grid gap-8 py-8 lg:grid-cols-[230px_1fr]">
+      <div className="ds-container grid gap-8 py-8 lg:grid-cols-[240px_1fr] lg:gap-12">
         {/* ── Side rail (desktop) ───────────────────────────────── */}
         <nav className="hidden lg:sticky lg:top-24 lg:block lg:max-h-[calc(100vh-7rem)] lg:self-start lg:overflow-y-auto">
-          <div className="mb-5 rounded-[5px] border border-rule bg-sand p-4">
-            <p className="font-sans text-[13px] leading-relaxed text-clay">
-              עברו עמוד-עמוד: סמנו סטטוס לכל סקשן, בחרו תמונה מועדפת והוסיפו
-              הערות. הכול נשמר אוטומטית — בסיום לחצו «הורדת משוב» ושלחו לנו את
-              הקובץ.
-            </p>
-          </div>
+          <HowItWorks />
           {groups.map(([group, groupPages]) => (
             <div key={group} className="mb-5">
               <p className="ds-eyebrow mb-2 text-clay-soft">{group}</p>
@@ -370,15 +403,25 @@ export function ReviewBoard({ pages }: { pages: readonly ReviewPage[] }) {
 
         {/* ── Pages ─────────────────────────────────────────────── */}
         <main className="min-w-0">
-          {/* Mobile instructions — once, not sticky. */}
-          <p className="mb-8 rounded-[5px] border border-rule bg-sand p-4 font-sans text-[13px] leading-relaxed text-clay lg:hidden">
-            סמנו סטטוס לכל סקשן, בחרו תמונה מועדפת והוסיפו הערות. הכול נשמר
-            אוטומטית — בסיום לחצו «הורדת משוב» ושלחו לנו את הקובץ.
-          </p>
+          {/* Name — captured once, at the top, persisted with the feedback. */}
+          <NameField value={state.name} onChange={setName} />
+
+          {/* Mobile how-it-works — once, not sticky. */}
+          <div className="mb-8 lg:hidden">
+            <HowItWorks />
+          </div>
 
           <div className="space-y-16">
           {pages.map((page, i) => {
             const p = progress.perPage.get(page.id);
+            const openPreview = (find?: readonly string[], focusLabel?: string) =>
+              setPreview({
+                path: page.path,
+                title: page.title,
+                group: page.group,
+                find,
+                focusLabel,
+              });
             return (
               <section key={page.id} id={page.id} className="scroll-mt-36 lg:scroll-mt-28">
                 <div className="mb-6 border-b-2 border-ink pb-3">
@@ -392,22 +435,21 @@ export function ReviewBoard({ pages }: { pages: readonly ReviewPage[] }) {
                         {page.title}
                       </h2>
                     </div>
-                    <div className="shrink-0 pb-1 text-end">
-                      <a
-                        href={page.path}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="link-underline font-sans text-[13px] font-semibold text-ink"
+                    <div className="flex shrink-0 flex-col items-end gap-2 pb-1">
+                      <button
+                        onClick={() => openPreview()}
+                        className="ds-btn ds-btn--outline !gap-2 !px-4 !py-2 !text-[12px]"
                       >
-                        צפייה בעמוד באתר ↗
-                      </a>
-                      <p className="mt-1 font-sans text-[12px] tabular-nums text-clay-soft">
+                        <EyeIcon />
+                        צפייה בעמוד
+                      </button>
+                      <p className="font-sans text-[12px] tabular-nums text-clay-soft">
                         {p?.reviewed ?? 0}/{p?.total ?? 0} סקשנים נסקרו
                       </p>
                     </div>
                   </div>
                   {page.intro && (
-                    <p className="mt-2 font-sans text-[15px] text-clay">{page.intro}</p>
+                    <p className="mt-3 font-sans text-[15px] text-clay">{page.intro}</p>
                   )}
                 </div>
 
@@ -420,6 +462,7 @@ export function ReviewBoard({ pages }: { pages: readonly ReviewPage[] }) {
                       images={state.images}
                       onSection={(patch) => setSection(section.id, patch)}
                       onImage={setImage}
+                      onPreview={openPreview}
                     />
                   ))}
                 </div>
@@ -427,27 +470,149 @@ export function ReviewBoard({ pages }: { pages: readonly ReviewPage[] }) {
             );
           })}
 
-          <footer className="border-t border-rule pt-6 text-center">
-            <p className="mb-4 font-sans text-[13px] text-clay">
-              <span className="text-cyan-deep">{progress.byStatus.approved} מאושר</span>
-              {" · "}
-              <span className="text-magenta-deep">
-                {progress.byStatus.changes} צריך תיקון
-              </span>
-              {" · "}
-              <span className="text-yellow-deep">{progress.byStatus.discuss} לדיון</span>
-            </p>
-            <button onClick={download} className="ds-btn ds-btn--solid">
-              הורדת קובץ המשוב
-            </button>
-            <p className="mt-3 font-sans text-[13px] text-clay-soft">
-              הקובץ מסכם את כל הסטטוסים, ההערות ובחירות התמונות — שלחו אותו אלינו.
-            </p>
-          </footer>
+          <Footer
+            byStatus={progress.byStatus}
+            allDone={allDone}
+            sendStatus={sendStatus}
+            onSend={send}
+          />
           </div>
         </main>
       </div>
+
+      {preview && (
+        <PreviewModal target={preview} onClose={() => setPreview(null)} />
+      )}
     </div>
+  );
+}
+
+// ── How it works (the 1-2-3 the client reads first) ────────────────────
+
+function NameField({
+  value,
+  onChange,
+}: {
+  value: string | undefined;
+  onChange: (name: string) => void;
+}) {
+  return (
+    <div className="mb-8 rounded-[6px] border border-rule bg-sand p-4 sm:p-5">
+      <label htmlFor="reviewer-name" className="ds-eyebrow mb-2 block text-magenta-deep">
+        השם שלך
+      </label>
+      <input
+        id="reviewer-name"
+        type="text"
+        autoComplete="name"
+        className="ds-input"
+        placeholder="איך קוראים לך? יופיע במשוב שיישלח אלינו"
+        value={value ?? ""}
+        onChange={(e) => onChange(e.target.value)}
+      />
+    </div>
+  );
+}
+
+function HowItWorks() {
+  return (
+    <p className="mb-6 font-sans text-[13px] leading-relaxed text-clay-soft">
+      סמני סטטוס והערה לכל סקשן, ובסיום לחצי «שליחת המשוב». הכול נשמר אוטומטית.
+    </p>
+  );
+}
+
+// ── Footer ─────────────────────────────────────────────────────────────
+
+function Footer({
+  byStatus,
+  allDone,
+  sendStatus,
+  onSend,
+}: {
+  byStatus: Record<SectionStatus, number>;
+  allDone: boolean;
+  sendStatus: SendStatus;
+  onSend: () => void;
+}) {
+  return (
+    <footer className="border-t-2 border-ink pt-8 text-center">
+      {allDone && (
+        <p className="ds-eyebrow mb-2 text-cyan-deep">סקרת את כל הסקשנים ✓</p>
+      )}
+      <h2 className="font-display text-h3 leading-none">
+        {allDone ? "סיימת — אפשר לשלוח" : "סיום ושליחה"}
+      </h2>
+
+      <div className="mt-5 flex flex-wrap items-center justify-center gap-2.5">
+        <StatusChip numClass="text-cyan-deep" dot="bg-cyan-deep" label="מאושר" n={byStatus.approved} />
+        <StatusChip numClass="text-magenta-deep" dot="bg-magenta" label="צריך תיקון" n={byStatus.changes} />
+        <StatusChip numClass="text-yellow-deep" dot="bg-yellow-deep" label="לדיון" n={byStatus.discuss} />
+      </div>
+
+      <div className="mt-6 flex justify-center">
+        <SendButton status={sendStatus} onSend={onSend} size="lg" />
+      </div>
+      <p className="mt-3 font-sans text-[13px] text-clay-soft">
+        אפשר לשלוח בכל שלב — גם אם לא כל הסקשנים סומנו.
+      </p>
+    </footer>
+  );
+}
+
+// ── Send button (shared by header + footer) ────────────────────────────
+
+function SendButton({
+  status,
+  onSend,
+  size = "sm",
+}: {
+  status: SendStatus;
+  onSend: () => void;
+  size?: "sm" | "lg";
+}) {
+  const sizeCls =
+    size === "lg" ? "" : "!px-5 !py-2.5 !text-[13px]";
+  const label: Record<SendStatus, string> = {
+    idle: "שליחת המשוב",
+    sending: "שולח…",
+    sent: "נשלח ✓",
+    error: "שגיאה — שליחה חוזרת",
+  };
+  const tone =
+    status === "sent"
+      ? "border-cyan-deep bg-cyan text-cyan-deep"
+      : "ds-btn--solid";
+  return (
+    <button
+      onClick={onSend}
+      disabled={status === "sending"}
+      aria-live="polite"
+      className={`ds-btn !gap-2 ${tone} ${sizeCls} disabled:opacity-70`}
+    >
+      {status === "sending" ? <SpinnerIcon /> : status === "sent" ? null : <SendIcon />}
+      {label[status]}
+    </button>
+  );
+}
+
+function StatusChip({
+  numClass,
+  dot,
+  label,
+  n,
+}: {
+  numClass: string;
+  dot: string;
+  label: string;
+  n: number;
+}) {
+  return (
+    <span className="inline-flex items-center gap-2 rounded-full border border-rule bg-bone px-3.5 py-1.5 font-sans text-[13px] text-clay">
+      <span aria-hidden className={`size-2 rounded-full ${dot}`} />
+      <span className={`font-semibold tabular-nums ${numClass}`}>{n}</span>
+      {label}
+    </span>
   );
 }
 
@@ -459,35 +624,39 @@ function SectionCard({
   images,
   onSection,
   onImage,
+  onPreview,
 }: {
   section: ReviewSection;
   feedback: SectionFeedback | undefined;
   images: Record<string, ImageFeedback>;
   onSection: (patch: SectionFeedback) => void;
   onImage: (id: string, patch: ImageFeedback) => void;
+  onPreview: (find?: readonly string[], focusLabel?: string) => void;
 }) {
   const edge = feedback?.status
     ? SECTION_STATUS_EDGE[feedback.status]
     : "border-s-transparent";
   return (
     <article
-      className={`ds-card rounded-[6px] border-s-4 p-5 transition-colors sm:p-6 ${edge}`}
+      className={`group/card ds-card rounded-[6px] border-s-4 p-5 transition-colors sm:p-6 ${edge}`}
     >
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div className="min-w-0">
+      <div className="min-w-0">
+        <div className="flex items-center gap-2">
           <h3 className="font-display text-h4 leading-tight">{section.title}</h3>
-          {section.summary && (
-            <p className="mt-1 font-sans text-[14px] text-clay-soft">
-              {section.summary}
-            </p>
-          )}
+          <button
+            onClick={() => onPreview(previewQueries(section), section.title)}
+            aria-label={`צפייה ומיקוד בסקשן — ${section.title}`}
+            title="צפייה בסקשן באתר"
+            className="inline-grid size-7 shrink-0 place-items-center rounded-full border border-rule bg-bone text-clay-soft opacity-0 transition hover:border-ink hover:text-ink focus-visible:opacity-100 group-hover/card:opacity-100"
+          >
+            <EyeIcon />
+          </button>
         </div>
-        <StatusToggle
-          value={feedback?.status}
-          onChange={(status) =>
-            onSection({ status: feedback?.status === status ? undefined : status })
-          }
-        />
+        {section.summary && (
+          <p className="mt-1 font-sans text-[14px] text-clay-soft">
+            {section.summary}
+          </p>
+        )}
       </div>
 
       <ul className="mt-4 space-y-2">
@@ -512,51 +681,108 @@ function SectionCard({
         </div>
       )}
 
-      <div className="mt-4">
-        <label className="ds-eyebrow mb-1 block text-clay-soft">
-          הערה חופשית לסקשן
-        </label>
-        <textarea
-          className="ds-input min-h-[64px] resize-y"
-          placeholder="מה לשנות, להוסיף או לנסח אחרת?"
-          value={feedback?.note ?? ""}
-          onChange={(e) => onSection({ note: e.target.value })}
-        />
-      </div>
+      <DecisionBar
+        value={feedback?.status}
+        onChange={(status) =>
+          onSection({ status: feedback?.status === status ? undefined : status })
+        }
+      />
+
+      <NoteField
+        value={feedback?.note}
+        onChange={(note) => onSection({ note })}
+      />
     </article>
   );
 }
 
-// ── Status toggle (section) ────────────────────────────────────────────
+// ── Collapsible note (kept out of sight until needed, to stay uncluttered) ──
 
-function StatusToggle({
+function NoteField({
+  value,
+  onChange,
+}: {
+  value: string | undefined;
+  onChange: (note: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  // Auto-expand once a saved note arrives (after localStorage hydration).
+  const expanded = open || !!value?.trim();
+
+  if (!expanded) {
+    return (
+      <button
+        onClick={() => setOpen(true)}
+        className="mt-4 inline-flex items-center gap-1.5 font-sans text-[13px] font-semibold text-clay-soft transition hover:text-ink"
+      >
+        <span aria-hidden className="text-[16px] leading-none">＋</span>
+        הוספת הערה
+      </button>
+    );
+  }
+  return (
+    <div className="mt-4">
+      <label className="ds-eyebrow mb-1 block text-clay-soft">הערה</label>
+      <textarea
+        autoFocus={open}
+        className="ds-input min-h-[64px] resize-y"
+        placeholder="מה לשנות, להוסיף או לנסח אחרת?"
+        value={value ?? ""}
+        onChange={(e) => onChange(e.target.value)}
+      />
+    </div>
+  );
+}
+
+// ── Decision bar (section status) ──────────────────────────────────────
+// Moved out of the cramped card header into its own row at the foot of the
+// card — bigger, icon-led targets, read-content-then-decide flow.
+
+function DecisionBar({
   value,
   onChange,
 }: {
   value: SectionStatus | undefined;
   onChange: (s: SectionStatus) => void;
 }) {
-  const opts: { key: SectionStatus; cls: string }[] = [
-    { key: "approved", cls: "data-[on=true]:bg-cyan data-[on=true]:text-cyan-deep" },
-    { key: "changes", cls: "data-[on=true]:bg-magenta data-[on=true]:text-white" },
-    { key: "discuss", cls: "data-[on=true]:bg-yellow data-[on=true]:text-yellow-deep" },
+  const opts: {
+    key: SectionStatus;
+    Icon: () => React.ReactElement;
+    on: string;
+  }[] = [
+    { key: "approved", Icon: CheckIcon, on: "border-cyan-deep bg-cyan text-cyan-deep" },
+    { key: "changes", Icon: EditIcon, on: "border-magenta bg-magenta text-white" },
+    { key: "discuss", Icon: DiscussIcon, on: "border-yellow-deep bg-yellow text-yellow-deep" },
   ];
   return (
-    <div className="flex shrink-0 gap-1.5" role="group" aria-label="סטטוס הסקשן">
-      {opts.map((o) => (
-        <button
-          key={o.key}
-          data-on={value === o.key}
-          aria-pressed={value === o.key}
-          onClick={() => onChange(o.key)}
-          className={`ds-tag rounded-full border border-rule !px-3.5 !py-1.5 !text-[12px] transition ${o.cls} ${
-            value === o.key ? "border-transparent" : "bg-bone text-clay hover:border-ink"
-          }`}
+    <div className="mt-5 border-t border-rule/70 pt-4">
+      <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
+        <span className="ds-eyebrow shrink-0 text-clay-soft">ההחלטה שלי</span>
+        <div
+          className="grid grid-cols-3 gap-2 sm:flex sm:flex-1"
+          role="group"
+          aria-label="סטטוס הסקשן"
         >
-          {value === o.key && <span aria-hidden className="me-1">✓</span>}
-          {SECTION_STATUS_LABEL[o.key]}
-        </button>
-      ))}
+          {opts.map((o) => {
+            const active = value === o.key;
+            return (
+              <button
+                key={o.key}
+                aria-pressed={active}
+                onClick={() => onChange(o.key)}
+                className={`inline-flex items-center justify-center gap-2 rounded-full border px-4 py-2.5 font-sans text-[13px] font-semibold transition sm:flex-1 ${
+                  active
+                    ? o.on
+                    : "border-rule bg-bone text-clay hover:border-ink hover:text-ink"
+                }`}
+              >
+                <o.Icon />
+                {SECTION_STATUS_LABEL[o.key]}
+              </button>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }
@@ -574,46 +800,53 @@ function ImageCard({
 }) {
   const chosen = feedback?.chosen ?? image.src;
   const hasAlts = !!image.alternatives && image.alternatives.length > 1;
+  // Alternatives are progressively disclosed: they only appear once the client
+  // decides to replace the image, so the default view stays calm and uncluttered.
+  const showAlts = hasAlts && feedback?.decision === "replace";
 
   return (
     <div className="rounded-[5px] border border-rule bg-bone p-3">
-      <div className="flex items-center justify-between gap-2">
-        <p className="font-sans text-[13px] font-semibold text-ink">{image.label}</p>
-        <div className="flex gap-1">
-          {(["keep", "replace"] as ImageDecision[]).map((d) => (
-            <button
-              key={d}
-              aria-pressed={feedback?.decision === d}
-              onClick={() =>
-                onChange({ decision: feedback?.decision === d ? undefined : d })
-              }
-              className={`ds-tag rounded-full !text-[11px] transition ${
-                feedback?.decision === d
-                  ? d === "keep"
-                    ? "bg-ink text-bone"
-                    : "bg-magenta text-white"
-                  : "border border-rule bg-bone text-clay hover:border-ink"
-              }`}
-            >
-              {IMAGE_DECISION_LABEL[d]}
-            </button>
-          ))}
-        </div>
-      </div>
+      <p className="font-sans text-[13px] font-semibold text-ink">{image.label}</p>
 
-      {/* Current / chosen preview */}
-      <div className="mt-2 overflow-hidden rounded-[4px] bg-sand">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+      {/* Current / chosen preview — optimised, never the raw full-res source. */}
+      <div className="relative mt-2 h-40 overflow-hidden rounded-[4px] bg-sand">
+        <Image
           src={chosen}
           alt={image.label}
-          loading="lazy"
-          decoding="async"
-          className="mx-auto max-h-44 w-auto object-contain"
+          fill
+          sizes="(max-width: 640px) 90vw, 340px"
+          className="object-contain"
         />
       </div>
 
-      {hasAlts && (
+      {/* Decision — bigger, icon-led, sitting under the image it refers to. */}
+      <div className="mt-2.5 grid grid-cols-2 gap-2">
+        {(["keep", "replace"] as ImageDecision[]).map((d) => {
+          const active = feedback?.decision === d;
+          const Icon = d === "keep" ? CheckIcon : SwapIcon;
+          return (
+            <button
+              key={d}
+              aria-pressed={active}
+              onClick={() =>
+                onChange({ decision: active ? undefined : d })
+              }
+              className={`inline-flex items-center justify-center gap-2 rounded-full border px-3 py-2 font-sans text-[13px] font-semibold transition ${
+                active
+                  ? d === "keep"
+                    ? "border-ink bg-ink text-bone"
+                    : "border-magenta bg-magenta text-white"
+                  : "border-rule bg-bone text-clay hover:border-ink hover:text-ink"
+              }`}
+            >
+              <Icon />
+              {IMAGE_DECISION_LABEL[d]}
+            </button>
+          );
+        })}
+      </div>
+
+      {showAlts && (
         <div className="mt-2">
           <p className="ds-eyebrow mb-1 text-clay-soft">בחירת תמונה מועדפת</p>
           <div className="flex gap-2 overflow-x-auto pb-1">
@@ -626,17 +859,16 @@ function ImageCard({
                   onClick={() => onChange({ chosen: alt })}
                   aria-pressed={isChosen}
                   title={isCurrent ? "התמונה הנוכחית" : `אפשרות ${i + 1}`}
-                  className={`relative shrink-0 overflow-hidden rounded-[4px] border-2 transition ${
+                  className={`relative size-20 shrink-0 overflow-hidden rounded-[4px] border-2 bg-sand transition ${
                     isChosen ? "border-ink" : "border-transparent hover:border-rule"
                   }`}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={alt}
                     alt={`${image.label} — אפשרות ${i + 1}`}
-                    loading="lazy"
-                    decoding="async"
-                    className="size-20 bg-sand object-contain"
+                    fill
+                    sizes="80px"
+                    className="object-contain"
                   />
                   {isChosen && (
                     <span
@@ -657,13 +889,274 @@ function ImageCard({
           </div>
         </div>
       )}
-
-      <textarea
-        className="ds-input mt-2 min-h-[44px] resize-y !py-2 !text-[14px]"
-        placeholder="הערה לתמונה (לא חובה)"
-        value={feedback?.note ?? ""}
-        onChange={(e) => onChange({ note: e.target.value })}
-      />
     </div>
   );
 }
+
+// ── Live preview modal ─────────────────────────────────────────────────
+
+/** Find the smallest element in `doc` whose text contains `needle`. */
+function findElementWithText(
+  doc: Document,
+  needle: string,
+): HTMLElement | null {
+  const walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      const parent = node.parentElement;
+      if (!parent) return NodeFilter.FILTER_REJECT;
+      const tag = parent.tagName;
+      if (tag === "SCRIPT" || tag === "STYLE" || tag === "NOSCRIPT") {
+        return NodeFilter.FILTER_REJECT;
+      }
+      return node.nodeValue && node.nodeValue.includes(needle)
+        ? NodeFilter.FILTER_ACCEPT
+        : NodeFilter.FILTER_SKIP;
+    },
+  });
+  const hit = walker.nextNode();
+  return (hit?.parentElement as HTMLElement | null) ?? null;
+}
+
+type FocusState = "idle" | "searching" | "hit" | "miss";
+
+function PreviewModal({
+  target,
+  onClose,
+}: {
+  target: PreviewTarget;
+  onClose: () => void;
+}) {
+  const [loaded, setLoaded] = useState(false);
+  const [focusState, setFocusState] = useState<FocusState>(
+    target.find && target.find.length > 0 ? "searching" : "idle",
+  );
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const highlightedRef = useRef(false);
+
+  // Close on Escape, lock body scroll, and move focus to the close button.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeRef.current?.focus();
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [onClose]);
+
+  // Scroll the same-origin iframe to the section, optionally highlighting it.
+  // Scrolling is safe at any time; the inline-style highlight is deferred until
+  // after the iframe's own React has hydrated, so we don't trip a hydration
+  // mismatch by mutating the DOM mid-hydration.
+  const focusSection = useCallback(
+    (withHighlight: boolean) => {
+      const queries = target.find;
+      if (!queries || queries.length === 0) return;
+      try {
+        const doc = iframeRef.current?.contentDocument;
+        if (!doc?.body) return;
+        let el: HTMLElement | null = null;
+        for (const q of queries) {
+          el = findElementWithText(doc, q);
+          if (el) break;
+        }
+        if (!el) {
+          if (!highlightedRef.current) setFocusState("miss");
+          return;
+        }
+        const node = el;
+        node.scrollIntoView({ behavior: "smooth", block: "center" });
+        setFocusState("hit");
+        if (withHighlight && !highlightedRef.current) {
+          highlightedRef.current = true;
+          node.style.transition = "box-shadow .35s ease";
+          node.style.borderRadius = node.style.borderRadius || "4px";
+          node.style.boxShadow =
+            "0 0 0 3px #c846a3, 0 0 0 10px rgba(200,70,163,.22)";
+          window.setTimeout(() => {
+            node.style.boxShadow = "";
+          }, 2800);
+        }
+      } catch {
+        /* cross-origin or DOM not ready — leave the page at its top */
+      }
+    },
+    [target.find],
+  );
+
+  const onIframeLoad = useCallback(() => {
+    setLoaded(true);
+    focusSection(false); // scroll only — safe during hydration
+    window.setTimeout(() => focusSection(true), 900); // highlight post-hydration
+  }, [focusSection]);
+
+  const stop = useCallback((e: React.MouseEvent) => e.stopPropagation(), []);
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={`תצוגה מקדימה — ${target.title}`}
+      onClick={onClose}
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-ink/70 p-3 backdrop-blur-sm animate-drawer-bg sm:p-6"
+    >
+      <div
+        onClick={stop}
+        className="flex h-full w-full max-w-6xl flex-col overflow-hidden rounded-[8px] border border-rule bg-bone shadow-2xl animate-drawer-in"
+      >
+        {/* Browser-frame chrome */}
+        <div className="flex items-center justify-between gap-3 border-b border-rule bg-sand px-4 py-2.5">
+          <div className="flex min-w-0 items-center gap-3">
+            <span aria-hidden className="hidden gap-1.5 sm:flex">
+              <span className="size-3 rounded-full bg-magenta/70" />
+              <span className="size-3 rounded-full bg-yellow/80" />
+              <span className="size-3 rounded-full bg-cyan/70" />
+            </span>
+            <div className="min-w-0">
+              <p className="truncate font-sans text-[13px] font-semibold text-ink leading-tight">
+                {target.title}
+                {target.group && (
+                  <span className="ms-2 font-normal text-clay-soft">· {target.group}</span>
+                )}
+              </p>
+              {target.focusLabel && focusState !== "idle" ? (
+                <p className="truncate font-sans text-[11px] leading-tight text-magenta-deep">
+                  {focusState === "miss"
+                    ? "מוצג ראש העמוד · הסקשן לא אותר אוטומטית"
+                    : `ממוקד על: ${target.focusLabel}`}
+                </p>
+              ) : (
+                <p dir="ltr" className="truncate text-start font-sans text-[11px] text-clay-soft leading-tight">
+                  {target.path}
+                </p>
+              )}
+            </div>
+          </div>
+          <div className="flex shrink-0 items-center gap-2">
+            <a
+              href={target.path}
+              target="_blank"
+              rel="noreferrer"
+              className="ds-tag rounded-full border border-rule bg-bone !px-3 !py-1.5 !text-[11px] text-clay transition hover:border-ink hover:text-ink"
+            >
+              פתיחה בכרטיסייה ↗
+            </a>
+            <button
+              ref={closeRef}
+              onClick={onClose}
+              aria-label="סגירה"
+              className="inline-grid size-8 place-items-center rounded-full border border-rule bg-bone text-ink transition hover:bg-ink hover:text-bone"
+            >
+              <CloseIcon />
+            </button>
+          </div>
+        </div>
+
+        {/* Live page */}
+        <div className="relative flex-1 bg-sand">
+          {!loaded && (
+            <div className="absolute inset-0 grid place-items-center">
+              <div className="flex flex-col items-center gap-3">
+                <span
+                  aria-hidden
+                  className="size-7 animate-spin rounded-full border-2 border-rule border-t-ink"
+                />
+                <p className="font-sans text-[13px] text-clay-soft">טוען תצוגה חיה של העמוד…</p>
+              </div>
+            </div>
+          )}
+          <iframe
+            ref={iframeRef}
+            src={target.path}
+            title={`תצוגה חיה — ${target.title}`}
+            loading="lazy"
+            onLoad={onIframeLoad}
+            className={`size-full transition-opacity duration-500 ${loaded ? "opacity-100" : "opacity-0"}`}
+          />
+        </div>
+      </div>
+      <p className="mt-3 hidden font-sans text-[12px] text-bone/70 sm:block">
+        זו תצוגה חיה של העמוד באתר · לחצי מחוץ למסגרת או Esc לסגירה
+      </p>
+    </div>
+  );
+}
+
+// ── Icons (inline, currentColor) ───────────────────────────────────────
+
+function EyeIcon() {
+  return (
+    <svg aria-hidden width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg aria-hidden width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M18 6 6 18M6 6l12 12" />
+    </svg>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg aria-hidden width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
+  );
+}
+
+function EditIcon() {
+  return (
+    <svg aria-hidden width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 20h9" />
+      <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
+    </svg>
+  );
+}
+
+function DiscussIcon() {
+  return (
+    <svg aria-hidden width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8A8.5 8.5 0 0 1 12.5 3 8.5 8.5 0 0 1 21 11.5z" />
+    </svg>
+  );
+}
+
+function SwapIcon() {
+  return (
+    <svg aria-hidden width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M17 1l4 4-4 4" />
+      <path d="M3 11V9a4 4 0 0 1 4-4h14" />
+      <path d="M7 23l-4-4 4-4" />
+      <path d="M21 13v2a4 4 0 0 1-4 4H3" />
+    </svg>
+  );
+}
+
+function SendIcon() {
+  return (
+    <svg aria-hidden width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 2 11 13" />
+      <path d="M22 2 15 22l-4-9-9-4 20-7z" />
+    </svg>
+  );
+}
+
+function SpinnerIcon() {
+  return (
+    <svg aria-hidden width="15" height="15" viewBox="0 0 24 24" fill="none" className="animate-spin">
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeOpacity="0.3" strokeWidth="3" />
+      <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+    </svg>
+  );
+}
+

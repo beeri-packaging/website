@@ -34,6 +34,14 @@ export type ReviewSection = {
   summary?: string;
   /** Bullet-point summary of the section's actual copy. */
   bullets: readonly string[];
+  /**
+   * Optional literal text to locate this section in the live page when the
+   * client opens the preview, so the modal can scroll to and highlight it.
+   * If omitted, the board falls back to quoted snippets pulled from `bullets`
+   * (the bullets quote real on-page copy). Set this only when the bullets have
+   * no quote, or the quote isn't unique enough to land on the right element.
+   */
+  previewText?: string;
   /** Images that appear in this section. */
   images?: readonly ReviewImage[];
 };
@@ -279,6 +287,7 @@ export const reviewPages: readonly ReviewPage[] = [
       },
       {
         id: "home-cta",
+        previewText: "מוכנים לתכנן את",
         title: "קריאה לפעולה (סיום)",
         bullets: ['כותרת: "מוכנים לתכנן את האריזה הבאה?"'],
       },
@@ -325,6 +334,7 @@ export const reviewPages: readonly ReviewPage[] = [
       },
       {
         id: "about-timeline",
+        previewText: "אבני דרך",
         title: "אבני דרך — התאגדות וצמיחה",
         bullets: [
           "1964 — הקמת החברה: רישום הישות המשפטית (ח״פ 520026113).",
@@ -336,6 +346,7 @@ export const reviewPages: readonly ReviewPage[] = [
       },
       {
         id: "about-stats",
+        previewText: "במספרים",
         title: "במספרים — המפעל ביבנה",
         bullets: [
           "כ־140 עובדים (100 ייצור · 40 מטה).",
@@ -394,6 +405,7 @@ export const reviewPages: readonly ReviewPage[] = [
       },
       {
         id: "catalog-cosmetics",
+        previewText: "מארז אמפולות",
         title: "קטגוריה 01 — קוסמטיקה (4 פריטים)",
         bullets: [
           "קופסת סרום פרימיום: קרטון קשיח עם מגירה פנימית, חלון שטנץ ופויל. תגיות: פויל זהב · ניתן למיחזור.",
@@ -423,6 +435,7 @@ export const reviewPages: readonly ReviewPage[] = [
       },
       {
         id: "catalog-modular",
+        previewText: "מערכת מודולרית",
         title: "קטגוריה 03 — מערכת מודולרית (פריט אחד)",
         bullets: [
           "מערכת מארזים מודולרית: חוצצים ומגירות לסדרות מוצרים.",
@@ -497,6 +510,7 @@ export const reviewPages: readonly ReviewPage[] = [
       },
       {
         id: "finishing-texture",
+        previewText: "נקודת אור",
         title: "פויל והטבעה חמה",
         bullets: [
           'כותרת: "נקודת אור מדויקת".',
@@ -543,6 +557,7 @@ export const reviewPages: readonly ReviewPage[] = [
       },
       {
         id: "blog-list",
+        previewText: "שפת ההשבחות",
         title: "רשימת הפוסטים",
         summary: "ששת הפוסטים שמופיעים ביומן (פירוט מלא בעמודים הבאים).",
         bullets: [
@@ -556,6 +571,7 @@ export const reviewPages: readonly ReviewPage[] = [
       },
       {
         id: "blog-roles",
+        previewText: "משרות פתוחות",
         title: "משרות פתוחות",
         summary:
           "המשרות מוצגות בסוף עמוד היומן (אין עמוד קריירה נפרד). לחיצה על «להגשה» פותחת טופס מועמדות.",
@@ -630,6 +646,7 @@ export const reviewPages: readonly ReviewPage[] = [
       },
       {
         id: "post-finishing-language-sections",
+        previewText: "מה הלקוח רואה ומרגיש",
         title: "גוף הפוסט",
         bullets: [
           "01 — מה הלקוח רואה ומרגיש: בפרימיום הלקוח מחזיק, פותח ומעביר אצבע על הלוגו — וזה משפיע ישירות על הערך הנתפס.",
@@ -684,6 +701,7 @@ export const reviewPages: readonly ReviewPage[] = [
       },
       {
         id: "post-wine-sections",
+        previewText: "מהבקבוק לדייליין",
         title: "גוף הפוסט",
         bullets: [
           "01 — מהבקבוק לדייליין: מודדים את הבקבוק, מוסיפים מרווחי בטיחות ובונים דייליין ראשוני. דייליין מדויק חוסך תיקונים יקרים.",
@@ -741,6 +759,7 @@ export const reviewPages: readonly ReviewPage[] = [
       },
       {
         id: "post-recycle-sections",
+        previewText: "ממוחזר ומה שביניהם",
         title: "גוף הפוסט",
         bullets: [
           "01 — FSC, ממוחזר ומה שביניהם: ההבדל מורגש במחיר, בגוון הבסיס ובמרקם. בוחרים לפי הקטגוריה והמסר, לא לפי כותרת ירוקה.",
@@ -798,6 +817,7 @@ export const reviewPages: readonly ReviewPage[] = [
       },
       {
         id: "post-print-sections",
+        previewText: "מהיר וגמיש",
         title: "גוף הפוסט",
         bullets: [
           "01 — דיגיטלי: מהיר וגמיש. מתאים לסדרות קצרות, גרסאות מרובות ופיילוטים, ללא לוחות וזמני הכנה.",
@@ -855,6 +875,7 @@ export const reviewPages: readonly ReviewPage[] = [
       },
       {
         id: "post-sketch-sections",
+        previewText: "סקיצה, דייליין ודגם",
         title: "גוף הפוסט",
         bullets: [
           "01 — סקיצה, דייליין ודגם: מסקיצה גסה לדייליין מדויק ולדגם חתוך ביד מאותו קרטון שייצא בפועל.",
@@ -912,6 +933,7 @@ export const reviewPages: readonly ReviewPage[] = [
       },
       {
         id: "post-window-sections",
+        previewText: "מתי חלון עובד",
         title: "גוף הפוסט",
         bullets: [
           "01 — מתי חלון עובד: כשהמוצר עצמו הוא נקודת המכירה (ממתק, מוצר טיפוח, פריט בעל צבע וצורה ייחודיים).",
@@ -941,6 +963,7 @@ export const reviewPages: readonly ReviewPage[] = [
     sections: [
       {
         id: "privacy-doc",
+        previewText: "מדיניות פרטיות",
         title: "מדיניות פרטיות — מסמך מלא",
         summary: "עודכן לאחרונה: יוני 2026. מבוסס על חוק הגנת הפרטיות, התשמ״א–1981.",
         bullets: [
@@ -964,6 +987,7 @@ export const reviewPages: readonly ReviewPage[] = [
     sections: [
       {
         id: "terms-doc",
+        previewText: "תנאי שימוש",
         title: "תנאי שימוש — מסמך מלא",
         summary: "עודכן לאחרונה: יוני 2026.",
         bullets: [
