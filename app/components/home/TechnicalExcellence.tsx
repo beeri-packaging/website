@@ -117,11 +117,12 @@ export function TechnicalExcellence({
 
           <Link
             href="/catalog"
+            aria-label={t.bentoCatalogLabel}
             className="md:col-span-7 relative bg-sand overflow-hidden aspect-[4/3] sm:aspect-[16/10] md:aspect-auto md:h-auto group block cursor-pointer focus-ring"
           >
             <Image
               src={bentoServiceImage}
-              alt={t.bento1Title}
+              alt=""
               fill
               sizes="(min-width: 768px) 60vw, 100vw"
               className="object-cover brightness-[0.82] transition-transform duration-[1400ms] ease-out group-hover:scale-105"

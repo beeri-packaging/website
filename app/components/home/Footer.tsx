@@ -10,6 +10,10 @@ const eyebrow =
 const bodyLink =
   "font-sans text-clay text-[16px] leading-[25px] hover:text-ink transition-colors duration-300 focus-ring rounded-sm";
 
+// The open-roles section lives at the end of the journal page and has no
+// header-nav entry — the footer is its one signposted path.
+const careersLink = { he: "משרות פתוחות", en: "Open roles", href: "/blog#roles" };
+
 export function Footer({ lang, chrome }: { lang: Lang; chrome: Chrome }) {
   const isHe = lang === "he";
   const brandName = isHe ? "בארי אריזות" : "Beeri Packaging";
@@ -58,7 +62,7 @@ export function Footer({ lang, chrome }: { lang: Lang; chrome: Chrome }) {
           >
             <h2 className={eyebrow}>{chrome.footerNavHeading}</h2>
             <ul className="flex flex-col gap-2.5">
-              {chrome.navLinks.map((l) => (
+              {[...chrome.navLinks, careersLink].map((l) => (
                 <li key={l.href}>
                   <Link href={l.href} className={bodyLink}>
                     {l[lang]}

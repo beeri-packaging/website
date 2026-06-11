@@ -67,7 +67,7 @@ export const contactCopy: Record<Lang, ContactCopy> = {
       submit: "שליחת פנייה",
       sending: "שולח…",
       consent:
-        "בשליחת הטופס אתם מאשרים את תנאי שיתוף הפעולה והדיוק הטכני שלנו.",
+        "בשליחת הטופס אתם מאשרים את תנאי השימוש ואת מדיניות הפרטיות של האתר.",
     },
     errors: {
       fullName: "יש להזין שם מלא.",
@@ -97,7 +97,7 @@ export const contactCopy: Record<Lang, ContactCopy> = {
         options: [
           { value: "", label: "Select a reason…" },
           { value: "quote", label: "Request a quote" },
-          { value: "meeting", label: "Meet with an account manager (מת״ל)" },
+          { value: "meeting", label: "Meet with an account manager" },
           { value: "other", label: "Something else" },
         ],
       },
@@ -108,7 +108,7 @@ export const contactCopy: Record<Lang, ContactCopy> = {
       submit: "Send inquiry",
       sending: "Sending…",
       consent:
-        "By submitting, you agree to our collaboration terms and technical accuracy.",
+        "By submitting, you agree to our terms of use and privacy policy.",
     },
     errors: {
       fullName: "Please enter your full name.",

@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/site";
 
-const metadataBase = new URL(
-  process.env.NEXT_PUBLIC_SITE_URL ??
-    (process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "http://localhost:3000"),
-);
-
+// Must match the base the locale layout uses for canonicals/hreflang —
+// otherwise the file-convention og/twitter images resolve against a
+// different origin than the rest of the metadata.
 export const metadata: Metadata = {
-  metadataBase,
+  metadataBase: new URL(SITE_URL),
 };
 
 export default function RootLayout({

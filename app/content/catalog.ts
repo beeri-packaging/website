@@ -80,8 +80,8 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
     eyebrow: "קטלוג / 2026",
     title: ["כשהמבנה", "פוגש מותג"],
     intro:
-      "אינדקס אריזות הקרטון הממותגות שלנו, מסודר לפי תעשייה: קוסמטיקה, פארמה, יין ומשקאות. מתכנון מבני ודיוק השטנץ ועד הבחירה בחומר, בדפוס ובהשבחות — הכול תחת קורת גג אחת.",
-    specCard: ["מפעל: יבנה, ישראל", "סטטוס: פעיל / משנת 1964", "מזהה: BR-2026"],
+      "אינדקס אריזות הקרטון הממותגות שלנו: קוסמטיקה, יין ומשקאות ומערכות מודולריות. מתכנון מבני ודיוק השטנץ ועד הבחירה בחומר, בדפוס ובהשבחות — הכול תחת קורת גג אחת.",
+    specCard: ["מפעל: יבנה, ישראל", "סטטוס: פעיל / משנת 1964", "תקן: ISO 9001:2015"],
     categories: [
       {
         key: "cosmetics",
@@ -100,7 +100,7 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
               { label: "ניתן למיחזור", tone: "cyan" },
             ],
             overlayLabel: "תצוגת שטנץ",
-            overlaySpecs: ['סטייה: ±0.01 מ"מ', "חומר: קרטון קשיח"],
+            overlaySpecs: ['סטייה: ±0.1 מ"מ', "חומר: קרטון קשיח"],
           },
           {
             key: "ampoule",
@@ -151,9 +151,9 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
             image: catalogImages.wine,
             specs: [
               { label: "משקל", value: "350 גרם" },
-              { label: "דוגמה", value: "24ש׳" },
+              { label: "דוגמה", value: "לפני ייצור" },
             ],
-            cta: "להורדת מפרט (PDF)",
+            cta: "לבקשת מפרט",
           },
           {
             key: "whiskey",
@@ -163,10 +163,10 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
               "מארז פרימיום לבקבוק וויסקי, עם חלון, פויל ולכה סלקטיבית. תמיכה פנימית שמגינה על הבקבוק ומקלה על הנשיאה.",
             image: catalogImages.whiskey,
             specs: [
-              { label: "אספקה", value: "72ש׳" },
+              { label: "השבחה", value: "פויל ולכה" },
               { label: "תקן", value: "ISO 9001:2015" },
             ],
-            cta: "להורדת מפרט (PDF)",
+            cta: "לבקשת מפרט",
           },
         ],
       },
@@ -183,7 +183,7 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
             description:
               "מערכת חוצצים ומגירות מודולרית לסדרות מוצרים. תכנון מדויק ששומר על המוצר, על נוכחות המדף ועל חוויית הפתיחה.",
             specs: [
-              { label: "סטייה", value: "±0.01MM" },
+              { label: "סטייה", value: '±0.1 מ"מ' },
               { label: "שטנץ", value: "צורני" },
               { label: "מבנה", value: "גרסה 02" },
             ],
@@ -196,8 +196,8 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
     eyebrow: "Catalog / 2026",
     title: ["When structure", "meets brand"],
     intro:
-      "An index of our branded folding-carton packaging, organized by industry: cosmetics, pharma, wine & spirits. From structural design and die-cut precision to material, print and finishing — all under one roof.",
-    specCard: ["Plant: Yavne, Israel", "Status: Active / since 1964", "ID: BR-2026"],
+      "An index of our branded folding-carton packaging: cosmetics, wine & spirits, and modular systems. From structural design and die-cut precision to material, print and finishing — all under one roof.",
+    specCard: ["Plant: Yavne, Israel", "Status: Active / since 1964", "Standard: ISO 9001:2015"],
     categories: [
       {
         key: "cosmetics",
@@ -216,7 +216,7 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
               { label: "Recyclable", tone: "cyan" },
             ],
             overlayLabel: "Die view",
-            overlaySpecs: ["Tolerance: ±0.01 mm", "Material: rigid board"],
+            overlaySpecs: ["Tolerance: ±0.1 mm", "Material: rigid board"],
           },
           {
             key: "ampoule",
@@ -267,9 +267,9 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
             image: catalogImages.wine,
             specs: [
               { label: "Weight", value: "350 g" },
-              { label: "Sample", value: "24h" },
+              { label: "Sample", value: "Pre-production" },
             ],
-            cta: "Download spec (PDF)",
+            cta: "Request the spec",
           },
           {
             key: "whiskey",
@@ -279,10 +279,10 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
               "A premium case for a whiskey bottle, with a window, foil and spot varnish. Inner support that protects the bottle and makes it easy to carry.",
             image: catalogImages.whiskey,
             specs: [
-              { label: "Lead time", value: "72h" },
+              { label: "Finishing", value: "Foil & varnish" },
               { label: "Standard", value: "ISO 9001:2015" },
             ],
-            cta: "Download spec (PDF)",
+            cta: "Request the spec",
           },
         ],
       },
@@ -299,7 +299,7 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
             description:
               "A modular system of dividers and drawers for product series. Precise engineering that protects the product, earns shelf presence and elevates the unboxing experience.",
             specs: [
-              { label: "Tolerance", value: "±0.01MM" },
+              { label: "Tolerance", value: "±0.1 mm" },
               { label: "Die-cut", value: "Shaped" },
               { label: "Structure", value: "v02" },
             ],

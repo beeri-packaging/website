@@ -143,7 +143,7 @@ export const careersCopy: Record<Lang, CareersCopy> = {
         title: "מנהל/ת פרויקטים בייצור",
         scope: "משרה מלאה",
         location: "יבנה",
-        department: "studio",
+        department: "production",
         description: "הובלת פרויקטים של אריזות מהאפיון הראשון ועד האספקה: תיאום בין הסטודיו, התכנון המבני, הדפוס והייצור, מול לוחות זמנים ותקציב. התפקיד מתאים למי שאוהב/ת לראות מוצר נולד — משרטוט דייליין ועד מדף החנות.",
         highlights: [
           "ניהול לוחות זמנים, עדיפויות ותקשורת מול הלקוח לאורך הפרויקט",
@@ -253,7 +253,7 @@ export const careersCopy: Record<Lang, CareersCopy> = {
         title: "Production project manager",
         scope: "Full time",
         location: "Yavne",
-        department: "studio",
+        department: "production",
         description: "Lead packaging projects from first brief to delivery: coordinating studio, structural design, print and production against timelines and budget. A fit for someone who loves seeing a product come to life — from dieline sketch to store shelf.",
         highlights: [
           "Manage timelines, priorities and client communication across each project",

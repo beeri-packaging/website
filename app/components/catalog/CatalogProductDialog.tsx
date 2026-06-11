@@ -15,8 +15,8 @@ import {
 import { Tag } from "./Tag";
 
 const UI = {
-  he: { sku: 'מק"ט', requestSample: "בקשת דוגמה", specsTitle: "נתוני מבנה", close: "סגירה" },
-  en: { sku: "SKU", requestSample: "Request a sample", specsTitle: "Structure data", close: "Close" },
+  he: { requestSample: "בקשת דוגמה", specsTitle: "נתוני מבנה", close: "סגירה" },
+  en: { requestSample: "Request a sample", specsTitle: "Structure data", close: "Close" },
 } as const;
 
 /**
@@ -139,9 +139,6 @@ export function CatalogProductDialog({
                 sizes="(min-width: 768px) 44vw, 100vw"
                 className="object-cover"
               />
-              <span className="absolute start-4 top-4 border border-ink bg-cyan px-[9px] py-1 font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-teal">
-                {t.sku} {item.key}
-              </span>
             </div>
           ) : null}
         </DialogAside>

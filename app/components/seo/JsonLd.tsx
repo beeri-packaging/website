@@ -56,6 +56,33 @@ export function OrganizationJsonLd({ locale = "he" }: { locale?: Lang }) {
   );
 }
 
+/** FAQPage structured data for the home page's real Q&A section. */
+export function FaqJsonLd({
+  items,
+  locale,
+}: {
+  items: readonly { q: string; a: string }[];
+  locale: Lang;
+}) {
+  if (!items.length) return null;
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    inLanguage: locale,
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}
+
 /** Article/BlogPosting structured data for a single blog post. */
 export function BlogPostingJsonLd({
   post,
@@ -72,8 +99,9 @@ export function BlogPostingJsonLd({
     inLanguage: locale,
     ...(post.date ? { datePublished: post.date } : {}),
     ...(abs(post.image) ? { image: [abs(post.image)] } : {}),
+    // Posts are credited to the studio, not an individual.
     author: post.author
-      ? { "@type": "Person", name: post.author }
+      ? { "@type": "Organization", name: post.author }
       : PUBLISHER,
     publisher: PUBLISHER,
     mainEntityOfPage: `${SITE_URL}/${locale}/blog/${post.slug}`,
