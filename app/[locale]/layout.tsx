@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Karantina, Open_Sans } from "next/font/google";
-import { NextIntlClientProvider, hasLocale } from "next-intl";
+import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { draftMode } from "next/headers";
@@ -9,8 +9,6 @@ import { routing } from "@/i18n/routing";
 import { SanityLive } from "@/sanity/live";
 import { SITE_URL, alternatesFor } from "@/lib/site";
 import { OrganizationJsonLd } from "@/app/components/seo/JsonLd";
-import { ContactDialogProvider } from "@/app/components/contact/ContactDialogProvider";
-import { RevealOnScroll } from "@/app/components/system/RevealOnScroll";
 import type { Lang } from "@/app/content/home";
 import "../globals.css";
 
@@ -87,12 +85,6 @@ export default async function LocaleLayout({
       className={`${karantina.variable} ${openSans.variable} antialiased`}
     >
       <body className="flex flex-col bg-bone text-ink">
-        {/* JS-disabled fallback: scroll reveals start hidden in CSS, so show
-            them at rest when the observer can't run. */}
-        <noscript>
-          <style>{`.reveal{opacity:1!important;transform:none!important}`}</style>
-        </noscript>
-        <RevealOnScroll />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:start-3 focus:z-[100] focus:bg-ink focus:text-bone focus:px-4 focus:py-2 focus:rounded-[5px] focus:font-sans focus:text-[14px]"
@@ -100,11 +92,7 @@ export default async function LocaleLayout({
           {locale === "he" ? "דלג לתוכן" : "Skip to content"}
         </a>
         <OrganizationJsonLd locale={locale as Lang} />
-        <NextIntlClientProvider>
-          <ContactDialogProvider lang={locale as Lang}>
-            {children}
-          </ContactDialogProvider>
-        </NextIntlClientProvider>
+        {children}
         {/* Live + Visual editing only in draft mode (Studio preview). For
             normal visitors they're inert and only emit a CORS console warning,
             so gating them keeps the production console clean and the page light. */}

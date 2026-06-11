@@ -4,13 +4,13 @@ import type { HomeCopy, Lang } from "@/app/content/home";
 import { cn } from "@/lib/cn";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { buttonVariants } from "@/components/ui/button";
-import { ContactTriggerButton } from "@/app/components/contact/ContactTriggerButton";
+import { ContactLink } from "./ContactLink";
 import { ArrowGlyph } from "./icons";
 
 export function Hero({ lang, t, heroImage }: { lang: Lang; t: HomeCopy; heroImage: string }) {
   return (
     <section
-      className="relative flex min-h-[560px] sm:min-h-[680px] md:min-h-[760px] lg:min-h-0 lg:h-[100svh] items-center justify-center overflow-clip pt-[80px] sm:pt-[96px] md:pt-[112px] pb-12 sm:pb-20 md:pb-24"
+      className="relative flex min-h-[100svh] sm:min-h-[680px] md:min-h-[760px] lg:min-h-0 lg:h-[100svh] items-center justify-center overflow-clip pt-[80px] sm:pt-[96px] md:pt-[112px] pb-12 sm:pb-20 md:pb-24"
       aria-label={t.h1.join(" ")}
     >
       <div className="absolute inset-0 pointer-events-none">
@@ -18,17 +18,14 @@ export function Hero({ lang, t, heroImage }: { lang: Lang; t: HomeCopy; heroImag
           src={heroImage}
           alt=""
           fill
-          preload
-          // The hero is the LCP element. Lighthouse expects the preload
-          // request itself to carry a high priority hint on throttled mobile.
-          fetchPriority="high"
           sizes="(max-width: 767px) 80vw, 100vw"
-          className="object-cover scale-[1.04] motion-safe:transition-transform motion-safe:duration-[3000ms] motion-safe:ease-out"
+          quality={60}
+          className="hidden md:block object-cover scale-[1.04] motion-safe:transition-transform motion-safe:duration-[3000ms] motion-safe:ease-out"
         />
-        <div className="absolute inset-x-0 bottom-0 h-[260px] sm:h-[340px] md:h-[420px] bg-gradient-to-t from-bone via-bone/70 to-transparent" />
+        <div className="hidden md:block absolute inset-x-0 bottom-0 h-[260px] sm:h-[340px] md:h-[420px] bg-gradient-to-t from-bone via-bone/70 to-transparent" />
         <div
           aria-hidden
-          className="absolute inset-0 opacity-[0.05] mix-blend-multiply"
+          className="hidden md:block absolute inset-0 opacity-[0.05] mix-blend-multiply"
           style={{
             backgroundImage:
               "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
@@ -43,9 +40,9 @@ export function Hero({ lang, t, heroImage }: { lang: Lang; t: HomeCopy; heroImag
         <Eyebrow>{t.eyebrow}</Eyebrow>
 
         <h1
-          className="font-display font-bold text-ink leading-[0.82] sm:leading-[0.74] md:leading-[0.7]"
+          className="font-sans md:font-display font-extrabold md:font-bold text-ink leading-[0.92] sm:leading-[0.82] md:leading-[0.7]"
           style={{
-            fontSize: "clamp(48px, 13.5vw, 128px)",
+            fontSize: "clamp(42px, 11.5vw, 128px)",
           }}
         >
           <span className="block">{t.h1[0]}</span>
@@ -55,7 +52,7 @@ export function Hero({ lang, t, heroImage }: { lang: Lang; t: HomeCopy; heroImag
         <div
           className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4 sm:pt-6 w-full sm:w-auto"
         >
-          <ContactTriggerButton
+          <ContactLink
             className={cn(buttonVariants({ variant: "primary", size: "md" }), "group")}
           >
             {t.cta1}
@@ -67,9 +64,10 @@ export function Hero({ lang, t, heroImage }: { lang: Lang; t: HomeCopy; heroImag
                 direction={lang === "he" ? "right-to-left" : "left-to-right"}
               />
             </span>
-          </ContactTriggerButton>
+          </ContactLink>
           <Link
             href="#excellence"
+            prefetch={false}
             className={cn(buttonVariants({ variant: "secondary", size: "md" }))}
           >
             {t.cta2}

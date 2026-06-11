@@ -3,7 +3,7 @@
 import Image from "next/image";
 import type { CatalogItem } from "@/app/content/catalog";
 import type { Lang } from "@/app/content/home";
-import { useContactDialog } from "@/app/components/contact/ContactDialogProvider";
+import { EMAIL_HREF } from "@/app/content/company";
 import {
   Dialog,
   DialogAside,
@@ -39,7 +39,6 @@ export function CatalogProductDialog({
   onOpenChange: (open: boolean) => void;
 }) {
   const t = UI[lang];
-  const { open: openContact } = useContactDialog();
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -111,20 +110,15 @@ export function CatalogProductDialog({
                 </div>
               ) : null}
 
-              <button
-                type="button"
+              <a
+                href={EMAIL_HREF}
                 onClick={() => {
                   onOpenChange(false);
-                  // Defer so the closing dialog's focus-restore + body
-                  // pointer-events cleanup finish before the contact dialog
-                  // mounts (avoids a focus/scroll-lock race between two Radix
-                  // roots in the same tick).
-                  setTimeout(openContact, 150);
                 }}
                 className="inline-flex items-center justify-center self-start border border-ink bg-magenta px-12 py-[18px] font-sans text-[14px] font-bold tracking-[0.08em] text-ink shadow-[6px_6px_0_0_var(--cyan)] transition-transform duration-300 hover:-translate-y-0.5 focus-ring"
               >
                 {t.requestSample}
-              </button>
+              </a>
             </div>
           ) : null}
         </DialogMain>

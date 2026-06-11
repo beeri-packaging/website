@@ -22,7 +22,7 @@ export default async function CatalogPage({ params }: { params: Promise<{ locale
     toChrome(await getChrome(lang), lang),
   ];
   return (
-    <PlaceholderShell chrome={chrome}>
+    <PlaceholderShell lang={lang} chrome={chrome}>
       <CatalogPageDesign copy={copy} lang={lang} />
     </PlaceholderShell>
   );

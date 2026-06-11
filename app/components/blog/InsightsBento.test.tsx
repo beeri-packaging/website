@@ -1,19 +1,7 @@
-import type { ReactNode } from "react";
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { InsightsBento } from "./InsightsBento";
 import type { LocalizedPost } from "@/sanity/queries";
-
-// The i18n Link prepends the locale at runtime (next-intl's job). For this unit
-// test we mock it to a plain anchor and assert the path the component passes to
-// it, keeping the test isolated from next-intl's runtime.
-vi.mock("@/i18n/navigation", () => ({
-  Link: ({ href, children, ...props }: { href: string; children: ReactNode }) => (
-    <a href={href} {...props}>
-      {children}
-    </a>
-  ),
-}));
 
 function post(slug: string, category: LocalizedPost["category"]): LocalizedPost {
   return {
@@ -50,7 +38,7 @@ describe("InsightsBento", () => {
     render(<InsightsBento posts={posts} lang="en" labels={labels} readLabel="Read" />);
     for (const p of posts) {
       const link = screen.getByRole("link", { name: new RegExp(`Title ${p.slug}`) });
-      expect(link).toHaveAttribute("href", `/blog/${p.slug}`);
+      expect(link).toHaveAttribute("href", `/en/blog/${p.slug}`);
     }
   });
 

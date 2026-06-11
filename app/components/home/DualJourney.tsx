@@ -1,9 +1,8 @@
 import Image from "next/image";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
 import type { HomeCopy, Lang } from "@/app/content/home";
 import type { HomeJourneyPanel } from "@/sanity/queries";
 import { ArrowRtl } from "./icons";
-import { JourneyRevealObserver } from "./JourneyRevealObserver";
 
 export function DualJourney({ lang, t, panels }: { lang: Lang; t: HomeCopy; panels: readonly HomeJourneyPanel[] }) {
   const rows: HomeJourneyPanel[][] = [];
@@ -42,7 +41,6 @@ export function DualJourney({ lang, t, panels }: { lang: Lang; t: HomeCopy; pane
        * non-sticky stack (a pinned sticky element freezes its own view()
        * timeline). See globals.css for the timeline wiring.
        */}
-      <JourneyRevealObserver rootId="journey" />
       <div className="journey-stack relative">
         {rows.map((row, rowIndex) => (
           <div
@@ -87,10 +85,11 @@ function JourneyCard({
   // Two tracks matching the link labels: yellow "timeline" panels deep-link to
   // the About page's milestone timeline; purple "customer path" panels scroll
   // to the process section further down this page.
-  const href = panel.accent === "yellow" ? "/about#timeline" : "#excellence";
+  const href = panel.accent === "yellow" ? `/${lang}/about#timeline` : "#excellence";
   return (
     <Link
       href={href}
+      prefetch={false}
       data-pair={pairIndex}
       // z-index orders the mobile card deck (later cards slide over earlier
       // ones); on desktop it's inert inside each row's stacking context.

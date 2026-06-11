@@ -7,10 +7,9 @@ import { ErrorView } from "@/app/components/system/ErrorView";
 /**
  * Localized runtime-error boundary for everything under `[locale]`. Error
  * boundaries must be Client Components. It sits inside `[locale]/layout`, so the
- * i18n + contact-dialog providers are available; `PlaceholderShell` uses the
- * bundled chrome fallback so the shell renders even if the failure came from
- * the page's own data fetch. `unstable_retry` re-renders the boundary's
- * children to attempt recovery.
+ * `PlaceholderShell` uses the bundled chrome fallback so the shell renders even
+ * if the failure came from the page's own data fetch. `unstable_retry`
+ * re-renders the boundary's children to attempt recovery.
  */
 export default function Error({
   error,
@@ -24,7 +23,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <PlaceholderShell>
+    <PlaceholderShell lang="he">
       <ErrorView retry={unstable_retry} />
     </PlaceholderShell>
   );

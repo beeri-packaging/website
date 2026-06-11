@@ -1,7 +1,6 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { useLocale } from "next-intl";
 import { chromeContent } from "@/app/content/site";
 import type { Chrome } from "@/app/content/site";
 import type { Lang } from "@/app/content/home";
@@ -34,13 +33,14 @@ export function useShellLang(): ShellContext {
  * for pages not yet migrated to CMS. Owns the lang + mobile-drawer state.
  */
 export function PlaceholderShell({
+  lang,
   chrome,
   children,
 }: {
+  lang: Lang;
   chrome?: Chrome;
   children: React.ReactNode;
 }) {
-  const lang = useLocale() as Lang;
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {

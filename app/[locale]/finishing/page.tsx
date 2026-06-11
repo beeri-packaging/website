@@ -20,7 +20,7 @@ export default async function FinishingPage({ params }: { params: Promise<{ loca
   const copy = toFinishingCopy(await getFinishing(lang), lang);
   const chrome = toChrome(await getChrome(lang), lang);
   return (
-    <PlaceholderShell chrome={chrome}>
+    <PlaceholderShell lang={lang} chrome={chrome}>
       <FinishingPageDesign copy={copy} lang={lang} />
     </PlaceholderShell>
   );

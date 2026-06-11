@@ -1,6 +1,6 @@
 "use client";
 
-import { Link, usePathname } from "@/i18n/navigation";
+import Link from "next/link";
 import type { Lang } from "@/app/content/home";
 
 export function LangPill({
@@ -10,7 +10,6 @@ export function LangPill({
   lang: Lang;
   compact?: boolean;
 }) {
-  const pathname = usePathname();
   const inactive = "text-clay/80 hover:text-ink transition-colors duration-200";
   const active = "text-ink";
   return (
@@ -22,8 +21,7 @@ export function LangPill({
       }`}
     >
       <Link
-        href={pathname}
-        locale="he"
+        href="/he"
         aria-current={lang === "he" ? "true" : undefined}
         className={`relative z-10 px-3 py-1 font-sans font-bold tracking-[0.08em] uppercase rounded-full transition-colors duration-300 ${
           lang === "he" ? active : inactive
@@ -32,8 +30,7 @@ export function LangPill({
         HE
       </Link>
       <Link
-        href={pathname}
-        locale="en"
+        href="/en"
         aria-current={lang === "en" ? "true" : undefined}
         className={`relative z-10 px-3 py-1 font-sans font-bold tracking-[0.08em] uppercase rounded-full transition-colors duration-300 ${
           lang === "en" ? active : inactive

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
 import type { Lang } from "@/app/content/home";
 import type { Chrome } from "@/app/content/site";
 import { cn } from "@/lib/cn";
@@ -23,7 +23,7 @@ export function Header({
     <header className="fixed inset-x-0 top-0 z-50 bg-bone/85 backdrop-blur-md border-b border-bone-line">
       <nav className="mx-auto flex w-full max-w-[1280px] items-center justify-between gap-4 px-5 sm:px-8 md:px-12 lg:px-20 py-3 md:py-4">
         <Link
-          href="/"
+          href={`/${lang}`}
           aria-label={lang === "he" ? "בארי אריזות" : "Beeri Packaging"}
           onClick={(e) => {
             // Already on the home page → smooth-scroll to top instead of a
@@ -52,7 +52,7 @@ export function Header({
           {chrome.navLinks.map((l) => (
             <li key={l.href}>
               <Link
-                href={l.href}
+                href={`/${lang}${l.href}`}
                 className="link-underline font-sans font-bold text-clay text-[14px] tracking-[0.08em] hover:text-ink transition-colors duration-300 focus-ring"
               >
                 {lang === "he" ? l.he : l.en}

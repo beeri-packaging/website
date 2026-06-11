@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
 import type { FinishingCopy, FinishingGridItem } from "@/app/content/finishing";
 import type { Lang } from "@/app/content/home";
 import { PrecisionArmIcon } from "@/app/components/home/icons";
@@ -32,7 +32,7 @@ function FinishImage({
   );
 }
 
-function FeatureCard({ item }: { item: FinishingGridItem }) {
+function FeatureCard({ item, lang }: { item: FinishingGridItem; lang: Lang }) {
   return (
     <article className="relative flex h-full flex-col overflow-hidden border border-blueprint bg-bone">
       {item.sample ? (
@@ -64,7 +64,7 @@ function FeatureCard({ item }: { item: FinishingGridItem }) {
           ) : null}
         {item.cta ? (
           <Link
-            href="/catalog"
+            href={`/${lang}/catalog`}
               className="inline-flex items-center self-start font-sans text-[14px] font-bold tracking-[0.08em] text-purple underline underline-offset-2 focus-ring md:order-2 md:self-end"
           >
             {item.cta}
@@ -106,7 +106,7 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
         dir="ltr"
       >
         <div className="reveal lg:col-span-8" dir={lang === "he" ? "rtl" : "ltr"}>
-          <FeatureCard item={copy.feature} />
+          <FeatureCard item={copy.feature} lang={lang} />
         </div>
 
         <div className="reveal grid gap-6 lg:col-span-4" dir={lang === "he" ? "rtl" : "ltr"}>

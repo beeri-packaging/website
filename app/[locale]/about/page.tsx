@@ -29,8 +29,8 @@ export default async function AboutPage({
   const copy = aboutCopy[lang];
   const chrome = toChrome(await getChrome(lang), lang);
   return (
-    <PlaceholderShell chrome={chrome}>
-      <AboutPageDesign copy={copy} />
+    <PlaceholderShell lang={lang} chrome={chrome}>
+      <AboutPageDesign copy={copy} lang={lang} />
     </PlaceholderShell>
   );
 }

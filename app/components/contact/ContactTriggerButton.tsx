@@ -1,34 +1,54 @@
 "use client";
 
-import { useContactDialog } from "./ContactDialogProvider";
+import { useState } from "react";
+import dynamic from "next/dynamic";
+import type { Lang } from "@/app/content/home";
+
+const ContactDialog = dynamic(
+  () => import("./ContactDialog").then((m) => m.ContactDialog),
+  { ssr: false },
+);
 
 type ContactTriggerButtonProps = Omit<
   React.ComponentPropsWithoutRef<"button">,
   "type"
 >;
 
+function documentLang(): Lang {
+  return document.documentElement.lang === "en" ? "en" : "he";
+}
+
 /**
- * Drop-in replacement for a "contact us" link/button. Renders a `<button>` that
- * opens the global contact dialog, while forwarding `className`/`children` so
- * each call site keeps its own styling. Safe inside Server Components.
+ * Drop-in contact trigger. The Radix dialog runtime is lazy-loaded only after
+ * the first click, so static pages do not pay for it during first paint.
  */
 export function ContactTriggerButton({
   onClick,
   children,
   ...props
 }: ContactTriggerButtonProps) {
-  const { open } = useContactDialog();
+  const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [lang, setLang] = useState<Lang>("he");
 
   return (
-    <button
-      type="button"
-      onClick={(event) => {
-        onClick?.(event);
-        open();
-      }}
-      {...props}
-    >
-      {children}
-    </button>
+    <>
+      <button
+        type="button"
+        onClick={(event) => {
+          onClick?.(event);
+          if (event.defaultPrevented) return;
+          setLang(documentLang());
+          setMounted(true);
+          setOpen(true);
+        }}
+        {...props}
+      >
+        {children}
+      </button>
+      {mounted ? (
+        <ContactDialog lang={lang} open={open} onOpenChange={setOpen} />
+      ) : null}
+    </>
   );
 }

@@ -56,7 +56,7 @@ export default async function BlogIndexPage({
     toCareersCopy(await getCareers(lang), lang),
   ];
   return (
-    <PlaceholderShell chrome={chrome}>
+    <PlaceholderShell lang={lang} chrome={chrome}>
       <InsightsPageDesign
         posts={posts}
         copy={copy}

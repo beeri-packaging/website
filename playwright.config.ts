@@ -7,7 +7,10 @@ const port = Number(process.env.E2E_PORT ?? 3000);
 
 export default defineConfig({
   testDir: "./e2e",
-  fullyParallel: true,
+  // Next dev mode can intermittently 500 under concurrent route generation in
+  // this CMS-backed app, so keep the local e2e gate deterministic.
+  fullyParallel: false,
+  workers: 1,
   reporter: "list",
   use: { baseURL: `http://localhost:${port}`, trace: "on-first-retry" },
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],

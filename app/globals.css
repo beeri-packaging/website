@@ -284,41 +284,13 @@ body {
  * SCROLL-ENTRANCE REVEAL
  * ────────────────────────────────────────────────────────────────
  *
- * Subtle fade + rise as a block scrolls into view. The hidden state is
- * plain CSS, so it applies on first paint (no flash); the global
- * RevealOnScroll island adds `.is-visible` once each element intersects
- * the viewport, triggering the transition.
- *
- * We use IntersectionObserver rather than a CSS `view()` scroll timeline
- * because anonymous view() timelines freeze or mis-resolve under
- * `position: sticky` / `overflow: clip` ancestors (notably Safari) — the
- * same reason DualJourney observes its cards in JS.
- *
- * Above-the-fold blocks (hero headings) deliberately do NOT carry `.reveal`,
- * so the LCP element paints immediately instead of waiting for hydration.
+ * Reveal hooks are now a no-JS progressive enhancement point. Content remains
+ * visible by default, so scroll animations never gate first paint or strand
+ * content when JavaScript is unavailable.
  */
 .reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition:
-    opacity 600ms cubic-bezier(0.2, 0.7, 0.2, 1),
-    transform 600ms cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-
-.reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
-}
-
-/* Reduced motion (and the JS-disabled <noscript> fallback in the layout):
- * show content at rest, no transition. This also covers the case where the
- * observer never runs, so content is never stranded hidden. */
-@media (prefers-reduced-motion: reduce) {
-  .reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
 }
 
 /* Modal / dialog — Radix mounts on open, so we only animate the entrance.

@@ -49,7 +49,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   const chrome = toChrome(await getChrome(lang), lang);
   const related = post ? await getRelatedPosts(slug, lang, post.category) : [];
   return (
-    <PlaceholderShell chrome={chrome}>
+    <PlaceholderShell lang={lang} chrome={chrome}>
       {post ? (
         <>
           <BlogPostingJsonLd post={post} locale={lang} />

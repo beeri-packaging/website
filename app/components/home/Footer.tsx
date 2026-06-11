@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
 import type { Lang } from "@/app/content/home";
 import type { Chrome } from "@/app/content/site";
 import { LinkedInGlyph, MailGlyph, PinGlyph, ArrowOut } from "./icons";
@@ -34,7 +34,7 @@ export function Footer({ lang, chrome }: { lang: Lang; chrome: Chrome }) {
           {/* Brand */}
           <div className="flex flex-col gap-6 md:col-span-5">
             <Link
-              href="/"
+              href={`/${lang}`}
               aria-label={brandName}
               className="block w-fit focus-ring rounded-sm transition-opacity hover:opacity-80"
             >
@@ -64,7 +64,7 @@ export function Footer({ lang, chrome }: { lang: Lang; chrome: Chrome }) {
             <ul className="flex flex-col gap-2.5">
               {[...chrome.navLinks, careersLink].map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className={bodyLink}>
+                  <Link href={`/${lang}${l.href}`} className={bodyLink}>
                     {l[lang]}
                   </Link>
                 </li>
@@ -128,7 +128,7 @@ export function Footer({ lang, chrome }: { lang: Lang; chrome: Chrome }) {
               {chrome.legal.map((l) => (
                 <li key={l.label}>
                   <Link
-                    href={l.href}
+                    href={`/${lang}${l.href}`}
                     className="font-sans uppercase text-clay text-[12px] tracking-[0.08em] leading-4 underline underline-offset-4 decoration-rule hover:text-ink hover:decoration-ink transition-colors duration-300 focus-ring rounded-sm"
                   >
                     {l.label}

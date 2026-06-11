@@ -1,12 +1,11 @@
 "use client";
 
-import { useLocale } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
 import { cn } from "@/lib/cn";
 import { buttonVariants } from "@/components/ui/button";
 import { ContactTriggerButton } from "@/app/components/contact/ContactTriggerButton";
 import { notFoundCopy } from "@/app/content/system";
-import type { Lang } from "@/app/content/home";
+import { useShellLang } from "@/app/components/placeholder/PlaceholderShell";
 import { SystemMessage } from "./SystemMessage";
 
 /**
@@ -15,7 +14,7 @@ import { SystemMessage } from "./SystemMessage";
  * a contact-dialog trigger.
  */
 export function NotFoundView() {
-  const lang = useLocale() as Lang;
+  const { lang } = useShellLang();
   const t = notFoundCopy[lang];
 
   return (
@@ -26,7 +25,7 @@ export function NotFoundView() {
       description={t.description}
       actions={
         <>
-          <Link href="/" className={cn(buttonVariants({ variant: "primary", size: "md" }))}>
+          <Link href={`/${lang}`} className={cn(buttonVariants({ variant: "primary", size: "md" }))}>
             {t.primary}
           </Link>
           <ContactTriggerButton className={cn(buttonVariants({ variant: "secondary", size: "md" }))}>

@@ -5,7 +5,7 @@ import type { Lang } from "@/app/content/home";
 import type { CareerRole } from "@/app/content/careers";
 import { jobApplicationCopy } from "@/app/content/jobApplication";
 import { submitJobApplication } from "@/app/actions/jobApplication";
-import { useContactDialog } from "@/app/components/contact/ContactDialogProvider";
+import { EMAIL_HREF } from "@/app/content/company";
 import {
   Dialog,
   DialogAside,
@@ -55,7 +55,6 @@ export function JobApplicationDialog({
   const copy = jobApplicationCopy[lang];
   const formId = useId();
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { open: openContact } = useContactDialog();
 
   const [open, setOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -289,20 +288,15 @@ export function JobApplicationDialog({
                 </>
               )}
 
-              <button
-                type="button"
+              <a
+                href={EMAIL_HREF}
                 onClick={() => {
-                  // Close the application dialog first, then open the global
-                  // contact dialog. Defer the open so the closing dialog's
-                  // focus-restore + scroll-lock cleanup land first — otherwise
-                  // the two Radix roots race over focus/body pointer-events.
                   handleOpenChange(false);
-                  setTimeout(openContact, 150);
                 }}
                 className="inline-flex w-fit items-center justify-center border border-cyan px-6 py-3 font-sans text-[13px] font-bold tracking-[0.08em] text-cyan transition-colors duration-300 hover:bg-cyan hover:text-cyan-deep focus-ring"
               >
                 {copy.aside.inquire}
-              </button>
+              </a>
             </div>
           </div>
         </DialogAside>

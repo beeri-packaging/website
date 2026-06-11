@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
 import { aboutImages, type AboutCopy } from "@/app/content/about";
+import type { Lang } from "@/app/content/home";
 import { ContactTriggerButton } from "@/app/components/contact/ContactTriggerButton";
 import { AboutTimeline } from "./AboutTimeline";
 
@@ -17,7 +18,7 @@ function Eyebrow({ children }: { children: ReactNode }) {
   );
 }
 
-export function AboutPageDesign({ copy }: { copy: AboutCopy }) {
+export function AboutPageDesign({ copy, lang }: { copy: AboutCopy; lang: Lang }) {
   return (
     <div className="bg-bone">
       {/* 1 — HERO */}
@@ -132,7 +133,7 @@ export function AboutPageDesign({ copy }: { copy: AboutCopy }) {
                 const tone = s.tone ?? "plain";
                 const tile =
                   tone === "magenta"
-                    ? "bg-magenta"
+                    ? "bg-magenta-deep"
                     : tone === "yellow"
                       ? "bg-yellow"
                       : "border border-blueprint bg-bone";
@@ -143,7 +144,7 @@ export function AboutPageDesign({ copy }: { copy: AboutCopy }) {
                     : tone === "yellow"
                       ? "text-blueprint/75"
                       : "text-blueprint";
-                const subColor = tone === "magenta" ? "text-bone/70" : "text-clay";
+                const subColor = tone === "magenta" ? "text-bone" : "text-clay";
                 return (
                   <div
                     key={s.label}
@@ -184,7 +185,7 @@ export function AboutPageDesign({ copy }: { copy: AboutCopy }) {
       </section>
 
       {/* 5 — PARTNERS / CLIENTS (full-bleed magenta band) */}
-      <section id="clients" className="w-full border-t border-ink bg-magenta scroll-mt-[80px]">
+      <section id="clients" className="w-full border-t border-ink bg-magenta-deep scroll-mt-[80px]">
         <div className="mx-auto w-full max-w-[1152px] px-5 py-16 sm:px-8 md:py-24 lg:px-0">
           <div className="reveal flex flex-col items-start gap-2 text-start">
             <span className="font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-cyan">
@@ -232,7 +233,7 @@ export function AboutPageDesign({ copy }: { copy: AboutCopy }) {
               {copy.ctaPrimary}
             </ContactTriggerButton>
             <Link
-              href="/catalog"
+              href={`/${lang}/catalog`}
               className="inline-flex min-h-[56px] items-center justify-center border border-blueprint px-[41px] py-[18px] font-sans text-[14px] font-bold tracking-[0.08em] text-blueprint focus-ring"
             >
               {copy.ctaSecondary}

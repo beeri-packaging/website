@@ -1,19 +1,8 @@
-import type { ReactNode } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { DualJourney } from "./DualJourney";
 import type { HomeJourneyPanel } from "@/sanity/queries";
 import { homeCopy } from "@/app/content/home";
-
-// The i18n Link prepends the locale at runtime (next-intl's job). Mock it to a
-// plain anchor so we can assert the raw path the component passes to it.
-vi.mock("@/i18n/navigation", () => ({
-  Link: ({ href, children, ...props }: { href: string; children: ReactNode }) => (
-    <a href={href} {...props}>
-      {children}
-    </a>
-  ),
-}));
 
 // jsdom has no IntersectionObserver; the reveal wiring is irrelevant here.
 vi.mock("@/lib/revealObserver", () => ({
@@ -44,7 +33,7 @@ describe("DualJourney", () => {
     render(<DualJourney lang="en" t={homeCopy.en} panels={panels} />);
     expect(screen.getByRole("link", { name: /Title heritage/ })).toHaveAttribute(
       "href",
-      "/about#timeline",
+      "/en/about#timeline",
     );
   });
 

@@ -1,19 +1,10 @@
-"use client";
-
-import { useState } from "react";
 import type { Lang } from "@/app/content/home";
 import type { Chrome } from "@/app/content/site";
-import { useContactDialog } from "@/app/components/contact/ContactDialogProvider";
+import { ContactLink } from "./ContactLink";
 
 export function StickyContact({ lang, chrome }: { lang: Lang; chrome: Chrome }) {
-  const [hovered, setHovered] = useState(false);
-  const { open } = useContactDialog();
   return (
-    <button
-      type="button"
-      onClick={open}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+    <ContactLink
       aria-label={chrome.contact}
       className="fixed bottom-3 right-3 sm:bottom-6 sm:right-6 md:bottom-12 md:right-12 z-40 group inline-flex items-center gap-3 sm:gap-6 bg-magenta-deep hover:bg-ink text-bone rounded-none px-3.5 sm:px-8 py-3 sm:py-4 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] transition-all duration-300 hover:translate-y-[-2px]"
     >
@@ -30,7 +21,7 @@ export function StickyContact({ lang, chrome }: { lang: Lang; chrome: Chrome }) 
           stroke="currentColor"
           strokeWidth="1.25"
           strokeLinecap="square"
-          className={`transition-all duration-500 ${hovered ? "translate-y-[1px]" : ""}`}
+          className="transition-transform duration-500 group-hover:translate-y-[1px]"
         />
       </svg>
       <span className="hidden sm:inline font-sans font-bold uppercase text-[12px] sm:text-[14px] tracking-[0.08em] leading-4">
@@ -39,6 +30,6 @@ export function StickyContact({ lang, chrome }: { lang: Lang; chrome: Chrome }) 
       <span aria-hidden className="sr-only">
         {lang === "he" ? "צור קשר" : "Contact"}
       </span>
-    </button>
+    </ContactLink>
   );
 }

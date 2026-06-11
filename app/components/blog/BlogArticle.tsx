@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
 import type { Lang } from "@/app/content/home";
 import {
   categoryChipClass,
@@ -132,15 +132,17 @@ function RelatedCard({
   index,
   label,
   dark,
+  lang,
 }: {
   post: LocalizedPost;
   index: number;
   label: string;
   dark: boolean;
+  lang: Lang;
 }) {
   return (
     <Link
-      href={`/blog/${post.slug}`}
+      href={`/${lang}/blog/${post.slug}`}
       className={`group flex flex-col gap-4 overflow-hidden rounded-bl-[10px] rounded-br-[40px] rounded-tl-[40px] rounded-tr-[10px] border border-ink p-6 transition-colors duration-300 focus-ring sm:p-8 ${
         dark ? "bg-purple text-bone hover:bg-purple/90" : "bg-bone text-ink hover:bg-sand"
       }`}
@@ -280,7 +282,7 @@ export function BlogArticle({
                 {t.moreFromBlog}
               </h2>
               <Link
-                href="/blog"
+                href={`/${lang}/blog`}
                 className="group inline-flex items-center gap-2 pb-2 font-sans text-[14px] font-bold uppercase tracking-[0.08em] text-magenta-deep underline decoration-from-font underline-offset-2 transition-colors duration-300 hover:text-ink focus-ring"
               >
                 <span
@@ -303,6 +305,7 @@ export function BlogArticle({
                   index={i}
                   label={labels[rp.category]}
                   dark={i === 1}
+                  lang={lang}
                 />
               ))}
             </div>

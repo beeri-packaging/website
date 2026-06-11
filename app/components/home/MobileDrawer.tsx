@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
 import type { Lang } from "@/app/content/home";
 import type { Chrome } from "@/app/content/site";
 import { ContactTriggerButton } from "@/app/components/contact/ContactTriggerButton";
@@ -93,7 +93,7 @@ export function MobileDrawer({
             {chrome.navLinks.map((l, i) => (
               <li key={l.href}>
                 <Link
-                  href={l.href}
+                  href={`/${lang}${l.href}`}
                   onClick={onClose}
                   className="group flex items-center justify-between gap-4 py-4 border-b border-rule/60 transition-colors hover:bg-sand/60 focus-ring"
                 >

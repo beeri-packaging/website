@@ -13,13 +13,12 @@ test("/en renders English LTR", async ({ page }) => {
 });
 
 test("language switch from /he navigates to /en", async ({ page }) => {
-  // The language switcher (LangPill) lives inside the mobile drawer, whose
-  // trigger is hidden above the lg breakpoint. Use a mobile viewport so the
-  // menu button is visible, open the drawer, then click the EN link — it
-  // points at the same path under /en.
+  // The language switcher lives inside the mobile menu, whose trigger is
+  // hidden above the lg breakpoint. Use a mobile viewport so the native
+  // summary control is visible, then click the EN link.
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/he");
-  await page.locator('button[aria-controls="mobile-drawer"]').click();
+  await page.locator('summary[aria-controls="mobile-drawer"]').click();
   await page.locator('#mobile-drawer a[href="/en"]').first().click();
   await expect(page).toHaveURL(/\/en$/);
 });

@@ -1,10 +1,11 @@
 import Image from "next/image";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
 import type { HomeCopy, Lang } from "@/app/content/home";
 import { Badge } from "@/components/ui/badge";
 import { ArrowOut, CardCornerArrow, DieCutIcon, LabIcon } from "./icons";
 
 export function TechnicalExcellence({
+  lang,
   t,
   capabilities,
   bentoServiceImage,
@@ -58,7 +59,7 @@ export function TechnicalExcellence({
               (right) side, matching Figma. */}
           <div className="md:col-span-5 grid grid-rows-[402fr_366fr] gap-6 md:gap-8 h-full min-h-[640px] md:min-h-0">
             <Link
-              href="/finishing"
+              href={`/${lang}/finishing`}
               className="group relative overflow-hidden bg-purple border border-bone-line p-8 sm:p-10 md:p-10 lg:p-[40px] xl:p-[49px] flex flex-col items-start justify-between text-start cursor-pointer focus-ring transition-[box-shadow,transform] duration-500 hover:shadow-[0_30px_60px_-20px_rgba(111,80,166,0.5)] hover:-translate-y-0.5"
             >
               <span
@@ -89,7 +90,7 @@ export function TechnicalExcellence({
             </Link>
 
             <Link
-              href="/finishing"
+              href={`/${lang}/finishing`}
               className="group relative overflow-hidden bg-ink p-8 sm:p-10 md:p-10 lg:p-[40px] xl:p-[48px] flex flex-col items-start justify-between text-start cursor-pointer focus-ring transition-[box-shadow,transform] duration-500 hover:shadow-[0_30px_60px_-20px_rgba(0,255,255,0.25)] hover:-translate-y-0.5"
             >
               <span
@@ -116,8 +117,7 @@ export function TechnicalExcellence({
           </div>
 
           <Link
-            href="/catalog"
-            aria-label={t.bentoCatalogLabel}
+            href={`/${lang}/catalog`}
             className="md:col-span-7 relative bg-sand overflow-hidden aspect-[4/3] sm:aspect-[16/10] md:aspect-auto md:h-auto group block cursor-pointer focus-ring"
           >
             <Image
