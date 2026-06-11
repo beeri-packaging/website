@@ -1,6 +1,7 @@
 import { defineQuery } from "next-sanity";
 
 import { client } from "./client";
+import { withCdnParams } from "./image";
 import {
   homeCopy,
   homeImages,
@@ -80,7 +81,7 @@ export type HomeDoc = {
  */
 export async function getHome(locale: Lang): Promise<HomeDoc | null> {
   try {
-    return await client.fetch<HomeDoc | null>(homeQuery, { locale });
+    return withCdnParams(await client.fetch<HomeDoc | null>(homeQuery, { locale }));
   } catch (err) {
     // Fail soft: any Sanity outage/auth issue falls back to the bundled copy
     // so the page (and the build) never breaks on the CMS.
@@ -210,7 +211,7 @@ type ChromeDoc = {
 
 export async function getChrome(locale: Lang): Promise<ChromeDoc | null> {
   try {
-    return await client.fetch<ChromeDoc | null>(chromeQuery, { locale });
+    return withCdnParams(await client.fetch<ChromeDoc | null>(chromeQuery, { locale }));
   } catch (err) {
     console.error("getChrome: Sanity fetch failed, using bundled chrome", err);
     return null;
@@ -267,7 +268,7 @@ export const careersQuery = defineQuery(`*[_type == "careers" && language == $lo
 }`);
 
 export async function getCareers(locale: Lang) {
-  try { return await client.fetch(careersQuery, { locale }); }
+  try { return withCdnParams(await client.fetch(careersQuery, { locale })); }
   catch (err) { console.error("getCareers failed, using bundled copy", err); return null; }
 }
 
@@ -324,7 +325,7 @@ export const finishingQuery = defineQuery(`*[_type == "finishing" && language ==
 }`);
 
 export async function getFinishing(locale: Lang) {
-  try { return await client.fetch(finishingQuery, { locale }); }
+  try { return withCdnParams(await client.fetch(finishingQuery, { locale })); }
   catch (err) { console.error("getFinishing failed, using bundled copy", err); return null; }
 }
 
@@ -376,7 +377,7 @@ export const blogSettingsQuery = defineQuery(`*[_type == "blogSettings" && langu
 }`);
 
 export async function getBlogSettings(locale: Lang) {
-  try { return await client.fetch(blogSettingsQuery, { locale }); }
+  try { return withCdnParams(await client.fetch(blogSettingsQuery, { locale })); }
   catch (err) { console.error("getBlogSettings failed, using bundled copy", err); return null; }
 }
 
@@ -502,7 +503,7 @@ function mapPost(d: PostDoc, locale: Lang): LocalizedPost {
 
 export async function getAllPosts(locale: Lang): Promise<LocalizedPost[]> {
   try {
-    const docs = await client.fetch<PostDoc[]>(allPostsQuery, { locale });
+    const docs = withCdnParams(await client.fetch<PostDoc[]>(allPostsQuery, { locale }));
     if (!docs?.length) return blogPosts.map((p) => fbPost(p, locale));
     return docs.map((d) => mapPost(d, locale));
   } catch (err) {
@@ -513,7 +514,7 @@ export async function getAllPosts(locale: Lang): Promise<LocalizedPost[]> {
 
 export async function getPost(slug: string, locale: Lang): Promise<LocalizedPost | null> {
   try {
-    const doc = await client.fetch<PostDoc | null>(postQuery, { locale, slug });
+    const doc = withCdnParams(await client.fetch<PostDoc | null>(postQuery, { locale, slug }));
     if (doc) return mapPost(doc, locale);
   } catch (err) {
     console.error("getPost failed, using bundled copy", err);
@@ -532,7 +533,7 @@ export async function getRelatedPosts(
   const byCategory = (a: LocalizedPost, b: LocalizedPost) =>
     (a.category === category ? 0 : 1) - (b.category === category ? 0 : 1);
   try {
-    const docs = await client.fetch<PostDoc[]>(relatedPostsQuery, { locale, slug });
+    const docs = withCdnParams(await client.fetch<PostDoc[]>(relatedPostsQuery, { locale, slug }));
     if (docs?.length) {
       return docs.map((d) => mapPost(d, locale)).sort(byCategory).slice(0, 3);
     }
@@ -591,7 +592,7 @@ type CatalogDoc = {
 
 export async function getCatalog(locale: Lang): Promise<CatalogDoc | null> {
   try {
-    return await client.fetch<CatalogDoc | null>(catalogQuery, { locale });
+    return withCdnParams(await client.fetch<CatalogDoc | null>(catalogQuery, { locale }));
   } catch (err) {
     console.error("getCatalog: Sanity fetch failed, using bundled copy", err);
     return null;
@@ -655,7 +656,7 @@ export const placeholderQuery = defineQuery(`*[_type == "placeholderPage" && lan
 }`);
 
 export async function getPlaceholder(route: PlaceholderRoute, locale: Lang) {
-  try { return await client.fetch(placeholderQuery, { locale, route }); }
+  try { return withCdnParams(await client.fetch(placeholderQuery, { locale, route })); }
   catch (err) { console.error("getPlaceholder failed, using bundled copy", err); return null; }
 }
 

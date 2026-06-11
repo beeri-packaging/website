@@ -6,6 +6,13 @@ const withNextIntl = createNextIntlPlugin();
 const nextConfig: NextConfig = {
   // Nothing is gained by advertising the framework in a response header.
   poweredByHeader: false,
+  experimental: {
+    // Tailwind v4 keeps the whole bundle at ~24KB, so shipping it as <style>
+    // in the document removes the render-blocking stylesheet round trips
+    // (the last LCP dependency besides the hero image itself). Client-side
+    // navigations still get <link> tags, so cross-page caching is unaffected.
+    inlineCss: true,
+  },
   images: {
     // Next 16 requires non-default quality values to be opted into here.
     // Everything now ships at the q75 default (the journey panels dropped
