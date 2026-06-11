@@ -220,11 +220,11 @@ export function BlogArticle({
           </div>
 
           {post.image ? (
-            <div className="relative w-full sm:w-[46%] sm:self-end">
+            <div className="relative w-full sm:w-[46%] sm:self-start">
               {/* Floating brand accent — yellow square layered over magenta (Figma 531:532). */}
               <span
                 aria-hidden
-                className="pointer-events-none absolute -bottom-6 -start-6 z-0 block h-20 w-20 sm:h-24 sm:w-24"
+                className="pointer-events-none absolute -bottom-6 -end-6 z-0 block h-20 w-20 sm:h-24 sm:w-24"
               >
                 <span className="absolute inset-0 -translate-x-1.5 translate-y-1.5 bg-magenta" />
                 <span className="absolute inset-0 bg-yellow" />

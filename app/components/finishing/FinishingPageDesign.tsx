@@ -101,7 +101,8 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
       </section>
 
       <section
-        className="mx-auto grid w-full max-w-[1152px] grid-cols-1 gap-6 px-5 pb-20 sm:px-8 md:px-12 lg:grid-cols-12 lg:px-0"
+        id="capabilities"
+        className="mx-auto grid w-full max-w-[1152px] grid-cols-1 gap-6 px-5 pb-20 sm:px-8 md:px-12 lg:grid-cols-12 lg:px-0 scroll-mt-[80px]"
         dir="ltr"
       >
         <div className="reveal lg:col-span-8" dir={lang === "he" ? "rtl" : "ltr"}>
