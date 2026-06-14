@@ -51,9 +51,6 @@ export const COMPANY = {
   address: Record<Lang, CompanyAddress>;
 };
 
-/** `mailto:` href for the primary contact email. */
-export const EMAIL_HREF = `mailto:${COMPANY.email}`;
-
 /** Pre-encoded Google Maps search link for the company address. */
 export const MAPS_HREF =
   "https://www.google.com/maps/search/?api=1&query=" +

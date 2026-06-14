@@ -9,6 +9,7 @@ import { routing } from "@/i18n/routing";
 import { SanityLive } from "@/sanity/live";
 import { SITE_URL, alternatesFor } from "@/lib/site";
 import { OrganizationJsonLd } from "@/app/components/seo/JsonLd";
+import { ContactDialogProvider } from "@/app/components/contact/ContactDialogProvider";
 import type { Lang } from "@/app/content/home";
 import "../globals.css";
 
@@ -92,7 +93,10 @@ export default async function LocaleLayout({
           {locale === "he" ? "דלג לתוכן" : "Skip to content"}
         </a>
         <OrganizationJsonLd locale={locale as Lang} />
-        {children}
+        {/* One app-wide contact dialog for every "contact us" trigger — kept
+            outside any page-level Radix dialog so opening it from inside the
+            catalog/job modals doesn't unmount it when that modal closes. */}
+        <ContactDialogProvider lang={locale as Lang}>{children}</ContactDialogProvider>
         {/* Live + Visual editing only in draft mode (Studio preview). For
             normal visitors they're inert and only emit a CORS console warning,
             so gating them keeps the production console clean and the page light. */}
