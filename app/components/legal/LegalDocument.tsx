@@ -1,6 +1,7 @@
 import type { Lang } from "@/app/content/home";
 import type { LegalDoc } from "@/app/content/legal";
-import { COMPANY, EMAIL_HREF, MAPS_HREF, companyLegalName, companyAddress } from "@/app/content/company";
+import { COMPANY, MAPS_HREF, companyLegalName, companyAddress } from "@/app/content/company";
+import { ContactLink } from "@/app/components/home/ContactLink";
 
 /**
  * Editorial renderer for a legal document (Privacy / Terms). Reads its copy
@@ -89,12 +90,9 @@ export function LegalDocument({ doc, lang }: { doc: LegalDoc; lang: Lang }) {
               </a>
             </p>
             <p>
-              <a
-                href={EMAIL_HREF}
-                className="underline decoration-rule underline-offset-4 transition-colors hover:text-ink hover:decoration-ink focus-ring"
-              >
+              <ContactLink className="underline decoration-rule underline-offset-4 transition-colors hover:text-ink hover:decoration-ink focus-ring">
                 {COMPANY.email}
-              </a>
+              </ContactLink>
             </p>
           </div>
         </section>

@@ -5,7 +5,7 @@ import type { Lang } from "@/app/content/home";
 import type { CareerRole } from "@/app/content/careers";
 import { jobApplicationCopy } from "@/app/content/jobApplication";
 import { submitJobApplication } from "@/app/actions/jobApplication";
-import { EMAIL_HREF } from "@/app/content/company";
+import { useContactDialog } from "@/app/components/contact/ContactDialogProvider";
 import {
   Dialog,
   DialogAside,
@@ -55,6 +55,7 @@ export function JobApplicationDialog({
   const copy = jobApplicationCopy[lang];
   const formId = useId();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { open: openContact } = useContactDialog();
 
   const [open, setOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -288,15 +289,16 @@ export function JobApplicationDialog({
                 </>
               )}
 
-              <a
-                href={EMAIL_HREF}
+              <button
+                type="button"
                 onClick={() => {
                   handleOpenChange(false);
+                  openContact();
                 }}
                 className="inline-flex w-fit items-center justify-center border border-cyan px-6 py-3 font-sans text-[13px] font-bold tracking-[0.08em] text-cyan transition-colors duration-300 hover:bg-cyan hover:text-cyan-deep focus-ring"
               >
                 {copy.aside.inquire}
-              </a>
+              </button>
             </div>
           </div>
         </DialogAside>

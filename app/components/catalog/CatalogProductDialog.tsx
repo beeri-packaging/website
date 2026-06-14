@@ -3,7 +3,7 @@
 import Image from "next/image";
 import type { CatalogItem } from "@/app/content/catalog";
 import type { Lang } from "@/app/content/home";
-import { EMAIL_HREF } from "@/app/content/company";
+import { useContactDialog } from "@/app/components/contact/ContactDialogProvider";
 import {
   Dialog,
   DialogAside,
@@ -39,6 +39,7 @@ export function CatalogProductDialog({
   onOpenChange: (open: boolean) => void;
 }) {
   const t = UI[lang];
+  const { open: openContact } = useContactDialog();
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -110,15 +111,16 @@ export function CatalogProductDialog({
                 </div>
               ) : null}
 
-              <a
-                href={EMAIL_HREF}
+              <button
+                type="button"
                 onClick={() => {
                   onOpenChange(false);
+                  openContact();
                 }}
                 className="inline-flex items-center justify-center self-start border border-ink bg-magenta px-12 py-[18px] font-sans text-[14px] font-bold tracking-[0.08em] text-ink shadow-[6px_6px_0_0_var(--cyan)] transition-transform duration-300 hover:-translate-y-0.5 focus-ring"
               >
                 {t.requestSample}
-              </a>
+              </button>
             </div>
           ) : null}
         </DialogMain>
