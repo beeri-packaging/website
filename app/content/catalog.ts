@@ -173,19 +173,19 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
       {
         key: "modular",
         number: "03",
-        name: "מערכת מודולרית",
-        count: "פריט אחד",
+        name: "מארז מנצח",
+        count: "זוכה · 2025",
         layout: "modular",
         items: [
           {
-            key: "modular-system",
-            name: "מערכת מארזים מודולרית",
+            key: "winning-package",
+            name: "מארז גבריאל",
             description:
-              "מערכת חוצצים ומגירות מודולרית לסדרות מוצרים. תכנון מדויק ששומר על המוצר, על נוכחות המדף ועל חוויית הפתיחה.",
+              "המארז שזכה במקום השלישי בתחרות כוכב ישראל 2025 — שער הכניסה לתחרות הבינלאומית WorldStar. תכנון מבני חדשני, דיוק שטנץ והשבחה, לצד עמידה בסטנדרטים בינלאומיים של איכות, קיימות ומצוינות.",
             specs: [
-              { label: "סטייה", value: '±0.1 מ"מ' },
-              { label: "שטנץ", value: "צורני" },
-              { label: "מבנה", value: "גרסה 02" },
+              { label: "תחרות", value: "כוכב ישראל" },
+              { label: "דירוג", value: "מקום שלישי" },
+              { label: "ארגון", value: "WPO · WorldStar" },
             ],
           },
         ],
@@ -289,19 +289,19 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
       {
         key: "modular",
         number: "03",
-        name: "Modular system",
-        count: "1 item",
+        name: "Winning package",
+        count: "Award · 2025",
         layout: "modular",
         items: [
           {
-            key: "modular-system",
-            name: "Modular packaging system",
+            key: "winning-package",
+            name: "The Gabriel pack",
             description:
-              "A modular system of dividers and drawers for product series. Precise engineering that protects the product, earns shelf presence and elevates the unboxing experience.",
+              "The package that took third place at the 2025 Star of Israel awards — the gateway to the international WorldStar competition. Innovative structural design, die-cut precision and finishing, meeting international standards of quality, sustainability and excellence.",
             specs: [
-              { label: "Tolerance", value: "±0.1 mm" },
-              { label: "Die-cut", value: "Shaped" },
-              { label: "Structure", value: "v02" },
+              { label: "Competition", value: "Star of Israel" },
+              { label: "Ranking", value: "Third place" },
+              { label: "Organization", value: "WPO · WorldStar" },
             ],
           },
         ],
