@@ -26,7 +26,7 @@ import type { ReviewImage, ReviewPage, ReviewSection } from "./reviewContent";
 
 const STORAGE_KEY = "beeri-content-review-v1";
 
-type SectionStatus = "approved" | "changes" | "discuss";
+type SectionStatus = "approved" | "changes";
 type ImageDecision = "keep" | "replace";
 
 type SectionFeedback = { status?: SectionStatus; note?: string };
@@ -58,7 +58,6 @@ const EMPTY: FeedbackState = { sections: {}, images: {} };
 const SECTION_STATUS_LABEL: Record<SectionStatus, string> = {
   approved: "מאושר",
   changes: "צריך תיקון",
-  discuss: "לדיון",
 };
 
 const IMAGE_DECISION_LABEL: Record<ImageDecision, string> = {
@@ -70,7 +69,6 @@ const IMAGE_DECISION_LABEL: Record<ImageDecision, string> = {
 const SECTION_STATUS_EDGE: Record<SectionStatus, string> = {
   approved: "border-s-cyan-deep",
   changes: "border-s-magenta",
-  discuss: "border-s-yellow-deep",
 };
 
 // ── persistence ─────────────────────────────────────────────────────────
@@ -254,7 +252,6 @@ export function ReviewBoard({ pages }: { pages: readonly ReviewPage[] }) {
     const byStatus: Record<SectionStatus, number> = {
       approved: 0,
       changes: 0,
-      discuss: 0,
     };
     for (const page of pages) {
       let r = 0;
@@ -274,7 +271,7 @@ export function ReviewBoard({ pages }: { pages: readonly ReviewPage[] }) {
     setSendStatus("sending");
     const report = buildReport(pages, state);
     const who = state.name?.trim() ? `${state.name.trim()} · ` : "";
-    const summary = `${who}${progress.reviewed}/${progress.total} נסקרו · ${progress.byStatus.approved} מאושר · ${progress.byStatus.changes} צריך תיקון · ${progress.byStatus.discuss} לדיון`;
+    const summary = `${who}${progress.reviewed}/${progress.total} נסקרו · ${progress.byStatus.approved} מאושר · ${progress.byStatus.changes} צריך תיקון`;
     try {
       const res = await sendReviewFeedback({ report, summary });
       setSendStatus(res.ok ? "sent" : "error");
@@ -547,7 +544,6 @@ function Footer({
       <div className="mt-5 flex flex-wrap items-center justify-center gap-2.5">
         <StatusChip numClass="text-cyan-deep" dot="bg-cyan-deep" label="מאושר" n={byStatus.approved} />
         <StatusChip numClass="text-magenta-deep" dot="bg-magenta" label="צריך תיקון" n={byStatus.changes} />
-        <StatusChip numClass="text-yellow-deep" dot="bg-yellow-deep" label="לדיון" n={byStatus.discuss} />
       </div>
 
       <div className="mt-6 flex justify-center">
@@ -691,6 +687,7 @@ function SectionCard({
       <NoteField
         value={feedback?.note}
         onChange={(note) => onSection({ note })}
+        forceOpen={feedback?.status === "changes"}
       />
     </article>
   );
@@ -701,13 +698,17 @@ function SectionCard({
 function NoteField({
   value,
   onChange,
+  forceOpen = false,
 }: {
   value: string | undefined;
   onChange: (note: string) => void;
+  /** When true (status = "צריך תיקון"), the comment opens automatically. */
+  forceOpen?: boolean;
 }) {
   const [open, setOpen] = useState(false);
-  // Auto-expand once a saved note arrives (after localStorage hydration).
-  const expanded = open || !!value?.trim();
+  // Auto-expand once a saved note arrives (after hydration) or when the
+  // section is marked "needs correction" — the client should explain what.
+  const expanded = open || forceOpen || !!value?.trim();
 
   if (!expanded) {
     return (
@@ -752,14 +753,13 @@ function DecisionBar({
   }[] = [
     { key: "approved", Icon: CheckIcon, on: "border-cyan-deep bg-cyan text-cyan-deep" },
     { key: "changes", Icon: EditIcon, on: "border-magenta bg-magenta text-white" },
-    { key: "discuss", Icon: DiscussIcon, on: "border-yellow-deep bg-yellow text-yellow-deep" },
   ];
   return (
     <div className="mt-5 border-t border-rule/70 pt-4">
       <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
         <span className="ds-eyebrow shrink-0 text-clay-soft">ההחלטה שלי</span>
         <div
-          className="grid grid-cols-3 gap-2 sm:flex sm:flex-1"
+          className="grid grid-cols-2 gap-2 sm:flex sm:flex-1"
           role="group"
           aria-label="סטטוס הסקשן"
         >
@@ -1119,14 +1119,6 @@ function EditIcon() {
     <svg aria-hidden width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 20h9" />
       <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
-    </svg>
-  );
-}
-
-function DiscussIcon() {
-  return (
-    <svg aria-hidden width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8A8.5 8.5 0 0 1 12.5 3 8.5 8.5 0 0 1 21 11.5z" />
     </svg>
   );
 }
