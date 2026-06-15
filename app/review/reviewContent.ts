@@ -120,6 +120,41 @@ function withCurrent(current: string, pool: readonly string[]): readonly string[
 // ── The pages ─────────────────────────────────────────────────────────────
 
 export const reviewPages: readonly ReviewPage[] = [
+  // ---------------------------------------------------- special questions
+  // Two open questions we need a decision on. They reuse the section model:
+  // «מאושר» = כן/רוצים, «צריך תיקון» = רוצים בשינויים, «לדיון» = בואו נדבר —
+  // והפרטים נכתבים בהערה. The marking convention is explained once in `intro`,
+  // so the bullets stay short and uncluttered.
+  {
+    id: "questions",
+    title: "שתי שאלות אלינו",
+    path: "/he/about",
+    group: "שאלות מיוחדות",
+    intro:
+      "לכל שאלה סמנו «מאושר» אם אתם רוצים, או «צריך תיקון» אם בשינויים — וכתבו את הפרטים בהערה שתיפתח.",
+    sections: [
+      {
+        id: "questions-brands",
+        previewText: "שותפות מנצחת",
+        title: "לוגואים של מותגים",
+        summary: "האם להשאיר את החלק «מבין לקוחותינו» עם לוגואים של מותגים?",
+        bullets: [
+          "כיום מוצג באתר חלק עם לוגואים של מותגים (Strauss · Osem · Tnuva · Elite ועוד).",
+          "רוצים להשאיר אותו? אם כן — נשמח לקבל את הלוגואים באיכות גבוהה. בהערה אפשר לציין אילו לוגואים להוסיף, להסיר או להחליף.",
+        ],
+      },
+      {
+        id: "questions-team",
+        title: "תמונות צוות והנהלה",
+        summary: "רוצים להוסיף לאתר חלק עם תמונות של הצוות וההנהלה?",
+        bullets: [
+          "מה להציג לצד כל אדם — תמונה ושם? גם תפקיד? משפט קצר? פרטי קשר?",
+          "בהערה — כתבו את מי לכלול ומה להציג, והאם יש תמונות מוכנות או שצריך לצלם.",
+        ],
+      },
+    ],
+  },
+
   // ---------------------------------------------------------------- chrome
   {
     id: "chrome",
