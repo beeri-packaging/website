@@ -410,7 +410,6 @@ export function ReviewBoard({ pages }: { pages: readonly ReviewPage[] }) {
 
           <div className="space-y-16">
           {pages.map((page, i) => {
-            const p = progress.perPage.get(page.id);
             const openPreview = (find?: readonly string[], focusLabel?: string) =>
               setPreview({
                 path: page.path,
@@ -422,28 +421,13 @@ export function ReviewBoard({ pages }: { pages: readonly ReviewPage[] }) {
             return (
               <section key={page.id} id={page.id} className="scroll-mt-36 lg:scroll-mt-28">
                 <div className="mb-6 border-b-2 border-ink pb-3">
-                  <div className="flex items-end justify-between gap-4">
-                    <div className="min-w-0">
-                      <p className="ds-eyebrow text-magenta-deep">{page.group}</p>
-                      <h2 className="font-display text-h2 leading-none">
-                        <span className="me-2 text-clay-soft/60">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                        {page.title}
-                      </h2>
-                    </div>
-                    <div className="flex shrink-0 flex-col items-end gap-2 pb-1">
-                      <button
-                        onClick={() => openPreview()}
-                        className="ds-btn ds-btn--outline !gap-2 !px-4 !py-2 !text-[12px]"
-                      >
-                        <EyeIcon />
-                        צפייה בעמוד
-                      </button>
-                      <p className="font-sans text-[12px] tabular-nums text-clay-soft">
-                        {p?.reviewed ?? 0}/{p?.total ?? 0} סקשנים נסקרו
-                      </p>
-                    </div>
+                  <div className="min-w-0">
+                    <h2 className="font-display text-h2 leading-none">
+                      <span className="me-2 text-clay-soft/60">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      {page.title}
+                    </h2>
                   </div>
                   {page.intro && (
                     <p className="mt-3 font-sans text-[15px] text-clay">{page.intro}</p>
@@ -649,9 +633,10 @@ function SectionCard({
           onClick={() => onPreview(previewQueries(section), section.title)}
           aria-label={`צפייה ומיקוד בסקשן — ${section.title}`}
           title="צפייה בסקשן באתר"
-          className="inline-grid size-7 shrink-0 place-items-center rounded-full border border-rule bg-bone text-clay-soft opacity-0 transition hover:border-ink hover:text-ink focus-visible:opacity-100 group-hover/card:opacity-100 max-sm:opacity-100"
+          className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-rule bg-bone px-3 py-1.5 font-sans text-[12px] text-clay-soft opacity-0 transition hover:border-ink hover:text-ink focus-visible:opacity-100 group-hover/card:opacity-100 max-sm:opacity-100"
         >
           <EyeIcon />
+          צפייה בסקשן
         </button>
       </div>
 
