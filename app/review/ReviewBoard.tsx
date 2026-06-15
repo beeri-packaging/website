@@ -67,8 +67,8 @@ const IMAGE_DECISION_LABEL: Record<ImageDecision, string> = {
 
 /** Status → start-edge accent on the section card. */
 const SECTION_STATUS_EDGE: Record<SectionStatus, string> = {
-  approved: "border-s-cyan-deep",
-  changes: "border-s-magenta",
+  approved: "border-s-[#3f7d54]",
+  changes: "border-s-[#c25733]",
 };
 
 // ── persistence ─────────────────────────────────────────────────────────
@@ -542,8 +542,8 @@ function Footer({
       </h2>
 
       <div className="mt-5 flex flex-wrap items-center justify-center gap-2.5">
-        <StatusChip numClass="text-cyan-deep" dot="bg-cyan-deep" label="מאושר" n={byStatus.approved} />
-        <StatusChip numClass="text-magenta-deep" dot="bg-magenta" label="צריך תיקון" n={byStatus.changes} />
+        <StatusChip numClass="text-[#347a4d]" dot="bg-[#3f7d54]" label="מאושר" n={byStatus.approved} />
+        <StatusChip numClass="text-[#b1502c]" dot="bg-[#c25733]" label="צריך תיקון" n={byStatus.changes} />
       </div>
 
       <div className="mt-6 flex justify-center">
@@ -634,31 +634,33 @@ function SectionCard({
     : "border-s-transparent";
   return (
     <article
-      className={`group/card ds-card rounded-[6px] border-s-4 p-5 transition-colors sm:p-6 ${edge}`}
+      className={`group/card ds-card rounded-[8px] border-s-[3px] p-5 transition-colors sm:p-6 ${edge}`}
     >
-      <div className="min-w-0">
-        <div className="flex items-center gap-2">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
           <h3 className="font-display text-h4 leading-tight">{section.title}</h3>
-          <button
-            onClick={() => onPreview(previewQueries(section), section.title)}
-            aria-label={`צפייה ומיקוד בסקשן — ${section.title}`}
-            title="צפייה בסקשן באתר"
-            className="inline-grid size-7 shrink-0 place-items-center rounded-full border border-rule bg-bone text-clay-soft opacity-0 transition hover:border-ink hover:text-ink focus-visible:opacity-100 group-hover/card:opacity-100"
-          >
-            <EyeIcon />
-          </button>
+          {section.summary && (
+            <p className="mt-1.5 font-sans text-[14px] leading-relaxed text-clay-soft">
+              {section.summary}
+            </p>
+          )}
         </div>
-        {section.summary && (
-          <p className="mt-1 font-sans text-[14px] text-clay-soft">
-            {section.summary}
-          </p>
-        )}
+        <button
+          onClick={() => onPreview(previewQueries(section), section.title)}
+          aria-label={`צפייה ומיקוד בסקשן — ${section.title}`}
+          title="צפייה בסקשן באתר"
+          className="inline-grid size-7 shrink-0 place-items-center rounded-full border border-rule bg-bone text-clay-soft opacity-0 transition hover:border-ink hover:text-ink focus-visible:opacity-100 group-hover/card:opacity-100 max-sm:opacity-100"
+        >
+          <EyeIcon />
+        </button>
       </div>
 
-      <ul className="mt-4 space-y-2">
+      {/* Bullets as a quiet spec list — a hairline tick instead of bright dots,
+          softened body text, so a long page of cards stays calm. */}
+      <ul className="mt-4 space-y-2.5">
         {section.bullets.map((b, i) => (
-          <li key={i} className="flex gap-2 font-sans text-[15px] leading-relaxed text-ink">
-            <span aria-hidden className="mt-2 inline-block size-1.5 shrink-0 rounded-full bg-magenta-deep" />
+          <li key={i} className="flex gap-3 font-sans text-[14.5px] leading-relaxed text-clay">
+            <span aria-hidden className="mt-[11px] h-px w-2.5 shrink-0 bg-clay-soft/60" />
             <span className="min-w-0">{b}</span>
           </li>
         ))}
@@ -746,18 +748,31 @@ function DecisionBar({
   value: SectionStatus | undefined;
   onChange: (s: SectionStatus) => void;
 }) {
+  // Subtle, non-brand status colours: approved = green, changes = orange-red.
+  // Soft tinted fill when active; a faint icon tint even when inactive.
   const opts: {
     key: SectionStatus;
     Icon: () => React.ReactElement;
     on: string;
+    tint: string;
   }[] = [
-    { key: "approved", Icon: CheckIcon, on: "border-cyan-deep bg-cyan text-cyan-deep" },
-    { key: "changes", Icon: EditIcon, on: "border-magenta bg-magenta text-white" },
+    {
+      key: "approved",
+      Icon: CheckIcon,
+      on: "border-[#3f7d54] bg-[#e7f2ea] text-[#347a4d]",
+      tint: "text-[#3f7d54]",
+    },
+    {
+      key: "changes",
+      Icon: EditIcon,
+      on: "border-[#c25733] bg-[#fbe8df] text-[#b1502c]",
+      tint: "text-[#c25733]",
+    },
   ];
   return (
-    <div className="mt-5 border-t border-rule/70 pt-4">
-      <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
-        <span className="ds-eyebrow shrink-0 text-clay-soft">ההחלטה שלי</span>
+    <div className="mt-5 border-t border-rule/40 pt-4">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+        <span className="ds-eyebrow shrink-0 text-clay-soft/80">ההחלטה שלי</span>
         <div
           className="grid grid-cols-2 gap-2 sm:flex sm:flex-1"
           role="group"
@@ -770,13 +785,15 @@ function DecisionBar({
                 key={o.key}
                 aria-pressed={active}
                 onClick={() => onChange(o.key)}
-                className={`inline-flex items-center justify-center gap-2 rounded-full border px-4 py-2.5 font-sans text-[13px] font-semibold transition sm:flex-1 ${
+                className={`inline-flex items-center justify-center gap-2 rounded-full border px-4 py-2 font-sans text-[13px] font-medium transition sm:flex-1 ${
                   active
-                    ? o.on
+                    ? `${o.on} font-semibold`
                     : "border-rule bg-bone text-clay hover:border-ink hover:text-ink"
                 }`}
               >
-                <o.Icon />
+                <span className={active ? "" : o.tint}>
+                  <o.Icon />
+                </span>
                 {SECTION_STATUS_LABEL[o.key]}
               </button>
             );
@@ -824,6 +841,14 @@ function ImageCard({
         {(["keep", "replace"] as ImageDecision[]).map((d) => {
           const active = feedback?.decision === d;
           const Icon = d === "keep" ? CheckIcon : SwapIcon;
+          // Subtle, non-brand semantics: keep = green (good), replace =
+          // orange-red (change). Soft tinted fill when active; a faint icon
+          // tint even when inactive so the colour reads at a glance.
+          const activeCls =
+            d === "keep"
+              ? "border-[#3f7d54] bg-[#e7f2ea] text-[#347a4d]"
+              : "border-[#c25733] bg-[#fbe8df] text-[#b1502c]";
+          const iconTint = d === "keep" ? "text-[#3f7d54]" : "text-[#c25733]";
           return (
             <button
               key={d}
@@ -833,13 +858,13 @@ function ImageCard({
               }
               className={`inline-flex items-center justify-center gap-2 rounded-full border px-3 py-2 font-sans text-[13px] font-semibold transition ${
                 active
-                  ? d === "keep"
-                    ? "border-ink bg-ink text-bone"
-                    : "border-magenta bg-magenta text-white"
+                  ? activeCls
                   : "border-rule bg-bone text-clay hover:border-ink hover:text-ink"
               }`}
             >
-              <Icon />
+              <span className={active ? "" : iconTint}>
+                <Icon />
+              </span>
               {IMAGE_DECISION_LABEL[d]}
             </button>
           );
