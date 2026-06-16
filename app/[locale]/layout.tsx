@@ -10,6 +10,7 @@ import { SanityLive } from "@/sanity/live";
 import { SITE_URL, alternatesFor } from "@/lib/site";
 import { OrganizationJsonLd } from "@/app/components/seo/JsonLd";
 import { ContactDialogProvider } from "@/app/components/contact/ContactDialogProvider";
+import { LogoLoader } from "@/app/components/system/LogoLoader";
 import type { Lang } from "@/app/content/home";
 import "../globals.css";
 
@@ -93,6 +94,10 @@ export default async function LocaleLayout({
           {locale === "he" ? "דלג לתוכן" : "Skip to content"}
         </a>
         <OrganizationJsonLd locale={locale as Lang} />
+        {/* First-contact "fake loading" intro: plays the brand logo Lottie
+            over the page once per session, then fades out. Self-removes and is
+            skipped for repeat visits / reduced-motion. */}
+        <LogoLoader />
         {/* One app-wide contact dialog for every "contact us" trigger — kept
             outside any page-level Radix dialog so opening it from inside the
             catalog/job modals doesn't unmount it when that modal closes. */}
