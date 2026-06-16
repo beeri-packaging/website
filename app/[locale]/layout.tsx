@@ -60,6 +60,15 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
+// Runs before the browser paints the intro overlay (it's the first thing in
+// <body>, ahead of the overlay element). Decides—synchronously—whether this is
+// a first contact that should see the "fake loading" intro: it reveals the
+// overlay via `html[data-intro="on"]` only for a fresh session that hasn't
+// asked for reduced motion. Repeat visitors and reduced-motion users keep the
+// overlay CSS-hidden, so it never flashes. Kept tiny and dependency-free
+// because it must run inline before hydration.
+const INTRO_SCRIPT = `(function(){try{var r=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;var s=false;try{s=sessionStorage.getItem("beeri:intro-seen")==="1"}catch(e){}if(r||s){window.__beeriIntro=false;return}window.__beeriIntro=true;document.documentElement.setAttribute("data-intro","on");try{sessionStorage.setItem("beeri:intro-seen","1")}catch(e){}}catch(e){window.__beeriIntro=false}})();`;
+
 // ISR: statically prerender, then re-fetch from Sanity at most once per minute
 // so editors' add/remove/edit changes reach the live site without a redeploy.
 // Applies to every page nested under this locale layout.
@@ -87,6 +96,13 @@ export default async function LocaleLayout({
       className={`${karantina.variable} ${openSans.variable} antialiased`}
     >
       <body className="flex flex-col bg-bone text-ink">
+        {/* Pre-paint decision for the intro overlay below — must be the first
+            thing in <body> so `data-intro` is set before the overlay paints. */}
+        <script dangerouslySetInnerHTML={{ __html: INTRO_SCRIPT }} />
+        {/* First-contact "fake loading" intro: covers the page on first paint,
+            plays the brand logo Lottie once per session, then fades out.
+            Skipped for repeat visits / reduced-motion (see INTRO_SCRIPT). */}
+        <LogoLoader />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:start-3 focus:z-[100] focus:bg-ink focus:text-bone focus:px-4 focus:py-2 focus:rounded-[5px] focus:font-sans focus:text-[14px]"
@@ -94,10 +110,6 @@ export default async function LocaleLayout({
           {locale === "he" ? "דלג לתוכן" : "Skip to content"}
         </a>
         <OrganizationJsonLd locale={locale as Lang} />
-        {/* First-contact "fake loading" intro: plays the brand logo Lottie
-            over the page once per session, then fades out. Self-removes and is
-            skipped for repeat visits / reduced-motion. */}
-        <LogoLoader />
         {/* One app-wide contact dialog for every "contact us" trigger — kept
             outside any page-level Radix dialog so opening it from inside the
             catalog/job modals doesn't unmount it when that modal closes. */}

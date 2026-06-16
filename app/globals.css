@@ -517,3 +517,38 @@ body[data-scroll-lock="true"] {
 .focus-ring:focus-visible {
   outline-color: var(--ink);
 }
+
+/* First-contact "fake loading" intro.
+   Server-rendered so it covers the page on the very first paint — no flash of
+   content before it. Hidden by default; a pre-paint script in the body sets
+   `html[data-intro="on"]` only on a visitor's first contact (and never for
+   reduced-motion), so repeat visitors never see it appear at all. */
+#intro-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  background: var(--bone);
+  opacity: 1;
+  transition: opacity 500ms ease-out;
+}
+html[data-intro="on"] #intro-overlay {
+  display: flex;
+}
+#intro-overlay.is-hiding {
+  opacity: 0;
+  pointer-events: none;
+}
+#intro-overlay.is-done {
+  display: none;
+}
+.intro-art {
+  width: min(80vw, 640px);
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-intro="on"] #intro-overlay {
+    display: none;
+  }
+}

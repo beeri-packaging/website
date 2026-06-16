@@ -1,74 +1,57 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import type { AnimationItem } from "lottie-web";
 import animationData from "./logo-animation.json";
 
-// Once per browser session: the intro plays on a visitor's first contact, not
-// on every client navigation (the locale layout stays mounted) nor on repeat
-// visits within the same tab.
-const SEEN_KEY = "beeri:intro-seen";
-// Hard ceiling so a stalled player can never trap the visitor behind the
-// overlay. The Lottie itself is ~2.6s (0→77 @ ~30fps); this is the fallback.
+// Hard ceiling so a stalled player can never trap a visitor behind the overlay.
+// The Lottie itself is ~2.6s (0→77 @ ~30fps); this is the fallback.
 const MAX_VISIBLE_MS = 4000;
 
 /**
- * Full-screen "fake loading" intro shown once on a visitor's first contact.
- * Plays the brand logo Lottie over a bone backdrop, then fades out to reveal
- * the site. Skipped for repeat visits (same session) and when the visitor
- * prefers reduced motion. Renders nothing on the server / after it's done, so
- * it never blocks interaction once gone.
+ * The "fake loading" intro shown once on a visitor's first contact.
+ *
+ * The overlay markup is rendered here (server + client), so it's part of the
+ * first paint and covers the page immediately — no flash of the site before
+ * the intro. A pre-paint script in the layout decides—before this element is
+ * even parsed—whether to reveal it (`html[data-intro="on"]`), so repeat
+ * visitors and reduced-motion users never see it. This component only drives
+ * the Lottie playback and the fade-out once it's actually showing.
  */
 export function LogoLoader() {
-  // Start hidden: SSR and the hydrating client agree on "render nothing", which
-  // avoids a hydration mismatch and a flash for repeat visitors. The effect
-  // decides—synchronously, before paint—whether this first contact gets the
-  // intro.
-  const [show, setShow] = useState(false);
-  const [hiding, setHiding] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const artRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    let seen = false;
-    try {
-      seen = sessionStorage.getItem(SEEN_KEY) === "1";
-    } catch {
-      // sessionStorage can throw (private mode / blocked storage); treat as
-      // unseen and just let the intro play.
-    }
-    if (reduceMotion || seen) return;
-
-    try {
-      sessionStorage.setItem(SEEN_KEY, "1");
-    } catch {
-      // Non-fatal: at worst the intro replays on a later visit.
-    }
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional one-time client-only decision (sessionStorage + reduced-motion)
-    setShow(true);
-  }, []);
-
-  useEffect(() => {
+    // The pre-paint script sets this; if it's not on, the overlay is already
+    // CSS-hidden — nothing to play, nothing to tear down.
+    const show =
+      (window as unknown as { __beeriIntro?: boolean }).__beeriIntro === true;
     if (!show) return;
-    const node = containerRef.current;
-    if (!node) return;
+
+    const art = artRef.current;
+    if (!art) return;
+    const overlay = art.closest("#intro-overlay");
+    if (!overlay) return;
 
     let cancelled = false;
     let anim: AnimationItem | null = null;
 
-    // Start the fade-out: when the Lottie reports "complete", or—as a safety
-    // net—when the hard ceiling elapses first.
-    const dismiss = () => setHiding(true);
+    const finish = () => overlay.classList.add("is-done");
+    const dismiss = () => {
+      overlay.addEventListener("transitionend", finish, { once: true });
+      overlay.classList.add("is-hiding");
+      // Safety net in case `transitionend` never fires (e.g. a zeroed
+      // transition): hide shortly after the fade would have completed.
+      setTimeout(finish, 700);
+    };
     const fallback = setTimeout(dismiss, MAX_VISIBLE_MS);
 
     // lottie-web touches `window`, so it's imported here (client, post-mount)
-    // rather than at module scope to keep it out of any server render.
+    // and lazily, keeping it out of every route's initial bundle.
     import("lottie-web").then(({ default: lottie }) => {
-      if (cancelled || !containerRef.current) return;
+      if (cancelled || !artRef.current) return;
       anim = lottie.loadAnimation({
-        container: containerRef.current,
+        container: artRef.current,
         renderer: "svg",
         loop: false,
         autoplay: true,
@@ -82,19 +65,11 @@ export function LogoLoader() {
       clearTimeout(fallback);
       anim?.destroy();
     };
-  }, [show]);
-
-  if (!show) return null;
+  }, []);
 
   return (
-    <div
-      aria-hidden="true"
-      onTransitionEnd={() => hiding && setShow(false)}
-      className={`fixed inset-0 z-[200] flex items-center justify-center bg-bone transition-opacity duration-500 ease-out motion-reduce:transition-none ${
-        hiding ? "pointer-events-none opacity-0" : "opacity-100"
-      }`}
-    >
-      <div ref={containerRef} className="w-[min(80vw,640px)]" />
+    <div id="intro-overlay" aria-hidden="true">
+      <div ref={artRef} className="intro-art" />
     </div>
   );
 }
