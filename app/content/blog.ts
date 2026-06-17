@@ -174,6 +174,70 @@ const FLOOR = { he: "מחלקת ייצור", en: "Production floor" };
 
 export const blogPosts: readonly BlogPost[] = [
   {
+    slug: "winning-package-star-of-israel",
+    date: "2026-06-11",
+    read: { he: "3 דקות", en: "3 min read" },
+    category: "studio",
+    image:
+      "/images/generated/website-content/packaging/open-capability-presentation-box.png",
+    author: STUDIO,
+    credit: STUDIO,
+    quoteImage:
+      "/images/generated/website-content/packaging/closed-textured-capability-box.png",
+    he: {
+      category: "מהסטודיו",
+      title: "מארז מנצח: מקום שלישי בכוכב ישראל",
+      excerpt:
+        "מארז גבריאל שתכננו וייצרנו זכה במקום השלישי בתחרות כוכב ישראל 2025 — שער הכניסה לתחרות הבינלאומית WorldStar.",
+      body: [
+        "תחרות כוכב ישראל היא אירוע הדגל של תעשיית האריזות בישראל — הבמה המרכזית להצגת חדשנות, מצוינות ופתרונות מתקדמים בתחום. השנה אחד הדגמים שתכננו וייצרנו עלה לשורת הזוכים.",
+        "מארז גבריאל זכה במקום השלישי, לצד דגמים מהמובילים בענף. עבורנו זו הכרה מקצועית בתהליך כולו — מהתכנון המבני ועד הדפוס וההשבחה — ובשיתוף הפעולה שמאחורי כל אריזה.",
+      ],
+      quote: {
+        text: "אריזה זוכה היא לא רק מראה — היא תכנון מדויק שעומד בסטנדרטים הגבוהים ביותר של איכות, חדשנות וקיימות.",
+        cite: "— מתוך היומן של בארי אריזות",
+      },
+      sections: [
+        {
+          heading: "כוכב ישראל — איך עובדת התחרות",
+          body: "התחרות מתקיימת מדי שנה ביוזמת המכון הישראלי לאריזה, נציגתה הרשמית של ישראל בארגון העולמי WPO, ומהווה שער כניסה לתחרות הבינלאומית היוקרתית WorldStar. העבודות נבחנות על ידי ועדת שיפוט מקצועית לפי חדשנות וייחודיות הפתרון, תרומה לחוויית המשתמש, היבטי קיימות וצמצום חומרי גלם, יעילות תפעולית ולוגיסטית, ואיכות עיצובית לצד יכולת יישום תעשייתי.",
+          image:
+            "/images/generated/website-content/packaging/open-capability-presentation-box.png",
+        },
+        {
+          heading: "הזכייה של מארז גבריאל",
+          body: "בטקס שנערך ב-20 בנובמבר 2025 הוכרזו הזוכים, ומארז גבריאל קיבל את המקום השלישי. ההישג משקף חשיבה חדשנית, דיוק ברמה הגבוהה ביותר ועמידה בסטנדרטים בינלאומיים מחמירים — ומחזק את מעמדה של בארי אריזות כחברה מובילה בתחום, המחויבת לחדשנות ולמצוינות מקצועית.",
+        },
+      ],
+    },
+    en: {
+      category: "From the studio",
+      title: "A winning package: third at Star of Israel",
+      excerpt:
+        "The Gabriel pack we designed and produced took third place at the 2025 Star of Israel awards — the gateway to the international WorldStar competition.",
+      body: [
+        "The Star of Israel is the flagship event of Israel's packaging industry — the main stage for innovation, excellence and advanced solutions in the field. This year, one of the models we designed and produced made the winners' list.",
+        "The Gabriel pack took third place, alongside leading models from across the industry. For us it's professional recognition of the whole process — from structural design to print and finishing — and of the collaboration behind every package.",
+      ],
+      quote: {
+        text: "A winning package isn't just a look — it's precise engineering that meets the highest standards of quality, innovation and sustainability.",
+        cite: "— From the Beeri Packaging journal",
+      },
+      sections: [
+        {
+          heading: "Star of Israel — how the competition works",
+          body: "The competition is held each year by the Israeli Packaging Institute, Israel's official representative in the World Packaging Organization (WPO), and serves as the entry gate to the prestigious international WorldStar awards. Entries are judged by a professional panel on the innovation and uniqueness of the solution, its contribution to user experience, sustainability and reduced raw-material use, operational and logistical efficiency, and design quality alongside industrial feasibility.",
+          image:
+            "/images/generated/website-content/packaging/open-capability-presentation-box.png",
+        },
+        {
+          heading: "The Gabriel pack's win",
+          body: "At a ceremony held on 20 November 2025 the winners were announced, and the Gabriel pack received third place. The achievement reflects innovative thinking, precision of the highest order and compliance with strict international standards — reinforcing Beeri Packaging's standing as a leading company in the field, committed to innovation and professional excellence.",
+        },
+      ],
+    },
+  },
+  {
     slug: "finishing-language",
     date: "2026-05-20",
     read: { he: "2 דקות", en: "2 min read" },

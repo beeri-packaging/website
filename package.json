@@ -11,7 +11,8 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "lighthouse": "npx --yes lighthouse http://localhost:3000 --only-categories=performance,accessibility,best-practices,seo --form-factor=mobile --screenEmulation.mobile --view",
-    "seed": "tsx scripts/seed-all.ts"
+    "seed": "tsx scripts/seed-all.ts",
+    "seed:winning-package": "tsx scripts/seed-winning-package.ts"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",
