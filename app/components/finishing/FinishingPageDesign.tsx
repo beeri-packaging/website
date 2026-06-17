@@ -146,12 +146,12 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
           </aside>
         </div>
 
-        <article className="reveal overflow-hidden border border-blueprint bg-bone lg:col-span-5" dir={lang === "he" ? "rtl" : "ltr"}>
+        <article className="reveal flex flex-col overflow-hidden border border-blueprint bg-bone lg:col-span-5 lg:h-[535px]" dir={lang === "he" ? "rtl" : "ltr"}>
           {copy.deboss.image ? (
             <FinishImage
               src={copy.deboss.image}
               alt={copy.deboss.title}
-              className="h-[360px] sm:h-[477px]"
+              className="h-[360px] sm:h-[477px] lg:h-auto lg:min-h-0 lg:flex-1"
               sizes="(min-width: 1024px) 37vw, 100vw"
               objectPosition="62% 47%"
             />
