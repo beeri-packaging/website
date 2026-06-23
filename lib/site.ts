@@ -19,6 +19,7 @@ export const ROUTES = [
   "/about",
   "/terms",
   "/privacy",
+  "/accessibility",
 ] as const;
 
 /**

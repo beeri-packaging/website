@@ -27,7 +27,7 @@ export default async function Home({
     <div className="relative flex flex-col bg-bone text-ink overflow-x-clip">
       <SiteHeader lang={lang} chrome={chrome} />
       <main id="main" className="flex flex-col">
-        <Hero lang={lang} t={home.copy} heroImage={home.heroImage} />
+        <Hero lang={lang} t={home.copy} heroImage={home.heroImage} heroVideo={home.heroVideo} />
         <DualJourney lang={lang} t={home.copy} panels={home.journeyPanels} />
         <TechnicalExcellence lang={lang} t={home.copy} capabilities={home.capabilities} bentoServiceImage={home.bentoServiceImage} />
         <FaqJsonLd items={home.faqItems} locale={lang} />

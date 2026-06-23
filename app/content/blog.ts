@@ -165,7 +165,7 @@ export const categoryChipClass: Record<BlogCategory, string> = {
   trends: "bg-magenta-deep text-bone",
   sustainability: "bg-yellow text-cyan-deep",
   floor: "bg-purple text-bone",
-  studio: "bg-gold text-gold-deep",
+  studio: "bg-yellow text-yellow-deep",
 };
 
 /** Shared author/credit labels — most posts come from the studio + floor. */

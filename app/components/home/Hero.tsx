@@ -5,9 +5,20 @@ import { cn } from "@/lib/cn";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { buttonVariants } from "@/components/ui/button";
 import { ContactLink } from "./ContactLink";
+import { HeroVideo } from "./HeroVideo";
 import { ArrowGlyph } from "./icons";
 
-export function Hero({ lang, t, heroImage }: { lang: Lang; t: HomeCopy; heroImage: string }) {
+export function Hero({
+  lang,
+  t,
+  heroImage,
+  heroVideo,
+}: {
+  lang: Lang;
+  t: HomeCopy;
+  heroImage: string;
+  heroVideo?: string;
+}) {
   return (
     <section
       className="relative flex min-h-[100svh] sm:min-h-[680px] md:min-h-[760px] lg:min-h-0 lg:h-[100svh] items-center justify-center overflow-clip pt-[80px] sm:pt-[96px] md:pt-[112px] pb-12 sm:pb-20 md:pb-24"
@@ -22,6 +33,21 @@ export function Hero({ lang, t, heroImage }: { lang: Lang; t: HomeCopy; heroImag
           quality={60}
           className="hidden md:block object-cover scale-[1.04] motion-safe:transition-transform motion-safe:duration-[3000ms] motion-safe:ease-out"
         />
+        {/* Background video (desktop only), with its own pause control. The
+            Image above stays the LCP + poster; the video fades over it once it
+            buffers. Removed entirely under reduced motion (see .hero-video). */}
+        {heroVideo ? (
+          <HeroVideo lang={lang} src={heroVideo} poster={heroImage} />
+        ) : null}
+        {/* Legibility scrim — a soft bone glow seated behind the centred
+            headline so the dark type always has a light bed over busy footage,
+            while the video stays crisp toward the edges. */}
+        {heroVideo ? (
+          <div
+            aria-hidden
+            className="hidden md:block absolute inset-0 bg-[radial-gradient(70%_62%_at_50%_43%,rgba(251,249,246,0.88)_0%,rgba(251,249,246,0.55)_38%,rgba(251,249,246,0.24)_72%,rgba(251,249,246,0.24)_100%)]"
+          />
+        ) : null}
         <div className="hidden md:block absolute inset-x-0 bottom-0 h-[260px] sm:h-[340px] md:h-[420px] bg-gradient-to-t from-bone via-bone/70 to-transparent" />
         <div
           aria-hidden

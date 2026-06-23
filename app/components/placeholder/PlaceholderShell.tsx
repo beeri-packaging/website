@@ -1,11 +1,10 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext } from "react";
 import { chromeContent } from "@/app/content/site";
 import type { Chrome } from "@/app/content/site";
 import type { Lang } from "@/app/content/home";
-import { Header } from "@/app/components/home/Header";
-import { MobileDrawer } from "@/app/components/home/MobileDrawer";
+import { SiteHeader } from "@/app/components/home/SiteHeader";
 import { Footer } from "@/app/components/home/Footer";
 import { StickyContact } from "@/app/components/home/StickyContact";
 
@@ -41,33 +40,12 @@ export function PlaceholderShell({
   chrome?: Chrome;
   children: React.ReactNode;
 }) {
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    document.body.dataset.scrollLock = menuOpen ? "true" : "false";
-    return () => {
-      document.body.dataset.scrollLock = "false";
-    };
-  }, [menuOpen]);
-
   const resolved = chrome ?? chromeContent[lang];
 
   return (
     <LangContext.Provider value={{ lang }}>
       <div className="relative flex min-h-screen flex-col bg-bone text-ink overflow-x-clip">
-        <Header
-          lang={lang}
-          menuOpen={menuOpen}
-          setMenuOpen={setMenuOpen}
-          chrome={resolved}
-          logoPriority
-        />
-        <MobileDrawer
-          open={menuOpen}
-          onClose={() => setMenuOpen(false)}
-          lang={lang}
-          chrome={resolved}
-        />
+        <SiteHeader lang={lang} chrome={resolved} />
         <main id="main" className="flex-1 flex flex-col pt-[88px] sm:pt-[104px] md:pt-[120px]">
           {children}
         </main>

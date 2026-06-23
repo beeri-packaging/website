@@ -7,11 +7,8 @@
   --teal: #006a6a;           /* footer eyebrow accent */
   --cyan: #00ffff;           /* P/Cyan — big numerals, badges, icons */
   --cyan-deep: #002020;
-  --yellow: #ffd400;         /* P/Yellow — hero eyebrow tag + heritage tag */
-  --yellow-deep: #231b00;
-  --yellow-cream: #ffe8a7;   /* Purple card body copy — soft warm tint on purple */
-  --gold: #ffe177;           /* CTA section bg */
-  --gold-deep: #231b00;
+  --yellow: #ffd400;         /* P/Yellow — the single brand yellow (hero tags, CTA, chips, accents) */
+  --yellow-deep: #231b00;    /* near-black text on yellow */
   --logo-dark: #24296a;      /* T/Logo/Dark — section headings (journey, tech, FAQ) */
   --magenta: #c846a3;        /* P/Magenta — section eyebrows (decorative; ~3.8:1 on bone) */
   --magenta-deep: #a32f7f;   /* Accessible magenta for TEXT on light (~5.9:1 on bone) */
@@ -36,9 +33,6 @@
   --color-cyan-deep: var(--cyan-deep);
   --color-yellow: var(--yellow);
   --color-yellow-deep: var(--yellow-deep);
-  --color-yellow-cream: var(--yellow-cream);
-  --color-gold: var(--gold);
-  --color-gold-deep: var(--gold-deep);
   --color-logo-dark: var(--logo-dark);
   --color-magenta: var(--magenta);
   --color-magenta-deep: var(--magenta-deep);
@@ -550,5 +544,78 @@ html[data-intro="on"] #intro-overlay {
 @media (prefers-reduced-motion: reduce) {
   html[data-intro="on"] #intro-overlay {
     display: none;
+  }
+}
+
+/* ── Accessibility menu modes ──────────────────────────────────────────────
+ * Driven by data-attributes the AccessibilityMenu sets on <html> (mirrored
+ * pre-paint from localStorage in the layout). Each mode is opt-in, so the
+ * default render is untouched. */
+
+/* Text size — `zoom` scales the whole document (incl. the site's px type)
+ * without breaking layout the way transform: scale would. */
+html[data-a11y-text="1"] body { zoom: 1.12; }
+html[data-a11y-text="2"] body { zoom: 1.25; }
+html[data-a11y-text="3"] body { zoom: 1.4; }
+
+/* High contrast — collapse the warm palette onto pure black/white and force
+ * strong, accessible text + borders. Best-effort over photographic panels. */
+html[data-a11y-contrast="1"] {
+  --bone: #ffffff;
+  --bone-warm: #ffffff;
+  --sand: #ffffff;
+  --mist: #ffffff;
+  --ink: #000000;
+  --clay: #000000;
+  --clay-soft: #000000;
+  --logo-dark: #000000;
+  --teal: #000000;
+  --magenta-deep: #000000;
+  --cyan-deep: #000000;
+  --rule: #000000;
+  --bone-line: #000000;
+}
+html[data-a11y-contrast="1"] body {
+  background: #ffffff;
+}
+html[data-a11y-contrast="1"] img {
+  filter: grayscale(1) contrast(1.1);
+}
+
+/* Highlight links — underline + outline so links stand out from body text. */
+html[data-a11y-links="1"] a {
+  text-decoration: underline !important;
+  text-underline-offset: 2px;
+  outline: 1px dashed currentColor;
+  outline-offset: 2px;
+}
+
+/* Readable font — swap the brand faces for a plain legible system stack and
+ * loosen spacing. */
+html[data-a11y-font="1"],
+html[data-a11y-font="1"] * {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
+  letter-spacing: 0.01em !important;
+  word-spacing: 0.05em !important;
+}
+
+/* Reduce motion — neutralise animations, transitions and parallax scrubbing. */
+html[data-a11y-motion="1"] *,
+html[data-a11y-motion="1"] *::before,
+html[data-a11y-motion="1"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Hero background video — hidden (the still poster shows instead) whenever the
+ * visitor prefers reduced motion, via the OS setting or the a11y toggle. */
+html[data-a11y-motion="1"] .hero-video {
+  display: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-video {
+    display: none !important;
   }
 }

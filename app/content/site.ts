@@ -4,14 +4,28 @@ import { COMPANY, MAPS_HREF } from "@/app/content/company";
 
 export type FooterLink = { label: string; href: string };
 
+/** A social profile link; `platform` selects the icon + brand colour. */
+export type SocialLink = { label: string; href: string; platform: "linkedin" | "facebook" };
+
+/** Sister-brand link in the "About" dropdown. `external` → opens a new tab. */
+export type BrandLink = { label: string; href: string; external?: boolean };
+
 export type Chrome = {
   menu: string;
   close: string;
   lang: string;
   contact: string;
   navLinks: readonly NavLink[];
-  footerEyebrow: string;
+  /** "מבית דפוס בארי" — small group byline shown under the logo. */
+  byline: string;
+  /** Sister-brand links surfaced from the "About" nav item (hover dropdown). */
+  brandLinks: readonly BrandLink[];
+  /** Compact "street · city" pair (mobile drawer + sticky header). */
   footerAddr: readonly [string, string];
+  /** Full office address line shown in the footer. */
+  footerAddressFull: string;
+  /** Logistics-centre address line shown in the footer. */
+  footerWarehouse: string;
   footerLinks: readonly string[];
   footerCopy: string;
   logoHe: string;
@@ -24,11 +38,12 @@ export type Chrome = {
   footerConnectHeading: string;
   email: string;
   mapsHref: string;
-  social: readonly FooterLink[];
+  social: readonly SocialLink[];
   legal: readonly FooterLink[];
 };
 
 const linkedinHref = COMPANY.linkedin;
+const facebookHref = COMPANY.facebook;
 const emailAddr = COMPANY.email;
 const mapsHref = MAPS_HREF;
 
@@ -46,8 +61,15 @@ export const chromeContent: Record<Lang, Chrome> = {
     lang: "שפה",
     contact: "ליצירת קשר",
     navLinks,
-    footerEyebrow: "סטודיו ומפעל",
+    byline: "מבית דפוס בארי",
+    brandLinks: [
+      { label: "בארי אריזות", href: "/about" },
+      { label: "דפוס בארי", href: "https://www.beeriprint.co.il/", external: true },
+      { label: "PIX", href: "https://pix.co.il/", external: true },
+    ],
     footerAddr: [COMPANY.address.he.street, COMPANY.address.he.city],
+    footerAddressFull: COMPANY.address.he.full,
+    footerWarehouse: COMPANY.address.he.warehouse,
     footerLinks: ["תנאים", "פרטיות"],
     footerCopy: "© 2026 בארי אריזות. כל הזכויות שמורות.",
     logoHe: "/images/logo-he.svg",
@@ -59,10 +81,14 @@ export const chromeContent: Record<Lang, Chrome> = {
     footerConnectHeading: "יצירת קשר",
     email: emailAddr,
     mapsHref,
-    social: [{ label: "LinkedIn", href: linkedinHref }],
+    social: [
+      { label: "LinkedIn", href: linkedinHref, platform: "linkedin" },
+      { label: "Facebook", href: facebookHref, platform: "facebook" },
+    ],
     legal: [
       { label: "תנאים", href: "/terms" },
       { label: "פרטיות", href: "/privacy" },
+      { label: "נגישות", href: "/accessibility" },
     ],
   },
   en: {
@@ -71,8 +97,15 @@ export const chromeContent: Record<Lang, Chrome> = {
     lang: "Language",
     contact: "Contact",
     navLinks,
-    footerEyebrow: "Studio & factory",
+    byline: "From Beeri Print",
+    brandLinks: [
+      { label: "Beeri Packaging", href: "/about" },
+      { label: "Beeri Print", href: "https://www.beeriprint.co.il/", external: true },
+      { label: "PIX", href: "https://pix.co.il/", external: true },
+    ],
     footerAddr: [COMPANY.address.en.street, `${COMPANY.address.en.city}, ${COMPANY.address.en.country}`],
+    footerAddressFull: COMPANY.address.en.full,
+    footerWarehouse: COMPANY.address.en.warehouse,
     footerLinks: ["Terms", "Privacy"],
     footerCopy: "© 2026 Beeri Packaging. All rights reserved.",
     logoHe: "/images/logo-he.svg",
@@ -84,10 +117,14 @@ export const chromeContent: Record<Lang, Chrome> = {
     footerConnectHeading: "Get in touch",
     email: emailAddr,
     mapsHref,
-    social: [{ label: "LinkedIn", href: linkedinHref }],
+    social: [
+      { label: "LinkedIn", href: linkedinHref, platform: "linkedin" },
+      { label: "Facebook", href: facebookHref, platform: "facebook" },
+    ],
     legal: [
       { label: "Terms", href: "/terms" },
       { label: "Privacy", href: "/privacy" },
+      { label: "Accessibility", href: "/accessibility" },
     ],
   },
 };

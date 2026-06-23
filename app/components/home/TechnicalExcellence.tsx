@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { HomeCopy, Lang } from "@/app/content/home";
-import { Badge } from "@/components/ui/badge";
 import { ArrowOut, CardCornerArrow, DieCutIcon, LabIcon } from "./icons";
 
 export function TechnicalExcellence({
@@ -73,7 +72,7 @@ export function TechnicalExcellence({
                 <h3 className="font-display text-bone text-[40px] sm:text-[48px] md:text-[56px] lg:text-[64px] leading-[normal] w-full text-start">
                   {t.bento1Title}
                 </h3>
-                <p className="font-sans text-yellow-cream text-[16px] sm:text-[17px] md:text-[18px] lg:text-[20px] leading-[25px] w-full text-start">
+                <p className="font-sans text-bone text-[16px] sm:text-[17px] md:text-[18px] lg:text-[20px] leading-[25px] w-full text-start">
                   {t.bento1Body}
                 </p>
               </div>
@@ -118,29 +117,16 @@ export function TechnicalExcellence({
 
           <Link
             href={`/${lang}/catalog`}
-            className="md:col-span-7 relative bg-sand overflow-hidden aspect-[4/3] sm:aspect-[16/10] md:aspect-auto md:h-auto group block cursor-pointer focus-ring"
+            aria-label={t.bentoCatalogLabel}
+            className="md:col-span-7 relative bg-sand overflow-hidden aspect-[4/3] sm:aspect-[16/10] md:aspect-auto md:h-auto block cursor-pointer focus-ring"
           >
             <Image
               src={bentoServiceImage}
               alt=""
               fill
               sizes="(min-width: 768px) 60vw, 100vw"
-              className="object-cover brightness-[0.82] transition-transform duration-[1400ms] ease-out group-hover:scale-105"
+              className="object-cover brightness-[0.82]"
             />
-            <span
-              aria-hidden
-              className="absolute inset-0 bg-gradient-to-tr from-ink/40 via-ink/0 to-ink/0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-            />
-            <span
-              aria-hidden
-              className="absolute bottom-6 start-6 sm:bottom-8 sm:start-8 inline-flex h-10 w-10 items-center justify-center rounded-full bg-bone text-ink opacity-0 transition-all duration-500 group-hover:opacity-100 group-hover:translate-x-1 rtl:group-hover:-translate-x-1"
-            >
-              <CardCornerArrow />
-            </span>
-            <div className="absolute top-4 sm:top-6 md:top-8 inset-x-4 sm:inset-x-6 md:inset-x-auto md:start-auto md:end-[49px] flex flex-wrap gap-[12px] md:gap-[25px] justify-end">
-              <Badge variant="yellow">{t.badge1}</Badge>
-              <Badge variant="cyan">{t.badge2}</Badge>
-            </div>
           </Link>
         </div>
       </div>

@@ -36,7 +36,7 @@ export function validateContactInquiry(input: ContactInquiryInput): ContactField
   if (!CONTACT_REASONS.includes(input.reason as ContactReasonValue)) errors.reason = "required";
 
   const email = input.email.trim();
-  if (email.length > 0 && !EMAIL_RE.test(email)) errors.email = "invalid";
+  if (!EMAIL_RE.test(email)) errors.email = email.length === 0 ? "required" : "invalid";
 
   return errors;
 }

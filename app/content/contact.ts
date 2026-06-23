@@ -49,7 +49,7 @@ export const contactCopy: Record<Lang, ContactCopy> = {
     form: {
       fullName: { label: "שם מלא", placeholder: "דנה כהן" },
       phone: { label: "טלפון", placeholder: "050-1234567" },
-      email: { label: "אימייל (לא חובה)", placeholder: "dana@studio.co.il" },
+      email: { label: "אימייל", placeholder: "dana@studio.co.il" },
       company: { label: "חברה (לא חובה)", placeholder: "סטודיו לוקס" },
       reason: {
         label: "סיבת הפנייה",
@@ -73,7 +73,7 @@ export const contactCopy: Record<Lang, ContactCopy> = {
       fullName: "יש להזין שם מלא.",
       phone: "יש להזין מספר טלפון תקין.",
       reason: "יש לבחור סיבת פנייה.",
-      email: "כתובת האימייל אינה תקינה.",
+      email: "יש להזין כתובת אימייל תקינה.",
       submitFailed: "שליחת הפנייה נכשלה. ניתן לנסות שוב או להתקשר אלינו.",
     },
     success: {
@@ -90,7 +90,7 @@ export const contactCopy: Record<Lang, ContactCopy> = {
     form: {
       fullName: { label: "Full name", placeholder: "Dana Cohen" },
       phone: { label: "Phone", placeholder: "+972 50-123-4567" },
-      email: { label: "Email (optional)", placeholder: "dana@studio.co.il" },
+      email: { label: "Email", placeholder: "dana@studio.co.il" },
       company: { label: "Company (optional)", placeholder: "Studio Lux" },
       reason: {
         label: "Reason for inquiry",
@@ -114,7 +114,7 @@ export const contactCopy: Record<Lang, ContactCopy> = {
       fullName: "Please enter your full name.",
       phone: "Please enter a valid phone number.",
       reason: "Please choose a reason for your inquiry.",
-      email: "That email address doesn't look valid.",
+      email: "Please enter a valid email address.",
       submitFailed: "We couldn't send your inquiry. Please try again or call us.",
     },
     success: {

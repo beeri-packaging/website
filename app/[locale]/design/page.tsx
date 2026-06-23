@@ -30,7 +30,6 @@ const ACCENTS: Swatch[] = [
   { token: "yellow", he: "צהוב", hex: "#FFD400", className: "bg-yellow", fg: "text-yellow-deep", note: "תגית גיבור, הדגשות" },
   { token: "magenta", he: "מג׳נטה", hex: "#C846A3", className: "bg-magenta", fg: "text-white", note: "כותרות־על, CTA" },
   { token: "purple", he: "סגול", hex: "#6F50A6", className: "bg-purple", fg: "text-white", note: "מסלול לקוח" },
-  { token: "gold", he: "זהב", hex: "#FFE177", className: "bg-gold", fg: "text-gold-deep", note: "רקע אזור CTA" },
 ];
 
 const SURFACES: Swatch[] = [

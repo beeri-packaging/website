@@ -55,6 +55,7 @@ export async function submitContactInquiry(
 
   const reasonLabel = REASON_LABELS[input.reason] ?? input.reason;
   const rows: Array<[string, string]> = [
+    ["מקור", "פנייה מאתר בארי אריזות (beeripacks.co.il)"],
     ["שם מלא", input.fullName],
     ["טלפון", input.phone],
     ["אימייל", input.email || "—"],

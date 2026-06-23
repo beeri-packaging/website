@@ -11,6 +11,7 @@ import { SITE_URL, alternatesFor } from "@/lib/site";
 import { OrganizationJsonLd } from "@/app/components/seo/JsonLd";
 import { ContactDialogProvider } from "@/app/components/contact/ContactDialogProvider";
 import { LogoLoader } from "@/app/components/system/LogoLoader";
+import { AccessibilityMenu } from "@/app/components/system/AccessibilityMenu";
 import type { Lang } from "@/app/content/home";
 import "../globals.css";
 
@@ -69,6 +70,11 @@ export function generateStaticParams() {
 // because it must run inline before hydration.
 const INTRO_SCRIPT = `(function(){try{var r=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;var s=false;try{s=sessionStorage.getItem("beeri:intro-seen")==="1"}catch(e){}if(r||s){window.__beeriIntro=false;return}window.__beeriIntro=true;document.documentElement.setAttribute("data-intro","on");try{sessionStorage.setItem("beeri:intro-seen","1")}catch(e){}}catch(e){window.__beeriIntro=false}})();`;
 
+// Applies the visitor's saved accessibility preferences to <html> before the
+// first paint, so a returning user never sees an un-adjusted flash. Mirrors
+// what AccessibilityMenu writes to localStorage. Kept tiny + inline.
+const A11Y_SCRIPT = `(function(){try{var r=localStorage.getItem("beeri:a11y");if(!r)return;var p=JSON.parse(r);var d=document.documentElement;var t=Math.min(3,Math.max(0,parseInt(p.text)||0));if(t>0)d.setAttribute("data-a11y-text",t);if(p.contrast)d.setAttribute("data-a11y-contrast","1");if(p.links)d.setAttribute("data-a11y-links","1");if(p.font)d.setAttribute("data-a11y-font","1");if(p.motion)d.setAttribute("data-a11y-motion","1")}catch(e){}})();`;
+
 // ISR: statically prerender, then re-fetch from Sanity at most once per minute
 // so editors' add/remove/edit changes reach the live site without a redeploy.
 // Applies to every page nested under this locale layout.
@@ -94,11 +100,17 @@ export default async function LocaleLayout({
       lang={locale}
       dir={dir}
       className={`${karantina.variable} ${openSans.variable} antialiased`}
+      // The pre-paint INTRO_SCRIPT sets `data-intro` on <html> before React
+      // hydrates, so the client root won't match the server-rendered one. This
+      // attribute-only mismatch is intentional — suppress the hydration warning.
+      suppressHydrationWarning
     >
       <body className="flex flex-col bg-bone text-ink">
         {/* Pre-paint decision for the intro overlay below — must be the first
             thing in <body> so `data-intro` is set before the overlay paints. */}
         <script dangerouslySetInnerHTML={{ __html: INTRO_SCRIPT }} />
+        {/* Re-apply saved accessibility preferences before paint (no flash). */}
+        <script dangerouslySetInnerHTML={{ __html: A11Y_SCRIPT }} />
         {/* First-contact "fake loading" intro: covers the page on first paint,
             plays the brand logo Lottie once per session, then fades out.
             Skipped for repeat visits / reduced-motion (see INTRO_SCRIPT). */}
@@ -114,6 +126,8 @@ export default async function LocaleLayout({
             outside any page-level Radix dialog so opening it from inside the
             catalog/job modals doesn't unmount it when that modal closes. */}
         <ContactDialogProvider lang={locale as Lang}>{children}</ContactDialogProvider>
+        {/* Global accessibility menu (the floating נגישות button on every page). */}
+        <AccessibilityMenu lang={locale as Lang} statementHref={`/${locale}/accessibility`} />
         {/* Live + Visual editing only in draft mode (Studio preview). For
             normal visitors they're inert and only emit a CORS console warning,
             so gating them keeps the production console clean and the page light. */}

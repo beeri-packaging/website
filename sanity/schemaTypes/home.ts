@@ -217,6 +217,15 @@ export const home = defineType({
 
     // --- Media ---
     imageField("heroImage", "Hero image"),
+    defineField({
+      name: "heroVideo",
+      title: "Hero video (optional)",
+      type: "file",
+      group: "media",
+      options: { accept: "video/mp4,video/webm" },
+      description:
+        "וידאו רקע לכותרת הראשית (לא חובה). מומלץ: MP4 (H.264), ללא אודיו, עד 1080p, דחוס (~עד 15MB). הכותרת תשתמש בתמונת הרקע כ-poster ותציג אותה אם הווידאו ריק או במצב הפחתת תנועה.",
+    }),
     imageField("bentoServiceImage", "Bento service image"),
   ],
   preview: {

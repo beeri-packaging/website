@@ -74,7 +74,7 @@ async function main() {
       _id: `siteSettings-${lang}`, _type: "siteSettings", language: lang,
       menu: c.menu, close: c.close, lang: c.lang, contact: c.contact,
       navLinks: c.navLinks.map((n, i) => ({ _type: "navLink", _key: `nav-${i}`, he: n.he, en: n.en, href: n.href })),
-      footerEyebrow: c.footerEyebrow, footerAddr: [...c.footerAddr], footerLinks: [...c.footerLinks], footerCopy: c.footerCopy,
+      footerAddr: [...c.footerAddr], footerLinks: [...c.footerLinks], footerCopy: c.footerCopy,
       logoHe, logoEn,
     });
 

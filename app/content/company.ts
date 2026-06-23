@@ -12,6 +12,10 @@ export type CompanyAddress = {
   street: string;
   city: string;
   country: string;
+  /** Full single-line postal address (office), incl. park, ZIP and PO box. */
+  full: string;
+  /** Logistics centre / warehouse address (מרלו"ג). */
+  warehouse: string;
 };
 
 export const COMPANY = {
@@ -32,10 +36,24 @@ export const COMPANY = {
   email: "orders@beeripacks.co.il",
   /** Company LinkedIn page. */
   linkedin: "https://www.linkedin.com/company/beeri-packaging/",
+  /** Facebook — the parent Beeri Print group page (בארי אריזות has no own page). */
+  facebook: "https://www.facebook.com/100063563441171",
   /** Postal address, per locale. */
   address: {
-    he: { street: "פארן 4", city: "יבנה", country: "ישראל" },
-    en: { street: "4 Paran St.", city: "Yavne", country: "Israel" },
+    he: {
+      street: "פארן 4",
+      city: "יבנה",
+      country: "ישראל",
+      full: 'רחוב פארן 4, פארק טכנולוגי יבנה, מיקוד 8122503, ת.ד 13187',
+      warehouse: 'מרלו"ג: רחוב שידלובסקי 1, מתחם ארגמן, יבנה',
+    },
+    en: {
+      street: "4 Paran St.",
+      city: "Yavne",
+      country: "Israel",
+      full: "4 Paran St., Yavne Technology Park, 8122503, P.O. Box 13187",
+      warehouse: "Warehouse: 1 Shidlovsky St., Argaman Complex, Yavne",
+    },
   },
 } as const satisfies {
   legalNameHe: string;
@@ -48,6 +66,7 @@ export const COMPANY = {
   groupEn: string;
   email: string;
   linkedin: string;
+  facebook: string;
   address: Record<Lang, CompanyAddress>;
 };
 

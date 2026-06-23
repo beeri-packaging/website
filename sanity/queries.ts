@@ -36,6 +36,7 @@ export const homeQuery = defineQuery(`*[_type == "home" && language == $locale][
     "imageAlt": image.alt
   },
   "heroImageUrl": heroImage.asset->url,
+  "heroVideoUrl": heroVideo.asset->url,
   "bentoServiceImageUrl": bentoServiceImage.asset->url
 }`);
 
@@ -71,6 +72,7 @@ export type HomeDoc = {
     legacyImagePath?: string; imageUrl?: string; imageAlt?: string;
   }[];
   heroImageUrl?: string;
+  heroVideoUrl?: string;
   bentoServiceImageUrl?: string;
 };
 
@@ -148,6 +150,8 @@ export type HomeContent = {
   faqItems: readonly HomeFaqItem[];
   journeyPanels: readonly HomeJourneyPanel[];
   heroImage: string;
+  /** Optional hero background video URL (Sanity CDN). Falls back to heroImage. */
+  heroVideo?: string;
   bentoServiceImage: string;
 };
 
@@ -177,6 +181,7 @@ export function toHomeContent(doc: HomeDoc | null, locale: Lang): HomeContent {
   return {
     copy, capabilities, faqItems, journeyPanels,
     heroImage: doc?.heroImageUrl ?? homeImages.hero,
+    heroVideo: doc?.heroVideoUrl,
     bentoServiceImage: doc?.bentoServiceImageUrl ?? homeImages.bentoService,
   };
 }
@@ -228,7 +233,6 @@ export function toChrome(doc: ChromeDoc | null, locale: Lang): Chrome {
     contact: doc.contact ?? fb.contact,
     navLinks:
       doc.navLinks && doc.navLinks.length > 0 ? doc.navLinks : fb.navLinks,
-    footerEyebrow: doc.footerEyebrow ?? fb.footerEyebrow,
     footerAddr: tuple(doc.footerAddr, fb.footerAddr),
     footerLinks:
       doc.footerLinks && doc.footerLinks.length > 0
@@ -238,6 +242,10 @@ export function toChrome(doc: ChromeDoc | null, locale: Lang): Chrome {
     logoHe: doc.logoHeUrl ?? doc.logoHeLegacy ?? fb.logoHe,
     logoEn: doc.logoEnUrl ?? doc.logoEnLegacy ?? fb.logoEn,
     // Footer composition fields are brand-stable; sourced from bundled chrome.
+    byline: fb.byline,
+    brandLinks: fb.brandLinks,
+    footerAddressFull: fb.footerAddressFull,
+    footerWarehouse: fb.footerWarehouse,
     wordmark: fb.wordmark,
     footerTagline: fb.footerTagline,
     footerHeritage: fb.footerHeritage,

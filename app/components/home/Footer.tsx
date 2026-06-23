@@ -2,8 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Lang } from "@/app/content/home";
 import type { Chrome } from "@/app/content/site";
-import { LinkedInGlyph, MailGlyph, PinGlyph, ArrowOut } from "./icons";
-import { LangPill } from "./LangPill";
+import { LinkedInGlyph, FacebookGlyph, MailGlyph, PinGlyph, ArrowOut } from "./icons";
+import { LangSwitch } from "./LangSwitch";
 import { ContactLink } from "./ContactLink";
 
 const eyebrow =
@@ -42,11 +42,22 @@ export function Footer({ lang, chrome }: { lang: Lang; chrome: Chrome }) {
               <Image
                 src={isHe ? chrome.logoHe : chrome.logoEn}
                 alt={brandName}
-                width={249}
-                height={64}
-                className="h-auto w-[190px] sm:w-[220px]"
+                // HE is a slim wordmark (sized by width); EN is a taller
+                // icon+wordmark lockup (1322×826) — give it its real ratio and
+                // size by height so it lands at the same visual height, not a
+                // 220px-wide block.
+                width={isHe ? 249 : 1322}
+                height={isHe ? 64 : 826}
+                className={
+                  isHe
+                    ? "h-auto w-[190px] sm:w-[220px]"
+                    : "h-12 sm:h-14 w-auto"
+                }
               />
             </Link>
+            <span className="-mt-3 font-sans font-semibold uppercase text-teal text-[12px] tracking-[0.14em] leading-4">
+              {chrome.byline}
+            </span>
             <p className="font-sans text-clay text-[16px] leading-[26px] max-w-[360px] text-balance">
               {chrome.footerTagline}
             </p>
@@ -90,7 +101,9 @@ export function Footer({ lang, chrome }: { lang: Lang; chrome: Chrome }) {
                 rel="noopener noreferrer"
                 className={`group inline-flex w-fit items-center gap-2.5 ${bodyLink}`}
               >
-                <span className="text-ink/70 transition-colors group-hover:text-[#0a66c2]"><LinkedInGlyph /></span>
+                <span className={s.platform === "facebook" ? "text-[#1877f2]" : "text-[#0a66c2]"}>
+                  {s.platform === "facebook" ? <FacebookGlyph /> : <LinkedInGlyph />}
+                </span>
                 {s.label}
                 <span aria-hidden className="text-rule transition-colors group-hover:text-ink">
                   <ArrowOut />
@@ -106,9 +119,11 @@ export function Footer({ lang, chrome }: { lang: Lang; chrome: Chrome }) {
             >
               <span className="mt-0.5 text-ink/70 transition-colors group-hover:text-ink"><PinGlyph /></span>
               <span className="flex flex-col gap-1">
-                <span className={eyebrow}>{chrome.footerEyebrow}</span>
                 <span className="font-sans text-clay text-[16px] leading-[24px] transition-colors group-hover:text-ink">
-                  {chrome.footerAddr[0]}, {chrome.footerAddr[1]}
+                  {chrome.footerAddressFull}
+                </span>
+                <span className="font-sans text-clay text-[15px] leading-[22px] transition-colors group-hover:text-ink">
+                  {chrome.footerWarehouse}
                 </span>
               </span>
             </a>
@@ -138,7 +153,7 @@ export function Footer({ lang, chrome }: { lang: Lang; chrome: Chrome }) {
               ))}
             </ul>
             <span aria-hidden className="hidden sm:block h-4 w-px bg-rule" />
-            <LangPill lang={lang} compact />
+            <LangSwitch lang={lang} />
           </div>
         </div>
       </div>

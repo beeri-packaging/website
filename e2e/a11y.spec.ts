@@ -18,8 +18,12 @@ for (const locale of LOCALES) {
   for (const route of ROUTES) {
     const path = `/${locale}${route}`;
     test(`a11y: ${path} has no serious/critical violations`, async ({ page }) => {
-      await page.goto(path);
-      await page.waitForLoadState("networkidle");
+      await page.goto(path, { waitUntil: "load" });
+      // The home hero autoplays a looping <video>, so the network never goes
+      // fully idle. Wait for the primary heading to render (Playwright also
+      // discourages "networkidle") before scanning — axe still sees the
+      // fully rendered DOM.
+      await page.locator("h1").first().waitFor({ state: "visible" });
 
       const results = await new AxeBuilder({ page })
         .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])

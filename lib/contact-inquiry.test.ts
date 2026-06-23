@@ -4,14 +4,14 @@ import { validateContactInquiry } from "./contact-inquiry";
 const valid = {
   fullName: "דנה כהן",
   phone: "050-1234567",
-  email: "",
+  email: "dana@studio.co.il",
   company: "",
   reason: "quote" as const,
   details: "",
 };
 
 describe("validateContactInquiry", () => {
-  it("passes a minimal valid inquiry (name + phone + reason)", () => {
+  it("passes a minimal valid inquiry (name + phone + email + reason)", () => {
     expect(validateContactInquiry(valid)).toEqual({});
   });
 
@@ -33,8 +33,9 @@ describe("validateContactInquiry", () => {
     }
   });
 
-  it("allows empty email but rejects a malformed one", () => {
-    expect(validateContactInquiry({ ...valid, email: "" }).email).toBeUndefined();
+  it("requires a valid email", () => {
+    expect(validateContactInquiry({ ...valid, email: "" }).email).toBeTruthy();
+    expect(validateContactInquiry({ ...valid, email: "   " }).email).toBeTruthy();
     expect(validateContactInquiry({ ...valid, email: "nope" }).email).toBeTruthy();
     expect(validateContactInquiry({ ...valid, email: "a@b.co" }).email).toBeUndefined();
   });
