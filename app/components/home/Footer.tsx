@@ -61,10 +61,12 @@ export function Footer({ lang, chrome }: { lang: Lang; chrome: Chrome }) {
             <p className="font-sans text-clay text-[16px] leading-[26px] max-w-[360px] text-balance">
               {chrome.footerTagline}
             </p>
-            <span className="inline-flex w-fit items-center gap-2 font-sans font-semibold uppercase text-ink text-[12px] tracking-[0.14em] leading-4">
-              <span aria-hidden className="h-2 w-2 rounded-full bg-cyan" />
-              {chrome.footerHeritage}
-            </span>
+            {chrome.footerHeritage ? (
+              <span className="inline-flex w-fit items-center gap-2 font-sans font-semibold uppercase text-ink text-[12px] tracking-[0.14em] leading-4">
+                <span aria-hidden className="h-2 w-2 rounded-full bg-cyan" />
+                {chrome.footerHeritage}
+              </span>
+            ) : null}
           </div>
 
           {/* Navigation */}

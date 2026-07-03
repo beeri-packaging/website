@@ -58,7 +58,7 @@ export const jobApplicationCopy: Record<Lang, JobApplicationCopy> = {
       eyebrow: "קריירה",
       kicker: "● הצטרפות לצוות",
       detailsTitle: "על התפקיד",
-      lead: "בארי אריזות מייצרת אריזות קרטון מתקפל בהתאמה אישית מאז 1964. מתכנון מבני ודייליין ועד דפוס, השבחות וייצור — הכול תחת קורת גג אחת, עם צוות שמלווה כל פרויקט מהתחלה ועד הסוף.",
+      lead: "בארי אריזות מייצרת אריזות קרטון מתקפל בהתאמה אישית כחלק מקבוצת דפוס בארי. מתכנון מבני ודייליין ועד דפוס, השבחות וייצור — הכול תחת קורת גג אחת, עם צוות שמלווה כל פרויקט מהתחלה ועד הסוף.",
       perks: [
         {
           title: "יציבות",
@@ -111,7 +111,7 @@ export const jobApplicationCopy: Record<Lang, JobApplicationCopy> = {
       eyebrow: "Careers",
       kicker: "● Join the team",
       detailsTitle: "About the role",
-      lead: "Beeri Packaging has built custom folding-carton packaging since 1964. From structural design and dielines to print, finishing, and production — all under one roof, with a team that sees every project through.",
+      lead: "Beeri Packaging builds custom folding-carton packaging as part of the Beeri Print Group. From structural design and dielines to print, finishing, and production — all under one roof, with a team that sees every project through.",
       perks: [
         {
           title: "Stability",

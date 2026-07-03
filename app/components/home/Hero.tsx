@@ -4,7 +4,6 @@ import type { HomeCopy, Lang } from "@/app/content/home";
 import { cn } from "@/lib/cn";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { buttonVariants } from "@/components/ui/button";
-import { ContactLink } from "./ContactLink";
 import { HeroVideo } from "./HeroVideo";
 import { ArrowGlyph } from "./icons";
 
@@ -29,9 +28,9 @@ export function Hero({
           src={heroImage}
           alt=""
           fill
-          sizes="(max-width: 767px) 80vw, 100vw"
+          sizes="100vw"
           quality={60}
-          className="hidden md:block object-cover scale-[1.04] motion-safe:transition-transform motion-safe:duration-[3000ms] motion-safe:ease-out"
+          className="object-cover scale-[1.04] motion-safe:transition-transform motion-safe:duration-[3000ms] motion-safe:ease-out"
         />
         {/* Background video (desktop only), with its own pause control. The
             Image above stays the LCP + poster; the video fades over it once it
@@ -45,13 +44,13 @@ export function Hero({
         {heroVideo ? (
           <div
             aria-hidden
-            className="hidden md:block absolute inset-0 bg-[radial-gradient(70%_62%_at_50%_43%,rgba(251,249,246,0.88)_0%,rgba(251,249,246,0.55)_38%,rgba(251,249,246,0.24)_72%,rgba(251,249,246,0.24)_100%)]"
+            className="absolute inset-0 bg-[radial-gradient(76%_64%_at_50%_43%,rgba(251,249,246,0.9)_0%,rgba(251,249,246,0.62)_40%,rgba(251,249,246,0.3)_76%,rgba(251,249,246,0.22)_100%)]"
           />
         ) : null}
-        <div className="hidden md:block absolute inset-x-0 bottom-0 h-[260px] sm:h-[340px] md:h-[420px] bg-gradient-to-t from-bone via-bone/70 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-[260px] sm:h-[340px] md:h-[420px] bg-gradient-to-t from-bone via-bone/70 to-transparent" />
         <div
           aria-hidden
-          className="hidden md:block absolute inset-0 opacity-[0.05] mix-blend-multiply"
+          className="absolute inset-0 opacity-[0.05] mix-blend-multiply"
           style={{
             backgroundImage:
               "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
@@ -76,9 +75,14 @@ export function Hero({
         </h1>
 
         <div
-          className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4 sm:pt-6 w-full sm:w-auto"
+          className={cn(
+            "flex flex-col gap-3 sm:gap-4 pt-4 sm:pt-6 w-full sm:w-auto",
+            lang === "he" ? "sm:flex-row-reverse" : "sm:flex-row",
+          )}
         >
-          <ContactLink
+          <Link
+            href={`/${lang}/finishing`}
+            prefetch={false}
             className={cn(buttonVariants({ variant: "primary", size: "md" }), "group")}
           >
             {t.cta1}
@@ -90,9 +94,9 @@ export function Hero({
                 direction={lang === "he" ? "right-to-left" : "left-to-right"}
               />
             </span>
-          </ContactLink>
+          </Link>
           <Link
-            href="#excellence"
+            href={`/${lang}/about`}
             prefetch={false}
             className={cn(buttonVariants({ variant: "secondary", size: "md" }))}
           >

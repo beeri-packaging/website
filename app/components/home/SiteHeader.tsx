@@ -38,9 +38,15 @@ export function SiteHeader({ lang, chrome }: { lang: Lang; chrome: Chrome }) {
                 : "h-9 sm:h-10 md:h-11 w-auto"
             }
           />
-          <span className="ps-0.5 font-sans font-semibold uppercase text-teal text-[9px] sm:text-[10px] tracking-[0.14em] leading-3">
-            {chrome.byline}
-          </span>
+          {lang === "he" ? (
+            <span className="-mt-0.5 self-end font-sans text-logo-dark text-[10px] sm:text-[11px] md:text-[12px] tracking-normal leading-none">
+              {chrome.byline}
+            </span>
+          ) : (
+            <span className="ps-0.5 font-sans font-semibold uppercase text-teal text-[9px] sm:text-[10px] tracking-[0.14em] leading-3">
+              {chrome.byline}
+            </span>
+          )}
         </Link>
 
         <ul className="hidden lg:flex items-center gap-10 xl:gap-12">

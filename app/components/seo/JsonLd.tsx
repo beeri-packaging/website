@@ -18,8 +18,8 @@ const PUBLISHER = {
 } as const;
 
 const ORG_DESCRIPTION: Record<Lang, string> = {
-  he: "יצרנית אריזות קרטון ממותגות בהתאמה אישית משנת 1964 — תכנון מבני, דפוס דיגיטלי ואופסט, שטנץ, הדבקה והשבחות לתעשיות הפארמה, המזון, הקוסמטיקה והיין.",
-  en: "Custom folding-carton packaging manufacturer since 1964 — structural design, offset & digital print, and finishing for cosmetics, pharma, food and wine brands.",
+  he: "יצרנית אריזות קרטון ממותגות בהתאמה אישית — תכנון מבני, דפוס דיגיטלי ואופסט, שטנץ, הדבקה והשבחות לתעשיות הפארמה, המזון, הקוסמטיקה והיין.",
+  en: "Custom folding-carton packaging manufacturer — structural design, offset & digital print, and finishing for cosmetics, pharma, food and wine brands.",
 };
 
 export function OrganizationJsonLd({ locale = "he" }: { locale?: Lang }) {

@@ -82,9 +82,9 @@ export const aboutImages = {
 export const aboutCopy: Record<Lang, AboutCopy> = {
   he: {
     eyebrow: "אודות",
-    title: ["מורשת של דפוס,", "אריזה של היום"],
+    title: ["כשמסורת של דפוס פוגשת", "את האריזה של ימינו"],
     intro:
-      "בארי אריזות מתכננת ומייצרת אריזות קרטון מודפסות בהתאמה אישית — מהרעיון ועד המדף, תחת קורת גג אחת ביבנה. אנחנו חברה בקבוצת דפוס בארי, ומאחורינו מורשת דפוס של למעלה ממאה שנה.",
+      "בארי אריזות הוא בית הדפוס המוביל בישראל בתחום ייצור אריזות ותוויות, עם מוניטין וניסיון מצטבר של למעלה ממאה שנה. אנו מתמחים בתכנון, עיצוב וייצור אריזות פרימיום ממותגות עבור חברות, מפעלים ומותגים מובילים בארץ ובעולם.\n\nאנו מעניקים ללקוחותינו שירות מקיף המלווה אותם משלב הרעיון והייעוץ ועד לאספקת המוצר המוגמר, תוך הקפדה על איכות ללא פשרות ויחס אישי לכל לקוח.\n\nאנו נותנים שירות למגוון חברות מתחומים שונים ובהם קוסמטיקה, יקבים, פארמה, טקסטיל, מזון, משקאות, מוצרי פרסום ומוצרי קד\"מ. לצד קשת רחבה של מוצרים ופתרונות אריזה, החברה שמה דגש על שירות לקוחות יעיל ומקצועי, ונמצאת בחזית הטכנולוגיה תוך התחדשות מתמדת.",
 
     heritageEyebrow: "קבוצת דפוס בארי",
     heritageTitle: "חברה בקבוצת דפוס בארי",
@@ -116,7 +116,7 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
     milestones: [
       {
         year: "1964",
-        title: "הקמת החברה",
+        title: "רישום החברה",
         body: 'הישות המשפטית של החברה נרשמת — ח"פ 520026113.',
       },
       {
@@ -151,7 +151,7 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
         sub: 'ועוד 3,000 מ"ר מרלו"ג',
         tone: "magenta",
       },
-      { value: "1964", label: "שנת הקמה", tone: "yellow" },
+      { value: "1964", label: "רישום החברה", tone: "yellow" },
       { value: "3+2", label: "משמרות ביממה", sub: "דפוס · גימורים" },
     ],
 
@@ -176,9 +176,9 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
 
   en: {
     eyebrow: "About",
-    title: ["A printing heritage,", "packaging for today"],
+    title: ["Where printing tradition", "meets modern packaging"],
     intro:
-      "Beeri Packaging designs and manufactures custom printed folding-carton packaging — from idea to shelf, under one roof in Yavne. We're part of the Beeri Print Group, with over a century of printing heritage behind us.",
+      "Beeri Packaging is one of Israel's leading printing houses for packaging and labels, with a reputation and accumulated experience of more than a century. We specialize in planning, designing and producing premium branded packaging for companies, manufacturers and leading brands in Israel and worldwide.\n\nWe provide a full service that accompanies clients from the idea and consultation stage through delivery of the finished product, with uncompromising quality and personal attention to every client.\n\nWe serve companies across cosmetics, wineries, pharma, textiles, food, beverages, promotional products and point-of-sale products. Alongside a wide range of packaging products and solutions, the company emphasizes efficient, professional customer service and stays at the front of technology through constant renewal.",
 
     heritageEyebrow: "Beeri Print Group",
     heritageTitle: "A Beeri Print Group company",
@@ -212,7 +212,7 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
     milestones: [
       {
         year: "1964",
-        title: "The company is founded",
+        title: "Company registration",
         body: "The company's legal entity is registered — reg. no. 520026113.",
       },
       {
@@ -247,7 +247,7 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
         sub: "+3,000 m² logistics center",
         tone: "magenta",
       },
-      { value: "1964", label: "established", tone: "yellow" },
+      { value: "1964", label: "company registration", tone: "yellow" },
       { value: "3+2", label: "shifts a day", sub: "print · finishing" },
     ],
 

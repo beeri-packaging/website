@@ -81,7 +81,7 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
     title: ["כשהמבנה", "פוגש מותג"],
     intro:
       "אינדקס אריזות הקרטון הממותגות שלנו: קוסמטיקה, יין ומשקאות ומערכות מודולריות. מתכנון מבני ודיוק השטנץ ועד הבחירה בחומר, בדפוס ובהשבחות — הכול תחת קורת גג אחת.",
-    specCard: ["מפעל: יבנה, ישראל", "סטטוס: פעיל / משנת 1964", "תקן: ISO 9001:2015"],
+    specCard: ["מפעל: יבנה, ישראל", "סטטוס: פעיל", "תקן: ISO 9001:2015"],
     categories: [
       {
         key: "cosmetics",
@@ -197,7 +197,7 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
     title: ["When structure", "meets brand"],
     intro:
       "An index of our branded folding-carton packaging: cosmetics, wine & spirits, and modular systems. From structural design and die-cut precision to material, print and finishing — all under one roof.",
-    specCard: ["Plant: Yavne, Israel", "Status: Active / since 1964", "Standard: ISO 9001:2015"],
+    specCard: ["Plant: Yavne, Israel", "Status: Active", "Standard: ISO 9001:2015"],
     categories: [
       {
         key: "cosmetics",

@@ -15,7 +15,7 @@ export function CallToAction({ lang, t }: { lang: Lang; t: HomeCopy }) {
         <ContactLink
           className={cn(buttonVariants({ variant: "solid", size: "lg" }), "group self-start md:self-auto md:order-2")}
         >
-          {t.cta1}
+          {t.contact}
           <span
             aria-hidden
             className="inline-block transition-transform duration-300 group-hover:-translate-x-1 rtl:group-hover:-translate-x-1 ltr:group-hover:translate-x-1"
