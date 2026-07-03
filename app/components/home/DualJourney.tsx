@@ -86,6 +86,12 @@ function JourneyCard({
   // the About page's milestone timeline; purple "customer path" panels scroll
   // to the process section further down this page.
   const href = panel.accent === "yellow" ? `/${lang}/about#timeline` : "#excellence";
+  const objectPositionByKey: Partial<Record<HomeJourneyPanel["key"], string>> = {
+    developing: "center center",
+    precise: "42% center",
+    today: "center center",
+  };
+  const objectPosition = objectPositionByKey[panel.key];
   return (
     <Link
       href={href}
@@ -110,6 +116,7 @@ function JourneyCard({
             quality={60}
             fetchPriority="low"
             className="object-cover"
+            style={objectPosition ? { objectPosition } : undefined}
             preload={priority}
           />
         ) : (

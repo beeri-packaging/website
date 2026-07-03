@@ -25,4 +25,15 @@ describe("aboutCopy", () => {
     expect(aboutCopy.he.heritageBody).toContain("1950");
     expect(aboutCopy.he.milestones.some((m) => m.year === "1964")).toBe(true);
   });
+
+  it("uses the client-approved Hebrew hero copy", () => {
+    expect(aboutCopy.he.title).toEqual([
+      "כשמסורת של דפוס פוגשת",
+      "את האריזה של ימינו",
+    ]);
+    expect(aboutCopy.he.intro).toContain(
+      "בארי אריזות הוא בית הדפוס המוביל בישראל בתחום ייצור אריזות ותוויות",
+    );
+    expect(aboutCopy.he.intro).toContain("התחדשות מתמדת");
+  });
 });

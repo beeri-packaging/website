@@ -373,7 +373,7 @@ export const blogPosts: readonly BlogPost[] = [
     author: STUDIO,
     credit: FLOOR,
     quoteImage:
-      "/images/generated/website-content/packaging/cosmetics-drawer-window-sleeve.png",
+      "/images/generated/website-content/packaging/open-capability-presentation-box.png",
     he: {
       category: "קיימות",
       title: "חומרי קרטון בני-מיחזור ב-2026",
@@ -561,7 +561,7 @@ export const blogPosts: readonly BlogPost[] = [
     read: { he: "2 דקות", en: "2 min read" },
     category: "structural",
     image:
-      "/images/generated/website-content/packaging/cosmetics-drawer-window-sleeve.png",
+      "/images/generated/website-content/packaging/closed-textured-capability-box.png",
     author: STUDIO,
     credit: FLOOR,
     quoteImage:

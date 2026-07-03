@@ -92,66 +92,77 @@ export const faqItems: readonly FaqItem[] = [
   {
     n: "01",
     he: {
-      q: "האם צריך להגיע עם עיצוב מוכן?",
-      a: "לא חייב. אפשר להתחיל מרעיון, ממוד בורד או מסקיצה. הסטודיו יכול לבנות עיצוב מאפס, או לקבל קובץ מוכן לדפוס ולהמשיך מתכנון מבני, חומרים והשבחות.",
+      q: "האם יש יכולת לתכנן אריזה?",
+      a: "כן, אפשר להתחיל מרעיון, מדוגמת מוצר או מסקיצה. הסטודיו יכול לתכנן אריזה מאפס, או לקבל קובץ מוכן ולהמשיך לתכנון מבני וחומרים.",
     },
     en: {
-      q: "Do I need finished artwork?",
-      a: "No. We can begin from an idea, a moodboard or a rough sketch. The studio can design from scratch, or take a print-ready file and continue with structural design, materials and finishing.",
+      q: "Can you plan the package structure?",
+      a: "Yes. We can start from an idea, a product sample or a sketch. The studio can plan a package from scratch, or receive an existing file and continue with structural planning and materials.",
     },
   },
   {
     n: "02",
     he: {
-      q: "מה צריך לשלוח כדי לקבל הצעת מחיר?",
-      a: "מידות פנים של המוצר, כמויות, חומר רצוי, סוג דפוס, השבחות ולוח זמנים. אם יש קובץ אומנות או דייליין — אפשר לצרף, וזה מזרז את ההצעה.",
+      q: "האם נדרש לעצב גרפיקה מראש?",
+      a: "כן, לאחר תכנון האריזה והעברת שרטוט, יועבר קובץ לטובת עימוד הגרפיקה.",
     },
     en: {
-      q: "What's needed for a quote?",
-      a: "The product's inner dimensions, run sizes, preferred stock, print type, finishing and timeline. Attach artwork or a dieline if you have one — it speeds the quote up.",
+      q: "Do I need to design the artwork in advance?",
+      a: "Yes. After the package is planned and the dieline is shared, a file is provided for placing the graphic design.",
     },
   },
   {
     n: "03",
     he: {
-      q: "מה זה דייליין?",
-      a: "דייליין הוא קובץ החיתוך והקיפול של האריזה — מפת השטנץ. הוא מגדיר את הפנים, הגב, הלשוניות וכל קו קיפול, ועליו יושב העיצוב לפני שליחה לדפוס.",
+      q: "מה צריך לשלוח על מנת לקבל הצעת מחיר?",
+      a: "נדרש לשלוח מידות ו/או פריסת יחידה, כמויות, חומר רצוי, סוג דפוס והשבחות.",
     },
     en: {
-      q: "What is a dieline?",
-      a: "The cut-and-fold map of the package. It defines the front, back, tabs and every fold line — the canvas the artwork sits on before it goes to press.",
+      q: "What should I send to receive a quote?",
+      a: "Send dimensions and/or a unit layout, quantities, preferred material, print type and finishing requirements.",
     },
   },
   {
     n: "04",
     he: {
-      q: "האם אפשר לקבל דוגמה לפני ייצור?",
-      a: "כן. מייצרים דוגמה דיגיטלית בגודל אמת לבדיקת מבנה, פתיחה, התאמה למוצר וקריאות גרפית. רק לאחר אישור עוברים לסבב ייצור מלא.",
+      q: "האם אפשר לקבל דוגמה לפני הייצור?",
+      a: "כן. ניתן לייצר דגם לבן בגודל אמת לבדיקת מבנה והתאמה למוצר.",
     },
     en: {
-      q: "Can I see a sample first?",
-      a: "Yes. We produce a 1:1 sample to check structure, closure, fit with the product and graphic legibility. We move to a full production run only after you approve it.",
+      q: "Can I receive a sample before production?",
+      a: "Yes. A full-size white mockup can be produced to check the structure and product fit.",
     },
   },
   {
     n: "05",
     he: {
-      q: "מה משפיע על מחיר אריזה ממותגת?",
-      a: "כמות, מידות, סוג הקרטון, מספר צבעי הדפוס, השבחות (פויל, הבלטה, לכה סלקטיבית), מורכבות השטנץ וזמן האספקה. מתחילים באפיון קצר כדי להבין מה באמת מזיז את המחיר.",
+      q: "ממה מורכב מחיר האריזה?",
+      a: "המחיר נקבע לפי כמות מוזמנת, מידות, סוג חומר הגלם, עיצוב גרפי, השבחות כגון למינציה, פויל, הטבעה, הבלטה ולכה סלקטיבית, וזמן האספקה.",
     },
     en: {
-      q: "What drives the price?",
-      a: "Run size, dimensions, board grade, ink count, finishing (foil, emboss, spot varnish), die complexity and lead time. We start with a short brief to pinpoint what actually moves the number.",
+      q: "What is the package price based on?",
+      a: "Price is based on order quantity, dimensions, material type, graphic design, finishing such as lamination, foil, stamping, embossing and spot varnish, and delivery time.",
+    },
+  },
+  {
+    n: "06",
+    he: {
+      q: "באילו דרכים ניתן לקבל את האריזות לאחר הייצור?",
+      a: 'ניתן לקבל את האריזות באמצעות הובלה עד לבית העסק או באיסוף עצמי ממרלו"ג החברה.',
+    },
+    en: {
+      q: "How can I receive the packages after production?",
+      a: "Packages can be delivered to your business or collected directly from the company's logistics center.",
     },
   },
 ];
 
 export const homeCopy: Record<Lang, HomeCopy> = {
   he: {
-    eyebrow: "משנת 1964 — אריזות קרטון בהתאמה אישית",
+    eyebrow: "אריזות קרטון בהתאמה אישית",
     h1: ["אריזה שעובדת", "בשביל המוצר"],
-    cta1: "התחלת תהליך",
-    cta2: "למה בארי",
+    cta1: "להשבחות וגימורים",
+    cta2: "בארי אריזות",
     scroll: "גללו להמשך",
     contact: "צור קשר",
     journeyEyebrow: "שני מסלולים",
@@ -175,10 +186,10 @@ export const homeCopy: Record<Lang, HomeCopy> = {
     ctaTitle: ["מוכנים לתכנן את", "האריזה הבאה?"],
   },
   en: {
-    eyebrow: "Since 1964 — Custom folding-carton packaging",
+    eyebrow: "Custom folding-carton packaging",
     h1: ["Packaging that works", "for the product"],
-    cta1: "Start a project",
-    cta2: "Why Beeri",
+    cta1: "Finishing options",
+    cta2: "Beeri Packaging",
     scroll: "Scroll",
     contact: "Contact",
     journeyEyebrow: "Two paths",
@@ -218,11 +229,10 @@ export const homeImages = {
     "/images/generated/imagegen-real-products-vertical-2x3/blue-moon-imagegen-ambience-v2-vertical-2x3.webp",
   journeyGrowth: "/images/generated/timeline/beeri-growth.png",
   journeyDeveloping:
-    "/images/generated/imagegen-real-products-vertical-2x3/barkan-wine-imagegen-ambience-vertical-2x3.webp",
+    "/images/generated/website-content/packaging/retail-coffee-display-window-carton.png",
   journeyToday: "/images/generated/timeline/beeri-today-simple.png",
-  journeyPrecise:
-    "/images/generated/imagegen-real-products-vertical-2x3/mh-whisky-imagegen-ambience-v2-vertical-2x3.webp",
-  bentoService: "/images/figma/service-1.png",
+  journeyPrecise: "/images/generated/website-content/packaging/olive-oil-shaped-window-sleeve.png",
+  bentoService: "/images/generated/website-content/packaging/cosmetics-drawer-window-sleeve.png",
   logoHe: "/images/logo-he.svg",
   logoEn: "/images/logo-en.svg",
 } as const;

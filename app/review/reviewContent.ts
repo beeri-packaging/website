@@ -67,8 +67,6 @@ const PRODUCT_VERTICALS = [
   "/images/generated/imagegen-real-products-vertical-2x3/blue-moon-imagegen-ambience-v2-vertical-2x3.webp",
   "/images/generated/imagegen-real-products-vertical-2x3/blue-moon-imagegen-ambience-v1-vertical-2x3.webp",
   "/images/generated/imagegen-real-products-vertical-2x3/barkan-wine-imagegen-ambience-vertical-2x3.webp",
-  "/images/generated/imagegen-real-products-vertical-2x3/mh-whisky-imagegen-ambience-v2-vertical-2x3.webp",
-  "/images/generated/imagegen-real-products-vertical-2x3/mh-whisky-imagegen-ambience-v1-vertical-2x3.webp",
   "/images/generated/imagegen-real-products-vertical-2x3/nescafe-window-pack-imagegen-ambience-vertical-2x3.webp",
   "/images/generated/imagegen-real-products-vertical-2x3/ahava-gold-imagegen-ambience-vertical-2x3.webp",
 ] as const;
@@ -177,11 +175,10 @@ export const reviewPages: readonly ReviewPage[] = [
         id: "chrome-footer",
         title: "פוטר (תחתית הדף)",
         bullets: [
-          'כותרת: "סטודיו ומפעל".',
           "וורדמרק: בארי אריזות · תיאור: אריזות קרטון בהתאמה אישית — תכנון, דפוס והשבחה תחת קורת גג אחת.",
-          'תיוג מורשת: "משנת 1964".',
-          "כתובת: פארן 4, יבנה · אימייל: orders@beeripacks.co.il · קישור ל-Google Maps.",
-          "קישורי ניווט חוזרים + קישור «משרות פתוחות» (מוביל למשרות בעמוד היומן) + קישור LinkedIn.",
+          'תיוג מתחת ללוגו: "מבית דפוס בארי".',
+          'כתובת: רחוב פארן 4, פארק טכנולוגי יבנה, מיקוד 8122503, ת.ד 13187 · מרלו"ג: רחוב שידלובסקי 1, מתחם ארגמן, יבנה.',
+          "קישורי ניווט חוזרים + קישור «משרות פתוחות» (מוביל למשרות בעמוד היומן) + קישורי LinkedIn ו-Facebook.",
           "קישורים משפטיים: תנאים · פרטיות.",
           "זכויות יוצרים: © 2026 בארי אריזות. כל הזכויות שמורות.",
         ],
@@ -213,9 +210,10 @@ export const reviewPages: readonly ReviewPage[] = [
         id: "home-hero",
         title: "כותרת ראשית (Hero)",
         bullets: [
-          'תיוג עליון: "משנת 1964 — אריזות קרטון בהתאמה אישית".',
+          'תיוג עליון: "אריזות קרטון בהתאמה אישית".',
           'כותרת: "אריזה שעובדת בשביל המוצר".',
-          'כפתורים: "התחלת תהליך" · "למה בארי".',
+          'כפתורים: "להשבחות וגימורים" · "בארי אריזות".',
+          "הרקע מוצג כווידאו כאשר זמין, עם תמונת fallback.",
           'רמז גלילה: "גללו להמשך".',
         ],
         images: [
@@ -257,11 +255,11 @@ export const reviewPages: readonly ReviewPage[] = [
           },
           {
             id: "home-journey-developing",
-            src: "/images/generated/imagegen-real-products-vertical-2x3/barkan-wine-imagegen-ambience-vertical-2x3.webp",
+            src: "/images/generated/website-content/packaging/retail-coffee-display-window-carton.png",
             label: 'פאנל "מפתחים פתרון"',
             alternatives: withCurrent(
-              "/images/generated/imagegen-real-products-vertical-2x3/barkan-wine-imagegen-ambience-vertical-2x3.webp",
-              PRODUCT_VERTICALS,
+              "/images/generated/website-content/packaging/retail-coffee-display-window-carton.png",
+              [...PRODUCT_VERTICALS, ...PACKAGING_SHOTS],
             ),
           },
           {
@@ -274,17 +272,21 @@ export const reviewPages: readonly ReviewPage[] = [
           },
           {
             id: "home-journey-precise",
-            src: "/images/generated/imagegen-real-products-vertical-2x3/mh-whisky-imagegen-ambience-v2-vertical-2x3.webp",
+            src: "/images/generated/website-content/packaging/olive-oil-shaped-window-sleeve.png",
             label: 'פאנל "מייצרים אריזה מדויקת"',
             alternatives: withCurrent(
-              "/images/generated/imagegen-real-products-vertical-2x3/mh-whisky-imagegen-ambience-v2-vertical-2x3.webp",
-              PRODUCT_VERTICALS,
+              "/images/generated/website-content/packaging/olive-oil-shaped-window-sleeve.png",
+              PACKAGING_SHOTS,
             ),
           },
           {
             id: "home-journey-today",
             src: "/images/generated/timeline/beeri-today-simple.png",
             label: 'פאנל "מי אנחנו היום"',
+            alternatives: withCurrent("/images/generated/timeline/beeri-today-simple.png", [
+              "/images/generated/timeline/beeri-growth-simple.png",
+              "/images/generated/timeline/beeri-growth.png",
+            ]),
           },
         ],
       },
@@ -302,9 +304,12 @@ export const reviewPages: readonly ReviewPage[] = [
         images: [
           {
             id: "home-bento-service",
-            src: "/images/figma/service-1.png",
+            src: "/images/generated/website-content/packaging/cosmetics-drawer-window-sleeve.png",
             label: "תמונת מעבדת הפיתוח",
-            alternatives: withCurrent("/images/figma/service-1.png", PACKAGING_SHOTS),
+            alternatives: withCurrent(
+              "/images/generated/website-content/packaging/cosmetics-drawer-window-sleeve.png",
+              PACKAGING_SHOTS,
+            ),
           },
         ],
       },
@@ -313,11 +318,12 @@ export const reviewPages: readonly ReviewPage[] = [
         title: "שאלות נפוצות",
         bullets: [
           'כותרת: "מה חשוב לדעת לפני שמתחילים?"',
-          'שאלה 1: "האם צריך להגיע עם עיצוב מוכן?" — אפשר להתחיל מרעיון, מוד בורד או סקיצה.',
-          'שאלה 2: "מה צריך לשלוח כדי לקבל הצעת מחיר?" — מידות, כמויות, חומר, סוג דפוס, השבחות ולוח זמנים.',
-          'שאלה 3: "מה זה דייליין?" — קובץ החיתוך והקיפול של האריזה (מפת השטנץ).',
-          'שאלה 4: "האם אפשר לקבל דוגמה לפני ייצור?" — כן, דוגמה דיגיטלית בגודל אמת.',
-          'שאלה 5: "מה משפיע על מחיר אריזה ממותגת?" — כמות, מידות, קרטון, צבעי דפוס, השבחות, מורכבות שטנץ וזמן אספקה.',
+          'שאלה 1: "האם יש יכולת לתכנן אריזה?" — כן, אפשר להתחיל מרעיון, מדוגמת מוצר או מסקיצה.',
+          'שאלה 2: "האם נדרש לעצב גרפיקה מראש?" — כן, לאחר תכנון האריזה והעברת שרטוט יועבר קובץ לעימוד הגרפיקה.',
+          'שאלה 3: "מה צריך לשלוח על מנת לקבל הצעת מחיר?" — מידות ו/או פריסת יחידה, כמויות, חומר, סוג דפוס והשבחות.',
+          'שאלה 4: "האם אפשר לקבל דוגמה לפני הייצור?" — כן, דגם לבן בגודל אמת לבדיקת מבנה והתאמה.',
+          'שאלה 5: "ממה מורכב מחיר האריזה?" — כמות, מידות, חומר גלם, עיצוב גרפי, השבחות וזמן אספקה.',
+          'שאלה 6: "באילו דרכים ניתן לקבל את האריזות לאחר הייצור?" — הובלה לבית העסק או איסוף עצמי ממרלו"ג החברה.',
         ],
       },
       {
@@ -340,8 +346,9 @@ export const reviewPages: readonly ReviewPage[] = [
         id: "about-hero",
         title: "כותרת ופתיח",
         bullets: [
-          'תיוג: "אודות" · כותרת: "מורשת של דפוס, אריזה של היום".',
-          "פתיח: בארי אריזות מתכננת ומייצרת אריזות קרטון מודפסות בהתאמה אישית — מהרעיון ועד המדף, תחת קורת גג אחת ביבנה. חברה בקבוצת דפוס בארי עם מורשת דפוס של מעל מאה שנה.",
+          'תיוג: "אודות" · כותרת: "כשמסורת של דפוס פוגשת את האריזה של ימינו".',
+          "פתיח: בארי אריזות הוא בית דפוס מוביל בתחום ייצור אריזות ותוויות, עם מוניטין וניסיון מצטבר של למעלה ממאה שנה.",
+          "המשך: שירות מקיף משלב הרעיון והייעוץ ועד אספקת המוצר המוגמר, לקוסמטיקה, יקבים, פארמה, טקסטיל, מזון, משקאות ומוצרי קד״מ.",
         ],
       },
       {
@@ -372,7 +379,7 @@ export const reviewPages: readonly ReviewPage[] = [
         previewText: "אבני דרך",
         title: "אבני דרך — התאגדות וצמיחה",
         bullets: [
-          "1964 — הקמת החברה: רישום הישות המשפטית (ח״פ 520026113).",
+          "1964 — רישום החברה: רישום הישות המשפטית (ח״פ 520026113).",
           "2019 — רכישת גרפיקה בצלאל על ידי קיבוץ בארי.",
           "2020 — צירוף דפוס חרט.",
           "2021 — שינוי השם לבארי אריזות בע״מ.",
@@ -386,7 +393,7 @@ export const reviewPages: readonly ReviewPage[] = [
         bullets: [
           "כ־140 עובדים (100 ייצור · 40 מטה).",
           "7,900 מ״ר ייצור ומשרדים + 3,000 מ״ר מרלו״ג.",
-          "שנת הקמה: 1964.",
+          "רישום החברה: 1964.",
           "3+2 משמרות ביממה (דפוס · גימורים).",
         ],
         images: [
@@ -435,7 +442,7 @@ export const reviewPages: readonly ReviewPage[] = [
         bullets: [
           'תיוג: "קטלוג / 2026" · כותרת: "כשהמבנה פוגש מותג".',
           "פתיח: אינדקס אריזות הקרטון הממותגות: קוסמטיקה, יין ומשקאות ומערכות מודולריות. מתכנון מבני ודיוק שטנץ ועד חומר, דפוס והשבחות.",
-          "כרטיס מפרט: מפעל יבנה · פעיל משנת 1964 · תקן ISO 9001:2015.",
+          "כרטיס מפרט: מפעל יבנה · פעיל · תקן ISO 9001:2015.",
         ],
       },
       {
@@ -783,10 +790,10 @@ export const reviewPages: readonly ReviewPage[] = [
           },
           {
             id: "post-recycle-quote",
-            src: "/images/generated/website-content/packaging/cosmetics-drawer-window-sleeve.png",
+            src: "/images/generated/website-content/packaging/open-capability-presentation-box.png",
             label: "תמונה ליד הציטוט",
             alternatives: withCurrent(
-              "/images/generated/website-content/packaging/cosmetics-drawer-window-sleeve.png",
+              "/images/generated/website-content/packaging/open-capability-presentation-box.png",
               PACKAGING_SHOTS,
             ),
           },
@@ -948,10 +955,10 @@ export const reviewPages: readonly ReviewPage[] = [
         images: [
           {
             id: "post-window-hero",
-            src: "/images/generated/website-content/packaging/cosmetics-drawer-window-sleeve.png",
+            src: "/images/generated/website-content/packaging/closed-textured-capability-box.png",
             label: "תמונת כותרת",
             alternatives: withCurrent(
-              "/images/generated/website-content/packaging/cosmetics-drawer-window-sleeve.png",
+              "/images/generated/website-content/packaging/closed-textured-capability-box.png",
               PACKAGING_SHOTS,
             ),
           },

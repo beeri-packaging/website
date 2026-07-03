@@ -19,6 +19,8 @@ function Eyebrow({ children }: { children: ReactNode }) {
 }
 
 export function AboutPageDesign({ copy, lang }: { copy: AboutCopy; lang: Lang }) {
+  const [introLead, ...introDetails] = copy.intro.split("\n\n");
+
   return (
     <div className="bg-bone">
       {/* 1 — HERO */}
@@ -32,9 +34,23 @@ export function AboutPageDesign({ copy, lang }: { copy: AboutCopy; lang: Lang })
               </span>
             ))}
           </h1>
-          <p className="mt-6 max-w-[620px] font-sans text-[18px] leading-[1.55] text-clay">
-            {copy.intro}
-          </p>
+          <div className="mt-6 max-w-[760px] font-sans text-clay">
+            <p className="max-w-[720px] text-[18px] leading-[1.65] sm:text-[20px]">
+              {introLead}
+            </p>
+            <div className="mt-6 grid gap-5 md:grid-cols-2">
+              {introDetails.map((paragraph, index) => (
+                <p
+                  key={paragraph}
+                  className={`border-s-4 ps-4 text-[15px] leading-[1.7] sm:text-[16px] ${
+                    index === 0 ? "border-cyan" : "border-magenta"
+                  }`}
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
