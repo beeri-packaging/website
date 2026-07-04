@@ -37,7 +37,11 @@ export function Footer({ lang, chrome }: { lang: Lang; chrome: Chrome }) {
             <Link
               href={`/${lang}`}
               aria-label={brandName}
-              className="block w-fit focus-ring rounded-sm transition-opacity hover:opacity-80"
+              className={
+                isHe
+                  ? "flex w-fit shrink-0 flex-col items-start gap-0.5 focus-ring rounded-sm transition-opacity hover:opacity-80"
+                  : "block w-fit focus-ring rounded-sm transition-opacity hover:opacity-80"
+              }
             >
               <Image
                 src={isHe ? chrome.logoHe : chrome.logoEn}
@@ -50,14 +54,21 @@ export function Footer({ lang, chrome }: { lang: Lang; chrome: Chrome }) {
                 height={isHe ? 64 : 826}
                 className={
                   isHe
-                    ? "h-auto w-[190px] sm:w-[220px]"
+                    ? "h-11 sm:h-12 md:h-14 w-auto"
                     : "h-12 sm:h-14 w-auto"
                 }
               />
+              {isHe ? (
+                <span className="-mt-0.5 self-end font-sans text-logo-dark text-[10px] sm:text-[11px] md:text-[12px] tracking-normal leading-none">
+                  {chrome.byline}
+                </span>
+              ) : null}
             </Link>
-            <span className="-mt-3 font-sans font-semibold uppercase text-teal text-[12px] tracking-[0.14em] leading-4">
-              {chrome.byline}
-            </span>
+            {isHe ? null : (
+              <span className="-mt-3 font-sans font-semibold uppercase text-teal text-[12px] tracking-[0.14em] leading-4">
+                {chrome.byline}
+              </span>
+            )}
             <p className="font-sans text-clay text-[16px] leading-[26px] max-w-[360px] text-balance">
               {chrome.footerTagline}
             </p>
