@@ -70,6 +70,9 @@ export const aboutImages = {
   },
   production: {
     floor: "/images/about/production/factory-floor.jpg",
+    heritageToModern:
+      "https://cdn.sanity.io/images/4qkb39ql/production/05b7ed9c36047e2f43a141d0ba4dda44711a386f-1672x941.webp",
+    heritageToModernSquare: "/images/about/production/heritage-to-modern-square-generated.png",
     offset: "/images/about/production/offset-press.png",
     digital: "/images/about/production/digital-press.png",
     dieCut: "/images/about/production/die-cutting.png",
@@ -86,10 +89,10 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
     intro:
       "בארי אריזות הוא בית הדפוס המוביל בישראל בתחום ייצור אריזות ותוויות, עם מוניטין וניסיון מצטבר של למעלה ממאה שנה. אנו מתמחים בתכנון, עיצוב וייצור אריזות פרימיום ממותגות עבור חברות, מפעלים ומותגים מובילים בארץ ובעולם.\n\nאנו מעניקים ללקוחותינו שירות מקיף המלווה אותם משלב הרעיון והייעוץ ועד לאספקת המוצר המוגמר, תוך הקפדה על איכות ללא פשרות ויחס אישי לכל לקוח.\n\nאנו נותנים שירות למגוון חברות מתחומים שונים ובהם קוסמטיקה, יקבים, פארמה, טקסטיל, מזון, משקאות, מוצרי פרסום ומוצרי קד\"מ. לצד קשת רחבה של מוצרים ופתרונות אריזה, החברה שמה דגש על שירות לקוחות יעיל ומקצועי, ונמצאת בחזית הטכנולוגיה תוך התחדשות מתמדת.",
 
-    heritageEyebrow: "קבוצת דפוס בארי",
-    heritageTitle: "חברה בקבוצת דפוס בארי",
+    heritageEyebrow: "מחזון לעשייה",
+    heritageTitle: "שורשים משלושה דורות, עתיד אחד",
     heritageBody:
-      "בארי אריזות היא חלק מקבוצת דפוס בארי — מבתי הדפוס המובילים בישראל, הפועל מקיבוץ בארי שבנגב משנת 1950. השורשים שלנו מגיעים רחוק יותר: דרך גרפיקה בצלאל, שהפכה לבית דפוס מסחרי ב־1946, ודפוס חרט, שראשיתו עוד ב־1910. החיבור הזה מעמיד מאחורי כל הזמנה ידע עמוק בדפוס ותשתית ייצור רחבה.",
+      "בארי אריזות היא חברה משפחתית הנושאת עמה מורשת עשירה של שלושה בתי דפוס ותיקים שהתאחדו לכדי גוף אחד. שורשיה נטועים בדפוס בארי, שהוקם בשנת 1950 בבעלות מלאה של קיבוץ בארי, בדפוס גרפיקה בצלאל, שראשיתו כמכון הגרפי של בית האומנויות בצלאל והפך לבית דפוס מסחרי בשנת 1946 בידי משפחת חרפק, ובדפוס חרט, שראשיתו בוורשה בשנת 1910 והמשכו בישראל משנת 1936, עת עלה שמעון נוימן ארצה והקים בית דפוס ברחוב נחלת בנימין בתל אביב.\n\nשלוש המסורות הללו, כל אחת עם ניסיונה וידיעתה, התלכדו לכדי בארי אריזות של היום, המשלבת עומק היסטורי של למעלה ממאתיים שנות פעילות עם פתרון כולל תחת קורת גג אחת, מפיתוח הרעיון ועד לאספקת המוצר המוגמר, לתעשיות הקוסמטיקה, הפארמה, המזון, המשקאות והטקסטיל.\n\nהשילוב בין המסורת רבת הדורות לבין הטכנולוגיה המתקדמת ביותר הוא שמייחד את בארי אריזות וממשיך להוביל אותה קדימה, דור אחר דור.",
     heritageItems: [
       {
         year: "1910",
@@ -115,58 +118,53 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
     timelineTitle: "התאגדות וצמיחה",
     milestones: [
       {
-        year: "1964",
-        title: "רישום החברה",
-        body: 'הישות המשפטית של החברה נרשמת — ח"פ 520026113.',
-      },
-      {
         year: "2019",
         title: "רכישת גרפיקה בצלאל",
-        body: "קיבוץ בארי רוכש את גרפיקה בצלאל — הצעד הראשון באיחוד.",
+        body: "רכישת גרפיקה בצלאל על ידי קיבוץ בארי.",
       },
       {
         year: "2020",
-        title: "צירוף דפוס חרט",
+        title: "גרפיקה בצלאל רוכשת את דפוס חרט",
         body: "גרפיקה בצלאל רוכשת את דפוס חרט.",
       },
       {
         year: "2021",
-        title: "השם בארי אריזות",
+        title: "שינוי השם לבארי אריזות",
         body: 'החברה משנה את שמה לבארי אריזות בע"מ.',
-      },
-      {
-        year: "2026",
-        title: "בעלות מלאה של דפוס בארי",
-        body: "השלמת המהלך — בארי אריזות בבעלות מלאה של הקבוצה.",
       },
     ],
 
     statsEyebrow: "במספרים",
     statsTitle: "המפעל שלנו ביבנה",
     stats: [
-      { value: "כ־140", label: "עובדים", sub: "100 ייצור · 40 מטה" },
+      { value: "מעל 100", label: "עובדים" },
       {
-        value: "7,900",
-        label: 'מ"ר ייצור ומשרדים',
-        sub: 'ועוד 3,000 מ"ר מרלו"ג',
+        value: "10,000",
+        label: 'מ"ר של אולמות ייצור ומרלו"ג',
         tone: "magenta",
       },
-      { value: "1964", label: "רישום החברה", tone: "yellow" },
-      { value: "3+2", label: "משמרות ביממה", sub: "דפוס · גימורים" },
+      { value: "מעל 200", label: "שנות ניסיון מצטבר", tone: "yellow" },
+      { value: "24/6", label: "מפעל חיוני עובד" },
     ],
 
     partnersEyebrow: "מבין לקוחותינו",
     partnersTitle: "שותפות מנצחת",
     // Names sourced from the company deck (slides 7–9).
     clients: [
-      { name: "Strauss", logo: "/images/clients/strauss.svg" },
-      { name: "Osem", logo: "/images/clients/osem.svg" },
-      { name: "Tnuva", logo: "/images/clients/tnuva.svg" },
-      { name: "Elite", logo: "/images/clients/elite.png" },
-      { name: "SodaStream", logo: "/images/clients/sodastream.svg" },
-      { name: "Moroccanoil", logo: "/images/clients/moroccanoil.png" },
-      { name: "AHAVA", logo: "/images/clients/ahava.svg" },
-      { name: "Dr. Fischer", logo: "/images/clients/dr-fischer.png" },
+      { name: "שטראוס קפה בי. וי (קפה עלית)", logo: "/images/clients/elite.png" },
+      { name: "קרלסברג", logo: "/images/clients/carlsberg.png" },
+      { name: "CBC", logo: "/images/clients/cbc.svg" },
+      { name: "תה ויסוצקי בע\"מ", logo: "/images/clients/wissotzky.svg" },
+      { name: "נסטלה", logo: "/images/clients/nestle.svg" },
+      {
+        name: 'אגודת הכורמים הקואופרטיבית של יקבי ראשל"צ וזכרון',
+        logo: "/images/clients/carmel-winery.svg",
+      },
+      { name: "יקב רקאנטי", logo: "/images/clients/recanati.png" },
+      { name: "יקב רמת הגולן", logo: "/images/clients/golan-heights-winery.svg" },
+      { name: "טמפו", logo: "/images/clients/tempo.png" },
+      { name: "ליימן שליסל בע\"מ", logo: "/images/clients/leiman-schlussel.png" },
+      { name: "אלטמן", logo: "/images/clients/altman.png" },
     ],
 
     ctaTitle: "בואו נתכנן יחד את האריזה הבאה שלכם.",
@@ -180,10 +178,10 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
     intro:
       "Beeri Packaging is one of Israel's leading printing houses for packaging and labels, with a reputation and accumulated experience of more than a century. We specialize in planning, designing and producing premium branded packaging for companies, manufacturers and leading brands in Israel and worldwide.\n\nWe provide a full service that accompanies clients from the idea and consultation stage through delivery of the finished product, with uncompromising quality and personal attention to every client.\n\nWe serve companies across cosmetics, wineries, pharma, textiles, food, beverages, promotional products and point-of-sale products. Alongside a wide range of packaging products and solutions, the company emphasizes efficient, professional customer service and stays at the front of technology through constant renewal.",
 
-    heritageEyebrow: "Beeri Print Group",
-    heritageTitle: "A Beeri Print Group company",
+    heritageEyebrow: "From vision to action",
+    heritageTitle: "Three generations of roots, one future",
     heritageBody:
-      "Beeri Packaging is part of the Beeri Print Group — one of Israel's leading printing houses, operating from Kibbutz Be'eri in the Negev since 1950. Our roots run deeper still: through Graphica Bezalel, a commercial press since 1946, and Heret Printing, founded back in 1910. That lineage puts deep print know-how and broad manufacturing capacity behind every order.",
+      "Beeri Packaging is a family company carrying the heritage of three long-standing printing houses that came together as one. Its roots are planted in Beeri Print, founded in 1950 and fully owned by Kibbutz Be'eri; in Graphica Bezalel, which began as the graphic institute of the Bezalel School of Arts and became a commercial printing house in 1946 under the Harpak family; and in Heret Printing, whose story began in Warsaw in 1910 and continued in Israel from 1936, when Shimon Neumann immigrated and founded a printing house on Nahalat Binyamin Street in Tel Aviv.\n\nThese three traditions, each with its own experience and know-how, have joined into today's Beeri Packaging: a company that combines more than two hundred years of accumulated activity with an end-to-end solution under one roof, from concept development to finished product delivery, for the cosmetics, pharma, food, beverage and textile industries.\n\nThe combination of generations of tradition with advanced technology is what sets Beeri Packaging apart and continues to move it forward.",
     heritageItems: [
       {
         year: "1910",
@@ -211,58 +209,50 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
     timelineTitle: "Coming together, growing",
     milestones: [
       {
-        year: "1964",
-        title: "Company registration",
-        body: "The company's legal entity is registered — reg. no. 520026113.",
-      },
-      {
         year: "2019",
         title: "Graphica Bezalel acquired",
-        body: "Kibbutz Be'eri acquires Graphica Bezalel — the first step in uniting the group.",
+        body: "Kibbutz Be'eri acquires Graphica Bezalel.",
       },
       {
         year: "2020",
-        title: "Heret Printing joins",
+        title: "Graphica Bezalel acquires Heret Printing",
         body: "Graphica Bezalel acquires Heret Printing.",
       },
       {
         year: "2021",
-        title: "The Beeri Packaging name",
+        title: "Renamed Beeri Packaging",
         body: "The company is renamed Beeri Packaging Ltd.",
-      },
-      {
-        year: "2026",
-        title: "Full Beeri Print ownership",
-        body: "The journey completes — Beeri Packaging is wholly owned by the group.",
       },
     ],
 
     statsEyebrow: "By the numbers",
     statsTitle: "Our Yavne plant",
     stats: [
-      { value: "~140", label: "employees", sub: "100 production · 40 staff" },
+      { value: "100+", label: "employees" },
       {
-        value: "7,900",
-        label: "m² production & offices",
-        sub: "+3,000 m² logistics center",
+        value: "10,000",
+        label: "m² production halls & logistics center",
         tone: "magenta",
       },
-      { value: "1964", label: "company registration", tone: "yellow" },
-      { value: "3+2", label: "shifts a day", sub: "print · finishing" },
+      { value: "200+", label: "years of accumulated experience", tone: "yellow" },
+      { value: "24/6", label: "essential plant in operation" },
     ],
 
     partnersEyebrow: "Among our clients",
     partnersTitle: "Winning partnerships",
     // Names sourced from the company deck (slides 7–9).
     clients: [
-      { name: "Strauss", logo: "/images/clients/strauss.svg" },
-      { name: "Osem", logo: "/images/clients/osem.svg" },
-      { name: "Tnuva", logo: "/images/clients/tnuva.svg" },
-      { name: "Elite", logo: "/images/clients/elite.png" },
-      { name: "SodaStream", logo: "/images/clients/sodastream.svg" },
-      { name: "Moroccanoil", logo: "/images/clients/moroccanoil.png" },
-      { name: "AHAVA", logo: "/images/clients/ahava.svg" },
-      { name: "Dr. Fischer", logo: "/images/clients/dr-fischer.png" },
+      { name: "Strauss Coffee B.V. (Elite Coffee)", logo: "/images/clients/elite.png" },
+      { name: "Carlsberg", logo: "/images/clients/carlsberg.png" },
+      { name: "CBC", logo: "/images/clients/cbc.svg" },
+      { name: "Wissotzky Tea", logo: "/images/clients/wissotzky.svg" },
+      { name: "Nestle", logo: "/images/clients/nestle.svg" },
+      { name: "Winegrowers Cooperative / Carmel Wineries", logo: "/images/clients/carmel-winery.svg" },
+      { name: "Recanati Winery", logo: "/images/clients/recanati.png" },
+      { name: "Golan Heights Winery", logo: "/images/clients/golan-heights-winery.svg" },
+      { name: "Tempo", logo: "/images/clients/tempo.png" },
+      { name: "Leiman Schlussel", logo: "/images/clients/leiman-schlussel.png" },
+      { name: "Altman", logo: "/images/clients/altman.png" },
     ],
 
     ctaTitle: "Let's plan your next package together.",

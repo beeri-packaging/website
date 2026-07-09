@@ -229,10 +229,11 @@ export const homeImages = {
     "/images/generated/imagegen-real-products-vertical-2x3/blue-moon-imagegen-ambience-v2-vertical-2x3.webp",
   journeyGrowth: "/images/generated/timeline/beeri-growth.png",
   journeyDeveloping:
-    "/images/generated/website-content/packaging/retail-coffee-display-window-carton.png",
-  journeyToday: "/images/generated/timeline/beeri-today-simple.png",
-  journeyPrecise: "/images/generated/website-content/packaging/olive-oil-shaped-window-sleeve.png",
-  bentoService: "/images/generated/website-content/packaging/cosmetics-drawer-window-sleeve.png",
+    "/images/generated/client-feedback-2026-07-08/coffee-solution-development.webp",
+  journeyToday: "/images/generated/client-feedback-2026-07-08/full-capability-tableau.webp",
+  journeyPrecise:
+    "/images/generated/imagegen-real-products-vertical-2x3/nescafe-window-pack-imagegen-ambience-vertical-2x3.webp",
+  bentoService: "/images/generated/client-feedback-2026-07-08/development-lab-workbench.webp",
   logoHe: "/images/logo-he.svg",
   logoEn: "/images/logo-en.svg",
 } as const;

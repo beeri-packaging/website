@@ -6,9 +6,13 @@ describe("aboutCopy", () => {
     expect(Object.keys(aboutCopy.he).sort()).toEqual(Object.keys(aboutCopy.en).sort());
   });
 
-  it("has 5 milestones per locale and excludes October 7 content", () => {
+  it("has the client-approved milestone set and excludes October 7 content", () => {
     for (const lang of ["he", "en"] as const) {
-      expect(aboutCopy[lang].milestones).toHaveLength(5);
+      expect(aboutCopy[lang].milestones.map((m) => m.year)).toEqual([
+        "2019",
+        "2020",
+        "2021",
+      ]);
       // Guardrail: the page must not carry any Oct-7 / תקומה reference.
       const blob = JSON.stringify(aboutCopy[lang]);
       expect(blob).not.toMatch(/7\.10\.2023|השבת השחורה|October 7|תקומה/i);
@@ -23,7 +27,7 @@ describe("aboutCopy", () => {
 
   it("keeps the 1950 group heritage distinct from the 1964 entity", () => {
     expect(aboutCopy.he.heritageBody).toContain("1950");
-    expect(aboutCopy.he.milestones.some((m) => m.year === "1964")).toBe(true);
+    expect(aboutCopy.he.milestones.some((m) => m.year === "1964")).toBe(false);
   });
 
   it("uses the client-approved Hebrew hero copy", () => {
@@ -35,5 +39,27 @@ describe("aboutCopy", () => {
       "בארי אריזות הוא בית הדפוס המוביל בישראל בתחום ייצור אריזות ותוויות",
     );
     expect(aboutCopy.he.intro).toContain("התחדשות מתמדת");
+  });
+
+  it("uses the July 8 client-approved stats and client list", () => {
+    expect(aboutCopy.he.stats.map((s) => `${s.value} ${s.label}`)).toEqual([
+      "מעל 100 עובדים",
+      "10,000 מ\"ר של אולמות ייצור ומרלו\"ג",
+      "מעל 200 שנות ניסיון מצטבר",
+      "24/6 מפעל חיוני עובד",
+    ]);
+    expect(aboutCopy.he.clients.map((client) => client.name)).toEqual([
+      "שטראוס קפה בי. וי (קפה עלית)",
+      "קרלסברג",
+      "CBC",
+      "תה ויסוצקי בע\"מ",
+      "נסטלה",
+      'אגודת הכורמים הקואופרטיבית של יקבי ראשל"צ וזכרון',
+      "יקב רקאנטי",
+      "יקב רמת הגולן",
+      "טמפו",
+      "ליימן שליסל בע\"מ",
+      "אלטמן",
+    ]);
   });
 });

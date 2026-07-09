@@ -54,7 +54,7 @@ export type CatalogCategory = {
 };
 
 export type CatalogCopy = {
-  /** Teal hero eyebrow, e.g. "קטלוג / 2026". */
+  /** Teal hero eyebrow, e.g. "קטלוג". */
   eyebrow: string;
   /** Display title broken into two lines. */
   title: readonly [string, string];
@@ -77,10 +77,10 @@ export const catalogImages = {
 
 export const catalogCopy: Record<Lang, CatalogCopy> = {
   he: {
-    eyebrow: "קטלוג / 2026",
+    eyebrow: "קטלוג",
     title: ["כשהמבנה", "פוגש מותג"],
     intro:
-      "אינדקס אריזות הקרטון הממותגות שלנו: קוסמטיקה, יין ומשקאות ומערכות מודולריות. מתכנון מבני ודיוק השטנץ ועד הבחירה בחומר, בדפוס ובהשבחות — הכול תחת קורת גג אחת.",
+      "אינדקס אריזות הקרטון הממותגות שלנו מציע מגוון פתרונות מתקדמים ומותאמים אישית למספר רחב של תעשיות, ביניהן קוסמטיקה, מזון, יין, משקאות, טקסטיל, קפה, פארמה וטואלטיקה.\n\nלתעשיות הקוסמטיקה והטואלטיקה נספק אריזות מרהיבות ומדויקות עם מבחר רחב של אפשרויות השבחה שיסייעו למוצרים לבלוט על המדף. עבור חברות המזון והקפה נתאים אריזות המשלבות הגנה מקסימלית על איכות המוצר לצד עיצוב מזמין וידידותי למשתמש.\n\nבתחום הפארמה, נפתח אריזות העומדות בתקנים המחמירים ביותר תוך הקפדה על נוחות השימוש עבור הצרכן. לעולם היין והמשקאות נציע מנעד רחב של אריזות ממותגות, הן לבקבוקים בודדים והן למארזי יוקרה רב-תכליתיים. וליצרני הטקסטיל נפתח פתרונות אריזה מותאמים.\n\nמתכנון מבנה, בחירת חומרים ודיוק מירבי בשטנץ ועד לשילוב מורכב של טכנולוגיות דפוס והשבחה חדשניות - אנו מציעים ללקוחותינו שירות מקיף לפיתוח האריזה האולטימטיבית עבור כל סוג של מוצר.\n\nגלו כאן את השפע והגיוון של פתרונות אריזות הקרטון שלנו, ובחרו את האריזה שתניע את המוצר שלכם להצלחה בכל תעשייה.",
     specCard: ["מפעל: יבנה, ישראל", "סטטוס: פעיל", "תקן: ISO 9001:2015"],
     categories: [
       {
@@ -193,10 +193,10 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
     ],
   },
   en: {
-    eyebrow: "Catalog / 2026",
+    eyebrow: "Catalog",
     title: ["When structure", "meets brand"],
     intro:
-      "An index of our branded folding-carton packaging: cosmetics, wine & spirits, and modular systems. From structural design and die-cut precision to material, print and finishing — all under one roof.",
+      "Our branded folding-carton catalog offers advanced, custom-fit solutions for a wide range of industries, including cosmetics, food, wine, beverages, textiles, coffee, pharma and toiletries.\n\nFor cosmetics and toiletries, we provide precise, striking packaging with a broad range of finishing options that help products stand out on the shelf. For food and coffee companies, we tailor packaging that combines maximum product protection with inviting, user-friendly design.\n\nFor pharma, we develop packaging that meets strict standards while keeping the consumer experience clear and convenient. For wine and beverage brands, we offer a wide range of branded packaging, from single-bottle cartons to premium multi-purpose gift packs. For textile manufacturers, we develop tailored packaging solutions.\n\nFrom structural planning, material selection and precise die-cutting to complex combinations of advanced print and finishing technologies, we offer clients a complete service for developing the ideal package for every product type.\n\nExplore the variety of our carton packaging solutions and choose the package that will help your product succeed in every industry.",
     specCard: ["Plant: Yavne, Israel", "Status: Active", "Standard: ISO 9001:2015"],
     categories: [
       {

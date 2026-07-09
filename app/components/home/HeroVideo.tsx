@@ -24,6 +24,8 @@ export function HeroVideo({
 }) {
   const ref = useRef<HTMLVideoElement>(null);
   const [paused, setPaused] = useState(false);
+  const [shouldRenderVideo, setShouldRenderVideo] = useState(false);
+  const [failed, setFailed] = useState(false);
 
   const labels =
     lang === "he"
@@ -31,8 +33,33 @@ export function HeroVideo({
       : { pause: "Pause background video", play: "Play background video" };
 
   useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    function sync() {
+      const allowed =
+        desktop.matches &&
+        !reduce.matches &&
+        document.documentElement.getAttribute("data-a11y-motion") !== "1";
+      setShouldRenderVideo(allowed);
+      if (!allowed) {
+        ref.current?.pause();
+        setPaused(true);
+      }
+    }
+
+    sync();
+    desktop.addEventListener("change", sync);
+    reduce.addEventListener("change", sync);
+    return () => {
+      desktop.removeEventListener("change", sync);
+      reduce.removeEventListener("change", sync);
+    };
+  }, []);
+
+  useEffect(() => {
     const v = ref.current;
-    if (!v) return;
+    if (!v || !shouldRenderVideo || failed) return;
     const reduce =
       window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ||
       document.documentElement.getAttribute("data-a11y-motion") === "1";
@@ -45,7 +72,7 @@ export function HeroVideo({
       // Autoplay can still be blocked; reflect the real state in the control.
       setPaused(true);
     });
-  }, []);
+  }, [failed, shouldRenderVideo]);
 
   function toggle() {
     const v = ref.current;
@@ -58,8 +85,10 @@ export function HeroVideo({
     }
   }
 
+  if (!shouldRenderVideo || failed) return null;
+
   return (
-    <div className="hero-video hidden md:block absolute inset-0 pointer-events-none">
+    <div className="hero-video hidden lg:block absolute inset-0 pointer-events-none">
       {/* The Hero's own <Image> sits behind this island; when the video is
           paused/loading (opacity-0) that still shows straight through. */}
       <video
@@ -73,6 +102,10 @@ export function HeroVideo({
         preload="none"
         poster={poster}
         aria-hidden
+        onError={() => {
+          setFailed(true);
+          setPaused(true);
+        }}
       >
         <source src={src} type="video/mp4" />
       </video>

@@ -11,35 +11,13 @@ import { CatalogModalProvider, ProductOpenButton } from "./CatalogModalProvider"
 
 const SECTION = "mx-auto w-full max-w-[1280px] px-5 sm:px-8 md:px-12 lg:px-20";
 
-// ── Hero spec card — sand panel, hard ink shadow, 4 palette dots ──────────────
-function SpecCard({ lines }: { lines: CatalogCopy["specCard"] }) {
-  const dots = ["bg-purple", "bg-cyan", "bg-yellow", "bg-magenta"];
-  return (
-    <div className="flex flex-col gap-4 self-start border border-ink bg-sand p-[25px] shadow-[4px_4px_0_0_var(--ink)] md:self-end">
-      <div dir="ltr" className="flex gap-4 pe-[106px]">
-        {dots.map((bg) => (
-          <span key={bg} className={`${bg} size-3 border border-ink`} aria-hidden />
-        ))}
-      </div>
-      <div className="flex flex-col items-start gap-1 text-start">
-        {lines.map((line) => (
-          <p
-            key={line}
-            className="font-sans text-[10px] font-semibold leading-[15px] text-ink"
-          >
-            {line}
-          </p>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 function CatalogHero({ copy }: { copy: CatalogCopy }) {
+  const introParagraphs = copy.intro.split("\n\n");
+
   return (
     <section className={`${SECTION} pt-10 sm:pt-14 lg:pt-16`}>
-      <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
-        <div className="flex max-w-[672px] flex-col items-start text-start">
+      <div className="flex flex-col">
+        <div className="flex max-w-[920px] flex-col items-start text-start">
           <p className="ds-eyebrow text-teal">{copy.eyebrow}</p>
           <h1 className="mt-4 font-display text-[56px] leading-[0.85] text-logo-dark sm:text-[80px] md:text-[96px]">
             {copy.title.map((line) => (
@@ -48,11 +26,12 @@ function CatalogHero({ copy }: { copy: CatalogCopy }) {
               </span>
             ))}
           </h1>
-          <p className="mt-6 font-sans text-[18px] leading-[1.5] text-clay sm:text-[20px]">
-            {copy.intro}
-          </p>
+          <div className="mt-6 grid gap-4 font-sans text-[17px] leading-[1.65] text-clay sm:text-[19px] md:grid-cols-2 md:gap-x-8">
+            {introParagraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
         </div>
-        <SpecCard lines={copy.specCard} />
       </div>
     </section>
   );

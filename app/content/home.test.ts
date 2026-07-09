@@ -24,14 +24,16 @@ describe("home client feedback content", () => {
 
   it("points home image fallbacks to the selected client feedback assets", () => {
     expect(homeImages.journeyDeveloping).toBe(
-      "/images/generated/website-content/packaging/retail-coffee-display-window-carton.png",
+      "/images/generated/client-feedback-2026-07-08/coffee-solution-development.webp",
     );
     expect(homeImages.journeyPrecise).toBe(
-      "/images/generated/website-content/packaging/olive-oil-shaped-window-sleeve.png",
+      "/images/generated/imagegen-real-products-vertical-2x3/nescafe-window-pack-imagegen-ambience-vertical-2x3.webp",
     );
-    expect(homeImages.journeyToday).toBe("/images/generated/timeline/beeri-today-simple.png");
+    expect(homeImages.journeyToday).toBe(
+      "/images/generated/client-feedback-2026-07-08/full-capability-tableau.webp",
+    );
     expect(homeImages.bentoService).toBe(
-      "/images/generated/website-content/packaging/cosmetics-drawer-window-sleeve.png",
+      "/images/generated/client-feedback-2026-07-08/development-lab-workbench.webp",
     );
   });
 });

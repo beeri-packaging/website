@@ -18,8 +18,27 @@ function Eyebrow({ children }: { children: ReactNode }) {
   );
 }
 
+function clientLogoBoxClass(logo?: string) {
+  if (!logo) return "";
+
+  if (logo.includes("tempo")) return "h-16 w-24 sm:h-[74px] sm:w-28";
+  if (logo.includes("leiman")) return "h-16 w-28 sm:h-[74px] sm:w-32";
+  if (logo.includes("recanati")) return "h-16 w-28 sm:h-[76px] sm:w-32";
+  if (logo.includes("carmel")) return "h-16 w-28 sm:h-[76px] sm:w-32";
+  if (logo.includes("altman")) return "h-12 w-40 sm:h-14 sm:w-48";
+  if (logo.includes("nestle")) return "h-12 w-40 sm:h-14 sm:w-48";
+  if (logo.includes("carlsberg")) return "h-16 w-40 sm:h-[74px] sm:w-48";
+  if (logo.includes("cbc")) return "h-16 w-40 sm:h-[72px] sm:w-48";
+  if (logo.includes("golan")) return "h-16 w-40 sm:h-[72px] sm:w-48";
+  if (logo.includes("wissotzky")) return "h-14 w-40 sm:h-16 sm:w-48";
+  if (logo.includes("elite")) return "h-16 w-36 sm:h-[72px] sm:w-40";
+
+  return "h-14 w-40 sm:h-16 sm:w-48";
+}
+
 export function AboutPageDesign({ copy, lang }: { copy: AboutCopy; lang: Lang }) {
   const [introLead, ...introDetails] = copy.intro.split("\n\n");
+  const heritageParagraphs = copy.heritageBody.split("\n\n");
 
   return (
     <div className="bg-bone">
@@ -62,9 +81,11 @@ export function AboutPageDesign({ copy, lang }: { copy: AboutCopy; lang: Lang })
             <h2 className="font-display text-[40px] leading-[0.95] text-blueprint sm:text-[52px] lg:text-[64px]">
               {copy.heritageTitle}
             </h2>
-            <p className="mt-5 max-w-[560px] font-sans text-[16px] leading-[1.56] text-clay">
-              {copy.heritageBody}
-            </p>
+            <div className="mt-5 flex max-w-[620px] flex-col gap-4 font-sans text-[16px] leading-[1.56] text-clay">
+              {heritageParagraphs.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
             <a
               href={copy.groupLinkHref}
               target="_blank"
@@ -161,12 +182,16 @@ export function AboutPageDesign({ copy, lang }: { copy: AboutCopy; lang: Lang })
                       ? "text-blueprint/75"
                       : "text-blueprint";
                 const subColor = tone === "magenta" ? "text-bone" : "text-clay";
+                const valueSize =
+                  s.value.length > 5
+                    ? "text-[34px] leading-[0.92] sm:text-[42px]"
+                    : "text-[52px] leading-none sm:text-[64px]";
                 return (
                   <div
                     key={s.label}
                     className={`reveal flex h-[150px] flex-col justify-between p-6 text-start ${tile}`}
                   >
-                    <dt className={`font-display text-[52px] leading-none sm:text-[64px] ${valueColor}`}>
+                    <dt className={`font-display ${valueSize} ${valueColor}`}>
                       {s.value}
                     </dt>
                     <dd>
@@ -188,9 +213,18 @@ export function AboutPageDesign({ copy, lang }: { copy: AboutCopy; lang: Lang })
               })}
             </dl>
           </div>
-          <div className="reveal relative min-h-[320px] overflow-hidden border border-blueprint bg-sand lg:col-span-5">
+          <div className="reveal relative min-h-[320px] overflow-hidden border border-blueprint bg-sand lg:hidden">
             <Image
-              src={aboutImages.production.floor}
+              src={aboutImages.production.heritageToModern}
+              alt={copy.statsTitle}
+              fill
+              sizes="100vw"
+              className="object-cover"
+            />
+          </div>
+          <div className="reveal relative hidden aspect-square overflow-hidden border border-blueprint bg-sand lg:col-span-5 lg:block">
+            <Image
+              src={aboutImages.production.heritageToModernSquare}
               alt={copy.statsTitle}
               fill
               sizes="(min-width: 1024px) 40vw, 100vw"
@@ -200,34 +234,44 @@ export function AboutPageDesign({ copy, lang }: { copy: AboutCopy; lang: Lang })
         </div>
       </section>
 
-      {/* 5 — PARTNERS / CLIENTS (full-bleed magenta band) */}
-      <section id="clients" className="w-full border-t border-ink bg-magenta-deep scroll-mt-[80px]">
-        <div className="mx-auto w-full max-w-[1152px] px-5 py-16 sm:px-8 md:py-24 lg:px-0">
+      {/* 5 — PARTNERS / CLIENTS */}
+      <section id="clients" className="w-full border-y border-rule bg-bone scroll-mt-[80px]">
+        <div aria-hidden className="flex h-[3px]">
+          <span className="flex-1 bg-cyan" />
+          <span className="flex-1 bg-yellow" />
+          <span className="flex-1 bg-magenta" />
+          <span className="flex-1 bg-purple" />
+        </div>
+
+        <div className="mx-auto w-full max-w-[1152px] px-5 py-14 sm:px-8 md:py-20 lg:px-0">
           <div className="reveal flex flex-col items-start gap-2 text-start">
-            <span className="font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-cyan">
+            <span className="font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-magenta-deep">
               {copy.partnersEyebrow}
             </span>
-            <h2 className="font-display text-[56px] leading-[0.74] text-bone sm:text-[88px] lg:text-[128px]">
+            <h2 className="font-display text-[48px] leading-[0.86] text-blueprint sm:text-[72px] lg:text-[88px]">
               {copy.partnersTitle}
             </h2>
           </div>
 
-          <ul className="mt-10 grid grid-cols-2 gap-5 sm:grid-cols-3 md:mt-16 md:gap-6 lg:grid-cols-4">
+          <ul className="mt-9 flex flex-wrap justify-center gap-3 sm:gap-4 md:mt-12">
             {copy.clients.map((client) => (
-              <li key={client.name} className="reveal">
-                <div className="flex aspect-[3/2] items-center justify-center border-2 border-ink bg-bone p-4 shadow-[6px_6px_0_var(--ink)]">
+              <li
+                key={client.name}
+                className="reveal w-[calc(50%-0.375rem)] max-w-[260px] sm:w-[calc(33.333%-0.667rem)] lg:w-[calc(25%-0.75rem)]"
+              >
+                <div className="flex h-[108px] items-center justify-center border border-rule bg-bone px-5 py-4 transition-colors duration-300 hover:border-blueprint hover:bg-sand/55 sm:h-[124px]">
                   {client.logo ? (
-                    <span className="relative block h-[clamp(72px,8vw,112px)] w-[92%]">
+                    <span className={`relative block ${clientLogoBoxClass(client.logo)}`}>
                       <Image
                         src={client.logo}
                         alt={client.name}
                         fill
-                        sizes="(min-width: 1024px) 18vw, (min-width: 640px) 26vw, 38vw"
+                        sizes="(min-width: 1024px) 180px, (min-width: 640px) 160px, 42vw"
                         className="object-contain mix-blend-multiply"
                       />
                     </span>
                   ) : (
-                    <span className="text-center font-sans text-[clamp(15px,2.2vw,21px)] font-extrabold uppercase tracking-[0.02em] text-ink">
+                    <span className="text-center font-sans text-[15px] font-extrabold uppercase tracking-[0.02em] text-ink sm:text-[17px]">
                       {client.name}
                     </span>
                   )}

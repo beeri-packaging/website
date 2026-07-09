@@ -189,9 +189,10 @@ export const reviewPages: readonly ReviewPage[] = [
         summary: "נפתח מכל כפתור 'ליצירת קשר' באתר.",
         bullets: [
           'כותרת: "נדבר על האריזה שלכם." · תיוג: "פנייה לפרויקט".',
-          "שדות: שם מלא · טלפון · אימייל (לא חובה) · חברה (לא חובה).",
+          "שדות: שם מלא · טלפון · אימייל · חברה (לא חובה).",
           "סיבת הפנייה: הצעת מחיר · תיאום פגישה עם מת״ל · נושא אחר.",
           "שדה פרטים נוספים חופשי.",
+          'המייל שנשלח ל־ORDERS מסומן כ"פנייה מאתר בארי אריזות".',
           'כפתור "שליחת פנייה" + טקסט הסכמה.',
           'הודעת הצלחה: "הפנייה נשלחה — תודה! קיבלנו את הפרטים ונחזור אליכם בהקדם."',
         ],
@@ -213,7 +214,7 @@ export const reviewPages: readonly ReviewPage[] = [
           'תיוג עליון: "אריזות קרטון בהתאמה אישית".',
           'כותרת: "אריזה שעובדת בשביל המוצר".',
           'כפתורים: "להשבחות וגימורים" · "בארי אריזות".',
-          "הרקע מוצג כווידאו כאשר זמין, עם תמונת fallback.",
+          "בדסקטופ גדול הרקע מוצג כווידאו כאשר זמין; במובייל ובמקרה כשל מוצגת תמונת fallback.",
           'רמז גלילה: "גללו להמשך".',
         ],
         images: [
@@ -255,10 +256,10 @@ export const reviewPages: readonly ReviewPage[] = [
           },
           {
             id: "home-journey-developing",
-            src: "/images/generated/website-content/packaging/retail-coffee-display-window-carton.png",
+            src: "/images/generated/client-feedback-2026-07-08/coffee-solution-development.webp",
             label: 'פאנל "מפתחים פתרון"',
             alternatives: withCurrent(
-              "/images/generated/website-content/packaging/retail-coffee-display-window-carton.png",
+              "/images/generated/client-feedback-2026-07-08/coffee-solution-development.webp",
               [...PRODUCT_VERTICALS, ...PACKAGING_SHOTS],
             ),
           },
@@ -272,18 +273,18 @@ export const reviewPages: readonly ReviewPage[] = [
           },
           {
             id: "home-journey-precise",
-            src: "/images/generated/website-content/packaging/olive-oil-shaped-window-sleeve.png",
+            src: "/images/generated/imagegen-real-products-vertical-2x3/nescafe-window-pack-imagegen-ambience-vertical-2x3.webp",
             label: 'פאנל "מייצרים אריזה מדויקת"',
             alternatives: withCurrent(
-              "/images/generated/website-content/packaging/olive-oil-shaped-window-sleeve.png",
-              PACKAGING_SHOTS,
+              "/images/generated/imagegen-real-products-vertical-2x3/nescafe-window-pack-imagegen-ambience-vertical-2x3.webp",
+              [...PRODUCT_VERTICALS, ...PACKAGING_SHOTS],
             ),
           },
           {
             id: "home-journey-today",
-            src: "/images/generated/timeline/beeri-today-simple.png",
+            src: "/images/generated/client-feedback-2026-07-08/full-capability-tableau.webp",
             label: 'פאנל "מי אנחנו היום"',
-            alternatives: withCurrent("/images/generated/timeline/beeri-today-simple.png", [
+            alternatives: withCurrent("/images/generated/client-feedback-2026-07-08/full-capability-tableau.webp", [
               "/images/generated/timeline/beeri-growth-simple.png",
               "/images/generated/timeline/beeri-growth.png",
             ]),
@@ -304,10 +305,10 @@ export const reviewPages: readonly ReviewPage[] = [
         images: [
           {
             id: "home-bento-service",
-            src: "/images/generated/website-content/packaging/cosmetics-drawer-window-sleeve.png",
+            src: "/images/generated/client-feedback-2026-07-08/development-lab-workbench.webp",
             label: "תמונת מעבדת הפיתוח",
             alternatives: withCurrent(
-              "/images/generated/website-content/packaging/cosmetics-drawer-window-sleeve.png",
+              "/images/generated/client-feedback-2026-07-08/development-lab-workbench.webp",
               PACKAGING_SHOTS,
             ),
           },
@@ -353,13 +354,14 @@ export const reviewPages: readonly ReviewPage[] = [
       },
       {
         id: "about-heritage",
-        title: "קבוצת דפוס בארי",
+        title: "שורשים משלושה דורות, עתיד אחד",
         bullets: [
-          'כותרת: "חברה בקבוצת דפוס בארי".',
-          "תיאור: חלק מקבוצת דפוס בארי — מבתי הדפוס המובילים בישראל, פועל מקיבוץ בארי משנת 1950.",
-          "1910 — דפוס חרט: ראשיתו בוורשה, המשכו בתל אביב משנת 1936.",
-          "1946 — גרפיקה בצלאל: מהמכון הגרפי של בצלאל לבית דפוס מסחרי.",
-          "1950 — דפוס בארי: בית הדפוס הראשון בנגב, בבעלות קיבוץ בארי.",
+          'כותרת: "שורשים משלושה דורות, עתיד אחד".',
+          "תיאור: בארי אריזות נושאת מורשת של שלושה בתי דפוס ותיקים שהתאחדו לכדי גוף אחד.",
+          "דפוס בארי — הוקם בשנת 1950 בבעלות מלאה של קיבוץ בארי.",
+          "גרפיקה בצלאל — החל כמכון הגרפי של בית האומנויות בצלאל והפך לבית דפוס מסחרי בשנת 1946.",
+          "דפוס חרט — ראשיתו בוורשה בשנת 1910 והמשכו בישראל משנת 1936.",
+          "המסורות התלכדו לבארי אריזות של היום: פתרון כולל מפיתוח הרעיון ועד אספקת המוצר המוגמר.",
           "קישור לאתר הקבוצה.",
         ],
         images: [
@@ -379,11 +381,9 @@ export const reviewPages: readonly ReviewPage[] = [
         previewText: "אבני דרך",
         title: "אבני דרך — התאגדות וצמיחה",
         bullets: [
-          "1964 — רישום החברה: רישום הישות המשפטית (ח״פ 520026113).",
           "2019 — רכישת גרפיקה בצלאל על ידי קיבוץ בארי.",
-          "2020 — צירוף דפוס חרט.",
+          "2020 — גרפיקה בצלאל רוכשת את דפוס חרט.",
           "2021 — שינוי השם לבארי אריזות בע״מ.",
-          "2026 — בעלות מלאה של דפוס בארי.",
         ],
       },
       {
@@ -391,22 +391,25 @@ export const reviewPages: readonly ReviewPage[] = [
         previewText: "במספרים",
         title: "במספרים — המפעל ביבנה",
         bullets: [
-          "כ־140 עובדים (100 ייצור · 40 מטה).",
-          "7,900 מ״ר ייצור ומשרדים + 3,000 מ״ר מרלו״ג.",
-          "רישום החברה: 1964.",
-          "3+2 משמרות ביממה (דפוס · גימורים).",
+          "מעל 100 עובדים.",
+          "10,000 מ״ר של אולמות ייצור ומרלו״ג.",
+          "מעל 200 שנות ניסיון מצטבר.",
+          "מפעל חיוני שעובד 24/6.",
         ],
         images: [
           {
             id: "about-production-floor",
-            src: "/images/about/production/factory-floor.jpg",
-            label: "רצפת הייצור",
-            alternatives: withCurrent("/images/about/production/factory-floor.jpg", [
-              "/images/about/production/offset-press.png",
-              "/images/about/production/digital-press.png",
-              "/images/about/production/die-cutting.png",
-              "/images/about/production/finishing-line.jpg",
-            ]),
+            src: "https://cdn.sanity.io/images/4qkb39ql/production/05b7ed9c36047e2f43a141d0ba4dda44711a386f-1672x941.webp",
+            label: "איור מעבר בין דפוס מסורתי לדפוס מודרני",
+            alternatives: withCurrent(
+              "https://cdn.sanity.io/images/4qkb39ql/production/05b7ed9c36047e2f43a141d0ba4dda44711a386f-1672x941.webp",
+              [
+                "/images/about/production/offset-press.png",
+                "/images/about/production/digital-press.png",
+                "/images/about/production/die-cutting.png",
+                "/images/about/production/finishing-line.jpg",
+              ],
+            ),
           },
         ],
       },
@@ -415,7 +418,7 @@ export const reviewPages: readonly ReviewPage[] = [
         title: "מבין לקוחותינו",
         bullets: [
           'כותרת: "שותפות מנצחת".',
-          "לוגואים של לקוחות: Strauss · Osem · Tnuva · Elite · SodaStream · Moroccanoil · AHAVA · Dr. Fischer.",
+          "לקוחות להצגה: שטראוס קפה (עלית) · קרלסברג · CBC · תה ויסוצקי · נסטלה · יקבי כרמל · יקב רקאנטי · יקב רמת הגולן · טמפו · ליימן שליסל · אלטמן.",
         ],
       },
       {
@@ -440,9 +443,10 @@ export const reviewPages: readonly ReviewPage[] = [
         id: "catalog-hero",
         title: "כותרת ופתיח",
         bullets: [
-          'תיוג: "קטלוג / 2026" · כותרת: "כשהמבנה פוגש מותג".',
-          "פתיח: אינדקס אריזות הקרטון הממותגות: קוסמטיקה, יין ומשקאות ומערכות מודולריות. מתכנון מבני ודיוק שטנץ ועד חומר, דפוס והשבחות.",
-          "כרטיס מפרט: מפעל יבנה · פעיל · תקן ISO 9001:2015.",
+          'תיוג: "קטלוג" · כותרת: "כשהמבנה פוגש מותג".',
+          "פתיח: אינדקס אריזות הקרטון הממותגות מציג פתרונות מותאמים אישית לקוסמטיקה, מזון, יין, משקאות, טקסטיל, קפה, פארמה וטואלטיקה.",
+          "הפתיח מפרט התאמות לתעשיות שונות, אפשרויות השבחה, תכנון מבני, בחירת חומרים, דיוק שטנץ ודפוס מתקדם.",
+          "כרטיס המפרט שהיה בצד שמאל אינו מוצג יותר.",
         ],
       },
       {
