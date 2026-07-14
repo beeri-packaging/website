@@ -7,15 +7,17 @@
   "Presentation": {
     "title": "The new Beeri Packaging website",
     "description": "A guided tour of the new Beeri Packaging website.",
-    "label": "Website presentation",
-    "start": "Start the tour",
     "previous": "Previous chapter",
     "next": "Next chapter",
     "chapter": "Chapter {current} of {total}",
     "exit": "Open full website",
-    "liveExperience": "A complete digital experience",
-    "viewCatalog": "View catalog",
-    "viewFinishing": "Finishing options",
-    "switchLanguage": "לצפייה בעברית"
+    "openPage": "Open page",
+    "pages": {
+      "home": "Home page",
+      "about": "Our story",
+      "catalog": "Packaging catalog",
+      "finishing": "Finishing options",
+      "journal": "Journal & insights"
+    }
   }
 }

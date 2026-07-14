@@ -7,15 +7,17 @@
   "Presentation": {
     "title": "האתר החדש של בארי אריזות",
     "description": "סיור מודרך באתר החדש של בארי אריזות.",
-    "label": "הצגת האתר",
-    "start": "התחלת הסיור",
     "previous": "הפרק הקודם",
     "next": "הפרק הבא",
     "chapter": "פרק {current} מתוך {total}",
     "exit": "לאתר המלא",
-    "liveExperience": "חוויה דיגיטלית שלמה",
-    "viewCatalog": "צפייה בקטלוג",
-    "viewFinishing": "השבחות וגימורים",
-    "switchLanguage": "View in English"
+    "openPage": "פתיחת העמוד",
+    "pages": {
+      "home": "עמוד הבית",
+      "about": "הסיפור שלנו",
+      "catalog": "קטלוג האריזות",
+      "finishing": "השבחות וגימורים",
+      "journal": "מגזין ותוכן"
+    }
   }
 }

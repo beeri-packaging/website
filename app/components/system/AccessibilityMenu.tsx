@@ -110,6 +110,7 @@ export function AccessibilityMenu({
   return (
     <div
       ref={rootRef}
+      data-accessibility-menu
       className="fixed bottom-3 left-3 sm:bottom-6 sm:left-6 md:bottom-12 md:left-12 z-40"
     >
       {open ? (

@@ -525,6 +525,13 @@ body[data-scroll-lock="true"] {
   transform: scale(1);
 }
 
+/* The presentation has its own persistent controls. Hiding the optional
+   accessibility launcher here keeps the stage uncluttered; the embedded page
+   preview retains its own launcher and the deck itself remains keyboard-ready. */
+body:has([data-presentation-deck]) [data-accessibility-menu] {
+  display: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .presentation-ready .presentation-slide [data-presentation-reveal],
   .presentation-ready .presentation-slide .presentation-media img {
