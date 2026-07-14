@@ -3,5 +3,19 @@
     "siteName": "Beeri Packaging",
     "title": "Beeri Packaging — Custom Branded Carton Packaging",
     "description": "Branded carton packaging for the pharma, food, cosmetics and wine industries — structural design, offset & digital print, die-cutting, gluing, finishing and end-to-end professional guidance."
+  },
+  "Presentation": {
+    "title": "The new Beeri Packaging website",
+    "description": "A guided tour of the new Beeri Packaging website.",
+    "label": "Website presentation",
+    "start": "Start the tour",
+    "previous": "Previous chapter",
+    "next": "Next chapter",
+    "chapter": "Chapter {current} of {total}",
+    "exit": "Open full website",
+    "liveExperience": "A complete digital experience",
+    "viewCatalog": "View catalog",
+    "viewFinishing": "Finishing options",
+    "switchLanguage": "לצפייה בעברית"
   }
 }

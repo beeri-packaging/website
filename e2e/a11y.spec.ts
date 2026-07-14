@@ -9,7 +9,15 @@ import AxeBuilder from "@axe-core/playwright";
  */
 
 // Routes rendered from the same components in both locales.
-const ROUTES = ["", "/about", "/catalog", "/blog", "/careers", "/finishing"];
+const ROUTES = [
+  "",
+  "/about",
+  "/catalog",
+  "/blog",
+  "/careers",
+  "/finishing",
+  "/presentation",
+];
 const LOCALES = ["he", "en"] as const;
 
 const BLOCKING = new Set(["serious", "critical"]);
