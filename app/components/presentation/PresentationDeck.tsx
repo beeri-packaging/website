@@ -67,8 +67,7 @@ function BrowserPreview({
           src={href}
           title={title}
           loading={loading}
-          inert
-          className="pointer-events-none absolute inset-0 size-full border-0 bg-white"
+          className="absolute inset-0 size-full border-0 bg-white"
         />
         <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-ink/10" aria-hidden />
       </div>

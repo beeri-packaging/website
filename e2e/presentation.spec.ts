@@ -10,6 +10,17 @@ for (const locale of ["he", "en"] as const) {
     );
     await expect(page.locator("[data-presentation-slide]")).toHaveCount(5);
     await expect(page.locator("iframe")).toHaveCount(5);
+    await expect(page.locator("iframe").first()).not.toHaveAttribute("inert", "");
+    await expect(page.locator("iframe").first()).not.toHaveClass(/pointer-events-none/);
+
+    const homePreview = page
+      .frames()
+      .find((frame) => new URL(frame.url()).pathname === `/${locale}`);
+    expect(homePreview).toBeTruthy();
+    await page.locator("iframe").first().hover();
+    await page.mouse.wheel(0, 700);
+    await expect.poll(() => homePreview?.evaluate(() => window.scrollY)).toBeGreaterThan(0);
+
     await expect(page.locator("h1")).toBeVisible();
     await expect(page.locator('button[aria-current="step"]')).toHaveCount(1);
     await expect(page.locator("html")).toHaveAttribute(
