@@ -43,6 +43,16 @@ export default async function PresentationPage({
           finishing: t("pages.finishing"),
           journal: t("pages.journal"),
         },
+        tour: {
+          label: t("tour.label"),
+          play: t("tour.play"),
+          pause: t("tour.pause"),
+          resume: t("tour.resume"),
+          restart: t("tour.restart"),
+          close: t("tour.close"),
+          step: t.raw("tour.step"),
+          steps: t.raw("tour.steps"),
+        },
       }}
     />
   );

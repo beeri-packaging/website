@@ -17,6 +17,16 @@ type PresentationLabels = {
     finishing: string;
     journal: string;
   };
+  tour: {
+    label: string;
+    play: string;
+    pause: string;
+    resume: string;
+    restart: string;
+    close: string;
+    step: string;
+    steps: Record<string, Array<{ title: string; body: string }>>;
+  };
 };
 
 const SLIDES = [
@@ -143,6 +153,7 @@ export function PresentationDeck({
       <PresentationControls
         slideIds={SLIDE_IDS}
         labels={{ previous: labels.previous, next: labels.next, chapter: labels.chapter, exit: labels.exit }}
+        tour={labels.tour}
         exitHref={`/${lang}`}
         direction={direction}
       />
