@@ -21,22 +21,6 @@ for (const locale of ["he", "en"] as const) {
     await page.mouse.wheel(0, 700);
     await expect.poll(() => homePreview?.evaluate(() => window.scrollY)).toBeGreaterThan(0);
 
-    await homePreview?.evaluate(() => window.scrollTo(0, 0));
-    const playLabel = locale === "he" ? "הפעלת סיור מודרך" : "Play guided tour";
-    const pauseLabel = locale === "he" ? "השהיית הסיור" : "Pause tour";
-    await page.getByRole("button", { name: playLabel }).click();
-    await expect(page.locator("[data-tour-popup]")).toBeVisible();
-    await expect(page.locator("[data-tour-popup]")).toHaveAttribute("data-tour-playing", "true");
-
-    if (locale === "he") {
-      await expect
-        .poll(() => homePreview?.evaluate(() => window.scrollY), { timeout: 6_000 })
-        .toBeGreaterThan(0);
-    }
-
-    await page.getByRole("button", { name: pauseLabel }).click();
-    await expect(page.locator("[data-tour-popup]")).toHaveAttribute("data-tour-playing", "false");
-
     await expect(page.locator("h1")).toBeVisible();
     await expect(page.locator('button[aria-current="step"]')).toHaveCount(1);
     await expect(page.locator("html")).toHaveAttribute(

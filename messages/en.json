@@ -18,42 +18,6 @@
       "catalog": "Packaging catalog",
       "finishing": "Finishing options",
       "journal": "Journal & insights"
-    },
-    "tour": {
-      "label": "Guided tour",
-      "play": "Play guided tour",
-      "pause": "Pause tour",
-      "resume": "Resume tour",
-      "restart": "Restart tour",
-      "close": "Close explanation",
-      "step": "Point {current} of {total}",
-      "steps": {
-        "home": [
-          { "title": "A clear first impression", "body": "The opening immediately explains the company’s field and promise: packaging that works for the product." },
-          { "title": "A journey that explains the process", "body": "The page moves from the customer need through planning and production without presenting everything at once." },
-          { "title": "A clear path to action", "body": "Frequently asked questions and a focused contact invitation complete the journey." }
-        ],
-        "about": [
-          { "title": "The Beeri story", "body": "The page connects a long industrial heritage with the company’s capabilities today." },
-          { "title": "Trust built through facts", "body": "The timeline and key figures communicate experience, scale and delivery capacity visually." },
-          { "title": "People, production and culture", "body": "The content gives the company a human face and reinforces the sense of partnership." }
-        ],
-        "catalog": [
-          { "title": "A faster route to solutions", "body": "The catalog organizes the offer by need and packaging type, shortening the route to a relevant product." },
-          { "title": "The product stays central", "body": "Large imagery and focused information clarify structure, material and intended use." },
-          { "title": "A natural route to an inquiry", "body": "Every product can lead directly to a professional conversation and a tailored solution." }
-        ],
-        "finishing": [
-          { "title": "Turning packaging into a brand asset", "body": "The page shows how finishing techniques create distinction and shelf presence." },
-          { "title": "Visual and focused explanations", "body": "Every technique is presented through an example, its result and the value it adds to the product." },
-          { "title": "Creativity connected to production", "body": "The conclusion reinforces that these options are available within a complete production process." }
-        ],
-        "journal": [
-          { "title": "A professional knowledge center", "body": "The journal turns Beeri’s experience into useful content for customers and decision-makers." },
-          { "title": "Proof from real work", "body": "Projects, awards and practical guides strengthen expertise and credibility." },
-          { "title": "A channel that keeps growing", "body": "Fresh content supports organic visibility and gives visitors a reason to return." }
-        ]
-      }
     }
   }
 }
