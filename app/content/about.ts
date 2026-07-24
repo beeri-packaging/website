@@ -72,7 +72,8 @@ export const aboutImages = {
     floor: "/images/about/production/factory-floor.jpg",
     heritageToModern:
       "https://cdn.sanity.io/images/4qkb39ql/production/05b7ed9c36047e2f43a141d0ba4dda44711a386f-1672x941.webp",
-    heritageToModernSquare: "/images/about/production/heritage-to-modern-square-generated.png",
+    pastToFutureGlossy:
+      "/images/about/production/past-to-future-glossy-3d.png",
     offset: "/images/about/production/offset-press.png",
     digital: "/images/about/production/digital-press.png",
     dieCut: "/images/about/production/die-cutting.png",

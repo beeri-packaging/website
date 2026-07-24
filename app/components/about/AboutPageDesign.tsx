@@ -224,7 +224,7 @@ export function AboutPageDesign({ copy, lang }: { copy: AboutCopy; lang: Lang })
           </div>
           <div className="reveal relative hidden aspect-square overflow-hidden border border-blueprint bg-sand lg:col-span-5 lg:block">
             <Image
-              src={aboutImages.production.heritageToModernSquare}
+              src={aboutImages.production.pastToFutureGlossy}
               alt={copy.statsTitle}
               fill
               sizes="(min-width: 1024px) 40vw, 100vw"
