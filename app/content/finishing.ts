@@ -50,7 +50,7 @@ export const finishingCopy: Record<Lang, FinishingCopy> = {
     },
     texture: {
       eyebrow: "פויל והטבעה חמה",
-      title: "ניצוץ שמדבר\nבשם המותג",
+      title: "ניצוץ שמדבר בשם המותג",
       body:
         "פויל חם או קר מוסיף זוהר ממוקד על לוגו, מסגרת או פרט נבחר, נגיעה שקולטת את העין על המדף ומייחדת את המותג במבט ראשון.",
       image: finishingImages.texture,
@@ -81,7 +81,7 @@ export const finishingCopy: Record<Lang, FinishingCopy> = {
     },
     texture: {
       eyebrow: "Foil & hot stamping",
-      title: "A sparkle that speaks\nfor the brand",
+      title: "A sparkle that speaks for the brand",
       body:
         "Hot or cold foil adds a focused glow to a logo, frame or chosen detail — a touch that catches the eye on the shelf and sets the brand apart at first glance.",
       image: finishingImages.texture,
