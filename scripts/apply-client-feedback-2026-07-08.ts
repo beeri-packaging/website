@@ -127,7 +127,6 @@ async function patchCatalog() {
       eyebrow: copy.eyebrow,
       title: [...copy.title],
       intro: copy.intro,
-      specCard: [...copy.specCard],
     };
 
     for (const id of await targetIds(`catalog-${lang}`)) {

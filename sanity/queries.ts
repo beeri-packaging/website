@@ -560,7 +560,7 @@ import type {
 } from "@/app/content/catalog";
 
 export const catalogQuery = defineQuery(`*[_type == "catalog" && language == $locale][0]{
-  language, eyebrow, title, intro, specCard,
+  language, eyebrow, title, intro,
   categories[]{
     key, number, name, count, layout,
     items[]{
@@ -586,7 +586,7 @@ type CatalogCategoryDoc = {
 };
 type CatalogDoc = {
   language?: Lang; eyebrow?: string; title?: string[]; intro?: string;
-  specCard?: string[]; categories?: CatalogCategoryDoc[];
+  categories?: CatalogCategoryDoc[];
 };
 
 export async function getCatalog(locale: Lang): Promise<CatalogDoc | null> {
@@ -638,7 +638,6 @@ export function toCatalogContent(doc: CatalogDoc | null, locale: Lang): CatalogC
     eyebrow: doc.eyebrow ?? fb.eyebrow,
     title: tuple(doc.title, fb.title),
     intro: doc.intro ?? fb.intro,
-    specCard: (doc.specCard?.length === 3 ? doc.specCard : fb.specCard) as CatalogCopy["specCard"],
     categories,
   };
 }

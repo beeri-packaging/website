@@ -28,7 +28,6 @@ async function patchCatalog() {
     const copy = catalogCopy[lang];
     const sets: Record<string, unknown> = {
       intro: copy.intro,
-      specCard: [...copy.specCard],
     };
     for (const cat of copy.categories) {
       for (const item of cat.items) {
@@ -39,7 +38,7 @@ async function patchCatalog() {
       }
     }
     await writeClient.patch(`catalog-${lang}`).set(sets).commit({ autoGenerateArrayKeys: true });
-    console.log(`✓ catalog-${lang}: intro, specCard, item specs/cta`);
+    console.log(`✓ catalog-${lang}: intro, item specs/cta`);
   }
 }
 
