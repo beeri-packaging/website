@@ -1,10 +1,5 @@
 import type { Lang } from "@/app/content/home";
 
-export type FinishingMetric = {
-  label: string;
-  value: string;
-};
-
 export type FinishingGridItem = {
   eyebrow: string;
   title: string;
@@ -19,17 +14,11 @@ export type FinishingCopy = {
   title: readonly [string, string];
   intro: string;
   feature: FinishingGridItem;
-  metricsTitle: string;
-  metrics: readonly FinishingMetric[];
-  quote: string;
-  quoteBy: string;
   deboss: FinishingGridItem;
   texture: FinishingGridItem;
   ctaTitle: string;
   ctaPrimary: string;
   ctaSecondary: string;
-  sampleCard: { value: string; label: string };
-  isoCard: { value: string; label: string };
 };
 
 export const finishingImages = {
@@ -46,42 +35,29 @@ export const finishingCopy: Record<Lang, FinishingCopy> = {
       "ההשבחה היא השלב שבו האריזה מפסיקה להיות קרטון ומתחילה למכור. אצלנו היא חלק מקו שלם — מתכנון וקדם־דפוס ועד גימור, חיתוך והפצה — כך שכל פרט של פויל, הבלטה או השבחה דיגיטלית מתוכנן סביב המותג, המוצר וקהל היעד.",
     feature: {
       eyebrow: "גימור פרימיום",
-      title: "השבחה דיגיטלית — MGI",
-      body:
-        "מכונת MGI מאפשרת פויל והבלטת לכה תלת־ממדית במעבר דיגיטלי אחד — בלי קלישאות ובלי זמני התקנה. מתאימה במיוחד לסדרות קצרות ובינוניות ולמותגים שרוצים גימור מדויק וחוזר על עצמו.",
+      title: "השבחה דיגיטלית",
+      body: "מכונת השבחה דיגיטלית מאפשרת פויל והבלטת לכה גבוהה או שטוחה.",
       image: finishingImages.foil,
       sample: "דיגיטלי",
       cta: "לקטלוג",
     },
-    metricsTitle: "יכולות השבחה",
-    metrics: [
-      { label: "השבחה דיגיטלית", value: "MGI" },
-      { label: "פויל", value: "חם / קר" },
-      { label: "תקן איכות", value: "ISO 9001" },
-      { label: "בטיחות מזון", value: "FSSC 22000" },
-    ],
-    quote:
-      "האריזה היא המפגש הראשון בין המותג ללקוח. כשהגימור מדויק, המוצר מרגיש נכון עוד לפני שפותחים אותו.",
-    quoteBy: "בארי אריזות",
     deboss: {
-      eyebrow: "הטבעה ודיבוס",
-      title: "עומק שמרגישים במגע",
+      eyebrow: "הטבעה",
+      title: "דיוק שיוצר צל, נפח ואופי",
       body:
-        "הבלטה ודיבוס מוסיפים ממד מישושי ללוגו, לטיפוגרפיה או לדפוס — נוכחות שמורגשת ביד, בלי להעמיס על העיצוב.",
+        "הבלטה ושיקוע מוסיפים ללוגו, לגופן או לדפוס נגיעה קטנה שמורגשת מיד, נוכחות שמעניקה לעיצוב אופי בלי להכביד עליו.",
       image: finishingImages.deboss,
     },
     texture: {
       eyebrow: "פויל והטבעה חמה",
-      title: "נקודת אור\nמדויקת",
+      title: "ניצוץ שמדבר בשם המותג",
       body:
-        "פויל חם או קר מוסיף ברק מתכתי ממוקד — לוגו, מסגרת או פרט שמושך את העין על המדף ומבדל את המותג.",
+        "פויל חם או קר מוסיף זוהר ממוקד על לוגו, מסגרת או פרט נבחר, נגיעה שקולטת את העין על המדף ומייחדת את המותג במבט ראשון.",
       image: finishingImages.texture,
     },
     ctaTitle: "איזו השבחה מתאימה למוצר שלכם?",
     ctaPrimary: "בקשת דוגמאות",
     ctaSecondary: "צפייה בקטלוג",
-    sampleCard: { value: "MGI", label: "השבחה דיגיטלית" },
-    isoCard: { value: "ISO 9001", label: "מוסמכים גם ל־FSSC 22000" },
   },
   en: {
     step: "Step 02",
@@ -90,41 +66,28 @@ export const finishingCopy: Record<Lang, FinishingCopy> = {
       "Finishing is the moment a carton stops being a box and starts to sell. Here it's part of one continuous line — from design and pre-press through finishing, die-cutting and distribution — so every detail of foil, embossing or digital enhancement is planned around the brand, the product and its audience.",
     feature: {
       eyebrow: "Premium finishing",
-      title: "Digital enhancement — MGI",
-      body:
-        "Our MGI press applies foil and 3D raised varnish in a single digital pass — no dies, no setup time. Ideal for short-to-medium runs and brands that want a precise, repeatable finish.",
+      title: "Digital enhancement",
+      body: "A digital enhancement press applies foil and raised or flat varnish.",
       image: finishingImages.foil,
       sample: "Digital",
       cta: "View catalog",
     },
-    metricsTitle: "Finishing capabilities",
-    metrics: [
-      { label: "Digital enhancement", value: "MGI" },
-      { label: "Foil", value: "Hot / cold" },
-      { label: "Quality standard", value: "ISO 9001" },
-      { label: "Food safety", value: "FSSC 22000" },
-    ],
-    quote:
-      "Packaging is the first meeting between a brand and its customer. When the finish is precise, the product feels right before it is even opened.",
-    quoteBy: "Beeri Packaging",
     deboss: {
-      eyebrow: "Emboss & deboss",
-      title: "Depth you can feel",
+      eyebrow: "Embossing",
+      title: "Precision that creates shadow, depth and character",
       body:
-        "Embossing and debossing add a tactile dimension to a logo, typography or print — a presence felt in the hand, without overloading the design.",
+        "Embossing and recessing add a small, immediately noticeable touch to a logo, typeface or print — a presence that gives the design character without weighing it down.",
       image: finishingImages.deboss,
     },
     texture: {
       eyebrow: "Foil & hot stamping",
-      title: "A precise\npoint of light",
+      title: "A sparkle that speaks for the brand",
       body:
-        "Hot or cold foil adds a focused metallic shine — a logo, frame or detail that catches the eye on the shelf and sets the brand apart.",
+        "Hot or cold foil adds a focused glow to a logo, frame or chosen detail — a touch that catches the eye on the shelf and sets the brand apart at first glance.",
       image: finishingImages.texture,
     },
     ctaTitle: "Which finish fits your product?",
     ctaPrimary: "Request samples",
     ctaSecondary: "View catalog",
-    sampleCard: { value: "MGI", label: "Digital enhancement" },
-    isoCard: { value: "ISO 9001", label: "FSSC 22000 certified" },
   },
 };
