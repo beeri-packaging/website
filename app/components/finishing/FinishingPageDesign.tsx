@@ -35,11 +35,13 @@ function FeatureCard({ item, lang }: { item: FinishingGridItem; lang: Lang }) {
   return (
     <article className="relative flex h-full flex-col overflow-hidden border border-blueprint bg-bone">
       {item.sample ? (
-        <div className="absolute left-px top-px z-10 flex items-start">
+        <div className="absolute start-px top-px z-10 flex items-start">
           <span className="bg-yellow px-4 py-1 font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-blueprint">
             {item.sample}
           </span>
-          <span className="h-0 w-0 border-y-[12px] border-l-[15px] border-y-transparent border-l-yellow" aria-hidden />
+          {/* Pennant tail. The colour sits on the inline-start border so the apex
+              points away from the label in both directions — right in LTR, left in RTL. */}
+          <span className="h-0 w-0 border-y-[12px] border-s-[15px] border-y-transparent border-s-yellow" aria-hidden />
         </div>
       ) : null}
       {item.image ? (
