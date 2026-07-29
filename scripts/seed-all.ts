@@ -130,12 +130,8 @@ async function main() {
       _id: `finishing-${lang}`, _type: "finishing", language: lang,
       step: fi.step, title: [...fi.title], intro: fi.intro,
       feature: finItem(fi.feature),
-      metricsTitle: fi.metricsTitle,
-      metrics: fi.metrics.map((m, i) => ({ _type: "finishingMetric", _key: `m-${i}`, ...m })),
-      quote: fi.quote, quoteBy: fi.quoteBy,
       deboss: finItem(fi.deboss), texture: finItem(fi.texture),
       ctaTitle: fi.ctaTitle, ctaPrimary: fi.ctaPrimary, ctaSecondary: fi.ctaSecondary,
-      sampleCard: fi.sampleCard, isoCard: fi.isoCard,
     });
 
     // BLOG SETTINGS

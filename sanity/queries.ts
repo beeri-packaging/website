@@ -325,11 +325,8 @@ const ITEM = `{ eyebrow, title, body, sample, cta,
 export const finishingQuery = defineQuery(`*[_type == "finishing" && language == $locale][0]{
   step, title, intro,
   feature${ITEM},
-  metricsTitle, metrics[]{ label, value },
-  quote, quoteBy,
   deboss${ITEM}, texture${ITEM},
-  ctaTitle, ctaPrimary, ctaSecondary,
-  sampleCard{ value, label }, isoCard{ value, label }
+  ctaTitle, ctaPrimary, ctaSecondary
 }`);
 
 export async function getFinishing(locale: Lang) {
@@ -357,17 +354,11 @@ export function toFinishingCopy(doc: Awaited<ReturnType<typeof getFinishing>>, l
     title: tuple(doc.title, fb.title),
     intro: doc.intro ?? fb.intro,
     feature: mapItem(doc.feature, fb.feature),
-    metricsTitle: doc.metricsTitle ?? fb.metricsTitle,
-    metrics: doc.metrics?.length ? doc.metrics : fb.metrics,
-    quote: doc.quote ?? fb.quote,
-    quoteBy: doc.quoteBy ?? fb.quoteBy,
     deboss: mapItem(doc.deboss, fb.deboss),
     texture: mapItem(doc.texture, fb.texture),
     ctaTitle: doc.ctaTitle ?? fb.ctaTitle,
     ctaPrimary: doc.ctaPrimary ?? fb.ctaPrimary,
     ctaSecondary: doc.ctaSecondary ?? fb.ctaSecondary,
-    sampleCard: doc.sampleCard ?? fb.sampleCard,
-    isoCard: doc.isoCard ?? fb.isoCard,
   } as FinishingCopy;
 }
 

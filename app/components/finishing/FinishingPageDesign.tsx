@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import type { FinishingCopy, FinishingGridItem } from "@/app/content/finishing";
 import type { Lang } from "@/app/content/home";
-import { PrecisionArmIcon } from "@/app/components/home/icons";
 import { ContactTriggerButton } from "@/app/components/contact/ContactTriggerButton";
 
 function FinishImage({
@@ -47,8 +46,10 @@ function FeatureCard({ item, lang }: { item: FinishingGridItem; lang: Lang }) {
         <FinishImage
           src={item.image}
           alt={item.title}
-          className="aspect-video"
-          sizes="(min-width: 1024px) 58vw, 100vw"
+          // Full-bleed since the capabilities/quote column was removed — the wider
+          // ratio on lg keeps the image at its previous height instead of 16:9 of 1152px.
+          className="aspect-video lg:aspect-[11/4]"
+          sizes="(min-width: 1152px) 1152px, 100vw"
           objectPosition="50% 42%"
         />
       ) : null}
@@ -105,45 +106,8 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
         className="mx-auto grid w-full max-w-[1152px] grid-cols-1 gap-6 px-5 pb-20 sm:px-8 md:px-12 lg:grid-cols-12 lg:px-0 scroll-mt-[80px]"
         dir="ltr"
       >
-        <div className="reveal lg:col-span-8" dir={lang === "he" ? "rtl" : "ltr"}>
+        <div className="reveal lg:col-span-12" dir={lang === "he" ? "rtl" : "ltr"}>
           <FeatureCard item={copy.feature} lang={lang} />
-        </div>
-
-        <div className="reveal grid gap-6 lg:col-span-4" dir={lang === "he" ? "rtl" : "ltr"}>
-          <aside className="relative border border-blueprint bg-blueprint px-8 pb-[113px] pt-8 text-start text-bone" dir="ltr">
-            <div className="mb-12 flex items-start justify-between gap-5">
-              <h2 className="font-display text-[24px] font-bold leading-[0.8] tracking-[0.05em]">
-                {copy.metricsTitle}
-              </h2>
-              <span className="text-cyan" aria-hidden>
-                <PrecisionArmIcon />
-              </span>
-            </div>
-            <dl className="grid gap-6" dir={lang === "he" ? "rtl" : "ltr"}>
-              {copy.metrics.map((metric) => (
-                <div key={metric.label} className="flex items-start justify-between gap-4 border-b border-bone/20 pb-[9px]">
-                  <dt className="font-sans text-[12px] font-extrabold uppercase leading-4 tracking-[0.08em] text-bone/60">
-                    {metric.label}
-                  </dt>
-                  <dd className="font-sans text-[12px] font-extrabold uppercase leading-4 tracking-[0.08em] text-cyan">
-                    {metric.value}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </aside>
-
-          <aside className="border border-blueprint bg-bone p-[33px]">
-            <blockquote className="me-auto max-w-[274px] font-sans text-[16px] font-normal leading-[1.56] tracking-[-0.01em] text-blueprint">
-              {copy.quote}
-            </blockquote>
-            <div className="mt-6 flex items-center justify-start gap-2">
-              <span className="font-sans text-[12px] font-extrabold uppercase leading-4 tracking-[0.08em] text-blueprint">
-                {copy.quoteBy}
-              </span>
-              <span className="h-0.5 w-[105px] bg-purple" aria-hidden />
-            </div>
-          </aside>
         </div>
 
         <article className="reveal flex flex-col overflow-hidden border border-blueprint bg-bone lg:col-span-5 lg:h-[535px]" dir={lang === "he" ? "rtl" : "ltr"}>
@@ -191,7 +155,7 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
       </section>
 
       <section className="mx-auto w-full max-w-[1152px] px-5 pb-20 pt-0 sm:px-8 md:px-12 lg:px-0">
-        <div className="flex flex-col gap-10 pt-0 md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-col gap-10 pt-0">
           <div className="reveal max-w-[576px] text-start">
             <h2 className="font-sans text-[16px] font-normal leading-[1.56] tracking-[-0.01em] text-blueprint">
               {copy.ctaTitle}
@@ -208,29 +172,6 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
               >
                 {copy.ctaSecondary}
               </Link>
-            </div>
-          </div>
-
-          <div className="reveal grid grid-cols-2 gap-4">
-            <div className="grid aspect-square w-[129px] place-items-center border border-blueprint text-center">
-              <div>
-                <p className="font-display text-[24px] font-bold leading-[0.8] tracking-[0.05em] text-blueprint">
-                  {copy.sampleCard.value}
-                </p>
-                <p className="mt-1 font-sans text-[12px] font-extrabold uppercase leading-4 tracking-[0.08em] text-magenta-deep">
-                  {copy.sampleCard.label}
-                </p>
-              </div>
-            </div>
-            <div className="grid aspect-square w-[129px] place-items-center bg-yellow text-center">
-              <div>
-                <p className="font-display text-[24px] font-bold leading-[0.8] tracking-[0.05em] text-blueprint">
-                  {copy.isoCard.value}
-                </p>
-                <p className="mt-1 font-sans text-[12px] font-extrabold uppercase leading-4 tracking-[0.08em] text-blueprint">
-                  {copy.isoCard.label}
-                </p>
-              </div>
             </div>
           </div>
         </div>
