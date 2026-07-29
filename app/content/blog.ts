@@ -74,8 +74,8 @@ export type BlogIndexCopy = {
 
 export const blogIndexCopy: Record<Lang, BlogIndexCopy> = {
   he: {
-    eyebrow: "יומן · מהסטודיו ומהמפעל",
-    title: ["יומן", "מהסטודיו"],
+    eyebrow: "בלוג · מהסטודיו ומהמפעל",
+    title: ["בארי", "מספרת"],
     lead: "מדריכים, מחשבות והצצות מתהליך העבודה — מהתכנון המבני ועד הדפוס וההשבחה.",
     body:
       "כאן אנחנו כותבים על תכנון מבני, חומרי גלם, השבחות ומגמות בעיצוב אריזה — מבט מקרוב מהצוות שמתכנן, מדפיס ומייצר.",
@@ -88,8 +88,8 @@ export const blogIndexCopy: Record<Lang, BlogIndexCopy> = {
       "הכותר הזה שמור לפוסט עתידי ביומן של בארי אריזות. בקרוב כאן יהיה תוכן מלא — בינתיים אפשר לחזור לרשימה.",
   },
   en: {
-    eyebrow: "Journal · from the studio & the floor",
-    title: ["The", "Journal"],
+    eyebrow: "Blog · from the studio & the floor",
+    title: ["Beeri", "stories"],
     lead: "Guides, notes and glimpses from the work — from structural design to print and finishing.",
     body:
       "We write here about structural design, materials, finishing and packaging-design trends. Short notes from the team that designs, prints and produces.",
@@ -119,11 +119,11 @@ export type InsightsChrome = {
 
 export const insightsChrome: Record<Lang, InsightsChrome> = {
   he: {
-    searchPlaceholder: "חיפוש ביומן",
+    searchPlaceholder: "חיפוש בבלוג",
     searchButtonLabel: "חיפוש",
     filterLabel: "סינון לפי נושא",
     filterAll: "כל הנושאים",
-    newsletterTitle: ["עדכוני", "יומן"],
+    newsletterTitle: ["מה חדש", "אצלנו"],
     newsletterBody:
       "רוצים לקבל פוסט חדש כשהוא עולה? השאירו כתובת מייל ונעדכן.",
     emailPlaceholder: "כתובת מייל",
@@ -132,11 +132,11 @@ export const insightsChrome: Record<Lang, InsightsChrome> = {
     newsletterError: "ההרשמה נכשלה. ניתן לנסות שוב.",
   },
   en: {
-    searchPlaceholder: "Search the journal",
+    searchPlaceholder: "Search the blog",
     searchButtonLabel: "Search",
     filterLabel: "Filter by topic",
     filterAll: "All topics",
-    newsletterTitle: ["Journal", "updates"],
+    newsletterTitle: ["What's new", "at Beeri"],
     newsletterBody:
       "Want each new post as it goes live? Leave your email and we'll let you know.",
     emailPlaceholder: "Email address",
@@ -314,7 +314,7 @@ export const blogPosts: readonly BlogPost[] = [
       category: "תכנון מבני",
       title: "האנטומיה של אריזת יין",
       excerpt:
-        "מה הופך אריזת יין טובה — מהדייליין הראשון ועד הקופסה שמגיעה למדף.",
+        "מהשרטוט ועד הקופסה שמגיעה למדף.",
       body: [
         "אריזת יין טובה מתחילה הרבה לפני הדפוס. היא מתחילה בשאלות פשוטות: מה גובה הבקבוק, מה קוטר הצוואר, איך הלקוח יחזיק את הקופסה במדף ואיך היא תיארז על משטח.",
         "כל החלטה כזו משפיעה על המבנה, על כמות הקרטון ועל המחיר הסופי — ולכן התכנון המבני הוא הלב של אריזת יין מצליחה.",
@@ -325,8 +325,8 @@ export const blogPosts: readonly BlogPost[] = [
       },
       sections: [
         {
-          heading: "מהבקבוק לדייליין",
-          body: "מודדים את הבקבוק, מוסיפים מרווחי בטיחות ובונים דייליין ראשוני. כאן נקבעים סוג הסגירה, חוזק הדפנות והשאלה אם צריך מגירה פנימית או חוצץ שיחזיק את הבקבוק במקום. דייליין מדויק חוסך תיקונים יקרים בהמשך.",
+          heading: "מהבקבוק לשרטוט",
+          body: "מודדים את הבקבוק, מוסיפים מרווחי בטיחות ובונים שרטוט ראשוני. כאן נקבעים סוג הסגירה, חוזק הדפנות והשאלה אם צריך מגירה פנימית או חוצץ שיחזיק את הבקבוק במקום. שרטוט מדויק חוסך תיקונים יקרים בהמשך.",
           image:
             "/images/generated/hero-new-style/hero-new-style-01-wine-foil.png",
         },
@@ -340,7 +340,7 @@ export const blogPosts: readonly BlogPost[] = [
       category: "Structural",
       title: "Anatomy of a wine carton",
       excerpt:
-        "What makes a wine carton work — from the first dieline to the box on the shelf.",
+        "From the dieline to the box on the shelf.",
       body: [
         "A good wine carton starts long before the press. It starts with simple questions: bottle height, neck diameter, how the customer holds the box on the shelf, and how it palletizes for shipping.",
         "Every one of those decisions shapes the structure, the amount of board used and the final price — which is why structural design is the heart of a successful wine carton.",

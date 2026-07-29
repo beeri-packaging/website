@@ -101,7 +101,7 @@ async function main() {
     const cat = catalogCopy[lang];
     await writeClient.createOrReplace({
       _id: `catalog-${lang}`, _type: "catalog", language: lang,
-      eyebrow: cat.eyebrow, title: [...cat.title], intro: cat.intro, specCard: [...cat.specCard],
+      eyebrow: cat.eyebrow, title: [...cat.title], intro: cat.intro,
       categories: cat.categories.map((c) => ({
         _type: "catalogCategory", _key: c.key,
         key: c.key, number: c.number, name: c.name, count: c.count, layout: c.layout,

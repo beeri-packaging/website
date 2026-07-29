@@ -7,7 +7,6 @@
 // Run: npx tsx scripts/apply-client-feedback-2026-07-02.ts
 
 import { blogPosts } from "../app/content/blog";
-import { catalogCopy } from "../app/content/catalog";
 import {
   capabilities,
   faqItems,
@@ -136,16 +135,6 @@ async function patchPosts() {
   }
 }
 
-async function patchCatalog() {
-  for (const lang of LANGS) {
-    await writeClient
-      .patch(`catalog-${lang}`)
-      .set({ specCard: [...catalogCopy[lang].specCard] })
-      .commit();
-    console.log(`✓ patched catalog-${lang}`);
-  }
-}
-
 async function verify() {
   const home = await writeClient.fetch<{
     eyebrow?: string;
@@ -181,8 +170,8 @@ async function verify() {
       "quoteImageFilename": quoteImage.asset->originalFilename
     }`,
   );
-  const catalog = await writeClient.fetch<Array<{ _id: string; specCard?: string[] }>>(
-    `*[_id in ["catalog-he", "catalog-en"]] | order(_id asc) { _id, specCard }`,
+  const catalog = await writeClient.fetch<Array<{ _id: string; intro?: string }>>(
+    `*[_id in ["catalog-he", "catalog-en"]] | order(_id asc) { _id, intro }`,
   );
 
   console.log("Sanity verification:");
@@ -199,7 +188,6 @@ async function verify() {
 async function main() {
   await patchHome();
   await patchPosts();
-  await patchCatalog();
   await verify();
   console.log("Done.");
 }
