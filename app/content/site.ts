@@ -50,7 +50,7 @@ const mapsHref = MAPS_HREF;
 export const navLinks: readonly NavLink[] = [
   { he: "אודות", en: "About", href: "/about" },
   { he: "השבחות", en: "Finishing", href: "/finishing" },
-  { he: "יומן", en: "Journal", href: "/blog" },
+  { he: "בלוג", en: "Blog", href: "/blog" },
   { he: "קטלוג", en: "Catalog", href: "/catalog" },
 ];
 
