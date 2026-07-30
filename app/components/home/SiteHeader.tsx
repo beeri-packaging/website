@@ -39,7 +39,11 @@ export function SiteHeader({ lang, chrome }: { lang: Lang; chrome: Chrome }) {
             }
           />
           {lang === "he" ? (
-            <span className="-mt-0.5 self-end font-sans text-logo-dark text-[10px] sm:text-[11px] md:text-[12px] tracking-normal leading-none">
+            // Centered under the wordmark, not the whole lockup: inside the
+            // 249-wide HE logo the letters end at x≈198 and the cube icon owns
+            // the rest, so the byline box spans that 79.5% (flush to the
+            // wordmark's outer edge) and centers its text within it.
+            <span className="-mt-0.5 self-end w-[79.5%] text-center font-sans text-logo-dark text-[10px] sm:text-[11px] md:text-[12px] tracking-normal leading-none">
               {chrome.byline}
             </span>
           ) : (

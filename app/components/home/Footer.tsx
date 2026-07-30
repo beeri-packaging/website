@@ -59,7 +59,7 @@ export function Footer({ lang, chrome }: { lang: Lang; chrome: Chrome }) {
                 }
               />
               {isHe ? (
-                <span className="-mt-0.5 self-end font-sans text-logo-dark text-[10px] sm:text-[11px] md:text-[12px] tracking-normal leading-none">
+                <span className="-mt-0.5 self-end w-[79.5%] text-center font-sans text-logo-dark text-[10px] sm:text-[11px] md:text-[12px] tracking-normal leading-none">
                   {chrome.byline}
                 </span>
               ) : null}
