@@ -144,9 +144,16 @@ export function ContactDialog({ lang, open, onOpenChange }: ContactDialogProps) 
                 onSubmit={handleSubmit}
                 noValidate
               >
+                {/* Legend for the asterisk — must precede the fields it explains. */}
+                <p className="font-sans text-[12px] leading-[16px] text-clay-soft text-start sm:col-span-2">
+                  <RequiredMark />
+                  {copy.form.requiredNote}
+                </p>
+
                 <Field
                   id={`${formId}-fullName`}
                   name="fullName"
+                  required
                   label={copy.form.fullName.label}
                   placeholder={copy.form.fullName.placeholder}
                   autoComplete="name"
@@ -157,6 +164,7 @@ export function ContactDialog({ lang, open, onOpenChange }: ContactDialogProps) 
                   name="phone"
                   type="tel"
                   dir="ltr"
+                  required
                   label={copy.form.phone.label}
                   placeholder={copy.form.phone.placeholder}
                   autoComplete="tel"
@@ -167,6 +175,7 @@ export function ContactDialog({ lang, open, onOpenChange }: ContactDialogProps) 
                   name="email"
                   type="email"
                   dir="ltr"
+                  required
                   label={copy.form.email.label}
                   placeholder={copy.form.email.placeholder}
                   autoComplete="email"
@@ -188,6 +197,7 @@ export function ContactDialog({ lang, open, onOpenChange }: ContactDialogProps) 
                     className={LABEL_CLASS}
                   >
                     {copy.form.reason.label}
+                    <RequiredMark trailing />
                   </label>
                   <ReasonSelect
                     controlRef={reasonMenuRef}
@@ -286,6 +296,18 @@ export function ContactDialog({ lang, open, onOpenChange }: ContactDialogProps) 
   );
 }
 
+/**
+ * Asterisk marker for required fields. Hidden from assistive tech — the input's
+ * own `required` carries the same meaning there, so announcing both is noise.
+ */
+function RequiredMark({ trailing }: { trailing?: boolean }) {
+  return (
+    <span aria-hidden className="text-magenta-deep">
+      {trailing ? " *" : "* "}
+    </span>
+  );
+}
+
 function Field({
   id,
   name,
@@ -295,6 +317,7 @@ function Field({
   autoComplete,
   dir,
   error,
+  required,
 }: {
   id: string;
   name: string;
@@ -304,17 +327,20 @@ function Field({
   autoComplete?: string;
   dir?: "ltr" | "rtl";
   error?: string;
+  required?: boolean;
 }) {
   return (
     <div className="flex flex-col gap-2">
       <label htmlFor={id} className={LABEL_CLASS}>
         {label}
+        {required ? <RequiredMark trailing /> : null}
       </label>
       <input
         id={id}
         name={name}
         type={type}
         dir={dir}
+        required={required}
         placeholder={placeholder}
         autoComplete={autoComplete}
         aria-invalid={error ? true : undefined}
@@ -467,6 +493,7 @@ function ReasonSelect({
         aria-controls={`${id}-list`}
         aria-labelledby={`${labelId} ${id}`}
         aria-activedescendant={open ? `${id}-opt-${active}` : undefined}
+        aria-required="true"
         aria-invalid={invalid || undefined}
         aria-describedby={errorId}
         data-open={open}

@@ -5,6 +5,7 @@ import type { Chrome } from "@/app/content/site";
 import { LinkedInGlyph, FacebookGlyph, MailGlyph, PinGlyph, ArrowOut } from "./icons";
 import { LangSwitch } from "./LangSwitch";
 import { ContactLink } from "./ContactLink";
+import { FooterMap } from "./FooterMap";
 
 const eyebrow =
   "font-sans font-semibold uppercase text-teal text-[12px] tracking-[0.14em] leading-4";
@@ -124,11 +125,19 @@ export function Footer({ lang, chrome }: { lang: Lang; chrome: Chrome }) {
               </a>
             ))}
 
+          </div>
+        </div>
+
+        {/* ── Location ───────────────────────────────────────────── */}
+        <div className="mt-14 grid grid-cols-1 gap-y-6 sm:mt-16 md:mt-20 md:grid-cols-12 md:gap-x-10">
+          <div className="flex flex-col gap-5 md:col-span-5">
+            <h2 className={eyebrow}>{chrome.footerLocationHeading}</h2>
+
             <a
               href={chrome.mapsHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="group mt-2 inline-flex w-fit items-start gap-2.5 focus-ring rounded-sm"
+              className="group inline-flex w-fit items-start gap-2.5 focus-ring rounded-sm"
             >
               <span className="mt-0.5 text-ink/70 transition-colors group-hover:text-ink"><PinGlyph /></span>
               <span className="flex flex-col gap-1">
@@ -140,6 +149,22 @@ export function Footer({ lang, chrome }: { lang: Lang; chrome: Chrome }) {
                 </span>
               </span>
             </a>
+
+            <a
+              href={chrome.mapsDirectionsHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex w-fit items-center gap-2 border-b border-ink pb-1 font-sans font-bold uppercase text-ink text-[12px] tracking-[0.08em] leading-4 transition-colors duration-300 hover:border-teal hover:text-teal focus-ring rounded-sm"
+            >
+              {chrome.footerDirections}
+              <span aria-hidden className="text-rule transition-colors group-hover:text-teal">
+                <ArrowOut />
+              </span>
+            </a>
+          </div>
+
+          <div className="h-[170px] md:col-span-5 md:h-[190px]">
+            <FooterMap src={chrome.mapEmbedSrc} title={chrome.footerMapTitle} />
           </div>
         </div>
 

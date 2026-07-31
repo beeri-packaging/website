@@ -12,26 +12,50 @@ import { CatalogModalProvider, ProductOpenButton } from "./CatalogModalProvider"
 const SECTION = "mx-auto w-full max-w-[1280px] px-5 sm:px-8 md:px-12 lg:px-20";
 
 function CatalogHero({ copy }: { copy: CatalogCopy }) {
-  const introParagraphs = copy.intro.split("\n\n");
+  // The client-approved intro is five paragraphs that each do a different job:
+  // what the catalog is · two of per-industry detail · the end-to-end service
+  // claim · the invitation to browse. Flowed as five equal columns they read as
+  // one wall, so each is given its own weight instead. Every word is kept.
+  const [what, industriesA, industriesB, service, browse] = copy.intro.split("\n\n");
+  const detail = [industriesA, industriesB].filter(Boolean);
 
   return (
     <section className={`${SECTION} pt-10 sm:pt-14 lg:pt-16`}>
-      <div className="flex flex-col">
-        <div className="flex max-w-[920px] flex-col items-start text-start">
-          <p className="ds-eyebrow text-teal">{copy.eyebrow}</p>
-          <h1 className="mt-4 font-display text-[56px] leading-[0.85] text-logo-dark sm:text-[80px] md:text-[96px]">
-            {copy.title.map((line) => (
-              <span key={line} className="block">
-                {line}
-              </span>
-            ))}
-          </h1>
-          <div className="mt-6 grid gap-4 font-sans text-[17px] leading-[1.65] text-clay sm:text-[19px] md:grid-cols-2 md:gap-x-8">
-            {introParagraphs.map((paragraph) => (
+      <div className="flex flex-col items-start text-start">
+        <p className="ds-eyebrow text-teal">{copy.eyebrow}</p>
+        <h1 className="mt-4 font-display text-[56px] leading-[0.85] text-logo-dark sm:text-[80px] md:text-[96px]">
+          {copy.title.map((line) => (
+            <span key={line} className="block">
+              {line}
+            </span>
+          ))}
+        </h1>
+
+        {/* Tier 1 — what this is, at lead size, with the service claim beside it. */}
+        <div className="mt-8 grid w-full gap-x-12 gap-y-7 font-sans text-clay lg:grid-cols-12">
+          <p className="text-[18px] leading-[1.6] sm:text-[20px] lg:col-span-7">{what}</p>
+          {service ? (
+            <p className="border-s-4 border-cyan ps-5 text-[15px] leading-[1.7] sm:text-[16px] lg:col-span-5">
+              {service}
+            </p>
+          ) : null}
+        </div>
+
+        {/* Tier 2 — the per-industry detail, demoted below a hairline. */}
+        {detail.length ? (
+          <div className="mt-10 grid w-full gap-x-12 gap-y-5 border-t border-rule pt-6 font-sans text-[15px] leading-[1.7] text-clay md:mt-12 md:grid-cols-2">
+            {detail.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
           </div>
-        </div>
+        ) : null}
+
+        {/* Tier 3 — the invitation to browse, bridging into the category grid. */}
+        {browse ? (
+          <p className="mt-8 max-w-[62ch] border-s-4 border-yellow ps-5 font-sans text-[16px] leading-[1.6] text-ink sm:text-[17px]">
+            {browse}
+          </p>
+        ) : null}
       </div>
     </section>
   );
@@ -61,7 +85,11 @@ function GridCard({
   categoryName: string;
 }) {
   return (
-    <article className="group relative flex min-h-[480px] flex-col overflow-hidden border border-ink bg-bone shadow-[4px_4px_0_0_var(--ink)] transition-transform duration-300 hover:-translate-y-0.5 lg:min-h-[556px]">
+    // The card is a subgrid over four of the parent's row tracks — photo, name,
+    // description, tags. Each track is sized by the tallest card in the row, so
+    // a two-line product name no longer pushes its own description below its
+    // neighbours': every band starts on the same baseline across the row.
+    <article className="group relative row-span-4 grid grid-rows-subgrid overflow-hidden border border-ink bg-bone text-start shadow-[4px_4px_0_0_var(--ink)] transition-transform duration-300 hover:-translate-y-0.5">
       <ProductOpenButton item={item} categoryName={categoryName} />
       <div className="relative aspect-square border-b border-ink bg-sand">
         {item.image ? (
@@ -74,20 +102,19 @@ function GridCard({
           />
         ) : null}
       </div>
-      <div className="flex flex-1 flex-col items-start gap-6 p-6 text-start">
-        <h3 className="font-display text-[44px] leading-[0.92] text-ink sm:text-[56px] lg:text-[64px]">
-          {item.name}
-        </h3>
-        <p className="font-sans text-[16px] font-light leading-[25px] text-clay">
-          {item.description}
-        </p>
-        {item.tags?.length ? (
-          <div dir="ltr" className="mt-auto flex flex-wrap justify-end gap-2 pt-2">
-            {item.tags.map((tag) => (
-              <Tag key={tag.label} tag={tag} />
-            ))}
-          </div>
-        ) : null}
+      <h3 className="px-6 font-display text-[44px] leading-[0.92] text-ink sm:text-[56px] lg:text-[64px]">
+        {item.name}
+      </h3>
+      <p className="px-6 font-sans text-[16px] font-light leading-[25px] text-clay">
+        {item.description}
+      </p>
+      {/* Always rendered, even with no tags — an absent cell would shift every
+          later row of this card off the shared tracks. */}
+      <div
+        dir="ltr"
+        className="flex flex-wrap items-end justify-end gap-2 px-6 pb-6 pt-2"
+      >
+        {item.tags?.map((tag) => <Tag key={tag.label} tag={tag} />)}
       </div>
     </article>
   );
@@ -97,9 +124,12 @@ function GridCard({
 function FeatureCard({
   item,
   categoryName,
+  full = false,
 }: {
   item: CatalogItem;
   categoryName: string;
+  /** True when this is the only card in its category and spans the full row. */
+  full?: boolean;
 }) {
   return (
     <article className="group relative grid overflow-hidden border border-ink bg-bone shadow-[4px_4px_0_0_var(--ink)] transition-transform duration-300 hover:-translate-y-0.5 md:grid-cols-2 lg:min-h-[700px]">
@@ -145,7 +175,9 @@ function FeatureCard({
             src={item.image}
             alt={item.name}
             fill
-            sizes="(min-width: 768px) 25vw, 100vw"
+            sizes={
+              full ? "(min-width: 768px) 50vw, 100vw" : "(min-width: 768px) 25vw, 100vw"
+            }
             className="object-cover"
           />
         </div>
@@ -210,9 +242,20 @@ function CategorySection({ category }: { category: CatalogCategory }) {
         </div>
       ) : null}
       {category.layout === "feature" ? (
-        <div className="reveal mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
+        // A single feature item takes the full row — pairing it with an empty
+        // column would leave half the section blank.
+        <div
+          className={`reveal mt-12 grid grid-cols-1 gap-6 ${
+            category.items.length > 1 ? "lg:grid-cols-2" : ""
+          }`}
+        >
           {category.items.map((item) => (
-            <FeatureCard key={item.key} item={item} categoryName={category.name} />
+            <FeatureCard
+              key={item.key}
+              item={item}
+              categoryName={category.name}
+              full={category.items.length === 1}
+            />
           ))}
         </div>
       ) : null}

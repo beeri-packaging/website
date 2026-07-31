@@ -22,6 +22,8 @@ export type ContactCopy = {
     submit: string;
     /** Button label while the inquiry is being sent. */
     sending: string;
+    /** Legend above the fields explaining the asterisk marker. */
+    requiredNote: string;
     /** Fine print beside the submit button. */
     consent: string;
   };
@@ -66,6 +68,7 @@ export const contactCopy: Record<Lang, ContactCopy> = {
       },
       submit: "שליחת פנייה",
       sending: "שולח…",
+      requiredNote: "שדות חובה",
       consent:
         "בשליחת הטופס אתם מאשרים את תנאי השימוש ואת מדיניות הפרטיות של האתר.",
     },
@@ -107,6 +110,7 @@ export const contactCopy: Record<Lang, ContactCopy> = {
       },
       submit: "Send inquiry",
       sending: "Sending…",
+      requiredNote: "Required fields",
       consent:
         "By submitting, you agree to our terms of use and privacy policy.",
     },

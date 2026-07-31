@@ -41,6 +41,22 @@ describe("aboutCopy", () => {
     expect(aboutCopy.he.intro).toContain("התחדשות מתמדת");
   });
 
+  it("keeps the served sectors on the page, as chips rather than a sentence", () => {
+    // The approved intro named these industries in a run-on sentence; they now
+    // render as a chip row, so the guardrail follows them to their new field.
+    expect(aboutCopy.he.industries).toEqual([
+      "קוסמטיקה",
+      "יקבים",
+      "פארמה",
+      "טקסטיל",
+      "מזון",
+      "משקאות",
+      "מוצרי פרסום",
+      'מוצרי קד"מ',
+    ]);
+    expect(aboutCopy.en.industries).toHaveLength(aboutCopy.he.industries.length);
+  });
+
   it("uses the July 8 client-approved stats and client list", () => {
     expect(aboutCopy.he.stats.map((s) => `${s.value} ${s.label}`)).toEqual([
       "מעל 100 עובדים",

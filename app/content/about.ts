@@ -34,6 +34,10 @@ export type AboutCopy = {
   eyebrow: string;
   title: readonly [string, string];
   intro: string;
+  /** Tracked label introducing the industry chips under the hero intro. */
+  industriesLabel: string;
+  /** Sectors served — rendered as chips instead of a run-on sentence. */
+  industries: readonly string[];
   // Heritage / parent group
   heritageEyebrow: string;
   heritageTitle: string;
@@ -71,9 +75,9 @@ export const aboutImages = {
   production: {
     floor: "/images/about/production/factory-floor.jpg",
     heritageToModern:
-      "https://cdn.sanity.io/images/4qkb39ql/production/05b7ed9c36047e2f43a141d0ba4dda44711a386f-1672x941.webp",
+      "/images/about/production/heritage-to-modern-packaging-v3.webp",
     pastToFutureGlossy:
-      "/images/about/production/past-to-future-glossy-3d.png",
+      "/images/about/production/past-to-future-packaging-v3.webp",
     offset: "/images/about/production/offset-press.png",
     digital: "/images/about/production/digital-press.png",
     dieCut: "/images/about/production/die-cutting.png",
@@ -88,7 +92,18 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
     eyebrow: "אודות",
     title: ["כשמסורת של דפוס פוגשת", "את האריזה של ימינו"],
     intro:
-      "בארי אריזות הוא בית הדפוס המוביל בישראל בתחום ייצור אריזות ותוויות, עם מוניטין וניסיון מצטבר של למעלה ממאה שנה. אנו מתמחים בתכנון, עיצוב וייצור אריזות פרימיום ממותגות עבור חברות, מפעלים ומותגים מובילים בארץ ובעולם.\n\nאנו מעניקים ללקוחותינו שירות מקיף המלווה אותם משלב הרעיון והייעוץ ועד לאספקת המוצר המוגמר, תוך הקפדה על איכות ללא פשרות ויחס אישי לכל לקוח.\n\nאנו נותנים שירות למגוון חברות מתחומים שונים ובהם קוסמטיקה, יקבים, פארמה, טקסטיל, מזון, משקאות, מוצרי פרסום ומוצרי קד\"מ. לצד קשת רחבה של מוצרים ופתרונות אריזה, החברה שמה דגש על שירות לקוחות יעיל ומקצועי, ונמצאת בחזית הטכנולוגיה תוך התחדשות מתמדת.",
+      "בארי אריזות הוא בית הדפוס המוביל בישראל בתחום ייצור אריזות ותוויות, עם מוניטין וניסיון מצטבר של למעלה ממאה שנה. אנו מתמחים בתכנון, עיצוב וייצור אריזות פרימיום ממותגות עבור חברות, מפעלים ומותגים מובילים בארץ ובעולם.\n\nאנו מעניקים ללקוחותינו שירות מקיף המלווה אותם משלב הרעיון והייעוץ ועד לאספקת המוצר המוגמר, תוך הקפדה על איכות ללא פשרות ויחס אישי לכל לקוח.\n\nלצד קשת רחבה של מוצרים ופתרונות אריזה, החברה שמה דגש על שירות לקוחות יעיל ומקצועי, ונמצאת בחזית הטכנולוגיה תוך התחדשות מתמדת.",
+    industriesLabel: "תעשיות שאנו משרתים",
+    industries: [
+      "קוסמטיקה",
+      "יקבים",
+      "פארמה",
+      "טקסטיל",
+      "מזון",
+      "משקאות",
+      "מוצרי פרסום",
+      'מוצרי קד"מ',
+    ],
 
     heritageEyebrow: "מחזון לעשייה",
     heritageTitle: "שורשים משלושה דורות, עתיד אחד",
@@ -177,7 +192,18 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
     eyebrow: "About",
     title: ["Where printing tradition", "meets modern packaging"],
     intro:
-      "Beeri Packaging is one of Israel's leading printing houses for packaging and labels, with a reputation and accumulated experience of more than a century. We specialize in planning, designing and producing premium branded packaging for companies, manufacturers and leading brands in Israel and worldwide.\n\nWe provide a full service that accompanies clients from the idea and consultation stage through delivery of the finished product, with uncompromising quality and personal attention to every client.\n\nWe serve companies across cosmetics, wineries, pharma, textiles, food, beverages, promotional products and point-of-sale products. Alongside a wide range of packaging products and solutions, the company emphasizes efficient, professional customer service and stays at the front of technology through constant renewal.",
+      "Beeri Packaging is one of Israel's leading printing houses for packaging and labels, with a reputation and accumulated experience of more than a century. We specialize in planning, designing and producing premium branded packaging for companies, manufacturers and leading brands in Israel and worldwide.\n\nWe provide a full service that accompanies clients from the idea and consultation stage through delivery of the finished product, with uncompromising quality and personal attention to every client.\n\nAlongside a wide range of packaging products and solutions, the company emphasizes efficient, professional customer service and stays at the front of technology through constant renewal.",
+    industriesLabel: "Industries we serve",
+    industries: [
+      "Cosmetics",
+      "Wineries",
+      "Pharma",
+      "Textiles",
+      "Food",
+      "Beverages",
+      "Promotional products",
+      "Point-of-sale",
+    ],
 
     heritageEyebrow: "From vision to action",
     heritageTitle: "Three generations of roots, one future",

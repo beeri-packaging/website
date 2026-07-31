@@ -75,6 +75,25 @@ export const MAPS_HREF =
   "https://www.google.com/maps/search/?api=1&query=" +
   encodeURIComponent(`${COMPANY.address.he.street} ${COMPANY.address.he.city}`);
 
+// Google resolves Israeli addresses most reliably from the Hebrew form, so both
+// locales point at the same query string — only the UI language (`hl`) changes.
+const MAPS_QUERY = encodeURIComponent(
+  `${COMPANY.address.he.street}, ${COMPANY.address.he.city}, ${COMPANY.address.he.country}`,
+);
+
+/** Pre-encoded turn-by-turn directions link to the office. */
+export const MAPS_DIRECTIONS_HREF =
+  `https://www.google.com/maps/dir/?api=1&destination=${MAPS_QUERY}`;
+
+/**
+ * Embeddable Google Maps URL for the office. This is the keyless `output=embed`
+ * form, so it needs no API key — and because the footer map is click-to-load,
+ * nothing is ever requested from Google until a visitor asks for the map.
+ */
+export function mapsEmbedSrc(lang: Lang): string {
+  return `https://www.google.com/maps?q=${MAPS_QUERY}&hl=${lang}&z=16&output=embed`;
+}
+
 /** Localised company display name. */
 export function companyName(lang: Lang): string {
   return lang === "he" ? COMPANY.nameHe : COMPANY.nameEn;

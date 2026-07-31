@@ -1,6 +1,6 @@
 // app/content/site.ts
 import type { Lang, NavLink } from "@/app/content/home";
-import { COMPANY, MAPS_HREF } from "@/app/content/company";
+import { COMPANY, MAPS_HREF, MAPS_DIRECTIONS_HREF, mapsEmbedSrc } from "@/app/content/company";
 
 export type FooterLink = { label: string; href: string };
 
@@ -38,6 +38,15 @@ export type Chrome = {
   footerConnectHeading: string;
   email: string;
   mapsHref: string;
+  // Footer location band
+  /** Eyebrow above the address + map ("המיקום שלנו"). */
+  footerLocationHeading: string;
+  /** Label on the turn-by-turn directions link. */
+  footerDirections: string;
+  /** Accessible name for the map <iframe>. */
+  footerMapTitle: string;
+  mapsDirectionsHref: string;
+  mapEmbedSrc: string;
   social: readonly SocialLink[];
   legal: readonly FooterLink[];
 };
@@ -81,6 +90,11 @@ export const chromeContent: Record<Lang, Chrome> = {
     footerConnectHeading: "יצירת קשר",
     email: emailAddr,
     mapsHref,
+    footerLocationHeading: "המיקום שלנו",
+    footerDirections: "הוראות הגעה",
+    footerMapTitle: "מפת המיקום של בארי אריזות, רחוב פארן 4, יבנה",
+    mapsDirectionsHref: MAPS_DIRECTIONS_HREF,
+    mapEmbedSrc: mapsEmbedSrc("he"),
     social: [
       { label: "LinkedIn", href: linkedinHref, platform: "linkedin" },
       { label: "Facebook", href: facebookHref, platform: "facebook" },
@@ -117,6 +131,11 @@ export const chromeContent: Record<Lang, Chrome> = {
     footerConnectHeading: "Get in touch",
     email: emailAddr,
     mapsHref,
+    footerLocationHeading: "Our location",
+    footerDirections: "Get directions",
+    footerMapTitle: "Map of Beeri Packaging, 4 Paran St., Yavne",
+    mapsDirectionsHref: MAPS_DIRECTIONS_HREF,
+    mapEmbedSrc: mapsEmbedSrc("en"),
     social: [
       { label: "LinkedIn", href: linkedinHref, platform: "linkedin" },
       { label: "Facebook", href: facebookHref, platform: "facebook" },

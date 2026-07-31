@@ -1,4 +1,4 @@
-import type { CareerRole } from "@/app/content/careers";
+import type { CareerRole, CareersCopy } from "@/app/content/careers";
 import type { Lang } from "@/app/content/home";
 import { JobApplicationDialog } from "@/app/components/careers/JobApplicationDialog";
 
@@ -69,7 +69,9 @@ export function CareersRoles({
   apply,
   department,
   filters,
+  hasOpenRoles,
   lang,
+  noOpenRoles,
   noRoles,
   onDepartmentChange,
   roles,
@@ -78,7 +80,10 @@ export function CareersRoles({
   apply: string;
   department: CareerRole["department"];
   filters: readonly { key: CareerRole["department"]; label: string }[];
+  /** False when there are no open roles at all — hides the filters and swaps in the empty state. */
+  hasOpenRoles: boolean;
   lang: Lang;
+  noOpenRoles: CareersCopy["noOpenRoles"];
   noRoles: string;
   onDepartmentChange: (department: CareerRole["department"]) => void;
   roles: readonly CareerRole[];
@@ -91,28 +96,30 @@ export function CareersRoles({
           <span className="h-7 w-7 bg-yellow" aria-hidden />
           {title}
         </h2>
-        <div className="flex flex-wrap gap-3">
-          {filters.map((filter) => {
-            const selected = filter.key === department;
+        {hasOpenRoles ? (
+          <div className="flex flex-wrap gap-3">
+            {filters.map((filter) => {
+              const selected = filter.key === department;
 
-            return (
-              <button
-                key={filter.key}
-                type="button"
-                aria-pressed={selected}
-                aria-controls="careers-roles-list"
-                onClick={() => onDepartmentChange(filter.key)}
-                className={`border border-ink px-5 py-2.5 font-sans text-[12px] font-bold transition-colors focus-ring ${
-                  selected
-                    ? "bg-ink text-bone"
-                    : "bg-bone text-ink hover:bg-sand"
-                }`}
-              >
-                {filter.label}
-              </button>
-            );
-          })}
-        </div>
+              return (
+                <button
+                  key={filter.key}
+                  type="button"
+                  aria-pressed={selected}
+                  aria-controls="careers-roles-list"
+                  onClick={() => onDepartmentChange(filter.key)}
+                  className={`border border-ink px-5 py-2.5 font-sans text-[12px] font-bold transition-colors focus-ring ${
+                    selected
+                      ? "bg-ink text-bone"
+                      : "bg-bone text-ink hover:bg-sand"
+                  }`}
+                >
+                  {filter.label}
+                </button>
+              );
+            })}
+          </div>
+        ) : null}
       </div>
 
       <div
@@ -121,7 +128,23 @@ export function CareersRoles({
         aria-atomic="false"
         className="mt-8 grid gap-5"
       >
-        {roles.length > 0 ? (
+        {!hasOpenRoles ? (
+          <div className="reveal flex flex-col gap-8 border border-ink bg-sand p-8 sm:p-10 md:flex-row md:items-center md:justify-between">
+            <div className="min-w-0">
+              <h3 className="font-display text-[40px] font-bold leading-none text-ink sm:text-[48px]">
+                {noOpenRoles.title}
+              </h3>
+              <p className="mt-4 max-w-[560px] font-sans text-[16px] font-light leading-[1.6] text-clay sm:text-[18px]">
+                {noOpenRoles.body}
+              </p>
+            </div>
+            <JobApplicationDialog
+              lang={lang}
+              triggerLabel={noOpenRoles.cta}
+              triggerClassName="inline-flex min-h-14 shrink-0 items-center justify-center bg-magenta px-10 py-4 font-sans text-[20px] font-extrabold tracking-[0.02em] text-bone shadow-[2px_2px_0_var(--yellow)] transition-transform hover:-translate-y-0.5 focus-ring sm:text-[24px]"
+            />
+          </div>
+        ) : roles.length > 0 ? (
           roles.map((role) => (
             <RoleRow key={role.code} role={role} apply={apply} lang={lang} />
           ))

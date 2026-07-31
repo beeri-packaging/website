@@ -68,6 +68,7 @@ export default async function BlogIndexPage({
         rolesTitle={careers.rolesTitle}
         apply={careers.apply}
         noRoles={careers.noRoles}
+        noOpenRoles={careers.noOpenRoles}
       />
     </PlaceholderShell>
   );

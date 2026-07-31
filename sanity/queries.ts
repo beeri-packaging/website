@@ -253,6 +253,11 @@ export function toChrome(doc: ChromeDoc | null, locale: Lang): Chrome {
     footerConnectHeading: fb.footerConnectHeading,
     email: fb.email,
     mapsHref: fb.mapsHref,
+    footerLocationHeading: fb.footerLocationHeading,
+    footerDirections: fb.footerDirections,
+    footerMapTitle: fb.footerMapTitle,
+    mapsDirectionsHref: fb.mapsDirectionsHref,
+    mapEmbedSrc: fb.mapEmbedSrc,
     social: fb.social,
     legal: fb.legal,
   };
@@ -309,6 +314,7 @@ export function toCareersCopy(doc: Awaited<ReturnType<typeof getCareers>>, local
     // UI-only feedback strings — sourced from bundled copy (not in the GROQ projection).
     newsletterSuccess: fb.newsletterSuccess,
     newsletterError: fb.newsletterError,
+    noOpenRoles: fb.noOpenRoles,
   } as CareersCopy;
 }
 

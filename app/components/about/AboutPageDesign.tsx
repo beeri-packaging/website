@@ -44,31 +44,48 @@ export function AboutPageDesign({ copy, lang }: { copy: AboutCopy; lang: Lang })
     <div className="bg-bone">
       {/* 1 — HERO */}
       <section className="mx-auto w-full max-w-[1152px] px-5 pb-16 pt-4 sm:px-8 md:pb-24 md:pt-8 lg:px-0">
-        <div className="max-w-[760px] text-start">
+        <div className="text-start">
           <Eyebrow>{copy.eyebrow}</Eyebrow>
-          <h1 className="font-display text-[60px] leading-[0.86] text-blueprint sm:text-[88px] lg:text-[128px]">
+          {/* Sized so each approved line lands on one line — two lines, not three. */}
+          <h1 className="font-display text-[44px] leading-[0.88] text-blueprint sm:text-[64px] md:text-[80px] lg:text-[92px]">
             {copy.title.map((line) => (
               <span key={line} className="block">
                 {line}
               </span>
             ))}
           </h1>
-          <div className="mt-6 max-w-[760px] font-sans text-clay">
-            <p className="max-w-[720px] text-[18px] leading-[1.65] sm:text-[20px]">
+
+          {/* Lead carries the weight; the supporting copy sits quieter beside it. */}
+          <div className="mt-8 grid gap-x-12 gap-y-7 font-sans text-clay md:mt-10 lg:grid-cols-12">
+            <p className="text-[18px] leading-[1.65] sm:text-[20px] lg:col-span-7">
               {introLead}
             </p>
-            <div className="mt-6 grid gap-5 md:grid-cols-2">
-              {introDetails.map((paragraph, index) => (
-                <p
-                  key={paragraph}
-                  className={`border-s-4 ps-4 text-[15px] leading-[1.7] sm:text-[16px] ${
-                    index === 0 ? "border-cyan" : "border-magenta"
-                  }`}
-                >
+            <div className="flex flex-col gap-4 border-s-4 border-cyan ps-5 lg:col-span-5">
+              {introDetails.map((paragraph) => (
+                <p key={paragraph} className="text-[15px] leading-[1.7] sm:text-[16px]">
                   {paragraph}
                 </p>
               ))}
             </div>
+          </div>
+
+          {/* Sectors served — a chip row scans where a run-on sentence didn't.
+              Label sits above, not inline: inline it lands under the sticky
+              contact pill at the inline-end edge. */}
+          <div className="mt-10 flex flex-col gap-4 border-t border-rule pt-6 md:mt-12">
+            <h2 className="font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-magenta-deep">
+              {copy.industriesLabel}
+            </h2>
+            <ul className="flex flex-wrap gap-2">
+              {copy.industries.map((industry) => (
+                <li
+                  key={industry}
+                  className="border border-ink bg-sand px-[9px] py-[5px] font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-ink"
+                >
+                  {industry}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>

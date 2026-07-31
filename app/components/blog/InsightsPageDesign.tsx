@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import type { Lang } from "@/app/content/home";
 import type { BlogIndexCopy, InsightsChrome, BlogCategory } from "@/app/content/blog";
 import type { LocalizedPost } from "@/sanity/queries";
-import type { CareerRole } from "@/app/content/careers";
+import type { CareerRole, CareersCopy } from "@/app/content/careers";
 import { InsightsHero, type CategoryFilter } from "@/app/components/blog/InsightsHero";
 import { InsightsBento } from "@/app/components/blog/InsightsBento";
 import { InsightsNewsletter } from "@/app/components/blog/InsightsNewsletter";
@@ -21,6 +21,7 @@ export function InsightsPageDesign({
   rolesTitle,
   apply,
   noRoles,
+  noOpenRoles,
 }: {
   posts: readonly LocalizedPost[];
   copy: BlogIndexCopy;
@@ -32,6 +33,7 @@ export function InsightsPageDesign({
   rolesTitle: string;
   apply: string;
   noRoles: string;
+  noOpenRoles: CareersCopy["noOpenRoles"];
 }) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<CategoryFilter>("all");
@@ -68,7 +70,9 @@ export function InsightsPageDesign({
         apply={apply}
         department={department}
         filters={roleFilters}
+        hasOpenRoles={roles.length > 0}
         lang={lang}
+        noOpenRoles={noOpenRoles}
         noRoles={noRoles}
         onDepartmentChange={setDepartment}
         roles={visibleRoles}

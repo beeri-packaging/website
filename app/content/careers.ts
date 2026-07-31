@@ -33,7 +33,14 @@ export type CareersCopy = {
   rolesTitle: string;
   filters: readonly { key: CareerRole["department"]; label: string }[];
   apply: string;
+  /** Shown when a department filter matches none of the open roles. */
   noRoles: string;
+  /** Shown instead of the list (and the filters) while there are no open roles at all. */
+  noOpenRoles: {
+    title: string;
+    body: string;
+    cta: string;
+  };
   roles: readonly CareerRole[];
   newsletterTitle: readonly [string, string];
   newsletterBody: string;
@@ -106,53 +113,12 @@ export const careersCopy: Record<Lang, CareersCopy> = {
     ],
     apply: "להגשה",
     noRoles: "לא נמצאו משרות שמתאימות לחיפוש.",
-    roles: [
-      {
-        code: "#BR-402",
-        status: "פתוח",
-        title: "רכז/ת איכות",
-        scope: "משרה מלאה",
-        location: "יבנה",
-        department: "production",
-        description: "ניהול מערך האיכות של המפעל ביבנה — מליווי תהליכי הייצור השוטפים ועד שמירה על תקני ISO 9001:2015 ו־FSSC 22000. התפקיד משלב עבודה מול רצפת הייצור, הספקים והלקוחות, עם אחריות מלאה על תיעוד, בקרה ושיפור מתמיד.",
-        highlights: [
-          "הובלת תהליכי בקרת איכות לאורך כל שרשרת הייצור",
-          "אחזקת הסמכות ISO 9001:2015 ו־FSSC 22000 והכנה למבדקים",
-          "טיפול באי-התאמות ובתלונות לקוח, כולל הפקת לקחים",
-          "ניסיון בתפקיד איכות בתעשייה — יתרון לדפוס או אריזות",
-        ],
-      },
-      {
-        code: "#BR-409",
-        status: "פתוח",
-        title: "מבקר/ת איכות בייצור",
-        scope: "משרה מלאה",
-        location: "יבנה",
-        department: "production",
-        description: "בקרת איכות שוטפת על רצפת הייצור: בדיקת גיליונות, צבע, חיתוך והדבקה מול דרישות ההזמנה, לפני שהאריזה יוצאת ללקוח. עבודה בצמוד למפעילי המכונות ולרכז/ת האיכות, בסביבה תעשייתית מתקדמת.",
-        highlights: [
-          "בדיקות איכות בקבלת חומר גלם, במהלך הייצור ובמוצר המוגמר",
-          "עצירה ודיווח על אי-התאמות בזמן אמת",
-          "עבודה לפי נוהלי ISO ותיעוד מסודר של הבדיקות",
-          "דיוק, ירידה לפרטים ונכונות לעבודה במשמרות",
-        ],
-      },
-      {
-        code: "#BR-312",
-        status: "פתוח",
-        title: "מנהל/ת פרויקטים בייצור",
-        scope: "משרה מלאה",
-        location: "יבנה",
-        department: "production",
-        description: "הובלת פרויקטים של אריזות מהאפיון הראשון ועד האספקה: תיאום בין הסטודיו, התכנון המבני, הדפוס והייצור, מול לוחות זמנים ותקציב. התפקיד מתאים למי שאוהב/ת לראות מוצר נולד — משרטוט דייליין ועד מדף החנות.",
-        highlights: [
-          "ניהול לוחות זמנים, עדיפויות ותקשורת מול הלקוח לאורך הפרויקט",
-          "תיאום בין צוותי הסטודיו, קדם-הדפוס והייצור",
-          "מעקב אחר עלויות, חומרי גלם וזמינות מכונות",
-          "ניסיון בניהול פרויקטים בתעשייה או בדפוס — יתרון משמעותי",
-        ],
-      },
-    ],
+    noOpenRoles: {
+      title: "אין כרגע משרות פתוחות",
+      body: "כרגע אין אצלנו משרות מאוישות לגיוס, אבל אנחנו תמיד שמחים להכיר. אפשר להשאיר פרטים ולצרף קורות חיים — וכשייפתח תפקיד שמתאים, נחזור אליכם.",
+      cta: "שליחת קורות חיים",
+    },
+    roles: [],
     newsletterTitle: ["עדכוני", "קריירה"],
     newsletterBody:
       "רוצים לדעת כשנפתחת משרה חדשה? השאירו כתובת מייל, ונעדכן כשיתפנה תפקיד שמתאים לכם.",
@@ -216,53 +182,12 @@ export const careersCopy: Record<Lang, CareersCopy> = {
     ],
     apply: "Apply",
     noRoles: "No roles match this search.",
-    roles: [
-      {
-        code: "#BR-402",
-        status: "Open",
-        title: "Quality coordinator",
-        scope: "Full time",
-        location: "Yavne",
-        department: "production",
-        description: "Own the plant's quality system in Yavne — from supporting day-to-day production to maintaining our ISO 9001:2015 and FSSC 22000 certifications. The role combines floor work with suppliers and customers, with full ownership of documentation, control and continuous improvement.",
-        highlights: [
-          "Lead quality-control processes across the entire production chain",
-          "Maintain ISO 9001:2015 and FSSC 22000 certifications and audit readiness",
-          "Handle non-conformities and customer complaints, including lessons learned",
-          "Industry quality experience — print or packaging an advantage",
-        ],
-      },
-      {
-        code: "#BR-409",
-        status: "Open",
-        title: "Quality inspector, production",
-        scope: "Full time",
-        location: "Yavne",
-        department: "production",
-        description: "Hands-on quality control on the production floor: checking sheets, color, cutting and gluing against order specs before packaging ships to the customer. You'll work alongside machine operators and the quality coordinator in an advanced industrial environment.",
-        highlights: [
-          "Quality checks at raw-material intake, during production and on finished goods",
-          "Stop and report non-conformities in real time",
-          "Work to ISO procedures with orderly inspection records",
-          "Precision, attention to detail and willingness to work shifts",
-        ],
-      },
-      {
-        code: "#BR-312",
-        status: "Open",
-        title: "Production project manager",
-        scope: "Full time",
-        location: "Yavne",
-        department: "production",
-        description: "Lead packaging projects from first brief to delivery: coordinating studio, structural design, print and production against timelines and budget. A fit for someone who loves seeing a product come to life — from dieline sketch to store shelf.",
-        highlights: [
-          "Manage timelines, priorities and client communication across each project",
-          "Coordinate studio, prepress and production teams",
-          "Track costs, raw materials and machine availability",
-          "Project-management experience in industry or print — a real advantage",
-        ],
-      },
-    ],
+    noOpenRoles: {
+      title: "No open roles right now",
+      body: "We have no positions open for hiring at the moment, but we're always glad to meet people. Leave your details with a CV attached — and when a role that fits opens up, we'll be in touch.",
+      cta: "Send a CV",
+    },
+    roles: [],
     newsletterTitle: ["Career", "updates"],
     newsletterBody:
       "Want to know when a new role opens? Leave your email and we will reach out when a position fits.",

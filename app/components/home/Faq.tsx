@@ -24,7 +24,7 @@ export function Faq({ t, items }: { lang: Lang; t: HomeCopy; items: readonly { n
         <ul className="reveal flex flex-col border-t border-rule">
           {items.map((item, i) => (
               <li key={item.n} className="border-b border-rule">
-                <details className="group" open={i === 0}>
+                <details className="faq-item group" open={i === 0}>
                 <summary className="w-full flex items-center justify-between gap-4 sm:gap-8 md:gap-12 py-4 sm:py-5 md:py-6 lg:py-4 xl:py-6 text-start cursor-pointer focus-ring list-none [&::-webkit-details-marker]:hidden">
                   <span
                     aria-hidden

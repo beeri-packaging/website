@@ -314,6 +314,45 @@ body {
   }
 }
 
+/* ── FAQ disclosure ──────────────────────────────────────────────────────────
+ * The FAQ is native <details>, which keeps it a server component with no JS.
+ * A closed <details> hides its panel outright, so there is nothing to
+ * transition — except `::details-content`, the one box the UA does expose.
+ * `interpolate-size` is what makes block-size 0 → auto animatable; it's set on
+ * the item rather than :root so it can't quietly change any other `auto`
+ * transition on the page. Browsers missing either feature ignore all of this
+ * and snap open exactly as they do today. */
+.faq-item {
+  interpolate-size: allow-keywords;
+}
+
+/* Everything animatable lives on the pseudo-element. A descendant can't carry
+   the fade: while the panel is closed its contents are skipped, so no previous
+   style exists to transition from and the text pops in at full opacity — and
+   @starting-style doesn't reach inside skipped content either. */
+.faq-item::details-content {
+  block-size: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition:
+    block-size 360ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity 260ms ease-out,
+    content-visibility 360ms allow-discrete;
+}
+
+.faq-item[open]::details-content {
+  block-size: auto;
+  opacity: 1;
+}
+
+/* The global reduce-motion reset is written against `*`, which never matches a
+   pseudo-element — so this one has to opt out by name. */
+@media (prefers-reduced-motion: reduce) {
+  .faq-item::details-content {
+    transition-duration: 0.01ms !important;
+  }
+}
+
 .hero-desaturate {
   filter: grayscale(1) contrast(1.05);
 }

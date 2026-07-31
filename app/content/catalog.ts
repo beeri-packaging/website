@@ -71,7 +71,6 @@ export const catalogImages = {
   cream: "/images/figma/catalog/cream.png",
   perfume: "/images/figma/catalog/perfume.png",
   wine: "/images/figma/catalog/wine.png",
-  whiskey: "/images/figma/catalog/whiskey.png",
 } as const;
 
 export const catalogCopy: Record<Lang, CatalogCopy> = {
@@ -137,7 +136,7 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
         key: "spirits",
         number: "02",
         name: "יין ומשקאות",
-        count: "2 פריטים",
+        count: "פריט אחד",
         layout: "feature",
         items: [
           {
@@ -150,19 +149,6 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
             specs: [
               { label: "משקל", value: "350 גרם" },
               { label: "דוגמה", value: "לפני ייצור" },
-            ],
-            cta: "לבקשת מפרט",
-          },
-          {
-            key: "whiskey",
-            series: "סדרת פרימיום",
-            name: "מארז וויסקי פרימיום",
-            description:
-              "מארז פרימיום לבקבוק וויסקי, עם חלון, פויל ולכה סלקטיבית. תמיכה פנימית שמגינה על הבקבוק ומקלה על הנשיאה.",
-            image: catalogImages.whiskey,
-            specs: [
-              { label: "השבחה", value: "פויל ולכה" },
-              { label: "תקן", value: "ISO 9001:2015" },
             ],
             cta: "לבקשת מפרט",
           },
@@ -252,7 +238,7 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
         key: "spirits",
         number: "02",
         name: "Wine & spirits",
-        count: "2 items",
+        count: "1 item",
         layout: "feature",
         items: [
           {
@@ -265,19 +251,6 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
             specs: [
               { label: "Weight", value: "350 g" },
               { label: "Sample", value: "Pre-production" },
-            ],
-            cta: "Request the spec",
-          },
-          {
-            key: "whiskey",
-            series: "Premium series",
-            name: "Premium whiskey case",
-            description:
-              "A premium case for a whiskey bottle, with a window, foil and spot varnish. Inner support that protects the bottle and makes it easy to carry.",
-            image: catalogImages.whiskey,
-            specs: [
-              { label: "Finishing", value: "Foil & varnish" },
-              { label: "Standard", value: "ISO 9001:2015" },
             ],
             cta: "Request the spec",
           },
