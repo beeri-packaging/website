@@ -1,3 +1,5 @@
+import { expandedCatalogImages } from "@/app/content/catalog";
+
 /**
  * Content-approval model (Hebrew).
  *
@@ -469,24 +471,63 @@ export const reviewPages: readonly ReviewPage[] = [
       },
       {
         id: "catalog-spirits",
-        title: "קטגוריה 02 — יין ומשקאות (2 פריטים)",
+        title: "קטגוריה 02 — יין ומשקאות (6 פריטים)",
         bullets: [
-          "מארז שי ליין: קרטון קשיח לבקבוק יין עם תמיכה פנימית, שטנץ צורני והשבחות פויל ולכה. משקל 350 גרם · דוגמה לפני ייצור.",
-          "מארז וויסקי פרימיום: חלון, פויל ולכה סלקטיבית עם תמיכה פנימית. השבחת פויל ולכה · תקן ISO 9001:2015.",
-          'לכל פריט כפתור "לבקשת מפרט" שפותח את טופס הפנייה.',
+          "מארזי בקבוק יחיד: מוני · Barkan Altitude.",
+          "מארזי בקבוק וכוסות: יקב רמת הגולן · Carmel BUZZ · יקב רקנאטי.",
+          "מארז יקב תבור: מבנה קראפט לשלושה מוצרים עם חלונות אישיים.",
         ],
         images: [
-          { id: "catalog-wine", src: "/images/figma/catalog/wine.png", label: "מארז שי ליין" },
-          { id: "catalog-whiskey", src: "/images/figma/catalog/whiskey.png", label: "מארז וויסקי" },
+          { id: "catalog-wine-mony", src: expandedCatalogImages.wineMony, label: "מוני" },
+          { id: "catalog-wine-barkan", src: expandedCatalogImages.wineBarkan, label: "ברקן" },
+          { id: "catalog-wine-golan", src: expandedCatalogImages.wineGolan, label: "רמת הגולן" },
+          { id: "catalog-wine-carmel", src: expandedCatalogImages.wineCarmel, label: "כרמל" },
+          { id: "catalog-wine-tabor", src: expandedCatalogImages.wineTabor, label: "תבור" },
+          { id: "catalog-wine-recanati", src: expandedCatalogImages.wineRecanati, label: "רקנאטי" },
         ],
       },
       {
-        id: "catalog-modular",
-        previewText: "מערכת מודולרית",
-        title: "קטגוריה 03 — מערכת מודולרית (פריט אחד)",
+        id: "catalog-coffee",
+        previewText: "קפה",
+        title: "קטגוריה 03 — קפה (4 פריטים)",
         bullets: [
-          "מערכת מארזים מודולרית: חוצצים ומגירות לסדרות מוצרים.",
-          "מפרט: סטייה ±0.1 מ״מ · שטנץ צורני · מבנה גרסה 02.",
+          "מארז קפסולות קפה עלית: אריזת קרטון ממותגת עם נוכחות מדף ברורה.",
+          "דיספליי קפסולות ארומה: מארז תצוגה קמעונאי לסדרת קופסאות.",
+          "סדרת מארזי קפה ג׳ו: מבנה אחיד למגוון תערובות וטעמים.",
+          "מארז Nescafé Taster’s Choice: צנצנת קפה וכוס נסיעות בחלון תצוגה.",
+        ],
+        images: [
+          {
+            id: "catalog-coffee-tasters-choice",
+            src: expandedCatalogImages.coffeeTastersChoice,
+            label: "Nescafé Taster’s Choice",
+          },
+        ],
+      },
+      {
+        id: "catalog-beer",
+        previewText: "בירות",
+        title: "קטגוריה 04 — בירות (4 פריטים)",
+        bullets: [
+          "מארז בירה מלכה: מארז מתנה לארבעה בקבוקים וכוס עם חלונות שטנץ.",
+          "מארז שישיית גולדסטאר: מארז נשיאה ממותג עם ידית מובנית.",
+          "מארז שישיית קרלסברג: קרטון מודפס להפצה קמעונאית.",
+          "מארז שישיית טובורג: מבנה נשיאה עם שטח מיתוג רחב.",
+        ],
+      },
+      {
+        id: "catalog-beverages",
+        previewText: "תה ומשקאות",
+        title: "קטגוריה 05 — תה ומשקאות (3 פריטים)",
+        bullets: [
+          "ויסוצקי: תקריב השבחות המדגים הבלטה, פויל ועושר דפוס.",
+          "SodaStream: מארז קמעונאי לשני בקבוקים עם מעטפת שקופה.",
+          "גימור צורני: תקריב של חיתוך, צבע ואלמנטים מודפסים על קרטון בהיר.",
+        ],
+        images: [
+          { id: "catalog-wissotzky", src: expandedCatalogImages.beverageWissotzky, label: "ויסוצקי" },
+          { id: "catalog-sodastream", src: expandedCatalogImages.beverageSodastream, label: "SodaStream" },
+          { id: "catalog-beverage-finishing", src: expandedCatalogImages.beverageFinishing, label: "גימור צורני" },
         ],
       },
     ],

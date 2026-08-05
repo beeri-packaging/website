@@ -9,7 +9,7 @@
  * fields are populated per layout):
  *   - "grid"    — square photo cards with hover technical overlay + tags
  *   - "feature" — large split cards (photo + spec column + spec download)
- *   - "modular" — a single full-width system card with centered spec row
+ *   - "modular" — a single full-width editorial card with centered spec row
  */
 
 import type { Lang } from "./home";
@@ -71,6 +71,52 @@ export const catalogImages = {
   cream: "/images/figma/catalog/cream.png",
   perfume: "/images/figma/catalog/perfume.png",
   wine: "/images/figma/catalog/wine.png",
+} as const;
+
+/** Client-approved coffee product shots, stored on the Sanity CDN. */
+export const coffeeImages = {
+  elite:
+    "https://cdn.sanity.io/images/4qkb39ql/production/43f263ed307fa20e5940a596f38ed2d13549e06d-1254x1254.png",
+  aroma:
+    "https://cdn.sanity.io/images/4qkb39ql/production/b76503fe78173a5e8b45738053f9384adbec98b4-1254x1254.png",
+  joe:
+    "https://cdn.sanity.io/images/4qkb39ql/production/2044098be5999ae7b93eb223844f0e1225fbd60a-1254x1254.png",
+} as const;
+
+/** Existing Beeri beer-carrier photography, uploaded to Sanity by the catalog update script. */
+export const beerImages = {
+  malka:
+    "https://cdn.sanity.io/images/4qkb39ql/production/42340ef6c8218f90b3d0672a114714d25bbbe5a6-1254x1254.png",
+  goldstar:
+    "https://cdn.sanity.io/images/4qkb39ql/production/c5f66742400d211331e4b36ae4ee47349b93f5e7-1254x1254.png",
+  carlsberg:
+    "https://cdn.sanity.io/images/4qkb39ql/production/cb80dbd33482e67aa5570333d176b3fa5582c27f-1254x1254.png",
+  tuborg:
+    "https://cdn.sanity.io/images/4qkb39ql/production/4d1fcda1d9208c63a82f052fc4a08c6dfefa658f-1254x1254.png",
+} as const;
+
+/** Client-supplied wine and beverage work, AI-restaged for a consistent catalog. */
+export const expandedCatalogImages = {
+  wineMony:
+    "https://cdn.sanity.io/images/4qkb39ql/production/dea836e6d240a0a7127697a48bbcdafa51e7964a-1254x1254.png",
+  wineBarkan:
+    "https://cdn.sanity.io/images/4qkb39ql/production/3ee90823d0a4a1cc6def0d316a485fc90b362b62-1254x1254.png",
+  wineGolan:
+    "https://cdn.sanity.io/images/4qkb39ql/production/7375aaa498d2b33e274a54f88de949699852c7dd-1254x1254.png",
+  wineCarmel:
+    "https://cdn.sanity.io/images/4qkb39ql/production/7b52dd90ec570a96ced6a440b37f46e26032a5e5-1254x1254.png",
+  wineTabor:
+    "https://cdn.sanity.io/images/4qkb39ql/production/04c75762d6674599e12f28d0dfc42f1184de3707-1254x1254.png",
+  wineRecanati:
+    "https://cdn.sanity.io/images/4qkb39ql/production/a474f3063ab86f1230adeaed49244ee3433f90d1-1254x1254.png",
+  coffeeTastersChoice:
+    "https://cdn.sanity.io/images/4qkb39ql/production/dd9f9e5a5e122390230acaf7f8125b13424d16c9-1254x1254.png",
+  beverageWissotzky:
+    "https://cdn.sanity.io/images/4qkb39ql/production/586f4fd969ef1f5557283c7d7f8bf8e6e4a4f4e4-1254x1254.png",
+  beverageSodastream:
+    "https://cdn.sanity.io/images/4qkb39ql/production/701900c1a22b60074f4eb99ab827f8a1907f2495-1254x1254.png",
+  beverageFinishing:
+    "https://cdn.sanity.io/images/4qkb39ql/production/9287e39ad972889b20ed68e0d1118a5043ea4c36-1254x1254.png",
 } as const;
 
 export const catalogCopy: Record<Lang, CatalogCopy> = {
@@ -136,40 +182,211 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
         key: "spirits",
         number: "02",
         name: "יין ומשקאות",
-        count: "פריט אחד",
-        layout: "feature",
+        count: "6 פריטים",
+        layout: "grid",
         items: [
           {
-            key: "wine",
-            series: "סדרת יין",
-            name: "מארז שי ליין",
-            description:
-              "מארז קרטון קשיח לבקבוק יין, עם תמיכה פנימית, שטנץ צורני והשבחות פויל ולכה. מגן על הבקבוק במשלוח ומעמיד אותו כמתנה. מתאים למארזי שי ולסדרות עונתיות.",
-            image: catalogImages.wine,
-            specs: [
-              { label: "משקל", value: "350 גרם" },
-              { label: "דוגמה", value: "לפני ייצור" },
+            key: "wine-mony",
+            name: "מוני",
+            description: "מארז פרימיום שחור וזהב לבקבוק יחיד, עם נוכחות מתנה אלגנטית והתאמה מדויקת למוצר.",
+            image: expandedCatalogImages.wineMony,
+            tags: [
+              { label: "בקבוק יחיד", tone: "outline" },
+              { label: "פויל זהב", tone: "magenta" },
             ],
-            cta: "לבקשת מפרט",
+          },
+          {
+            key: "wine-barkan",
+            name: "Barkan Altitude",
+            description: "מארז יין שחור מסדרת Altitude, המשלב הגנה לבקבוק עם גימור זהב ונראות יוקרתית.",
+            image: expandedCatalogImages.wineBarkan,
+            tags: [
+              { label: "בקבוק יחיד", tone: "outline" },
+              { label: "מארז פרימיום", tone: "purple" },
+            ],
+          },
+          {
+            key: "wine-golan",
+            name: "רמת הגולן",
+            description: "מארז שי לבקבוק יין ושתי כוסות, עם חלונות צורניים ומבנה שמציג ומקבע כל פריט.",
+            image: expandedCatalogImages.wineGolan,
+            tags: [
+              { label: "בקבוק ושתי כוסות", tone: "outline" },
+              { label: "חלונות שטנץ", tone: "cyan" },
+            ],
+          },
+          {
+            key: "wine-carmel",
+            name: "Carmel BUZZ",
+            description: "מארז נשיאה לשני בקבוקים ושתי כוסות, בגימור קורל וזהב ובחלון תצוגה רחב.",
+            image: expandedCatalogImages.wineCarmel,
+            tags: [
+              { label: "שני בקבוקים", tone: "outline" },
+              { label: "ידית נשיאה", tone: "magenta" },
+            ],
+          },
+          {
+            key: "wine-tabor",
+            name: "תבור",
+            description: "מארז קראפט עם ידית לשלושה מוצרים, חלונות אישיים ושפה חומרית טבעית בגוני זית.",
+            image: expandedCatalogImages.wineTabor,
+            tags: [
+              { label: "יין ושמן זית", tone: "outline" },
+              { label: "קרטון קראפט", tone: "cyan" },
+            ],
+          },
+          {
+            key: "wine-recanati",
+            name: "רקנאטי",
+            description: "מארז מתנה לשני בקבוקים ושתי כוסות, עם חלון רחב, ידית וגימור קראפט־זהב.",
+            image: expandedCatalogImages.wineRecanati,
+            tags: [
+              { label: "שני בקבוקים ושתי כוסות", tone: "outline" },
+              { label: "חלון תצוגה", tone: "purple" },
+            ],
           },
         ],
       },
       {
-        key: "modular",
+        key: "coffee",
         number: "03",
-        name: "מארז מנצח",
-        count: "זוכה · 2025",
-        layout: "modular",
+        name: "קפה",
+        count: "4 פריטים",
+        layout: "grid",
         items: [
           {
-            key: "winning-package",
-            name: "מארז גבריאל",
+            key: "coffee-elite",
+            name: "קפסולות עלית",
             description:
-              "המארז שזכה במקום השלישי בתחרות כוכב ישראל 2025 — שער הכניסה לתחרות הבינלאומית WorldStar. תכנון מבני חדשני, דיוק שטנץ והשבחה, לצד עמידה בסטנדרטים בינלאומיים של איכות, קיימות ומצוינות.",
-            specs: [
-              { label: "תחרות", value: "כוכב ישראל" },
-              { label: "דירוג", value: "מקום שלישי" },
-              { label: "ארגון", value: "WPO · WorldStar" },
+              "אריזת קרטון ממותגת לקפסולות קפה, המשלבת הגנה על המוצר, נוכחות מדף ברורה ומבנה נוח לשימוש.",
+            image: coffeeImages.elite,
+            tags: [
+              { label: "קפסולות", tone: "outline" },
+              { label: "קרטון מודפס", tone: "cyan" },
+            ],
+          },
+          {
+            key: "coffee-aroma",
+            name: "דיספליי ארומה",
+            description:
+              "מארז תצוגה קמעונאי שמחזיק סדרת קופסאות קפסולות ומציג אותה כיחידה אחת מסודרת ובולטת בנקודת המכירה.",
+            image: coffeeImages.aroma,
+            tags: [
+              { label: "דיספליי", tone: "outline" },
+              { label: "מארז קד״מ", tone: "magenta" },
+            ],
+          },
+          {
+            key: "coffee-joe",
+            name: "קפה ג׳ו",
+            description:
+              "סדרת אריזות לקפסולות במבנה אחיד ובמגוון גרסאות, המאפשרת בידול ברור בין תערובות וטעמים תוך שמירה על שפה מותגית עקבית.",
+            image: coffeeImages.joe,
+            tags: [
+              { label: "סדרת מוצרים", tone: "outline" },
+              { label: "מגוון גרסאות", tone: "purple" },
+            ],
+          },
+          {
+            key: "coffee-tasters-choice",
+            name: "Taster’s Choice",
+            description: "מארז קפה מוכן למתנה המשלב צנצנת קפה וכוס נסיעות בחלון תצוגה כחול ובולט.",
+            image: expandedCatalogImages.coffeeTastersChoice,
+            tags: [
+              { label: "מארז מתנה", tone: "outline" },
+              { label: "חלון תצוגה", tone: "cyan" },
+            ],
+          },
+        ],
+      },
+      {
+        key: "beer",
+        number: "04",
+        name: "בירות",
+        count: "4 פריטים",
+        layout: "grid",
+        items: [
+          {
+            key: "beer-malka",
+            name: "בירה מלכה",
+            description:
+              "מארז קרטון לארבעה בקבוקים וכוס, עם חלונות צורניים שמציגים את המוצרים ושומרים אותם כיחידת מתנה אחת.",
+            image: beerImages.malka,
+            tags: [
+              { label: "מארז מתנה", tone: "outline" },
+              { label: "חלונות שטנץ", tone: "cyan" },
+            ],
+          },
+          {
+            key: "beer-goldstar",
+            name: "שישיית גולדסטאר",
+            description:
+              "מארז נשיאה ממותג לשישה בקבוקים, עם ידית מובנית ומבנה שמחזיק את הבקבוקים יחד מהמדף ועד הבית.",
+            image: beerImages.goldstar,
+            tags: [
+              { label: "שישיית בקבוקים", tone: "outline" },
+              { label: "ידית נשיאה", tone: "magenta" },
+            ],
+          },
+          {
+            key: "beer-carlsberg",
+            name: "שישיית קרלסברג",
+            description:
+              "מארז קרטון מודפס לשישה בקבוקים, המתאים להפצה קמעונאית ומעניק למותג נראות ברורה מכל צד.",
+            image: beerImages.carlsberg,
+            tags: [
+              { label: "קרטון מודפס", tone: "outline" },
+              { label: "אריזה קמעונאית", tone: "purple" },
+            ],
+          },
+          {
+            key: "beer-tuborg",
+            name: "שישיית טובורג",
+            description:
+              "מארז נשיאה צבעוני לשישה בקבוקים, המשלב מבנה חסכוני בקרטון עם שטח מיתוג רחב ונוכחות מדף גבוהה.",
+            image: beerImages.tuborg,
+            tags: [
+              { label: "מארז נשיאה", tone: "outline" },
+              { label: "נוכחות מדף", tone: "cyan" },
+            ],
+          },
+        ],
+      },
+      {
+        key: "beverages",
+        number: "05",
+        name: "תה ומשקאות",
+        count: "3 פריטים",
+        layout: "grid",
+        items: [
+          {
+            key: "beverage-wissotzky",
+            name: "השבחות ויסוצקי",
+            description: "צילום תקריב המדגים הבלטה, פויל ועושר דפוס על גבי מארז תה ממותג.",
+            image: expandedCatalogImages.beverageWissotzky,
+            tags: [
+              { label: "הבלטה", tone: "outline" },
+              { label: "פויל", tone: "magenta" },
+            ],
+          },
+          {
+            key: "beverage-sodastream",
+            name: "SodaStream",
+            description: "אריזה קמעונאית לשני בקבוקים, המשלבת קרטון מודפס עם מעטפת שקופה להצגת המוצר.",
+            image: expandedCatalogImages.beverageSodastream,
+            tags: [
+              { label: "שני בקבוקים", tone: "outline" },
+              { label: "חלון שקוף", tone: "cyan" },
+            ],
+          },
+          {
+            key: "beverage-finishing",
+            name: "גימור צורני",
+            description: "תקריב חומר המדגים חיתוך צורני, צבע מדויק ושילוב אלמנטים מודפסים על קרטון בהיר.",
+            image: expandedCatalogImages.beverageFinishing,
+            tags: [
+              { label: "חיתוך צורני", tone: "outline" },
+              { label: "גימור מדויק", tone: "purple" },
             ],
           },
         ],
@@ -238,40 +455,211 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
         key: "spirits",
         number: "02",
         name: "Wine & spirits",
-        count: "1 item",
-        layout: "feature",
+        count: "6 items",
+        layout: "grid",
         items: [
           {
-            key: "wine",
-            series: "Wine series",
-            name: "Wine gift box",
-            description:
-              "A rigid carton case for a wine bottle, with inner support, shaped die-cut and foil & varnish finishing. Protects the bottle in transit and presents it as a gift. Suited to gift sets and seasonal series.",
-            image: catalogImages.wine,
-            specs: [
-              { label: "Weight", value: "350 g" },
-              { label: "Sample", value: "Pre-production" },
+            key: "wine-mony",
+            name: "Mony",
+            description: "A black-and-gold premium carton for one bottle, combining precise product fit with an elegant gift presentation.",
+            image: expandedCatalogImages.wineMony,
+            tags: [
+              { label: "Single bottle", tone: "outline" },
+              { label: "Gold foil", tone: "magenta" },
             ],
-            cta: "Request the spec",
+          },
+          {
+            key: "wine-barkan",
+            name: "Barkan Altitude",
+            description: "A black Altitude-series wine carton combining bottle protection, gold detailing and a premium shelf presence.",
+            image: expandedCatalogImages.wineBarkan,
+            tags: [
+              { label: "Single bottle", tone: "outline" },
+              { label: "Premium pack", tone: "purple" },
+            ],
+          },
+          {
+            key: "wine-golan",
+            name: "Golan Heights",
+            description: "A one-bottle and two-glass gift carton with shaped windows that present and secure each item.",
+            image: expandedCatalogImages.wineGolan,
+            tags: [
+              { label: "Bottle + two glasses", tone: "outline" },
+              { label: "Die-cut windows", tone: "cyan" },
+            ],
+          },
+          {
+            key: "wine-carmel",
+            name: "Carmel BUZZ",
+            description: "A handled gift carton for two bottles and two glasses, finished in coral and gold with a broad display window.",
+            image: expandedCatalogImages.wineCarmel,
+            tags: [
+              { label: "Two bottles", tone: "outline" },
+              { label: "Carry handle", tone: "magenta" },
+            ],
+          },
+          {
+            key: "wine-tabor",
+            name: "Tabor Winery",
+            description: "A handled kraft carrier for three products, with individual windows and a natural olive-toned material language.",
+            image: expandedCatalogImages.wineTabor,
+            tags: [
+              { label: "Wine & olive oil", tone: "outline" },
+              { label: "Kraft carton", tone: "cyan" },
+            ],
+          },
+          {
+            key: "wine-recanati",
+            name: "Recanati Winery",
+            description: "A two-bottle and two-glass gift pack with a broad display window, handle and kraft-and-gold finish.",
+            image: expandedCatalogImages.wineRecanati,
+            tags: [
+              { label: "Two bottles + glasses", tone: "outline" },
+              { label: "Display window", tone: "purple" },
+            ],
           },
         ],
       },
       {
-        key: "modular",
+        key: "coffee",
         number: "03",
-        name: "Winning package",
-        count: "Award · 2025",
-        layout: "modular",
+        name: "Coffee",
+        count: "4 items",
+        layout: "grid",
         items: [
           {
-            key: "winning-package",
-            name: "The Gabriel pack",
+            key: "coffee-elite",
+            name: "Elite capsules",
             description:
-              "The package that took third place at the 2025 Star of Israel awards — the gateway to the international WorldStar competition. Innovative structural design, die-cut precision and finishing, meeting international standards of quality, sustainability and excellence.",
-            specs: [
-              { label: "Competition", value: "Star of Israel" },
-              { label: "Ranking", value: "Third place" },
-              { label: "Organization", value: "WPO · WorldStar" },
+              "A branded folding carton for coffee capsules, combining product protection, clear shelf presence and a practical structure for everyday use.",
+            image: coffeeImages.elite,
+            tags: [
+              { label: "Capsules", tone: "outline" },
+              { label: "Printed carton", tone: "cyan" },
+            ],
+          },
+          {
+            key: "coffee-aroma",
+            name: "Aroma display",
+            description:
+              "A retail display pack that holds a capsule-carton range and presents it as one organized, high-visibility unit at the point of sale.",
+            image: coffeeImages.aroma,
+            tags: [
+              { label: "Display", tone: "outline" },
+              { label: "Promotional pack", tone: "magenta" },
+            ],
+          },
+          {
+            key: "coffee-joe",
+            name: "Coffee Joe",
+            description:
+              "A consistent capsule-carton structure across multiple variants, making blends and flavors easy to distinguish while maintaining a unified brand language.",
+            image: coffeeImages.joe,
+            tags: [
+              { label: "Product range", tone: "outline" },
+              { label: "Multiple variants", tone: "purple" },
+            ],
+          },
+          {
+            key: "coffee-tasters-choice",
+            name: "Taster’s Choice",
+            description: "A ready-to-gift coffee pack combining a coffee jar and travel cup in a bright blue display-window carton.",
+            image: expandedCatalogImages.coffeeTastersChoice,
+            tags: [
+              { label: "Gift pack", tone: "outline" },
+              { label: "Display window", tone: "cyan" },
+            ],
+          },
+        ],
+      },
+      {
+        key: "beer",
+        number: "04",
+        name: "Beer",
+        count: "4 items",
+        layout: "grid",
+        items: [
+          {
+            key: "beer-malka",
+            name: "Malka beer",
+            description:
+              "A carton gift carrier for four bottles and a glass, with shaped windows that present the products while holding them as one set.",
+            image: beerImages.malka,
+            tags: [
+              { label: "Gift pack", tone: "outline" },
+              { label: "Die-cut windows", tone: "cyan" },
+            ],
+          },
+          {
+            key: "beer-goldstar",
+            name: "Goldstar six-pack",
+            description:
+              "A branded carrier for six bottles, with an integrated handle and a structure that keeps the bottles together from shelf to home.",
+            image: beerImages.goldstar,
+            tags: [
+              { label: "Six bottles", tone: "outline" },
+              { label: "Carry handle", tone: "magenta" },
+            ],
+          },
+          {
+            key: "beer-carlsberg",
+            name: "Carlsberg six-pack",
+            description:
+              "A printed carton carrier for six bottles, built for retail distribution with clear brand visibility from every side.",
+            image: beerImages.carlsberg,
+            tags: [
+              { label: "Printed carton", tone: "outline" },
+              { label: "Retail pack", tone: "purple" },
+            ],
+          },
+          {
+            key: "beer-tuborg",
+            name: "Tuborg six-pack",
+            description:
+              "A high-impact six-bottle carrier combining an efficient carton structure with a broad branded surface and strong shelf presence.",
+            image: beerImages.tuborg,
+            tags: [
+              { label: "Bottle carrier", tone: "outline" },
+              { label: "Shelf presence", tone: "cyan" },
+            ],
+          },
+        ],
+      },
+      {
+        key: "beverages",
+        number: "05",
+        name: "Tea & beverages",
+        count: "3 items",
+        layout: "grid",
+        items: [
+          {
+            key: "beverage-wissotzky",
+            name: "Wissotzky finishing",
+            description: "A close-up view of embossing, foil and rich print detail on a branded tea carton.",
+            image: expandedCatalogImages.beverageWissotzky,
+            tags: [
+              { label: "Embossing", tone: "outline" },
+              { label: "Foil", tone: "magenta" },
+            ],
+          },
+          {
+            key: "beverage-sodastream",
+            name: "SodaStream two-pack",
+            description: "A retail pack for two bottles, combining printed carton with a clear sleeve that keeps the product visible.",
+            image: expandedCatalogImages.beverageSodastream,
+            tags: [
+              { label: "Two bottles", tone: "outline" },
+              { label: "Clear window", tone: "cyan" },
+            ],
+          },
+          {
+            key: "beverage-finishing",
+            name: "Shaped finishing",
+            description: "A material close-up demonstrating shaped cutting, precise color and layered print details on pale carton.",
+            image: expandedCatalogImages.beverageFinishing,
+            tags: [
+              { label: "Shaped cut", tone: "outline" },
+              { label: "Precision finish", tone: "purple" },
             ],
           },
         ],

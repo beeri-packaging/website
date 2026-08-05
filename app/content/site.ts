@@ -16,7 +16,7 @@ export type Chrome = {
   lang: string;
   contact: string;
   navLinks: readonly NavLink[];
-  /** "מבית דפוס בארי" — small group byline shown under the logo. */
+  /** Small parent-company byline shown under the logo. */
   byline: string;
   /** Sister-brand links surfaced from the "About" nav item (hover dropdown). */
   brandLinks: readonly BrandLink[];
@@ -111,7 +111,7 @@ export const chromeContent: Record<Lang, Chrome> = {
     lang: "Language",
     contact: "Contact",
     navLinks,
-    byline: "From Beeri Print",
+    byline: "BY BEERI PRINT",
     brandLinks: [
       { label: "Beeri Packaging", href: "/about" },
       { label: "Beeri Print", href: "https://www.beeriprint.co.il/", external: true },

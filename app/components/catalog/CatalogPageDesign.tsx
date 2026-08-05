@@ -235,7 +235,13 @@ function CategorySection({ category }: { category: CatalogCategory }) {
     <section className={`${SECTION} mt-20 sm:mt-28`}>
       <CategoryHeader category={category} />
       {category.layout === "grid" ? (
-        <div className="reveal mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div
+          className={`reveal mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 ${
+            category.items.length === 3 || category.items.length === 6
+              ? "lg:grid-cols-3"
+              : "lg:grid-cols-4"
+          }`}
+        >
           {category.items.map((item) => (
             <GridCard key={item.key} item={item} categoryName={category.name} />
           ))}
