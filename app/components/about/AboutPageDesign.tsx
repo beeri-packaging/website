@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { aboutImages, type AboutCopy } from "@/app/content/about";
@@ -35,6 +35,16 @@ function clientLogoBoxClass(logo?: string) {
 
   return "h-14 w-40 sm:h-16 sm:w-48";
 }
+
+const teamAccentClasses = [
+  "bg-cyan",
+  "bg-yellow",
+  "bg-magenta",
+  "bg-purple",
+  "bg-teal",
+  "bg-cyan",
+  "bg-yellow",
+] as const;
 
 export function AboutPageDesign({ copy, lang }: { copy: AboutCopy; lang: Lang }) {
   const [introLead, ...introDetails] = copy.intro.split("\n\n");
@@ -251,7 +261,86 @@ export function AboutPageDesign({ copy, lang }: { copy: AboutCopy; lang: Lang })
         </div>
       </section>
 
-      {/* 5 — PARTNERS / CLIENTS */}
+      {/* 5 — TEAM */}
+      <section id="team" className="bg-blueprint text-bone scroll-mt-[80px]">
+        <div className="mx-auto w-full max-w-[1152px] px-5 py-16 sm:px-8 md:py-20 lg:px-0">
+          <div className="reveal grid gap-6 text-start md:grid-cols-12 md:items-end">
+            <div className="md:col-span-7">
+              <div className="mb-3 flex items-center gap-3 text-cyan">
+                <span className="h-px w-12 bg-cyan" aria-hidden />
+                <span className="font-sans text-[12px] font-extrabold uppercase tracking-[0.08em]">
+                  {copy.teamEyebrow}
+                </span>
+              </div>
+              <h2 className="font-display text-[44px] leading-[0.9] sm:text-[60px] lg:text-[72px]">
+                {copy.teamTitle}
+              </h2>
+            </div>
+            <p className="max-w-[440px] font-sans text-[15px] leading-[1.7] text-bone/72 md:col-span-5 md:justify-self-end md:text-[16px]">
+              {copy.teamIntro}
+            </p>
+          </div>
+
+          <ol className="mt-10 grid grid-cols-2 gap-x-3 gap-y-8 sm:grid-cols-4 sm:gap-x-4 lg:mt-12 lg:grid-cols-7">
+            {copy.teamMembers.map((member, index) => (
+              <li
+                key={`${member.name}-${index}`}
+                className="team-member reveal group min-w-0"
+                style={{ "--team-index": index } as CSSProperties}
+              >
+                <figure>
+                  <div className="relative aspect-[4/5] overflow-hidden border border-bone/25 bg-[#e8e1d2] transition-colors duration-300 group-hover:bg-[#f1eadc]">
+                    {member.image ? (
+                      <Image
+                        src={member.image}
+                        alt={member.name}
+                        fill
+                        sizes="(min-width: 1024px) 150px, (min-width: 640px) 25vw, 50vw"
+                        className="object-cover grayscale transition duration-500 group-hover:grayscale-0 group-hover:scale-[1.03]"
+                      />
+                    ) : (
+                      <>
+                        <span
+                          className={`absolute inset-x-0 top-0 h-1.5 ${teamAccentClasses[index % teamAccentClasses.length]}`}
+                          aria-hidden
+                        />
+                        <span
+                          className="absolute start-3 top-4 font-display text-[22px] leading-none text-blueprint/45"
+                          aria-hidden
+                        >
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <span
+                          className="absolute end-3 top-4 h-3 w-3 border-s border-t border-blueprint/35"
+                          aria-hidden
+                        />
+                        <span
+                          className="absolute inset-x-[16%] bottom-[-9%] aspect-square rounded-t-[48%] border-2 border-blueprint bg-bone transition-transform duration-500 ease-out group-hover:-translate-y-1.5"
+                          aria-hidden
+                        />
+                        <span
+                          className="absolute bottom-[35%] left-1/2 aspect-square w-[34%] -translate-x-1/2 rounded-full border-2 border-blueprint bg-bone transition-transform duration-500 ease-out group-hover:-translate-x-1/2 group-hover:-translate-y-1.5"
+                          aria-hidden
+                        />
+                      </>
+                    )}
+                  </div>
+                  <figcaption className="border-t border-bone/30 pt-3 text-start">
+                    <h3 className="font-sans text-[13px] font-extrabold leading-[1.35] text-bone sm:text-[14px]">
+                      {member.name}
+                    </h3>
+                    <p className="mt-1 font-sans text-[11px] leading-[1.45] text-bone/58 sm:text-[12px]">
+                      {member.role}
+                    </p>
+                  </figcaption>
+                </figure>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* 6 — PARTNERS / CLIENTS */}
       <section id="clients" className="w-full border-y border-rule bg-bone scroll-mt-[80px]">
         <div aria-hidden className="flex h-[3px]">
           <span className="flex-1 bg-cyan" />
@@ -299,7 +388,7 @@ export function AboutPageDesign({ copy, lang }: { copy: AboutCopy; lang: Lang })
         </div>
       </section>
 
-      {/* 6 — CTA */}
+      {/* 7 — CTA */}
       <section className="mx-auto w-full max-w-[1152px] px-5 pb-24 pt-0 sm:px-8 lg:px-0">
         <div className="reveal flex flex-col gap-8 border-t border-rule pt-12 md:flex-row md:items-center md:justify-between">
           <h2 className="max-w-[520px] font-display text-[32px] leading-[0.95] text-blueprint sm:text-[40px]">

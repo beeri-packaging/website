@@ -78,4 +78,11 @@ describe("aboutCopy", () => {
       "אלטמן",
     ]);
   });
+
+  it("keeps seven replaceable team placeholders in both languages", () => {
+    expect(aboutCopy.he.teamMembers).toHaveLength(7);
+    expect(aboutCopy.en.teamMembers).toHaveLength(7);
+    expect(aboutCopy.he.teamMembers.every((member) => !member.image)).toBe(true);
+    expect(aboutCopy.en.teamMembers.every((member) => !member.image)).toBe(true);
+  });
 });

@@ -29,6 +29,13 @@ export type AboutClient = {
   logo?: string;
 };
 
+export type AboutTeamMember = {
+  name: string;
+  role: string;
+  /** Optional portrait under /public. A designed silhouette is shown until supplied. */
+  image?: string;
+};
+
 export type AboutCopy = {
   // Hero
   eyebrow: string;
@@ -54,6 +61,11 @@ export type AboutCopy = {
   statsEyebrow: string;
   statsTitle: string;
   stats: readonly AboutStat[];
+  // Team
+  teamEyebrow: string;
+  teamTitle: string;
+  teamIntro: string;
+  teamMembers: readonly AboutTeamMember[];
   // Partners / clients
   partnersEyebrow: string;
   partnersTitle: string;
@@ -163,6 +175,15 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
       { value: "24/6", label: "מפעל חיוני עובד" },
     ],
 
+    teamEyebrow: "האנשים שמאחורי האריזה",
+    teamTitle: "הצוות שלנו",
+    teamIntro:
+      "שבעה אנשים, תחומי מומחיות שונים ומטרה אחת: להפוך כל רעיון לאריזה שעובדת.",
+    teamMembers: Array.from({ length: 7 }, (_, index) => ({
+      name: `חבר/ת צוות ${String(index + 1).padStart(2, "0")}`,
+      role: "שם ותפקיד יתווספו בקרוב",
+    })),
+
     partnersEyebrow: "מבין לקוחותינו",
     partnersTitle: "שותפות מנצחת",
     // Names sourced from the company deck (slides 7–9).
@@ -264,6 +285,15 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
       { value: "200+", label: "years of accumulated experience", tone: "yellow" },
       { value: "24/6", label: "essential plant in operation" },
     ],
+
+    teamEyebrow: "The people behind the packaging",
+    teamTitle: "Our team",
+    teamIntro:
+      "Seven people, different areas of expertise, and one shared goal: turning every idea into packaging that works.",
+    teamMembers: Array.from({ length: 7 }, (_, index) => ({
+      name: `Team member ${String(index + 1).padStart(2, "0")}`,
+      role: "Name and role coming soon",
+    })),
 
     partnersEyebrow: "Among our clients",
     partnersTitle: "Winning partnerships",

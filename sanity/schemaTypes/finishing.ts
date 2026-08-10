@@ -9,6 +9,7 @@ export const finishing = defineType({
     { name: "hero", title: "כותרת ראשית" },
     { name: "feature", title: "השבחה ראשית" },
     { name: "grid", title: "משבצות" },
+    { name: "standards", title: "תקנים והסמכות" },
     { name: "cta", title: "קריאה לפעולה" },
   ],
   fields: [
@@ -22,6 +23,11 @@ export const finishing = defineType({
 
     defineField({ name: "deboss", title: "משבצת הבלטה", type: "finishingItem", group: "grid", validation: (rule) => rule.required() }),
     defineField({ name: "texture", title: "משבצת מרקם", type: "finishingItem", group: "grid", validation: (rule) => rule.required() }),
+
+    defineField({ name: "standardsEyebrow", title: "תווית עליונה", type: "string", group: "standards" }),
+    defineField({ name: "standardsTitle", title: "כותרת", type: "string", group: "standards" }),
+    defineField({ name: "standardsBody", title: "טקסט פתיחה", type: "text", rows: 4, group: "standards" }),
+    defineField({ name: "standards", title: "תקנים ותעודות", type: "array", of: [{ type: "finishingStandard" }], group: "standards" }),
 
     defineField({ name: "ctaTitle", title: "כותרת קריאה לפעולה", type: "string", group: "cta", validation: (rule) => rule.required() }),
     defineField({ name: "ctaPrimary", title: "כפתור ראשי", type: "string", group: "cta", validation: (rule) => rule.required() }),

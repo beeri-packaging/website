@@ -9,6 +9,15 @@ export type FinishingGridItem = {
   cta?: string;
 };
 
+export type FinishingStandard = {
+  code: string;
+  title: string;
+  body: string;
+  certificateLabel: string;
+  image?: string;
+  tone?: "plain" | "essential";
+};
+
 export type FinishingCopy = {
   step: string;
   title: readonly [string, string];
@@ -16,6 +25,10 @@ export type FinishingCopy = {
   feature: FinishingGridItem;
   deboss: FinishingGridItem;
   texture: FinishingGridItem;
+  standardsEyebrow: string;
+  standardsTitle: string;
+  standardsBody: string;
+  standards: readonly FinishingStandard[];
   ctaTitle: string;
   ctaPrimary: string;
   ctaSecondary: string;
@@ -55,6 +68,31 @@ export const finishingCopy: Record<Lang, FinishingCopy> = {
         "פויל חם או קר מוסיף זוהר ממוקד על לוגו, מסגרת או פרט נבחר, נגיעה שקולטת את העין על המדף ומייחדת את המותג במבט ראשון.",
       image: finishingImages.texture,
     },
+    standardsEyebrow: "איכות מוכחת",
+    standardsTitle: "עומדים בסטנדרט. בכל שלב.",
+    standardsBody:
+      "מערכות האיכות והבטיחות שלנו מלוות את העבודה משלב קבלת חומרי הגלם ועד למסירת האריזה המוגמרת. כך אנחנו שומרים על בקרה, עקביות ורציפות תפעולית לאורך כל תהליך הייצור.",
+    standards: [
+      {
+        code: "ISO 9001:2015",
+        title: "ניהול איכות",
+        body: "מערכת ניהול איכות שמגדירה בקרה, עקביות ושיפור מתמשך בתהליכי הייצור והשירות.",
+        certificateLabel: "תעודת התקן תתווסף בקרוב",
+      },
+      {
+        code: "FSSC 22000",
+        title: "בטיחות מזון",
+        body: "מערכת לניהול בטיחות מזון התומכת בייצור אריזות עבור תעשיות המזון והמשקאות.",
+        certificateLabel: "תעודת התקן תתווסף בקרוב",
+      },
+      {
+        code: "24/6",
+        title: "מפעל חיוני",
+        body: "הכרה המבטאת את היכולת שלנו לשמור על רציפות תפעולית ועל שירות גם בשעת חירום.",
+        certificateLabel: "אישור מפעל חיוני יתווסף בקרוב",
+        tone: "essential",
+      },
+    ],
     ctaTitle: "איזו השבחה מתאימה למוצר שלכם?",
     ctaPrimary: "בקשת דוגמאות",
     ctaSecondary: "צפייה בקטלוג",
@@ -86,6 +124,31 @@ export const finishingCopy: Record<Lang, FinishingCopy> = {
         "Hot or cold foil adds a focused glow to a logo, frame or chosen detail — a touch that catches the eye on the shelf and sets the brand apart at first glance.",
       image: finishingImages.texture,
     },
+    standardsEyebrow: "Proven quality",
+    standardsTitle: "Meeting the standard. At every stage.",
+    standardsBody:
+      "Our quality and safety systems support the work from incoming materials to delivery of the finished package—maintaining control, consistency and operational continuity throughout production.",
+    standards: [
+      {
+        code: "ISO 9001:2015",
+        title: "Quality management",
+        body: "A quality-management system built around control, consistency and continuous improvement in production and service.",
+        certificateLabel: "Certificate coming soon",
+      },
+      {
+        code: "FSSC 22000",
+        title: "Food safety",
+        body: "A food-safety management system supporting packaging production for the food and beverage industries.",
+        certificateLabel: "Certificate coming soon",
+      },
+      {
+        code: "24/6",
+        title: "Essential facility",
+        body: "Recognition of our ability to maintain operational continuity and service during emergencies.",
+        certificateLabel: "Essential-facility certificate coming soon",
+        tone: "essential",
+      },
+    ],
     ctaTitle: "Which finish fits your product?",
     ctaPrimary: "Request samples",
     ctaSecondary: "View catalog",

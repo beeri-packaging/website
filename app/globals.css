@@ -287,6 +287,31 @@ body {
   transform: translateY(0);
 }
 
+/* The About team remains visible in browsers without scroll timelines. Where
+   supported, portraits enter with a compact editorial stagger as the row
+   reaches the viewport; hover motion then gives the placeholders some life. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .team-member {
+      animation: teamMemberIn 1ms both;
+      animation-delay: calc(var(--team-index, 0) * 30ms);
+      animation-range: entry 4% cover 24%;
+      animation-timeline: view();
+    }
+  }
+}
+
+@keyframes teamMemberIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Modal / dialog — Radix mounts on open, so we only animate the entrance.
    Hooks onto the [data-state="open"] attribute Radix sets on overlay/content. */
 @keyframes dialogOverlayIn {

@@ -34,6 +34,15 @@ describe("toFinishingCopy", () => {
   it("returns bundled fallback when doc is null", () => {
     expect(toFinishingCopy(null, "en")).toEqual(finishingCopy.en);
   });
+
+  it("keeps the approved standards when an older Sanity document has no standards section", () => {
+    const result = toFinishingCopy({ title: ["Finishing", "that adds value"] }, "en");
+    expect(result.standards.map((standard) => standard.code)).toEqual([
+      "ISO 9001:2015",
+      "FSSC 22000",
+      "24/6",
+    ]);
+  });
 });
 
 describe("blog mappers", () => {
