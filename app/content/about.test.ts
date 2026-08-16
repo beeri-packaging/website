@@ -79,10 +79,34 @@ describe("aboutCopy", () => {
     ]);
   });
 
-  it("keeps seven replaceable team placeholders in both languages", () => {
+  it("keeps the seven approved team members in matching bilingual order", () => {
     expect(aboutCopy.he.teamMembers).toHaveLength(7);
     expect(aboutCopy.en.teamMembers).toHaveLength(7);
-    expect(aboutCopy.he.teamMembers.every((member) => !member.image)).toBe(true);
-    expect(aboutCopy.en.teamMembers.every((member) => !member.image)).toBe(true);
+    expect(aboutCopy.he.teamMembers.map((member) => member.name)).toEqual([
+      "עמיר יוניק",
+      "אנדריי פלטונוב",
+      "מיכל גבע",
+      "מני רפלד",
+      "דורון חרפק",
+      "חמוטל דהן",
+      "לין בן שטרית",
+    ]);
+    expect(aboutCopy.en.teamMembers.map((member) => member.name)).toEqual([
+      "Amir Yunik",
+      "Andrey Platonov",
+      "Michal Geva",
+      "Meni Rapfeld",
+      "Doron Harpak",
+      "Hamutal Dahan",
+      "Lynn Ben-Chetrit",
+    ]);
+    expect(
+      aboutCopy.he.teamMembers.every((member) =>
+        member.image?.startsWith("https://cdn.sanity.io/"),
+      ),
+    ).toBe(true);
+    expect(aboutCopy.en.teamMembers.map((member) => member.image)).toEqual(
+      aboutCopy.he.teamMembers.map((member) => member.image),
+    );
   });
 });
