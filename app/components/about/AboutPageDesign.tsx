@@ -296,7 +296,7 @@ export function AboutPageDesign({ copy, lang }: { copy: AboutCopy; lang: Lang })
                         alt={member.name}
                         fill
                         sizes="(min-width: 1024px) 150px, (min-width: 640px) 25vw, 50vw"
-                        className="object-cover grayscale transition duration-500 group-hover:grayscale-0 group-hover:scale-[1.03]"
+                        className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                       />
                     ) : (
                       <>

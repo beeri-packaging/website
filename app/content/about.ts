@@ -32,7 +32,7 @@ export type AboutClient = {
 export type AboutTeamMember = {
   name: string;
   role: string;
-  /** Optional portrait under /public. A designed silhouette is shown until supplied. */
+  /** Optional portrait URL. A designed silhouette is shown until supplied. */
   image?: string;
 };
 
@@ -95,6 +95,25 @@ export const aboutImages = {
     dieCut: "/images/about/production/die-cutting.png",
     finishing: "/images/about/production/finishing-line.jpg",
   },
+} as const;
+
+// Team portraits are web-sized derivatives of the approved source photography,
+// hosted on the Sanity CDN in the same order as the management roster.
+const teamImages = {
+  amirYunik:
+    "https://cdn.sanity.io/images/4qkb39ql/production/07cd7da0aaa86214c03f3dc6e29364732f10aa1f-1800x1800.jpg",
+  andreyPlatonov:
+    "https://cdn.sanity.io/images/4qkb39ql/production/76a3a48800ea697927b65594916ea8298312762d-1439x1800.jpg",
+  michalGeva:
+    "https://cdn.sanity.io/images/4qkb39ql/production/dce6fe007c7e182ea337c48934d29c160f791839-1200x1800.jpg",
+  meniRapfeld:
+    "https://cdn.sanity.io/images/4qkb39ql/production/53da314458eaf2023a5a67f6be22d094b8335545-1200x1800.jpg",
+  doronHarpak:
+    "https://cdn.sanity.io/images/4qkb39ql/production/2f86d922f967edea58a970efd716bf6613acb9eb-1200x1800.jpg",
+  hamutalDahan:
+    "https://cdn.sanity.io/images/4qkb39ql/production/dc3c5310f552ceb24b5812e425960e91f1c63b2e-1200x1800.jpg",
+  lynnBenChetrit:
+    "https://cdn.sanity.io/images/4qkb39ql/production/48a4a116ea05729a51f8a0a0dd9287be2360824f-1200x1800.jpg",
 } as const;
 
 // ---- Bilingual copy ---------------------------------------------------------
@@ -179,10 +198,35 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
     teamTitle: "הצוות שלנו",
     teamIntro:
       "שבעה אנשים, תחומי מומחיות שונים ומטרה אחת: להפוך כל רעיון לאריזה שעובדת.",
-    teamMembers: Array.from({ length: 7 }, (_, index) => ({
-      name: `חבר/ת צוות ${String(index + 1).padStart(2, "0")}`,
-      role: "שם ותפקיד יתווספו בקרוב",
-    })),
+    teamMembers: [
+      { name: "עמיר יוניק", role: 'מנכ"ל', image: teamImages.amirYunik },
+      {
+        name: "אנדריי פלטונוב",
+        role: 'סמנכ"ל כספים',
+        image: teamImages.andreyPlatonov,
+      },
+      {
+        name: "מיכל גבע",
+        role: 'סמנכ"לית משאבי אנוש',
+        image: teamImages.michalGeva,
+      },
+      {
+        name: "מני רפלד",
+        role: 'סמנכ"ל מכירות',
+        image: teamImages.meniRapfeld,
+      },
+      {
+        name: "דורון חרפק",
+        role: 'סמנכ"ל מחקר ופיתוח',
+        image: teamImages.doronHarpak,
+      },
+      { name: "חמוטל דהן", role: 'מנהלת משל"ט', image: teamImages.hamutalDahan },
+      {
+        name: "לין בן שטרית",
+        role: 'סמנכ"לית תפעול',
+        image: teamImages.lynnBenChetrit,
+      },
+    ],
 
     partnersEyebrow: "מבין לקוחותינו",
     partnersTitle: "שותפות מנצחת",
@@ -290,10 +334,31 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
     teamTitle: "Our team",
     teamIntro:
       "Seven people, different areas of expertise, and one shared goal: turning every idea into packaging that works.",
-    teamMembers: Array.from({ length: 7 }, (_, index) => ({
-      name: `Team member ${String(index + 1).padStart(2, "0")}`,
-      role: "Name and role coming soon",
-    })),
+    teamMembers: [
+      { name: "Amir Yunik", role: "CEO", image: teamImages.amirYunik },
+      { name: "Andrey Platonov", role: "CFO", image: teamImages.andreyPlatonov },
+      {
+        name: "Michal Geva",
+        role: "VP Human Resources",
+        image: teamImages.michalGeva,
+      },
+      { name: "Meni Rapfeld", role: "VP Sales", image: teamImages.meniRapfeld },
+      {
+        name: "Doron Harpak",
+        role: "VP Research & Development",
+        image: teamImages.doronHarpak,
+      },
+      {
+        name: "Hamutal Dahan",
+        role: "Control Center Manager",
+        image: teamImages.hamutalDahan,
+      },
+      {
+        name: "Lynn Ben-Chetrit",
+        role: "VP Operations",
+        image: teamImages.lynnBenChetrit,
+      },
+    ],
 
     partnersEyebrow: "Among our clients",
     partnersTitle: "Winning partnerships",
