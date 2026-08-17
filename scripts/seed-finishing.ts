@@ -30,12 +30,6 @@ async function main() {
       step: fi.step, title: [...fi.title], intro: fi.intro,
       feature: finItem(fi.feature),
       deboss: finItem(fi.deboss), texture: finItem(fi.texture),
-      standardsEyebrow: fi.standardsEyebrow, standardsTitle: fi.standardsTitle, standardsBody: fi.standardsBody,
-      standards: fi.standards.map((standard, index) => ({
-        _type: "finishingStandard", _key: `standard-${index}`,
-        code: standard.code, title: standard.title, body: standard.body,
-        certificateLabel: standard.certificateLabel, tone: standard.tone ?? "plain",
-      })),
       ctaTitle: fi.ctaTitle, ctaPrimary: fi.ctaPrimary, ctaSecondary: fi.ctaSecondary,
     });
     console.log(`  ✓ finishing-${lang}`);

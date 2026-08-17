@@ -36,6 +36,21 @@ export type AboutTeamMember = {
   image?: string;
 };
 
+export type AboutStandard = {
+  /** Standard identifier shown above the title, e.g. "ISO 9001:2015". */
+  code: string;
+  title: string;
+  body: string;
+  /** Link text for the certificate PDF. */
+  certificateLabel: string;
+  /** Certificate PDF on the Sanity CDN. Omit while a certificate is pending. */
+  certificateUrl?: string;
+  /** Scan of the certificate. A designed placeholder sheet stands in without it. */
+  image?: string;
+  /** "essential" tints the sheet yellow — used for the essential-plant notice. */
+  tone?: "essential";
+};
+
 export type AboutCopy = {
   // Hero
   eyebrow: string;
@@ -64,12 +79,16 @@ export type AboutCopy = {
   // Team
   teamEyebrow: string;
   teamTitle: string;
-  teamIntro: string;
   teamMembers: readonly AboutTeamMember[];
   // Partners / clients
   partnersEyebrow: string;
   partnersTitle: string;
   clients: readonly AboutClient[];
+  // Standards & certifications
+  standardsEyebrow: string;
+  standardsTitle: string;
+  standardsBody: string;
+  standards: readonly AboutStandard[];
   // CTA
   ctaTitle: string;
   ctaPrimary: string;
@@ -196,8 +215,6 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
 
     teamEyebrow: "האנשים שמאחורי האריזה",
     teamTitle: "הצוות שלנו",
-    teamIntro:
-      "שבעה אנשים, תחומי מומחיות שונים ומטרה אחת: להפוך כל רעיון לאריזה שעובדת.",
     teamMembers: [
       { name: "עמיר יוניק", role: 'מנכ"ל', image: teamImages.amirYunik },
       {
@@ -246,6 +263,33 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
       { name: "טמפו", logo: "/images/clients/tempo.png" },
       { name: "ליימן שליסל בע\"מ", logo: "/images/clients/leiman-schlussel.png" },
       { name: "אלטמן", logo: "/images/clients/altman.png" },
+    ],
+
+    standardsEyebrow: "איכות מוכחת",
+    standardsTitle: "איכות ללא פשרות.",
+    standardsBody:
+      "בבארי אריזות, איכות היא הרבה מעבר לעמידה בדרישות — היא תפיסת עולם שמלווה כל מוצר, כל תהליך וכל החלטה.\n\nמערכת האיכות שלנו משלבת בקרה וניטור לאורך כל שלבי הייצור: מבחירת חומרי הגלם, דרך ההדפסה, ההשבחה, החיתוך וההדבקה ועד לבדיקת המוצר המוגמר. כך אנחנו מבטיחים איכות גבוהה, מדויקת ועקבית ופועלים לשיפור מתמיד.",
+    standards: [
+      {
+        code: "ISO 9001:2015",
+        title: "ניהול איכות",
+        body: "מערכת ניהול איכות שמגדירה בקרה, עקביות ושיפור מתמשך בתהליכי הייצור והשירות.",
+        certificateLabel: "לצפייה בתעודת ISO 9001",
+        certificateUrl:
+          "https://cdn.sanity.io/files/4qkb39ql/production/3260a30a73dec6e4df4eb292c0e0a21e9e945d67.pdf",
+        image:
+          "https://cdn.sanity.io/images/4qkb39ql/production/409ecdaec9f4750291ef04fd4121ff4e3b9fa700-1241x1755.png",
+      },
+      {
+        code: "FSSC 22000",
+        title: "בטיחות מזון",
+        body: "מערכת לניהול בטיחות מזון התומכת בייצור אריזות עבור תעשיות המזון והמשקאות.",
+        certificateLabel: "לצפייה בתעודת FSSC 22000",
+        certificateUrl:
+          "https://cdn.sanity.io/files/4qkb39ql/production/7a056360827f98a329a0e9847124a43910e6db54.pdf",
+        image:
+          "https://cdn.sanity.io/images/4qkb39ql/production/faeec416a67ca925a40af2d9289e849ce24c87d3-1241x1754.png",
+      },
     ],
 
     ctaTitle: "בואו נתכנן יחד את האריזה הבאה שלכם.",
@@ -332,8 +376,6 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
 
     teamEyebrow: "The people behind the packaging",
     teamTitle: "Our team",
-    teamIntro:
-      "Seven people, different areas of expertise, and one shared goal: turning every idea into packaging that works.",
     teamMembers: [
       { name: "Amir Yunik", role: "CEO", image: teamImages.amirYunik },
       { name: "Andrey Platonov", role: "CFO", image: teamImages.andreyPlatonov },
@@ -375,6 +417,33 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
       { name: "Tempo", logo: "/images/clients/tempo.png" },
       { name: "Leiman Schlussel", logo: "/images/clients/leiman-schlussel.png" },
       { name: "Altman", logo: "/images/clients/altman.png" },
+    ],
+
+    standardsEyebrow: "Proven quality",
+    standardsTitle: "Quality without compromise.",
+    standardsBody:
+      "At Beeri Packaging, quality is more than meeting requirements — it guides every product, process and decision.\n\nOur quality system combines control and monitoring throughout production: from raw-material selection through printing, finishing, cutting and gluing to final-product inspection. This is how we deliver consistent, precise quality and keep improving.",
+    standards: [
+      {
+        code: "ISO 9001:2015",
+        title: "Quality management",
+        body: "A quality-management system built around control, consistency and continuous improvement in production and service.",
+        certificateLabel: "View the ISO 9001 certificate",
+        certificateUrl:
+          "https://cdn.sanity.io/files/4qkb39ql/production/3260a30a73dec6e4df4eb292c0e0a21e9e945d67.pdf",
+        image:
+          "https://cdn.sanity.io/images/4qkb39ql/production/409ecdaec9f4750291ef04fd4121ff4e3b9fa700-1241x1755.png",
+      },
+      {
+        code: "FSSC 22000",
+        title: "Food safety",
+        body: "A food-safety management system supporting packaging production for the food and beverage industries.",
+        certificateLabel: "View the FSSC 22000 certificate",
+        certificateUrl:
+          "https://cdn.sanity.io/files/4qkb39ql/production/7a056360827f98a329a0e9847124a43910e6db54.pdf",
+        image:
+          "https://cdn.sanity.io/images/4qkb39ql/production/faeec416a67ca925a40af2d9289e849ce24c87d3-1241x1754.png",
+      },
     ],
 
     ctaTitle: "Let's plan your next package together.",

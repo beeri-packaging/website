@@ -109,4 +109,19 @@ describe("aboutCopy", () => {
       aboutCopy.he.teamMembers.map((member) => member.image),
     );
   });
+
+  it("carries the approved standards, which moved here from the finishing page", () => {
+    for (const lang of ["he", "en"] as const) {
+      expect(aboutCopy[lang].standards.map((standard) => standard.code)).toEqual([
+        "ISO 9001:2015",
+        "FSSC 22000",
+      ]);
+      // Both certificates are published — the scan and the linked PDF must survive
+      // the move, since they are the only proof the section exists to show.
+      for (const standard of aboutCopy[lang].standards) {
+        expect(standard.certificateUrl).toMatch(/^https:\/\/cdn\.sanity\.io\/files\//);
+        expect(standard.image).toMatch(/^https:\/\/cdn\.sanity\.io\/images\//);
+      }
+    }
+  });
 });

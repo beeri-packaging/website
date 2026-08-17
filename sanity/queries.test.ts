@@ -35,33 +35,10 @@ describe("toFinishingCopy", () => {
     expect(toFinishingCopy(null, "en")).toEqual(finishingCopy.en);
   });
 
-  it("keeps the approved standards when an older Sanity document has no standards section", () => {
+  it("keeps the bundled copy when an older Sanity document is missing fields", () => {
     const result = toFinishingCopy({ title: ["Finishing", "that adds value"] }, "en");
-    expect(result.standards.map((standard) => standard.code)).toEqual([
-      "ISO 9001:2015",
-      "FSSC 22000",
-    ]);
-  });
-
-  it("maps a Sanity certificate file to the public certificate link", () => {
-    const result = toFinishingCopy(
-      {
-        standards: [
-          {
-            code: "ISO 9001:2015",
-            title: "Quality management",
-            body: "Certified quality-management system.",
-            certificateLabel: "View certificate",
-            certificateUrl: "https://cdn.sanity.io/files/project/production/iso.pdf",
-          },
-        ],
-      },
-      "en"
-    );
-
-    expect(result.standards[0].certificateUrl).toBe(
-      "https://cdn.sanity.io/files/project/production/iso.pdf"
-    );
+    expect(result.ctaTitle).toBe(finishingCopy.en.ctaTitle);
+    expect(result.feature).toEqual(finishingCopy.en.feature);
   });
 });
 

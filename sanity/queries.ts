@@ -323,7 +323,7 @@ export function toCareersCopy(doc: Awaited<ReturnType<typeof getCareers>>, local
 // ---------------------------------------------------------------------------
 
 import { finishingCopy } from "@/app/content/finishing";
-import type { FinishingCopy, FinishingGridItem, FinishingStandard } from "@/app/content/finishing";
+import type { FinishingCopy, FinishingGridItem } from "@/app/content/finishing";
 
 const ITEM = `{ eyebrow, title, body, sample, cta,
   "imageUrl": image.asset->url, "imageLegacy": image.legacyImagePath }`;
@@ -332,10 +332,6 @@ export const finishingQuery = defineQuery(`*[_type == "finishing" && language ==
   step, title, intro,
   feature${ITEM},
   deboss${ITEM}, texture${ITEM},
-  standardsEyebrow, standardsTitle, standardsBody,
-  standards[]{ code, title, body, certificateLabel, tone,
-    "certificateUrl": certificate.asset->url,
-    "imageUrl": image.asset->url, "imageLegacy": image.legacyImagePath },
   ctaTitle, ctaPrimary, ctaSecondary
 }`);
 
@@ -356,14 +352,6 @@ function mapItem(i: { eyebrow?: string; title?: string; body?: string; sample?: 
   };
 }
 
-type FinishingStandardDoc = Partial<
-  Pick<FinishingStandard, "code" | "title" | "body" | "certificateLabel" | "tone">
-> & {
-  certificateUrl?: string;
-  imageUrl?: string;
-  imageLegacy?: string;
-};
-
 export function toFinishingCopy(doc: Awaited<ReturnType<typeof getFinishing>>, locale: Lang): FinishingCopy {
   const fb = finishingCopy[locale];
   if (!doc) return fb;
@@ -374,20 +362,6 @@ export function toFinishingCopy(doc: Awaited<ReturnType<typeof getFinishing>>, l
     feature: mapItem(doc.feature, fb.feature),
     deboss: mapItem(doc.deboss, fb.deboss),
     texture: mapItem(doc.texture, fb.texture),
-    standardsEyebrow: doc.standardsEyebrow ?? fb.standardsEyebrow,
-    standardsTitle: doc.standardsTitle ?? fb.standardsTitle,
-    standardsBody: doc.standardsBody ?? fb.standardsBody,
-    standards: doc.standards?.length
-      ? doc.standards.map((standard: FinishingStandardDoc) => ({
-          code: standard.code ?? "",
-          title: standard.title ?? "",
-          body: standard.body ?? "",
-          certificateLabel: standard.certificateLabel ?? "",
-          certificateUrl: standard.certificateUrl ?? undefined,
-          image: standard.imageUrl ?? standard.imageLegacy ?? undefined,
-          tone: standard.tone === "essential" ? "essential" : "plain",
-        } satisfies FinishingStandard))
-      : fb.standards,
     ctaTitle: doc.ctaTitle ?? fb.ctaTitle,
     ctaPrimary: doc.ctaPrimary ?? fb.ctaPrimary,
     ctaSecondary: doc.ctaSecondary ?? fb.ctaSecondary,
