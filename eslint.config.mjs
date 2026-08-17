@@ -12,6 +12,13 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Local tooling worktrees and generated artifacts are not app source.
+    ".claude/**",
+    ".vercel/**",
+    "output/**",
+    "outputs/**",
+    "playwright-report/**",
+    "test-results/**",
   ]),
 ]);
 
