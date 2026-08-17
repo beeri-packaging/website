@@ -14,6 +14,15 @@ export default defineConfig({
     globals: true,
     setupFiles: ["./vitest.setup.ts"],
     include: ["**/*.test.ts", "**/*.test.tsx"],
-    exclude: ["node_modules", ".next", "e2e", ".claude"],
+    // Glob form matters: node_modules is reached through the
+    // `.local-deps.nosync` symlink, so a bare "node_modules" entry never
+    // matches and third-party package tests get collected.
+    exclude: [
+      "**/node_modules/**",
+      "**/.local-deps.nosync/**",
+      "**/.next/**",
+      "**/e2e/**",
+      "**/.claude/**",
+    ],
   },
 });
