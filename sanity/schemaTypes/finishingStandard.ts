@@ -9,7 +9,13 @@ export const finishingStandard = defineType({
     defineField({ name: "code", title: "שם/קוד התקן", type: "string", validation: (rule) => rule.required() }),
     defineField({ name: "title", title: "כותרת", type: "string", validation: (rule) => rule.required() }),
     defineField({ name: "body", title: "הסבר קצר", type: "text", rows: 3, validation: (rule) => rule.required() }),
-    defineField({ name: "certificateLabel", title: "טקסט כשאין עדיין תעודה", type: "string" }),
+    defineField({ name: "certificateLabel", title: "טקסט הקישור לתעודה", type: "string" }),
+    defineField({
+      name: "certificate",
+      title: "קובץ התעודה",
+      type: "file",
+      options: { accept: "application/pdf" },
+    }),
     imageField("image", "צילום התעודה"),
     defineField({
       name: "tone",

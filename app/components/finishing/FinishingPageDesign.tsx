@@ -169,12 +169,12 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
             <h2 className="font-display text-[40px] leading-[0.92] text-blueprint sm:text-[52px] lg:text-[60px]">
               {copy.standardsTitle}
             </h2>
-            <p className="mt-5 max-w-[420px] font-sans text-[15px] leading-[1.7] text-clay sm:text-[16px]">
+            <p className="mt-5 max-w-[420px] whitespace-pre-line font-sans text-[15px] leading-[1.7] text-clay sm:text-[16px]">
               {copy.standardsBody}
             </p>
           </div>
 
-          <ol className="grid gap-5 sm:grid-cols-3 lg:col-span-8">
+          <ol className="grid gap-5 sm:grid-cols-2 lg:col-span-8">
             {copy.standards.map((standard) => {
               const essential = standard.tone === "essential";
               return (
@@ -227,10 +227,16 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
                       <p className="mt-3 font-sans text-[14px] leading-[1.55] text-clay">
                         {standard.body}
                       </p>
-                      {!standard.image ? (
-                        <p className="mt-4 border-t border-rule pt-3 font-sans text-[10px] font-bold uppercase tracking-[0.06em] text-clay/65">
-                          {standard.certificateLabel}
-                        </p>
+                      {standard.certificateUrl ? (
+                        <Link
+                          href={standard.certificateUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-4 inline-flex items-center justify-between gap-3 border-t border-rule pt-3 font-sans text-[11px] font-bold tracking-[0.04em] text-purple underline decoration-purple/45 underline-offset-4 focus-ring"
+                        >
+                          <span>{standard.certificateLabel}</span>
+                          <span aria-hidden>↗</span>
+                        </Link>
                       ) : null}
                     </div>
                   </article>

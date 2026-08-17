@@ -16,11 +16,21 @@ for (const { locale, heading, roles, noOpenRoles } of [
     // Open-roles section folded into the bottom of the page. `exact` matters:
     // the empty-state heading contains the section heading as a substring.
     await expect(page.getByRole("heading", { name: roles, exact: true })).toBeVisible();
-    // No roles are open (PRO-201) — the empty state stands in for the list and
-    // the department filters are hidden until new roles land.
-    await expect(page.getByRole("heading", { name: noOpenRoles })).toBeVisible();
-    await expect(
-      page.locator('button[aria-controls="careers-roles-list"]'),
-    ).toHaveCount(0);
+    // Careers content is CMS-driven: verify either the empty state or the
+    // department filters, depending on whether roles are currently published.
+    const emptyState = page.getByRole("heading", { name: noOpenRoles });
+    const departmentFilters = page.locator(
+      'button[aria-controls="careers-roles-list"]',
+    );
+    await expect
+      .poll(async () => (await emptyState.count()) + (await departmentFilters.count()))
+      .toBeGreaterThan(0);
+
+    if ((await emptyState.count()) > 0) {
+      await expect(emptyState).toBeVisible();
+      await expect(departmentFilters).toHaveCount(0);
+    } else {
+      await expect(departmentFilters.first()).toBeVisible();
+    }
   });
 }

@@ -14,6 +14,7 @@ export type FinishingStandard = {
   title: string;
   body: string;
   certificateLabel: string;
+  certificateUrl?: string;
   image?: string;
   tone?: "plain" | "essential";
 };
@@ -69,28 +70,29 @@ export const finishingCopy: Record<Lang, FinishingCopy> = {
       image: finishingImages.texture,
     },
     standardsEyebrow: "איכות מוכחת",
-    standardsTitle: "עומדים בסטנדרט. בכל שלב.",
+    standardsTitle: "איכות ללא פשרות.",
     standardsBody:
-      "מערכות האיכות והבטיחות שלנו מלוות את העבודה משלב קבלת חומרי הגלם ועד למסירת האריזה המוגמרת. כך אנחנו שומרים על בקרה, עקביות ורציפות תפעולית לאורך כל תהליך הייצור.",
+      "בבארי אריזות, איכות היא הרבה מעבר לעמידה בדרישות — היא תפיסת עולם שמלווה כל מוצר, כל תהליך וכל החלטה.\n\nמערכת האיכות שלנו משלבת בקרה וניטור לאורך כל שלבי הייצור: מבחירת חומרי הגלם, דרך ההדפסה, ההשבחה, החיתוך וההדבקה ועד לבדיקת המוצר המוגמר. כך אנחנו מבטיחים איכות גבוהה, מדויקת ועקבית ופועלים לשיפור מתמיד.",
     standards: [
       {
         code: "ISO 9001:2015",
         title: "ניהול איכות",
         body: "מערכת ניהול איכות שמגדירה בקרה, עקביות ושיפור מתמשך בתהליכי הייצור והשירות.",
-        certificateLabel: "תעודת התקן תתווסף בקרוב",
+        certificateLabel: "לצפייה בתעודת ISO 9001",
+        certificateUrl:
+          "https://cdn.sanity.io/files/4qkb39ql/production/3260a30a73dec6e4df4eb292c0e0a21e9e945d67.pdf",
+        image:
+          "https://cdn.sanity.io/images/4qkb39ql/production/409ecdaec9f4750291ef04fd4121ff4e3b9fa700-1241x1755.png",
       },
       {
         code: "FSSC 22000",
         title: "בטיחות מזון",
         body: "מערכת לניהול בטיחות מזון התומכת בייצור אריזות עבור תעשיות המזון והמשקאות.",
-        certificateLabel: "תעודת התקן תתווסף בקרוב",
-      },
-      {
-        code: "24/6",
-        title: "מפעל חיוני",
-        body: "הכרה המבטאת את היכולת שלנו לשמור על רציפות תפעולית ועל שירות גם בשעת חירום.",
-        certificateLabel: "אישור מפעל חיוני יתווסף בקרוב",
-        tone: "essential",
+        certificateLabel: "לצפייה בתעודת FSSC 22000",
+        certificateUrl:
+          "https://cdn.sanity.io/files/4qkb39ql/production/7a056360827f98a329a0e9847124a43910e6db54.pdf",
+        image:
+          "https://cdn.sanity.io/images/4qkb39ql/production/faeec416a67ca925a40af2d9289e849ce24c87d3-1241x1754.png",
       },
     ],
     ctaTitle: "איזו השבחה מתאימה למוצר שלכם?",
@@ -125,28 +127,29 @@ export const finishingCopy: Record<Lang, FinishingCopy> = {
       image: finishingImages.texture,
     },
     standardsEyebrow: "Proven quality",
-    standardsTitle: "Meeting the standard. At every stage.",
+    standardsTitle: "Quality without compromise.",
     standardsBody:
-      "Our quality and safety systems support the work from incoming materials to delivery of the finished package—maintaining control, consistency and operational continuity throughout production.",
+      "At Beeri Packaging, quality is more than meeting requirements — it guides every product, process and decision.\n\nOur quality system combines control and monitoring throughout production: from raw-material selection through printing, finishing, cutting and gluing to final-product inspection. This is how we deliver consistent, precise quality and keep improving.",
     standards: [
       {
         code: "ISO 9001:2015",
         title: "Quality management",
         body: "A quality-management system built around control, consistency and continuous improvement in production and service.",
-        certificateLabel: "Certificate coming soon",
+        certificateLabel: "View the ISO 9001 certificate",
+        certificateUrl:
+          "https://cdn.sanity.io/files/4qkb39ql/production/3260a30a73dec6e4df4eb292c0e0a21e9e945d67.pdf",
+        image:
+          "https://cdn.sanity.io/images/4qkb39ql/production/409ecdaec9f4750291ef04fd4121ff4e3b9fa700-1241x1755.png",
       },
       {
         code: "FSSC 22000",
         title: "Food safety",
         body: "A food-safety management system supporting packaging production for the food and beverage industries.",
-        certificateLabel: "Certificate coming soon",
-      },
-      {
-        code: "24/6",
-        title: "Essential facility",
-        body: "Recognition of our ability to maintain operational continuity and service during emergencies.",
-        certificateLabel: "Essential-facility certificate coming soon",
-        tone: "essential",
+        certificateLabel: "View the FSSC 22000 certificate",
+        certificateUrl:
+          "https://cdn.sanity.io/files/4qkb39ql/production/7a056360827f98a329a0e9847124a43910e6db54.pdf",
+        image:
+          "https://cdn.sanity.io/images/4qkb39ql/production/faeec416a67ca925a40af2d9289e849ce24c87d3-1241x1754.png",
       },
     ],
     ctaTitle: "Which finish fits your product?",

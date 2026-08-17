@@ -40,8 +40,28 @@ describe("toFinishingCopy", () => {
     expect(result.standards.map((standard) => standard.code)).toEqual([
       "ISO 9001:2015",
       "FSSC 22000",
-      "24/6",
     ]);
+  });
+
+  it("maps a Sanity certificate file to the public certificate link", () => {
+    const result = toFinishingCopy(
+      {
+        standards: [
+          {
+            code: "ISO 9001:2015",
+            title: "Quality management",
+            body: "Certified quality-management system.",
+            certificateLabel: "View certificate",
+            certificateUrl: "https://cdn.sanity.io/files/project/production/iso.pdf",
+          },
+        ],
+      },
+      "en"
+    );
+
+    expect(result.standards[0].certificateUrl).toBe(
+      "https://cdn.sanity.io/files/project/production/iso.pdf"
+    );
   });
 });
 

@@ -334,6 +334,7 @@ export const finishingQuery = defineQuery(`*[_type == "finishing" && language ==
   deboss${ITEM}, texture${ITEM},
   standardsEyebrow, standardsTitle, standardsBody,
   standards[]{ code, title, body, certificateLabel, tone,
+    "certificateUrl": certificate.asset->url,
     "imageUrl": image.asset->url, "imageLegacy": image.legacyImagePath },
   ctaTitle, ctaPrimary, ctaSecondary
 }`);
@@ -358,6 +359,7 @@ function mapItem(i: { eyebrow?: string; title?: string; body?: string; sample?: 
 type FinishingStandardDoc = Partial<
   Pick<FinishingStandard, "code" | "title" | "body" | "certificateLabel" | "tone">
 > & {
+  certificateUrl?: string;
   imageUrl?: string;
   imageLegacy?: string;
 };
@@ -381,6 +383,7 @@ export function toFinishingCopy(doc: Awaited<ReturnType<typeof getFinishing>>, l
           title: standard.title ?? "",
           body: standard.body ?? "",
           certificateLabel: standard.certificateLabel ?? "",
+          certificateUrl: standard.certificateUrl ?? undefined,
           image: standard.imageUrl ?? standard.imageLegacy ?? undefined,
           tone: standard.tone === "essential" ? "essential" : "plain",
         } satisfies FinishingStandard))
