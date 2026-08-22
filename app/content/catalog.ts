@@ -135,35 +135,36 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
         items: [
           {
             key: "serum",
-            name: "קופסת סרום פרימיום",
-            description: "קופסת קרטון קשיח עם מגירה פנימית, חלון שטנץ ופויל — מציגה את מוצר הטיפוח ומגינה עליו על המדף.",
+            name: "מארז פרימיום",
+            description:
+              "קיט מוצרי קוסמטיקה יוקרתי. מיוצר מחומר גלם מתכתי. מודפס בפנטון זהב מטאלי כולל למינציה.",
             image: catalogImages.serum,
             tags: [
-              { label: "פויל זהב", tone: "outline" },
-              { label: "ניתן למיחזור", tone: "cyan" },
+              { label: "למינציה", tone: "outline" },
+              { label: "נייר מתכתי", tone: "cyan" },
             ],
             overlayLabel: "תצוגת שטנץ",
             overlaySpecs: ['סטייה: ±0.1 מ"מ', "חומר: קרטון קשיח"],
           },
           {
             key: "ampoule",
-            name: "מארז אמפולות",
-            description: "מבנה עם חוצץ פנימי וסימון סדרה — שומר על האמפולות במקומן ומתאים לדרישות הפארמה.",
+            name: "מארז שלישיית צנצנות",
+            description:
+              "העיצוב מאפשר זיהוי ברור של המוצרים ממבט ראשון מבלי לפתוח את האריזה.",
             image: catalogImages.ampoule,
             tags: [
-              { label: "סימון סדרה", tone: "outline" },
-              { label: "חוצץ פנימי", tone: "purple" },
+              { label: "קיט מוצר", tone: "outline" },
             ],
             overlayLabel: "קו קיפול",
           },
           {
             key: "cream",
-            name: "מארז צנצנת קרם",
-            description: "אריזת קרטון ממוחזר עם חלון ומגירה — מציגה את צנצנת הקרם ומחזיקה אותה יציב.",
+            name: "מארז צנצנות קוסמטיקה",
+            description:
+              "אריזת קרטון מיועדת לצנצנת קרם עם מבנה המעניק למוצר נראות יוקרתית. ניתן לשלב בהדפסה השבחות כגון פויל זהב או כסף והבלטות.",
             image: catalogImages.cream,
             tags: [
-              { label: "חלון", tone: "outline" },
-              { label: "ממוחזר", tone: "cyan" },
+              { label: "השבחות", tone: "outline" },
             ],
           },
           {
@@ -187,8 +188,9 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
         items: [
           {
             key: "wine-mony",
-            name: "מוני",
-            description: "מארז פרימיום שחור וזהב לבקבוק יחיד, עם נוכחות מתנה אלגנטית והתאמה מדויקת למוצר.",
+            name: "יקב מוני",
+            description:
+              "מארז יין בודד יוקרתי מכסה ותחתית כולל השבחות מותאם למוצר.",
             image: expandedCatalogImages.wineMony,
             tags: [
               { label: "בקבוק יחיד", tone: "outline" },
@@ -197,8 +199,9 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
           },
           {
             key: "wine-barkan",
-            name: "Barkan Altitude",
-            description: "מארז יין שחור מסדרת Altitude, המשלב הגנה לבקבוק עם גימור זהב ונראות יוקרתית.",
+            name: "יקב ברקן",
+            description:
+              "מארז יין שחור מסדרת Altitude בודד יוקרתי מכסה ותחתית כולל השבחות מותאם למוצר.",
             image: expandedCatalogImages.wineBarkan,
             tags: [
               { label: "בקבוק יחיד", tone: "outline" },
@@ -207,42 +210,46 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
           },
           {
             key: "wine-golan",
-            name: "רמת הגולן",
-            description: "מארז שי לבקבוק יין ושתי כוסות, עם חלונות צורניים ומבנה שמציג ומקבע כל פריט.",
+            name: "יקב רמת הגולן",
+            description:
+              "מארז שי לבקבוק יין ושתי כוסות, עם חלונות צורניים ומבנה שמציג ומקבע כל פריט. המארז מודפס על קראפט חום.",
             image: expandedCatalogImages.wineGolan,
             tags: [
               { label: "בקבוק ושתי כוסות", tone: "outline" },
-              { label: "חלונות שטנץ", tone: "cyan" },
+              { label: "קראפט", tone: "cyan" },
             ],
           },
           {
             key: "wine-carmel",
-            name: "Carmel BUZZ",
-            description: "מארז נשיאה לשני בקבוקים ושתי כוסות, בגימור קורל וזהב ובחלון תצוגה רחב.",
+            name: "יקב כרמל",
+            description:
+              "מארז גנארי מיוחד שמותאם למוצרים שונים עם ידית נשיאה פטנט יחודי שלנו.",
             image: expandedCatalogImages.wineCarmel,
             tags: [
-              { label: "שני בקבוקים", tone: "outline" },
-              { label: "ידית נשיאה", tone: "magenta" },
+              { label: "פטנט ידית נשיאה", tone: "outline" },
+              { label: "מארז גנארי", tone: "magenta" },
             ],
           },
           {
             key: "wine-tabor",
-            name: "תבור",
-            description: "מארז קראפט עם ידית לשלושה מוצרים, חלונות אישיים ושפה חומרית טבעית בגוני זית.",
+            name: "יקב תבור",
+            description:
+              "מארז חגיגי למתנה מותאם לכמה מוצרים שונים. זכה בתחרות עיצוב “כוכב ישראל”. מודפס על קראפט חום.",
             image: expandedCatalogImages.wineTabor,
             tags: [
-              { label: "יין ושמן זית", tone: "outline" },
-              { label: "קרטון קראפט", tone: "cyan" },
+              { label: "מארז גנארי", tone: "outline" },
+              { label: "קראפט", tone: "cyan" },
             ],
           },
           {
             key: "wine-recanati",
-            name: "רקנאטי",
-            description: "מארז מתנה לשני בקבוקים ושתי כוסות, עם חלון רחב, ידית וגימור קראפט־זהב.",
+            name: "יקב רקנאטי",
+            description:
+              "מארז מיוחד לשני בקבוקים ושתי כוסות עם חלון תצוגה פתוחה של המוצרים בחיתוך מיוחד.",
             image: expandedCatalogImages.wineRecanati,
             tags: [
               { label: "שני בקבוקים ושתי כוסות", tone: "outline" },
-              { label: "חלון תצוגה", tone: "purple" },
+              { label: "קראפט חום", tone: "purple" },
             ],
           },
         ],
@@ -256,45 +263,46 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
         items: [
           {
             key: "coffee-elite",
-            name: "קפסולות עלית",
+            name: "קפה עלית שטראוס",
             description:
-              "אריזת קרטון ממותגת לקפסולות קפה, המשלבת הגנה על המוצר, נוכחות מדף ברורה ומבנה נוח לשימוש.",
+              "אריזת קרטון ממותגת לקפסולות קפה, כוללת השבחות עם פתיחה מיוחדת וקלה לצרכן בעלת נוכחות מדף.",
             image: coffeeImages.elite,
             tags: [
-              { label: "קפסולות", tone: "outline" },
-              { label: "קרטון מודפס", tone: "cyan" },
+              { label: "קפה", tone: "outline" },
+              { label: "קפסולות", tone: "cyan" },
             ],
           },
           {
             key: "coffee-aroma",
-            name: "דיספליי ארומה",
+            name: "קפה ארומה",
             description:
-              "מארז תצוגה קמעונאי שמחזיק סדרת קופסאות קפסולות ומציג אותה כיחידה אחת מסודרת ובולטת בנקודת המכירה.",
+              "סט מארז לקפסולות כולל דיספליי עם בולטות בנקודת המכירה.",
             image: coffeeImages.aroma,
             tags: [
-              { label: "דיספליי", tone: "outline" },
-              { label: "מארז קד״מ", tone: "magenta" },
+              { label: "קפה", tone: "outline" },
+              { label: "דיספליי", tone: "magenta" },
             ],
           },
           {
             key: "coffee-joe",
             name: "קפה ג׳ו",
             description:
-              "סדרת אריזות לקפסולות במבנה אחיד ובמגוון גרסאות, המאפשרת בידול ברור בין תערובות וטעמים תוך שמירה על שפה מותגית עקבית.",
+              "סדרת אריזות לקפסולות קפה כולל השבחות של לכה סלקטיבית והטבעה עם בידול גרפי מותאם ללקוח, בסוגים שונים של טעמי קפה.",
             image: coffeeImages.joe,
             tags: [
-              { label: "סדרת מוצרים", tone: "outline" },
-              { label: "מגוון גרסאות", tone: "purple" },
+              { label: "קפה", tone: "outline" },
+              { label: "השבחות", tone: "purple" },
             ],
           },
           {
             key: "coffee-tasters-choice",
-            name: "Taster’s Choice",
-            description: "מארז קפה מוכן למתנה המשלב צנצנת קפה וכוס נסיעות בחלון תצוגה כחול ובולט.",
+            name: "נסטלה / אסם",
+            description:
+              "מארז Taster’s Choice וכוס מתנה.",
             image: expandedCatalogImages.coffeeTastersChoice,
             tags: [
-              { label: "מארז מתנה", tone: "outline" },
-              { label: "חלון תצוגה", tone: "cyan" },
+              { label: "מארז קפה", tone: "outline" },
+              { label: "מארז מתנה", tone: "cyan" },
             ],
           },
         ],
@@ -310,44 +318,40 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
             key: "beer-malka",
             name: "בירה מלכה",
             description:
-              "מארז קרטון לארבעה בקבוקים וכוס, עם חלונות צורניים שמציגים את המוצרים ושומרים אותם כיחידת מתנה אחת.",
+              "מארז לארבעה בקבוקי בירה וכוס, עם חלונות שמציגים את המוצרים.",
             image: beerImages.malka,
             tags: [
-              { label: "מארז מתנה", tone: "outline" },
-              { label: "חלונות שטנץ", tone: "cyan" },
+              { label: "מארזי בירה", tone: "outline" },
             ],
           },
           {
             key: "beer-goldstar",
-            name: "שישיית גולדסטאר",
+            name: "טמפו",
             description:
-              "מארז נשיאה ממותג לשישה בקבוקים, עם ידית מובנית ומבנה שמחזיק את הבקבוקים יחד מהמדף ועד הבית.",
+              "מאגדת שישיות בירה גולדסטאר.",
             image: beerImages.goldstar,
             tags: [
-              { label: "שישיית בקבוקים", tone: "outline" },
-              { label: "ידית נשיאה", tone: "magenta" },
+              { label: "מארזי בירה", tone: "outline" },
             ],
           },
           {
             key: "beer-carlsberg",
-            name: "שישיית קרלסברג",
+            name: "החברה המרכזית / קרלסברג",
             description:
-              "מארז קרטון מודפס לשישה בקבוקים, המתאים להפצה קמעונאית ומעניק למותג נראות ברורה מכל צד.",
+              "מאגדת שישיות קרלסברג כולל השבחות. המאגדת חובקת שישה בקבוקי בירה.",
             image: beerImages.carlsberg,
             tags: [
-              { label: "קרטון מודפס", tone: "outline" },
-              { label: "אריזה קמעונאית", tone: "purple" },
+              { label: "מאגדות בירה", tone: "outline" },
             ],
           },
           {
             key: "beer-tuborg",
-            name: "שישיית טובורג",
+            name: "החברה המרכזית / קרלסברג",
             description:
-              "מארז נשיאה צבעוני לשישה בקבוקים, המשלב מבנה חסכוני בקרטון עם שטח מיתוג רחב ונוכחות מדף גבוהה.",
+              "מאגדת שישיות טובורג כולל השבחות. המאגדת חובקת שישה בקבוקי בירה.",
             image: beerImages.tuborg,
             tags: [
-              { label: "מארז נשיאה", tone: "outline" },
-              { label: "נוכחות מדף", tone: "cyan" },
+              { label: "מאגדות בירה", tone: "outline" },
             ],
           },
         ],
@@ -361,12 +365,12 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
         items: [
           {
             key: "beverage-wissotzky",
-            name: "השבחות ויסוצקי",
-            description: "צילום תקריב המדגים הבלטה, פויל ועושר דפוס על גבי מארז תה ממותג.",
+            name: "תה ויסוצקי",
+            description:
+              "אריזת תה מיוחדת ליצוא הכוללת השבחות מיוחדות המבליטות את האריזה.",
             image: expandedCatalogImages.beverageWissotzky,
             tags: [
-              { label: "הבלטה", tone: "outline" },
-              { label: "פויל", tone: "magenta" },
+              { label: "השבחות", tone: "outline" },
             ],
           },
           {
@@ -375,8 +379,7 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
             description: "אריזה קמעונאית לשני בקבוקים, המשלבת קרטון מודפס עם מעטפת שקופה להצגת המוצר.",
             image: expandedCatalogImages.beverageSodastream,
             tags: [
-              { label: "שני בקבוקים", tone: "outline" },
-              { label: "חלון שקוף", tone: "cyan" },
+              { label: "חבק לבקבוקים", tone: "outline" },
             ],
           },
           {
@@ -408,35 +411,36 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
         items: [
           {
             key: "serum",
-            name: "Premium serum box",
-            description: "Rigid carton box with an inner drawer, die-cut window and foil — presents the skincare product and protects it on the shelf.",
+            name: "Premium pack",
+            description:
+              "A luxury cosmetics product kit. Made from metallised board, printed in metallic gold Pantone with lamination.",
             image: catalogImages.serum,
             tags: [
-              { label: "Gold foil", tone: "outline" },
-              { label: "Recyclable", tone: "cyan" },
+              { label: "Lamination", tone: "outline" },
+              { label: "Metallised paper", tone: "cyan" },
             ],
             overlayLabel: "Die view",
             overlaySpecs: ["Tolerance: ±0.1 mm", "Material: rigid board"],
           },
           {
             key: "ampoule",
-            name: "Ampoule pack",
-            description: "Structure with an inner divider and series marking — holds the ampoules in place and meets pharma requirements.",
+            name: "Three-jar pack",
+            description:
+              "The design makes the products clearly identifiable at a glance, without opening the pack.",
             image: catalogImages.ampoule,
             tags: [
-              { label: "Series marking", tone: "outline" },
-              { label: "Inner divider", tone: "purple" },
+              { label: "Product kit", tone: "outline" },
             ],
             overlayLabel: "Fold line",
           },
           {
             key: "cream",
-            name: "Cream jar pack",
-            description: "Recycled carton pack with a window and drawer — presents the cream jar and holds it steady.",
+            name: "Cosmetics jar pack",
+            description:
+              "A carton pack built for a cream jar, with a structure that gives the product a premium presence. Print finishes such as gold or silver foil and embossing can be combined.",
             image: catalogImages.cream,
             tags: [
-              { label: "Window", tone: "outline" },
-              { label: "Recycled", tone: "cyan" },
+              { label: "Finishes", tone: "outline" },
             ],
           },
           {
@@ -460,8 +464,9 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
         items: [
           {
             key: "wine-mony",
-            name: "Mony",
-            description: "A black-and-gold premium carton for one bottle, combining precise product fit with an elegant gift presentation.",
+            name: "Mony Winery",
+            description:
+              "A premium single-bottle wine pack with lid and base, including finishes fitted to the product.",
             image: expandedCatalogImages.wineMony,
             tags: [
               { label: "Single bottle", tone: "outline" },
@@ -470,8 +475,9 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
           },
           {
             key: "wine-barkan",
-            name: "Barkan Altitude",
-            description: "A black Altitude-series wine carton combining bottle protection, gold detailing and a premium shelf presence.",
+            name: "Barkan Winery",
+            description:
+              "A premium single-bottle black wine pack from the Altitude series, with lid and base, including finishes fitted to the product.",
             image: expandedCatalogImages.wineBarkan,
             tags: [
               { label: "Single bottle", tone: "outline" },
@@ -480,42 +486,46 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
           },
           {
             key: "wine-golan",
-            name: "Golan Heights",
-            description: "A one-bottle and two-glass gift carton with shaped windows that present and secure each item.",
+            name: "Golan Heights Winery",
+            description:
+              "A gift pack for a wine bottle and two glasses, with shaped windows and a structure that presents and secures each item. Printed on brown kraft.",
             image: expandedCatalogImages.wineGolan,
             tags: [
               { label: "Bottle + two glasses", tone: "outline" },
-              { label: "Die-cut windows", tone: "cyan" },
+              { label: "Kraft", tone: "cyan" },
             ],
           },
           {
             key: "wine-carmel",
-            name: "Carmel BUZZ",
-            description: "A handled gift carton for two bottles and two glasses, finished in coral and gold with a broad display window.",
+            name: "Carmel Winery",
+            description:
+              "A special generic pack adapted to different products, with a carry handle of our own unique patent.",
             image: expandedCatalogImages.wineCarmel,
             tags: [
-              { label: "Two bottles", tone: "outline" },
-              { label: "Carry handle", tone: "magenta" },
+              { label: "Patented carry handle", tone: "outline" },
+              { label: "Generic pack", tone: "magenta" },
             ],
           },
           {
             key: "wine-tabor",
             name: "Tabor Winery",
-            description: "A handled kraft carrier for three products, with individual windows and a natural olive-toned material language.",
+            description:
+              "A festive gift pack fitted to several different products. Winner of the “Star of Israel” design award. Printed on brown kraft.",
             image: expandedCatalogImages.wineTabor,
             tags: [
-              { label: "Wine & olive oil", tone: "outline" },
-              { label: "Kraft carton", tone: "cyan" },
+              { label: "Generic pack", tone: "outline" },
+              { label: "Kraft", tone: "cyan" },
             ],
           },
           {
             key: "wine-recanati",
             name: "Recanati Winery",
-            description: "A two-bottle and two-glass gift pack with a broad display window, handle and kraft-and-gold finish.",
+            description:
+              "A special pack for two bottles and two glasses, with an open display window revealing the products through a special die-cut.",
             image: expandedCatalogImages.wineRecanati,
             tags: [
               { label: "Two bottles + glasses", tone: "outline" },
-              { label: "Display window", tone: "purple" },
+              { label: "Brown kraft", tone: "purple" },
             ],
           },
         ],
@@ -529,45 +539,46 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
         items: [
           {
             key: "coffee-elite",
-            name: "Elite capsules",
+            name: "Elite Strauss coffee",
             description:
-              "A branded folding carton for coffee capsules, combining product protection, clear shelf presence and a practical structure for everyday use.",
+              "A branded carton pack for coffee capsules, with finishes and a special consumer-friendly opening, and strong shelf presence.",
             image: coffeeImages.elite,
             tags: [
-              { label: "Capsules", tone: "outline" },
-              { label: "Printed carton", tone: "cyan" },
+              { label: "Coffee", tone: "outline" },
+              { label: "Capsules", tone: "cyan" },
             ],
           },
           {
             key: "coffee-aroma",
-            name: "Aroma display",
+            name: "Aroma coffee",
             description:
-              "A retail display pack that holds a capsule-carton range and presents it as one organized, high-visibility unit at the point of sale.",
+              "A capsule pack set including a display that stands out at the point of sale.",
             image: coffeeImages.aroma,
             tags: [
-              { label: "Display", tone: "outline" },
-              { label: "Promotional pack", tone: "magenta" },
+              { label: "Coffee", tone: "outline" },
+              { label: "Display", tone: "magenta" },
             ],
           },
           {
             key: "coffee-joe",
             name: "Coffee Joe",
             description:
-              "A consistent capsule-carton structure across multiple variants, making blends and flavors easy to distinguish while maintaining a unified brand language.",
+              "A series of coffee-capsule packs with spot-varnish and embossing finishes and client-tailored graphic differentiation, across different coffee flavours.",
             image: coffeeImages.joe,
             tags: [
-              { label: "Product range", tone: "outline" },
-              { label: "Multiple variants", tone: "purple" },
+              { label: "Coffee", tone: "outline" },
+              { label: "Finishes", tone: "purple" },
             ],
           },
           {
             key: "coffee-tasters-choice",
-            name: "Taster’s Choice",
-            description: "A ready-to-gift coffee pack combining a coffee jar and travel cup in a bright blue display-window carton.",
+            name: "Nestlé / Osem",
+            description:
+              "A Taster’s Choice pack with a gift mug.",
             image: expandedCatalogImages.coffeeTastersChoice,
             tags: [
-              { label: "Gift pack", tone: "outline" },
-              { label: "Display window", tone: "cyan" },
+              { label: "Coffee pack", tone: "outline" },
+              { label: "Gift pack", tone: "cyan" },
             ],
           },
         ],
@@ -583,44 +594,40 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
             key: "beer-malka",
             name: "Malka beer",
             description:
-              "A carton gift carrier for four bottles and a glass, with shaped windows that present the products while holding them as one set.",
+              "A pack for four beer bottles and a glass, with windows that display the products.",
             image: beerImages.malka,
             tags: [
-              { label: "Gift pack", tone: "outline" },
-              { label: "Die-cut windows", tone: "cyan" },
+              { label: "Beer packs", tone: "outline" },
             ],
           },
           {
             key: "beer-goldstar",
-            name: "Goldstar six-pack",
+            name: "Tempo",
             description:
-              "A branded carrier for six bottles, with an integrated handle and a structure that keeps the bottles together from shelf to home.",
+              "A six-pack wrap for Goldstar beer.",
             image: beerImages.goldstar,
             tags: [
-              { label: "Six bottles", tone: "outline" },
-              { label: "Carry handle", tone: "magenta" },
+              { label: "Beer packs", tone: "outline" },
             ],
           },
           {
             key: "beer-carlsberg",
-            name: "Carlsberg six-pack",
+            name: "Central Bottling Company / Carlsberg",
             description:
-              "A printed carton carrier for six bottles, built for retail distribution with clear brand visibility from every side.",
+              "A Carlsberg six-pack wrap including finishes. The wrap holds six beer bottles.",
             image: beerImages.carlsberg,
             tags: [
-              { label: "Printed carton", tone: "outline" },
-              { label: "Retail pack", tone: "purple" },
+              { label: "Beer wraps", tone: "outline" },
             ],
           },
           {
             key: "beer-tuborg",
-            name: "Tuborg six-pack",
+            name: "Central Bottling Company / Carlsberg",
             description:
-              "A high-impact six-bottle carrier combining an efficient carton structure with a broad branded surface and strong shelf presence.",
+              "A Tuborg six-pack wrap including finishes. The wrap holds six beer bottles.",
             image: beerImages.tuborg,
             tags: [
-              { label: "Bottle carrier", tone: "outline" },
-              { label: "Shelf presence", tone: "cyan" },
+              { label: "Beer wraps", tone: "outline" },
             ],
           },
         ],
@@ -634,12 +641,12 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
         items: [
           {
             key: "beverage-wissotzky",
-            name: "Wissotzky finishing",
-            description: "A close-up view of embossing, foil and rich print detail on a branded tea carton.",
+            name: "Wissotzky tea",
+            description:
+              "A special export tea pack with distinctive finishes that make the packaging stand out.",
             image: expandedCatalogImages.beverageWissotzky,
             tags: [
-              { label: "Embossing", tone: "outline" },
-              { label: "Foil", tone: "magenta" },
+              { label: "Finishes", tone: "outline" },
             ],
           },
           {
@@ -648,8 +655,7 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
             description: "A retail pack for two bottles, combining printed carton with a clear sleeve that keeps the product visible.",
             image: expandedCatalogImages.beverageSodastream,
             tags: [
-              { label: "Two bottles", tone: "outline" },
-              { label: "Clear window", tone: "cyan" },
+              { label: "Bottle wrap", tone: "outline" },
             ],
           },
           {

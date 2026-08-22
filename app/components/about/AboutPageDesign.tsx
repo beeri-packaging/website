@@ -110,7 +110,9 @@ export function AboutPageDesign({ copy, lang }: { copy: AboutCopy; lang: Lang })
             </h2>
             <div className="mt-5 flex max-w-[620px] flex-col gap-4 font-sans text-[16px] leading-[1.56] text-clay">
               {heritageParagraphs.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
+                <p key={paragraph} className="text-pretty">
+                  {paragraph}
+                </p>
               ))}
             </div>
             <a
