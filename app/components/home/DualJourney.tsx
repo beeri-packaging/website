@@ -24,7 +24,7 @@ export function DualJourney({ lang, t, panels }: { lang: Lang; t: HomeCopy; pane
             {t.journeyTitle}
           </h2>
         </div>
-        <p className="max-w-[535px] font-sans text-clay text-[16px] sm:text-[18px] md:text-[19px] lg:text-[18px] xl:text-[20px] leading-[1.5] md:px-6 lg:px-[72px]">
+        <p className="w-full max-w-[620px] font-sans text-clay text-[16px] sm:text-[18px] md:text-[19px] lg:text-[18px] xl:text-[20px] leading-[1.5] md:px-6 lg:ps-[72px] lg:pe-8">
           {t.journeyDesc}
         </p>
       </div>
@@ -131,7 +131,7 @@ function JourneyCard({
         } transition-colors duration-700 group-hover:bg-transparent`}
       />
       <div
-        className={`absolute inset-0 flex flex-col justify-end px-6 sm:px-10 md:px-12 lg:px-[72px] pb-12 sm:pb-16 md:pb-[80px] lg:pb-[100px] ${
+        className={`absolute inset-0 flex flex-col justify-end px-6 sm:px-10 md:px-12 lg:px-[72px] pb-12 sm:pb-16 md:pb-[136px] lg:pb-[156px] ${
           isDark
             ? "bg-gradient-to-t from-ink via-ink/55 to-transparent"
             : "bg-gradient-to-t from-bone via-bone/65 to-transparent"
