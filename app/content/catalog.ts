@@ -109,6 +109,8 @@ export const expandedCatalogImages = {
     "https://cdn.sanity.io/images/4qkb39ql/production/04c75762d6674599e12f28d0dfc42f1184de3707-1254x1254.png",
   wineRecanati:
     "https://cdn.sanity.io/images/4qkb39ql/production/a474f3063ab86f1230adeaed49244ee3433f90d1-1254x1254.png",
+  wineYatir:
+    "https://cdn.sanity.io/images/4qkb39ql/production/997baafbbb7e26dcb9f32825a2c6af25c2d4bc63-3307x3307.jpg",
   coffeeTastersChoice:
     "https://cdn.sanity.io/images/4qkb39ql/production/dd9f9e5a5e122390230acaf7f8125b13424d16c9-1254x1254.png",
   beverageWissotzky:
@@ -183,7 +185,7 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
         key: "spirits",
         number: "02",
         name: "יין ומשקאות",
-        count: "6 פריטים",
+        count: "7 פריטים",
         layout: "grid",
         items: [
           {
@@ -251,6 +253,14 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
               { label: "שני בקבוקים ושתי כוסות", tone: "outline" },
               { label: "קראפט חום", tone: "purple" },
             ],
+          },
+          {
+            key: "wine-yatir",
+            name: "יקב יתיר",
+            description:
+              "מארז יתיר ייחודי לשני בקבוקי יין ושתי כוסות, הכולל השבחות והבלטות בלוגו האריה המיוחד של היקב.",
+            image: expandedCatalogImages.wineYatir,
+            tags: [{ label: "השבחות", tone: "outline" }],
           },
         ],
       },
@@ -360,7 +370,7 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
         key: "beverages",
         number: "05",
         name: "תה ומשקאות",
-        count: "3 פריטים",
+        count: "2 פריטים",
         layout: "grid",
         items: [
           {
@@ -380,16 +390,6 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
             image: expandedCatalogImages.beverageSodastream,
             tags: [
               { label: "חבק לבקבוקים", tone: "outline" },
-            ],
-          },
-          {
-            key: "beverage-finishing",
-            name: "גימור צורני",
-            description: "תקריב חומר המדגים חיתוך צורני, צבע מדויק ושילוב אלמנטים מודפסים על קרטון בהיר.",
-            image: expandedCatalogImages.beverageFinishing,
-            tags: [
-              { label: "חיתוך צורני", tone: "outline" },
-              { label: "גימור מדויק", tone: "purple" },
             ],
           },
         ],
@@ -459,7 +459,7 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
         key: "spirits",
         number: "02",
         name: "Wine & spirits",
-        count: "6 items",
+        count: "7 items",
         layout: "grid",
         items: [
           {
@@ -527,6 +527,14 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
               { label: "Two bottles + glasses", tone: "outline" },
               { label: "Brown kraft", tone: "purple" },
             ],
+          },
+          {
+            key: "wine-yatir",
+            name: "Yatir Winery",
+            description:
+              "A distinctive Yatir package for two wine bottles and two glasses, featuring premium finishes and embossing of the winery’s signature lion logo.",
+            image: expandedCatalogImages.wineYatir,
+            tags: [{ label: "Finishes", tone: "outline" }],
           },
         ],
       },
@@ -636,7 +644,7 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
         key: "beverages",
         number: "05",
         name: "Tea & beverages",
-        count: "3 items",
+        count: "2 items",
         layout: "grid",
         items: [
           {
@@ -656,16 +664,6 @@ export const catalogCopy: Record<Lang, CatalogCopy> = {
             image: expandedCatalogImages.beverageSodastream,
             tags: [
               { label: "Bottle wrap", tone: "outline" },
-            ],
-          },
-          {
-            key: "beverage-finishing",
-            name: "Shaped finishing",
-            description: "A material close-up demonstrating shaped cutting, precise color and layered print details on pale carton.",
-            image: expandedCatalogImages.beverageFinishing,
-            tags: [
-              { label: "Shaped cut", tone: "outline" },
-              { label: "Precision finish", tone: "purple" },
             ],
           },
         ],
