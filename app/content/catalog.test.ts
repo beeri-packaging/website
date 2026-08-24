@@ -36,6 +36,7 @@ describe("catalogCopy", () => {
         "wine-carmel",
         "wine-tabor",
         "wine-recanati",
+        "wine-yatir",
       ]);
     }
   });
@@ -61,7 +62,6 @@ describe("catalogCopy", () => {
       expect(category?.items.map((item) => item.key)).toEqual([
         "beverage-wissotzky",
         "beverage-sodastream",
-        "beverage-finishing",
       ]);
     }
   });

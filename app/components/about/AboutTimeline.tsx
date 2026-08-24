@@ -1,7 +1,7 @@
 import type { AboutMilestone } from "@/app/content/about";
 
 /**
- * Dark "blueprint" milestone band (Figma node 582:110). Five dotted columns
+ * Dark "blueprint" milestone band (Figma node 582:110). Three dotted columns
  * on desktop, a stacked list on mobile. The sequence inherits the page
  * direction, so it reads right→left in Hebrew and left→right in English
  * without extra logic.
@@ -35,7 +35,7 @@ export function AboutTimeline({
             className="absolute inset-x-0 top-[5px] hidden h-px bg-gradient-to-r from-transparent via-cyan/40 to-transparent md:block"
             aria-hidden
           />
-          <ol className="grid gap-10 md:grid-cols-5 md:gap-x-6">
+          <ol className="grid gap-10 md:grid-cols-3 md:gap-x-10">
             {milestones.map((m) => (
               <li key={m.year} className="reveal relative text-start">
                 <span

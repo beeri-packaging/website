@@ -125,16 +125,22 @@ export function CatalogProductDialog({
           ) : null}
         </DialogMain>
 
-        <DialogAside className="bg-sand">
+        <DialogAside className="bg-gradient-to-br from-sand via-bone-warm to-rule">
           {item?.image ? (
-            <div className="relative h-full min-h-[320px]">
-              <Image
-                src={item.image}
-                alt={item.name}
-                fill
-                sizes="(min-width: 768px) 44vw, 100vw"
-                className="object-cover"
-              />
+            // The panel is portrait but the product shots are landscape, so
+            // `cover` sliced the pack in half. `contain` shows the whole photo;
+            // the padded wrapper keeps it off the panel edges, and the sand
+            // background fills whatever the image does not.
+            <div className="h-full min-h-[320px] p-6 sm:p-8">
+              <div className="relative size-full border border-ink/15 bg-bone/40 shadow-[0_1px_16px_rgba(27,28,26,0.10)]">
+                <Image
+                  src={item.image}
+                  alt={item.name}
+                  fill
+                  sizes="(min-width: 768px) 44vw, 100vw"
+                  className="object-contain"
+                />
+              </div>
             </div>
           ) : null}
         </DialogAside>

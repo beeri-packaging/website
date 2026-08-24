@@ -80,9 +80,15 @@ function CategoryHeader({ category }: { category: CatalogCategory }) {
 function GridCard({
   item,
   categoryName,
+  sizes,
+  paired = false,
 }: {
   item: CatalogItem;
   categoryName: string;
+  /** Matches the category's column count so the CDN serves the right width. */
+  sizes: string;
+  /** Paired (two-across) cards use a shorter photo so they don't tower. */
+  paired?: boolean;
 }) {
   return (
     // The card is a subgrid over four of the parent's row tracks — photo, name,
@@ -91,18 +97,28 @@ function GridCard({
     // neighbours': every band starts on the same baseline across the row.
     <article className="group relative row-span-4 grid grid-rows-subgrid overflow-hidden border border-ink bg-bone text-start shadow-[4px_4px_0_0_var(--ink)] transition-transform duration-300 hover:-translate-y-0.5">
       <ProductOpenButton item={item} categoryName={categoryName} />
-      <div className="relative aspect-square border-b border-ink bg-sand">
+      <div
+        className={`relative border-b border-ink bg-sand ${
+          paired ? "aspect-square lg:aspect-[4/3]" : "aspect-square"
+        }`}
+      >
         {item.image ? (
           <Image
             src={item.image}
             alt={item.name}
             fill
-            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+            sizes={sizes}
             className="object-cover"
           />
         ) : null}
       </div>
-      <h3 className="px-6 font-display text-[44px] leading-[0.92] text-ink sm:text-[56px] lg:text-[64px]">
+      <h3
+        className={`px-6 font-display leading-[0.92] text-ink ${
+          paired
+            ? "text-[40px] sm:text-[48px] lg:text-[52px]"
+            : "text-[44px] sm:text-[56px] lg:text-[64px]"
+        }`}
+      >
         {item.name}
       </h3>
       <p className="px-6 font-sans text-[16px] font-light leading-[25px] text-clay">
@@ -231,19 +247,31 @@ function ModularCard({ item }: { item: CatalogItem }) {
 }
 
 function CategorySection({ category }: { category: CatalogCategory }) {
+  // Three across for 3- and 6-item categories, two for the rest. A four-across
+  // row leaves each name a quarter of the width, which wraps long ones such as
+  // "החברה המרכזית / קרלסברג" over three lines; pairing them doubles the room.
+  const triple = category.items.length === 3 || category.items.length === 6;
+  const gridSizes = triple
+    ? "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+    : "(min-width: 640px) 50vw, 100vw";
+
   return (
     <section className={`${SECTION} mt-20 sm:mt-28`}>
       <CategoryHeader category={category} />
       {category.layout === "grid" ? (
         <div
           className={`reveal mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 ${
-            category.items.length === 3 || category.items.length === 6
-              ? "lg:grid-cols-3"
-              : "lg:grid-cols-4"
+            triple ? "lg:grid-cols-3" : "lg:grid-cols-2"
           }`}
         >
           {category.items.map((item) => (
-            <GridCard key={item.key} item={item} categoryName={category.name} />
+            <GridCard
+              key={item.key}
+              item={item}
+              categoryName={category.name}
+              sizes={gridSizes}
+              paired={!triple}
+            />
           ))}
         </div>
       ) : null}
