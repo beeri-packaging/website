@@ -3,17 +3,9 @@
 // localized Sanity catalog documents.
 //
 // Run:
-//   npx tsx scripts/apply-catalog-yatir-2026-08-24.ts /absolute/path/to/image.jpg
+//   npx tsx scripts/apply-catalog-yatir-2026-08-24.ts
 
-import { readFileSync } from "node:fs";
-import path from "node:path";
 import { writeClient } from "./lib/sanity-write-client";
-
-const imagePath = process.argv[2];
-
-if (!imagePath || !path.isAbsolute(imagePath)) {
-  throw new Error("Pass the Yatir replacement image as an absolute path");
-}
 
 type CatalogItem = {
   _key: string;
@@ -36,14 +28,14 @@ const oldItemKey = "beverage-finishing";
 const newItemKey = "wine-yatir";
 const sourceCategoryKey = "beverages";
 const targetCategoryKey = "spirits";
-const filename = "yatir-darom-two-bottles-and-glasses.jpg";
+const filename = "beeri-catalog-beverage-finishing-ai.png";
 
 const localized = {
   he: {
     name: "יקב יתיר",
     description:
       "מארז יתיר ייחודי לשני בקבוקי יין ושתי כוסות, הכולל השבחות והבלטות בלוגו האריה המיוחד של היקב.",
-    alt: "מארז יקב יתיר לשני בקבוקי יין ושתי כוסות",
+    alt: "תקריב השבחות והבלטות בלוגו האריה של יקב יתיר",
     tag: "השבחות",
     sourceCount: "2 פריטים",
     targetCount: "7 פריטים",
@@ -52,7 +44,7 @@ const localized = {
     name: "Yatir Winery",
     description:
       "A distinctive Yatir package for two wine bottles and two glasses, featuring premium finishes and embossing of the winery’s signature lion logo.",
-    alt: "Yatir Winery package for two wine bottles and two glasses",
+    alt: "Close-up of finishes and embossing on Yatir Winery’s lion logo",
     tag: "Finishes",
     sourceCount: "2 items",
     targetCount: "7 items",
@@ -60,13 +52,11 @@ const localized = {
 } as const;
 
 async function main() {
-  const existingAsset = await writeClient.fetch<{ _id: string; url: string } | null>(
+  const asset = await writeClient.fetch<{ _id: string; url: string } | null>(
     `*[_type == "sanity.imageAsset" && originalFilename == $filename] | order(_createdAt desc)[0]{ _id, url }`,
     { filename },
   );
-  const asset =
-    existingAsset ??
-    (await writeClient.assets.upload("image", readFileSync(imagePath), { filename }));
+  if (!asset) throw new Error(`Existing catalog image not found: ${filename}`);
 
   for (const locale of locales) {
     const documentId = `catalog-${locale}`;
