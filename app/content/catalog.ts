@@ -110,7 +110,7 @@ export const expandedCatalogImages = {
   wineRecanati:
     "https://cdn.sanity.io/images/4qkb39ql/production/a474f3063ab86f1230adeaed49244ee3433f90d1-1254x1254.png",
   wineYatir:
-    "https://cdn.sanity.io/images/4qkb39ql/production/997baafbbb7e26dcb9f32825a2c6af25c2d4bc63-3307x3307.jpg",
+    "https://cdn.sanity.io/images/4qkb39ql/production/9287e39ad972889b20ed68e0d1118a5043ea4c36-1254x1254.png",
   coffeeTastersChoice:
     "https://cdn.sanity.io/images/4qkb39ql/production/dd9f9e5a5e122390230acaf7f8125b13424d16c9-1254x1254.png",
   beverageWissotzky:
