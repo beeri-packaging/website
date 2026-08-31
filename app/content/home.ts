@@ -222,11 +222,12 @@ export const homeImages = {
   hero: "/images/figma/hero-bg.png",
   // The journey panels fill near-full-viewport on desktop, so they need
   // high-resolution sources. The /generated/timeline/ shots (1456×1080)
-  // cover the heritage thread; vertical-2x3 product crops (1024×1536)
-  // cover the customer thread and match the cards' tall aspect ratio.
+  // cover the heritage thread; the customer thread uses product shots tall
+  // enough (or square, cropped by object-cover) for the cards' tall frame.
   journeyHeritage: "/images/generated/timeline/beeri-history.png",
-  journeyCustomer:
-    "/images/generated/imagegen-real-products-vertical-2x3/blue-moon-imagegen-ambience-v2-vertical-2x3.webp",
+  // Mirrors the Moroccanoil asset the CMS serves for this panel, so the
+  // fallback render matches the live one.
+  journeyCustomer: "/images/generated/catalog/moroccanoil-gift-pack.webp",
   journeyGrowth: "/images/generated/timeline/beeri-growth.png",
   journeyDeveloping:
     "/images/generated/client-feedback-2026-07-08/coffee-solution-development.webp",
