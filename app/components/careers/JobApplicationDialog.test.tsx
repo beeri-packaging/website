@@ -10,10 +10,18 @@ import type { CareerRole } from "@/app/content/careers";
 vi.mock("@/app/actions/jobApplication", () => ({
   submitJobApplication: vi.fn(async () => ({ ok: true })),
 }));
+vi.mock("@/app/actions/prepareCvUpload", () => ({ prepareCvUpload: vi.fn() }));
+vi.mock("@vercel/blob/client", () => ({ put: vi.fn() }));
+import { prepareCvUpload } from "@/app/actions/prepareCvUpload";
+import { put } from "@vercel/blob/client";
 import { submitJobApplication } from "@/app/actions/jobApplication";
 import { MAX_CV_BYTES } from "@/lib/cv-upload";
 
 beforeEach(() => {
+  vi.mocked(prepareCvUpload).mockReset().mockResolvedValue({ ok: true, upload: {
+    pathname: "cv-uploads/example.pdf", contentType: "application/pdf", clientToken: "scoped-token", receipt: "signed-receipt",
+  } });
+  vi.mocked(put).mockReset().mockResolvedValue({ url: "private-upload", downloadUrl: "private-upload", pathname: "cv-uploads/example.pdf", contentType: "application/pdf", contentDisposition: "attachment", etag: "etag" });
   vi.mocked(submitJobApplication).mockReset().mockResolvedValue({ ok: true });
 });
 
@@ -47,6 +55,35 @@ function open() {
 }
 
 describe("JobApplicationDialog", () => {
+  it("uploads 10 MB directly and submits only the receipt to the action", async () => {
+    open();
+    fireEvent.change(screen.getByLabelText(he.form.name.label), { target: { value: "Test Applicant" } });
+    fireEvent.change(screen.getByLabelText(he.form.phone.label), { target: { value: "0501234567" } });
+    fireEvent.change(screen.getByLabelText(he.form.email.label), { target: { value: "test@example.com" } });
+    const file = new File([new Uint8Array(MAX_CV_BYTES)], "resume.pdf", { type: "application/pdf" });
+    fireEvent.change(screen.getByLabelText(he.form.cv.label), { target: { files: [file] } });
+    fireEvent.click(screen.getByRole("button", { name: he.form.submit }));
+    expect(await screen.findByText(he.success.title)).toBeInTheDocument();
+    expect(prepareCvUpload).toHaveBeenCalledWith(expect.any(FormData), "resume.pdf", MAX_CV_BYTES);
+    expect(put).toHaveBeenCalledWith("cv-uploads/example.pdf", file, expect.objectContaining({ access: "private", token: "scoped-token" }));
+    const data = vi.mocked(submitJobApplication).mock.calls[0][0];
+    expect(data.has("cv")).toBe(false);
+    expect(data.get("cvReceipt")).toBe("signed-receipt");
+  });
+
+  it("keeps the form available when direct upload fails and sends no application", async () => {
+    vi.mocked(put).mockRejectedValueOnce(new Error("Network error"));
+    open();
+    fireEvent.change(screen.getByLabelText(he.form.name.label), { target: { value: "Test Applicant" } });
+    fireEvent.change(screen.getByLabelText(he.form.phone.label), { target: { value: "0501234567" } });
+    fireEvent.change(screen.getByLabelText(he.form.email.label), { target: { value: "test@example.com" } });
+    fireEvent.change(screen.getByLabelText(he.form.cv.label), { target: { files: [new File(["CV"], "cv.pdf")] } });
+    fireEvent.click(screen.getByRole("button", { name: he.form.submit }));
+    expect(await screen.findByRole("alert")).toHaveTextContent(he.errors.submitFailed);
+    expect(submitJobApplication).not.toHaveBeenCalled();
+    expect(screen.getByLabelText(he.form.name.label)).toHaveValue("Test Applicant");
+  });
+
   it.each(["he", "en"] as const)("rejects an oversized CV before upload in %s", (lang) => {
     const copy = jobApplicationCopy[lang];
     renderDialog(lang);

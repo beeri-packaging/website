@@ -20,6 +20,7 @@
     "@sanity/document-internationalization": "^6.2.1",
     "@sanity/image-url": "^2.1.1",
     "@sanity/vision": "^5.30.0",
+    "@vercel/blob": "^2.8.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lottie-web": "^5.13.0",

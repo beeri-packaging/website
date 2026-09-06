@@ -2,16 +2,20 @@ import { test, expect } from "@playwright/test";
 import { MAX_CV_BYTES } from "../lib/cv-upload";
 
 for (const locale of ["he", "en"] as const) {
-  test(`/${locale}: a 4 MB CV passes the real Server Action body parser`, async ({ page }) => {
+  test(`/${locale}: a 10 MB selection does not put the file in the Server Action request`, async ({ page }) => {
     await page.goto(`/${locale}/blog`);
     await page.locator("#roles article button").first().click();
     const dialog = page.getByRole("dialog");
     await dialog.locator('input[name="name"]').fill("Automated Upload Check");
     await dialog.locator('input[name="phone"]').fill("0501234567");
     await dialog.locator('input[name="email"]').fill("upload-check@example.com");
-    // Exercise real multipart upload/parsing but intentionally trip the
-    // honeypot so this integration check can never send an email.
+    // This honeypot test verifies form submission without sending email.
+    // Direct private upload and attachment bytes have separate integration/unit checks.
     await dialog.locator('input[name="company_url"]').fill("automated-check", { force: true });
+    await dialog.locator('input[name="cv"]').setInputFiles({
+      name: "too-large.pdf", mimeType: "application/pdf", buffer: Buffer.alloc(MAX_CV_BYTES + 1, 65),
+    });
+    await expect(dialog.getByRole("alert")).toContainText("10MB");
     await dialog.locator('input[name="cv"]').setInputFiles({
       name: "synthetic-cv.pdf",
       mimeType: "application/pdf",

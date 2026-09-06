@@ -3,6 +3,7 @@
 import { sendEmail, type EmailAttachment } from "@/lib/email";
 import { COMPANY } from "@/app/content/company";
 import { MAX_CV_BYTES } from "@/lib/cv-upload";
+import { deleteCvUpload, readCvAttachment } from "@/lib/cv-storage";
 
 export type JobApplicationResult =
   | { ok: true }
@@ -57,8 +58,20 @@ export async function submitJobApplication(
 
   // Optional CV attachment.
   let attachments: EmailAttachment[] | undefined;
+  let uploadedPath: string | undefined;
+  const cvReceipt = String(formData.get("cvReceipt") ?? "");
+  if (cvReceipt) {
+    try {
+      const uploaded = await readCvAttachment(cvReceipt, formData);
+      attachments = [uploaded.attachment];
+      uploadedPath = uploaded.pathname;
+    } catch {
+      console.error("[job-application] private CV attachment unavailable");
+      return { ok: false, error: "send_failed" };
+    }
+  }
   const cv = formData.get("cv");
-  if (cv instanceof File && cv.size > 0) {
+  if (!cvReceipt && cv instanceof File && cv.size > 0) {
     if (cv.size > MAX_CV_BYTES) return { ok: false, error: "file_too_large" };
     try {
       const content = Buffer.from(await cv.arrayBuffer());
@@ -98,6 +111,14 @@ export async function submitJobApplication(
       attachments,
     });
     if (!sent) return { ok: false, error: "not_configured" };
+    if (uploadedPath) {
+      try {
+        await deleteCvUpload(uploadedPath);
+      } catch {
+        // The email was sent; do not ask the applicant to send a duplicate.
+        console.error("[job-application] sent CV cleanup failed");
+      }
+    }
     return { ok: true };
   } catch (err) {
     console.error("[job-application] send failed", err);

@@ -5,7 +5,8 @@ import type { Lang } from "@/app/content/home";
 import type { CareerRole } from "@/app/content/careers";
 import { jobApplicationCopy } from "@/app/content/jobApplication";
 import { submitJobApplication } from "@/app/actions/jobApplication";
-import { MAX_CV_BYTES } from "@/lib/cv-upload";
+import { MAX_CV_BYTES, cvContentType } from "@/lib/cv-upload";
+import { prepareCvUpload } from "@/app/actions/prepareCvUpload";
 import { useContactDialog } from "@/app/components/contact/ContactDialogProvider";
 import {
   Dialog,
@@ -89,6 +90,11 @@ export function JobApplicationDialog({
       return;
     }
 
+    if (cv && cv.size > 0 && !cvContentType(cv.name)) {
+      setSubmitError(copy.errors.fileType);
+      return;
+    }
+
     const nextErrors: FieldErrors = {};
     if (!name) nextErrors.name = copy.errors.name;
     if (!isValidPhone(phone)) nextErrors.phone = copy.errors.phone;
@@ -107,6 +113,23 @@ export function JobApplicationDialog({
 
     startTransition(async () => {
       try {
+        // The file travels directly to private storage, never through the
+        // Server Action request (Vercel limits that request to 4.5 MB).
+        data.delete("cv");
+        if (cv && cv.size > 0 && !String(data.get("company_url") ?? "").trim()) {
+          const prepared = await prepareCvUpload(data, cv.name, cv.size);
+          if (!prepared.ok) {
+            setSubmitError(prepared.error === "file_too_large" ? copy.errors.fileTooLarge
+              : prepared.error === "file_type" ? copy.errors.fileType : copy.errors.submitFailed);
+            return;
+          }
+          const { put } = await import("@vercel/blob/client");
+          await put(prepared.upload.pathname, cv, {
+            access: "private", token: prepared.upload.clientToken,
+            contentType: prepared.upload.contentType,
+          });
+          data.set("cvReceipt", prepared.upload.receipt);
+        }
         const res = await submitJobApplication(data);
         if (res.ok) {
           setSubmitted(true);
@@ -243,7 +266,7 @@ export function JobApplicationDialog({
                       setSubmitError(
                         file && file.size > MAX_CV_BYTES
                           ? copy.errors.fileTooLarge
-                          : null,
+                          : file && !cvContentType(file.name) ? copy.errors.fileType : null,
                       );
                     }}
                   />
