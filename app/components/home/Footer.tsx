@@ -4,7 +4,6 @@ import type { Lang } from "@/app/content/home";
 import type { Chrome } from "@/app/content/site";
 import { LinkedInGlyph, FacebookGlyph, MailGlyph, PinGlyph, ArrowOut } from "./icons";
 import { LangSwitch } from "./LangSwitch";
-import { ContactLink } from "./ContactLink";
 import { FooterMap } from "./FooterMap";
 
 const eyebrow =
@@ -102,10 +101,10 @@ export function Footer({ lang, chrome }: { lang: Lang; chrome: Chrome }) {
           <div className="flex flex-col gap-4 md:col-span-4">
             <h2 className={eyebrow}>{chrome.footerConnectHeading}</h2>
 
-            <ContactLink className={`group inline-flex w-fit items-center gap-2.5 ${bodyLink}`}>
+            <a href={`mailto:${chrome.email}`} className={`group inline-flex w-fit items-center gap-2.5 ${bodyLink}`}>
               <span className="text-ink/70 transition-colors group-hover:text-ink"><MailGlyph /></span>
               {chrome.email}
-            </ContactLink>
+            </a>
 
             {chrome.social.map((s) => (
               <a

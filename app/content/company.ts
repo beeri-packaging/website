@@ -32,8 +32,10 @@ export const COMPANY = {
   /** Parent group. */
   groupHe: "קבוצת דפוס בארי",
   groupEn: "Beeri Print Group",
-  /** Primary contact email — the real משל"ט inbox; also the contact-form recipient. */
-  email: "orders@beeripacks.co.il",
+  /** General and legal inquiries; default contact-form recipient. */
+  email: "office@beeripacks.co.il",
+  /** Orders are contacted directly by email from the footer. */
+  ordersEmail: "orders@beeripacks.co.il",
   /** Dedicated recruitment inbox, separate from general contact inquiries. */
   jobsEmail: "jobs@beeripacks.co.il",
   /** Company LinkedIn page. */
@@ -67,6 +69,7 @@ export const COMPANY = {
   groupHe: string;
   groupEn: string;
   email: string;
+  ordersEmail: string;
   jobsEmail: string;
   linkedin: string;
   facebook: string;

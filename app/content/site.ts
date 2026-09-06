@@ -53,7 +53,7 @@ export type Chrome = {
 
 const linkedinHref = COMPANY.linkedin;
 const facebookHref = COMPANY.facebook;
-const emailAddr = COMPANY.email;
+const emailAddr = COMPANY.ordersEmail;
 const mapsHref = MAPS_HREF;
 
 export const navLinks: readonly NavLink[] = [
