@@ -11,9 +11,9 @@ import {
 const intlMiddleware = createMiddleware(routing);
 
 /**
- * Keep the unfinished site available on local and Vercel preview URLs, while
- * the public production domains serve the launch holding page. This is an
- * internal rewrite, so visitors keep the requested URL in their address bar.
+ * Open the public site for testing by default. Set PUBLIC_MAINTENANCE_MODE=true
+ * and redeploy to restore the holding page on the production domains.
+ * Keep public robots.txt blocked until the site is ready for its full launch.
  */
 export default function proxy(request: NextRequest) {
   const hostname = requestHostname(
@@ -32,7 +32,11 @@ export default function proxy(request: NextRequest) {
     });
   }
 
-  if (isPublicProductionHost(hostname) && pathname !== PUBLIC_MAINTENANCE_ROUTE) {
+  if (
+    process.env.PUBLIC_MAINTENANCE_MODE === "true" &&
+    isPublicProductionHost(hostname) &&
+    pathname !== PUBLIC_MAINTENANCE_ROUTE
+  ) {
     const maintenanceUrl = request.nextUrl.clone();
     maintenanceUrl.pathname = PUBLIC_MAINTENANCE_ROUTE;
     maintenanceUrl.search = "";
