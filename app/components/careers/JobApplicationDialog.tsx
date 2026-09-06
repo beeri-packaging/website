@@ -5,6 +5,7 @@ import type { Lang } from "@/app/content/home";
 import type { CareerRole } from "@/app/content/careers";
 import { jobApplicationCopy } from "@/app/content/jobApplication";
 import { submitJobApplication } from "@/app/actions/jobApplication";
+import { MAX_CV_BYTES } from "@/lib/cv-upload";
 import { useContactDialog } from "@/app/components/contact/ContactDialogProvider";
 import {
   Dialog,
@@ -82,6 +83,11 @@ export function JobApplicationDialog({
     const name = String(data.get("name") ?? "").trim();
     const phone = String(data.get("phone") ?? "").trim();
     const email = String(data.get("email") ?? "").trim();
+    const cv = fileInputRef.current?.files?.[0];
+    if (cv && cv.size > MAX_CV_BYTES) {
+      setSubmitError(copy.errors.fileTooLarge);
+      return;
+    }
 
     const nextErrors: FieldErrors = {};
     if (!name) nextErrors.name = copy.errors.name;
@@ -100,16 +106,22 @@ export function JobApplicationDialog({
     data.set("roleTitle", role?.title ?? "");
 
     startTransition(async () => {
-      const res = await submitJobApplication(data);
-      if (res.ok) {
-        setSubmitted(true);
-        return;
+      try {
+        const res = await submitJobApplication(data);
+        if (res.ok) {
+          setSubmitted(true);
+          return;
+        }
+        setSubmitError(
+          res.error === "file_too_large"
+            ? copy.errors.fileTooLarge
+            : copy.errors.submitFailed,
+        );
+      } catch {
+        // Framework upload limits and network errors can reject before the
+        // action returns. Keep the form and entered details available to retry.
+        setSubmitError(copy.errors.submitFailed);
       }
-      setSubmitError(
-        res.error === "file_too_large"
-          ? copy.errors.fileTooLarge
-          : copy.errors.submitFailed,
-      );
     });
   }
 
@@ -221,12 +233,23 @@ export function JobApplicationDialog({
                     ref={fileInputRef}
                     type="file"
                     name="cv"
+                    aria-label={copy.form.cv.label}
+                    aria-describedby={`${formId}-cv-hint`}
                     accept=".pdf,.doc,.docx"
                     className="sr-only"
-                    onChange={(event) =>
-                      setFileName(event.target.files?.[0]?.name ?? null)
-                    }
+                    onChange={(event) => {
+                      const file = event.target.files?.[0];
+                      setFileName(file?.name ?? null);
+                      setSubmitError(
+                        file && file.size > MAX_CV_BYTES
+                          ? copy.errors.fileTooLarge
+                          : null,
+                      );
+                    }}
                   />
+                  <p id={`${formId}-cv-hint`} className="font-sans text-[12px] text-clay/80">
+                    {copy.form.cv.hint}
+                  </p>
                 </div>
 
                 {submitError ? (

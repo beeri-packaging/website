@@ -4,6 +4,12 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
+  experimental: {
+    serverActions: {
+      // Accept a 4 MB CV plus multipart fields; stay below Vercel's 4.5 MB cap.
+      bodySizeLimit: "4.25mb",
+    },
+  },
   // Nothing is gained by advertising the framework in a response header.
   poweredByHeader: false,
   images: {

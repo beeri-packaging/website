@@ -2,12 +2,11 @@
 
 import { sendEmail, type EmailAttachment } from "@/lib/email";
 import { COMPANY } from "@/app/content/company";
+import { MAX_CV_BYTES } from "@/lib/cv-upload";
 
 export type JobApplicationResult =
   | { ok: true }
   | { ok: false; error: "validation" | "not_configured" | "file_too_large" | "send_failed" };
-
-const MAX_CV_BYTES = 5 * 1024 * 1024; // 5 MB
 
 /** Escape all five HTML-significant chars before interpolating user input. */
 function escapeHtml(value: string): string {
@@ -47,7 +46,7 @@ export async function submitJobApplication(
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   if (!name || !phoneOk || !emailOk) return { ok: false, error: "validation" };
 
-  const to = process.env.CONTACT_TO_EMAIL || COMPANY.email;
+  const to = process.env.JOBS_TO_EMAIL || COMPANY.jobsEmail;
   const from = process.env.CONTACT_FROM_EMAIL || "";
   if (!process.env.RESEND_API_KEY || !from) {
     console.error(
@@ -61,8 +60,13 @@ export async function submitJobApplication(
   const cv = formData.get("cv");
   if (cv instanceof File && cv.size > 0) {
     if (cv.size > MAX_CV_BYTES) return { ok: false, error: "file_too_large" };
-    const content = Buffer.from(await cv.arrayBuffer());
-    attachments = [{ filename: cv.name || "cv", content }];
+    try {
+      const content = Buffer.from(await cv.arrayBuffer());
+      attachments = [{ filename: cv.name || "cv", content }];
+    } catch (err) {
+      console.error("[job-application] attachment read failed", err);
+      return { ok: false, error: "send_failed" };
+    }
   }
 
   const rows: Array<[string, string]> = [

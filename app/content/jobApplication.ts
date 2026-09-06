@@ -29,7 +29,7 @@ export type JobApplicationCopy = {
     name: { label: string; placeholder: string };
     phone: { label: string; placeholder: string };
     email: { label: string; placeholder: string };
-    cv: { label: string; button: string; empty: string; optional: string };
+    cv: { label: string; button: string; empty: string; optional: string; hint: string };
     submit: string;
     /** Button label while the application is being sent. */
     sending: string;
@@ -87,6 +87,7 @@ export const jobApplicationCopy: Record<Lang, JobApplicationCopy> = {
         button: "בחירת קובץ",
         empty: "לא נבחר קובץ",
         optional: "(לא חובה)",
+        hint: "קובץ PDF או Word, עד 4MB.",
       },
       submit: "שליחת מועמדות",
       sending: "שולח…",
@@ -96,7 +97,7 @@ export const jobApplicationCopy: Record<Lang, JobApplicationCopy> = {
       phone: "יש להזין מספר טלפון תקין.",
       email: "יש להזין כתובת דוא״ל תקינה.",
       submitFailed: "השליחה נכשלה. ניתן לנסות שוב או לכתוב לנו במייל.",
-      fileTooLarge: "הקובץ גדול מדי (עד 5MB).",
+      fileTooLarge: "הקובץ גדול מדי. יש לבחור קובץ בגודל של עד 4MB.",
     },
     success: {
       title: "המועמדות נשלחה",
@@ -140,6 +141,7 @@ export const jobApplicationCopy: Record<Lang, JobApplicationCopy> = {
         button: "Choose file",
         empty: "No file selected",
         optional: "(optional)",
+        hint: "PDF or Word file, up to 4MB.",
       },
       submit: "Send application",
       sending: "Sending…",
@@ -149,7 +151,7 @@ export const jobApplicationCopy: Record<Lang, JobApplicationCopy> = {
       phone: "Please enter a valid phone number.",
       email: "Please enter a valid email address.",
       submitFailed: "Something went wrong. Please try again or email us.",
-      fileTooLarge: "That file is too large (up to 5MB).",
+      fileTooLarge: "That file is too large. Choose a file up to 4MB.",
     },
     success: {
       title: "Application sent",

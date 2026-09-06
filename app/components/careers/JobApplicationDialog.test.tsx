@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from "vitest";
+import { beforeEach, describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent, within } from "@testing-library/react";
 import { JobApplicationDialog } from "./JobApplicationDialog";
 import { ContactDialogProvider } from "@/app/components/contact/ContactDialogProvider";
@@ -11,6 +11,11 @@ vi.mock("@/app/actions/jobApplication", () => ({
   submitJobApplication: vi.fn(async () => ({ ok: true })),
 }));
 import { submitJobApplication } from "@/app/actions/jobApplication";
+import { MAX_CV_BYTES } from "@/lib/cv-upload";
+
+beforeEach(() => {
+  vi.mocked(submitJobApplication).mockReset().mockResolvedValue({ ok: true });
+});
 
 const he = jobApplicationCopy.he;
 const role = { code: "#BR-402", title: "רכז/ת איכות", scope: "משרה מלאה", location: "יבנה" };
@@ -42,6 +47,35 @@ function open() {
 }
 
 describe("JobApplicationDialog", () => {
+  it.each(["he", "en"] as const)("rejects an oversized CV before upload in %s", (lang) => {
+    const copy = jobApplicationCopy[lang];
+    renderDialog(lang);
+    fireEvent.click(screen.getByRole("button", { name: copy.triggerLabel }));
+    const file = new File([new Uint8Array(MAX_CV_BYTES + 1)], "large.pdf", { type: "application/pdf" });
+    fireEvent.change(screen.getByLabelText(copy.form.cv.label), { target: { files: [file] } });
+    expect(screen.getByRole("alert")).toHaveTextContent(copy.errors.fileTooLarge);
+    fireEvent.click(screen.getByRole("button", { name: copy.form.submit }));
+    expect(submitJobApplication).not.toHaveBeenCalled();
+    // Choosing a smaller file clears the size error without closing the form.
+    fireEvent.change(screen.getByLabelText(copy.form.cv.label), {
+      target: { files: [new File(["CV"], "small.pdf", { type: "application/pdf" })] },
+    });
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+  });
+
+  it("keeps the entered details when the upload request rejects", async () => {
+    vi.mocked(submitJobApplication).mockRejectedValueOnce(new Error("Body exceeded upload limit"));
+    open();
+    fireEvent.change(screen.getByLabelText(he.form.name.label), { target: { value: "Test Applicant" } });
+    fireEvent.change(screen.getByLabelText(he.form.phone.label), { target: { value: "0501234567" } });
+    fireEvent.change(screen.getByLabelText(he.form.email.label), { target: { value: "test@example.com" } });
+    fireEvent.click(screen.getByRole("button", { name: he.form.submit }));
+    expect(await screen.findByRole("alert")).toHaveTextContent(he.errors.submitFailed);
+    expect(screen.getByLabelText(he.form.name.label)).toHaveValue("Test Applicant");
+    expect(screen.getByRole("button", { name: he.form.submit })).toBeEnabled();
+    expect(screen.queryByText(he.success.title)).not.toBeInTheDocument();
+  });
+
   it("opens from its trigger and shows the role title", () => {
     const dialog = open();
     const heading = within(dialog).getByRole("heading", { name: role.title });

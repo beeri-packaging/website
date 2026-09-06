@@ -34,6 +34,8 @@ export const COMPANY = {
   groupEn: "Beeri Print Group",
   /** Primary contact email — the real משל"ט inbox; also the contact-form recipient. */
   email: "orders@beeripacks.co.il",
+  /** Dedicated recruitment inbox, separate from general contact inquiries. */
+  jobsEmail: "jobs@beeripacks.co.il",
   /** Company LinkedIn page. */
   linkedin: "https://www.linkedin.com/company/beeri-packaging/",
   /** Facebook — the parent Beeri Print group page (בארי אריזות has no own page). */
@@ -65,6 +67,7 @@ export const COMPANY = {
   groupHe: string;
   groupEn: string;
   email: string;
+  jobsEmail: string;
   linkedin: string;
   facebook: string;
   address: Record<Lang, CompanyAddress>;
