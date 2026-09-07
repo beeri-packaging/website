@@ -29,5 +29,8 @@
     "examplePrefix": "דוגמה",
     "closeLabel": "סגירת פירוט המוצר",
     "emptyExamplesLabel": "תמונות נוספות בקרוב"
+  },
+  "clientLogos": {
+    "list": "הלקוחות והשותפים שלנו"
   }
 }

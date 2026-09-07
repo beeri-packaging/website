@@ -1,10 +1,12 @@
 import type { CSSProperties, ReactNode } from "react";
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { aboutImages, type AboutClient, type AboutCopy } from "@/app/content/about";
 import type { Lang } from "@/app/content/home";
 import { ContactTriggerButton } from "@/app/components/contact/ContactTriggerButton";
 import { AboutTimeline } from "./AboutTimeline";
+import marqueeStyles from "./client-logo-marquee.module.css";
 
 /** Tracked micro-label with a leading rule, matching the site's section eyebrows. */
 function Eyebrow({ children }: { children: ReactNode }) {
@@ -50,7 +52,8 @@ const teamAccentClasses = [
   "bg-yellow",
 ] as const;
 
-export function AboutPageDesign({ copy, lang }: { copy: AboutCopy; lang: Lang }) {
+export async function AboutPageDesign({ copy, lang }: { copy: AboutCopy; lang: Lang }) {
+  const t = await getTranslations({ locale: lang, namespace: "clientLogos" });
   const [introLead, ...introDetails] = copy.intro.split("\n\n");
   const heritageParagraphs = copy.heritageBody.split("\n\n");
 
@@ -355,7 +358,7 @@ export function AboutPageDesign({ copy, lang }: { copy: AboutCopy; lang: Lang })
           <span className="flex-1 bg-purple" />
         </div>
 
-        <div className="mx-auto w-full max-w-[1152px] px-5 py-14 sm:px-8 md:py-20 lg:px-0">
+        <div className="mx-auto w-full max-w-[1152px] px-5 pt-14 sm:px-8 md:pt-20 lg:px-0">
           <div className="reveal flex flex-col items-start gap-2 text-start">
             <span className="font-sans text-[12px] font-extrabold uppercase tracking-[0.08em] text-magenta-deep">
               {copy.partnersEyebrow}
@@ -364,34 +367,37 @@ export function AboutPageDesign({ copy, lang }: { copy: AboutCopy; lang: Lang })
               {copy.partnersTitle}
             </h2>
           </div>
-
-          <ul className="mt-9 flex flex-wrap justify-center gap-3 sm:gap-4 md:mt-12">
-            {copy.clients.map((client) => (
-              <li
-                key={client.name}
-                className="reveal w-[calc(50%-0.375rem)] max-w-[260px] sm:w-[calc(33.333%-0.667rem)] lg:w-[calc(25%-0.75rem)]"
-              >
-                <div className={`flex h-[108px] items-center justify-center border px-5 py-4 transition-colors duration-300 hover:border-blueprint hover:bg-sand/55 sm:h-[124px] ${client.featured ? "border-blueprint bg-sand/55" : "border-rule bg-bone"}`}>
-                  {client.logo ? (
-                    <span className={`relative block max-w-full ${clientLogoBoxClass(client)}`}>
-                      <Image
-                        src={client.logo}
-                        alt={client.name}
-                        fill
-                        unoptimized
-                        sizes="(min-width: 1024px) 180px, (min-width: 640px) 160px, 42vw"
-                        className="object-contain mix-blend-multiply"
-                      />
-                    </span>
-                  ) : (
-                    <span className="text-center font-sans text-[15px] font-extrabold uppercase tracking-[0.02em] text-ink sm:text-[17px]">
-                      {client.name}
-                    </span>
-                  )}
-                </div>
-              </li>
-            ))}
-          </ul>
+        </div>
+        <div className={marqueeStyles.marquee}>
+          <div className={marqueeStyles.viewport} dir="ltr" role="region" aria-label={t("list")} tabIndex={0}>
+            <div className={marqueeStyles.track}>
+              {[false, true].map((duplicate) => (
+                <ul key={String(duplicate)} className={marqueeStyles.group} aria-hidden={duplicate || undefined}>
+                  {copy.clients.map((client) => (
+                    <li key={client.name} className={marqueeStyles.item}>
+                      {client.logo ? (
+                        <span className={`relative block max-w-full ${clientLogoBoxClass(client)}`}>
+                          <Image
+                            src={client.logo}
+                            alt={duplicate ? "" : client.name}
+                            fill
+                            unoptimized
+                            loading="eager"
+                            sizes="208px"
+                            className={`object-contain mix-blend-multiply ${marqueeStyles.logo}`}
+                          />
+                        </span>
+                      ) : (
+                        <span className="text-center font-sans text-[15px] font-extrabold uppercase tracking-[0.02em] text-clay">
+                          {client.name}
+                        </span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

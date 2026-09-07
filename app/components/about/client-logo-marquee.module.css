@@ -1,0 +1,78 @@
+.marquee {
+  --logo-gap: clamp(2rem, 4vw, 4.5rem);
+  padding-block: 1.5rem 3.5rem;
+}
+
+.viewport {
+  overflow: hidden;
+  padding-block: 1.5rem;
+  mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+}
+
+.viewport:focus-visible {
+  outline: 2px solid var(--color-clay);
+  outline-offset: -2px;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: client-logos-scroll 110s linear infinite;
+  will-change: transform;
+}
+
+.group {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--logo-gap);
+  margin: 0;
+  padding: 0 var(--logo-gap) 0 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  flex: 0 0 164px;
+  width: 164px;
+  height: 104px;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  filter: grayscale(1);
+  opacity: 0.65;
+  transition: opacity 200ms ease;
+}
+
+.item:hover .logo {
+  opacity: 0.9;
+}
+
+.viewport:focus-within .track {
+  animation-play-state: paused;
+}
+
+@media (hover: hover) {
+  .viewport:hover .track {
+    animation-play-state: paused;
+  }
+}
+
+@media (min-width: 640px) {
+  .item { flex-basis: 208px; width: 208px; height: 120px; }
+  .marquee { padding-block-end: 4.5rem; }
+}
+
+@keyframes client-logos-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .viewport { overflow-x: auto; mask-image: none; }
+  .track { animation: none; will-change: auto; }
+  .group[aria-hidden="true"] { display: none; }
+  .logo { transition: none; }
+}

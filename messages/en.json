@@ -29,5 +29,8 @@
     "examplePrefix": "Example",
     "closeLabel": "Close product details",
     "emptyExamplesLabel": "More images coming soon"
+  },
+  "clientLogos": {
+    "list": "Our clients and partners"
   }
 }
