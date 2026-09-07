@@ -19,6 +19,7 @@
 
 # production
 /build
+/.deployment-source-assets/
 
 # misc
 .DS_Store
