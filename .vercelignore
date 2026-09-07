@@ -2,3 +2,15 @@
 docs/
 outputs/
 *.log
+.claude/
+.agents/
+.next*/
+.playwright*/
+.deployment-source-assets/
+output/
+tmp/
+deliverables/
+test-results/
+playwright-report/
+coverage/
+*.tsbuildinfo
