@@ -57,7 +57,7 @@ describe("aboutCopy", () => {
     expect(aboutCopy.en.industries).toHaveLength(aboutCopy.he.industries.length);
   });
 
-  it("uses the July 8 client-approved stats and client list", () => {
+  it("keeps the approved stats and September 7 client additions", () => {
     expect(aboutCopy.he.stats.map((s) => `${s.value} ${s.label}`)).toEqual([
       "מעל 100 עובדים",
       "10,000 מ\"ר של אולמות ייצור ומרלו\"ג",
@@ -65,6 +65,14 @@ describe("aboutCopy", () => {
       "24/6 מפעל חיוני עובד",
     ]);
     expect(aboutCopy.he.clients.map((client) => client.name)).toEqual([
+      "מורוקנאויל",
+      "תנובה",
+      "AHAVA",
+      "סודהסטרים",
+      "מקס ברנר",
+      "GIGI",
+      "ביוקור / כריסטינה",
+      "FRE",
       "שטראוס קפה בי. וי (קפה עלית)",
       "קרלסברג",
       "CBC",

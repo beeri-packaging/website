@@ -11,7 +11,7 @@ import { CatalogModalProvider, ProductOpenButton } from "./CatalogModalProvider"
 
 const SECTION = "mx-auto w-full max-w-[1280px] px-5 sm:px-8 md:px-12 lg:px-20";
 
-function CatalogHero({ copy }: { copy: CatalogCopy }) {
+export function CatalogHero({ copy }: { copy: CatalogCopy }) {
   // The client-approved intro is five paragraphs that each do a different job:
   // what the catalog is · two of per-industry detail · the end-to-end service
   // claim · the invitation to browse. Flowed as five equal columns they read as

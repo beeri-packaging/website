@@ -8,6 +8,7 @@ export const badgeVariants = cva(
       variant: {
         yellow: "bg-yellow text-yellow-deep",
         cyan: "bg-cyan text-cyan-deep",
+        outline: "border border-rule bg-sand text-ink",
       },
     },
     defaultVariants: { variant: "yellow" },

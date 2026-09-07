@@ -19,5 +19,15 @@
       "finishing": "Finishing options",
       "journal": "Journal & insights"
     }
+  },
+  "productCatalog": {
+    "openLabel": "View packaging",
+    "productTypeSingular": "type",
+    "productTypePlural": "types",
+    "examplesLabel": "Project examples",
+    "characteristicsLabel": "Available features",
+    "examplePrefix": "Example",
+    "closeLabel": "Close product details",
+    "emptyExamplesLabel": "More images coming soon"
   }
 }

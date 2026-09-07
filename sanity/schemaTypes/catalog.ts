@@ -17,6 +17,8 @@ export const catalog = defineType({
     defineField({ name: "title", title: "כותרת (שתי שורות)", type: "array", of: [{ type: "string" }], group: "hero", validation: (rule) => rule.required().length(2) }),
     defineField({ name: "intro", title: "פסקת פתיחה", type: "text", rows: 3, group: "hero", validation: (rule) => rule.required() }),
 
+    defineField({ name: "productCategories", title: "קטלוג לפי סוגי אריזה", type: "array", of: [defineArrayMember({ type: "productCatalogCategory" })], group: "categories" }),
+
     // Categories
     defineField({ name: "categories", title: "קטגוריות", type: "array", of: [defineArrayMember({ type: "catalogCategory" })], group: "categories", validation: (rule) => rule.required().min(1) }),
   ],

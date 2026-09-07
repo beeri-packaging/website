@@ -1,7 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { aboutImages, type AboutCopy } from "@/app/content/about";
+import { aboutImages, type AboutClient, type AboutCopy } from "@/app/content/about";
 import type { Lang } from "@/app/content/home";
 import { ContactTriggerButton } from "@/app/components/contact/ContactTriggerButton";
 import { AboutTimeline } from "./AboutTimeline";
@@ -18,9 +18,13 @@ function Eyebrow({ children }: { children: ReactNode }) {
   );
 }
 
-function clientLogoBoxClass(logo?: string) {
+function clientLogoBoxClass(client: AboutClient) {
+  const logo = client.logo;
   if (!logo) return "";
 
+  if (client.featured) return "h-16 w-44 max-w-full sm:h-[76px] sm:w-52";
+  if (/מקס ברנר|Max Brenner/.test(client.name)) return "h-[78px] w-24 sm:h-[94px] sm:w-28";
+  if (client.name === "FRE") return "h-14 w-28 sm:h-16 sm:w-32";
   if (logo.includes("tempo")) return "h-16 w-24 sm:h-[74px] sm:w-28";
   if (logo.includes("leiman")) return "h-16 w-28 sm:h-[74px] sm:w-32";
   if (logo.includes("recanati")) return "h-16 w-28 sm:h-[76px] sm:w-32";
@@ -367,13 +371,14 @@ export function AboutPageDesign({ copy, lang }: { copy: AboutCopy; lang: Lang })
                 key={client.name}
                 className="reveal w-[calc(50%-0.375rem)] max-w-[260px] sm:w-[calc(33.333%-0.667rem)] lg:w-[calc(25%-0.75rem)]"
               >
-                <div className="flex h-[108px] items-center justify-center border border-rule bg-bone px-5 py-4 transition-colors duration-300 hover:border-blueprint hover:bg-sand/55 sm:h-[124px]">
+                <div className={`flex h-[108px] items-center justify-center border px-5 py-4 transition-colors duration-300 hover:border-blueprint hover:bg-sand/55 sm:h-[124px] ${client.featured ? "border-blueprint bg-sand/55" : "border-rule bg-bone"}`}>
                   {client.logo ? (
-                    <span className={`relative block ${clientLogoBoxClass(client.logo)}`}>
+                    <span className={`relative block max-w-full ${clientLogoBoxClass(client)}`}>
                       <Image
                         src={client.logo}
                         alt={client.name}
                         fill
+                        unoptimized
                         sizes="(min-width: 1024px) 180px, (min-width: 640px) 160px, 42vw"
                         className="object-contain mix-blend-multiply"
                       />

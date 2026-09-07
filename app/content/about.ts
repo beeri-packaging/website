@@ -1,4 +1,8 @@
 import type { Lang } from "@/app/content/home";
+const maxBrennerLogo = "https://cdn.sanity.io/images/4qkb39ql/production/2c443df520bdb2e436c5f80457da9452172148a1-240x256.png";
+const gigiLogo = "https://cdn.sanity.io/images/4qkb39ql/production/adf9632dbfcc58fb193206977d225e2d0416c7d0-312x129.png";
+const christinaLogo = "https://cdn.sanity.io/images/4qkb39ql/production/7b7c432e54c044e7d16d76e3cf87788a9e72cd0b-400x88.png";
+const freLogo = "https://cdn.sanity.io/images/4qkb39ql/production/8faf0e66a26fe1ee3f389ff9db8d7d81534de942-86x46.svg";
 
 // ---- Item types -------------------------------------------------------------
 
@@ -25,8 +29,10 @@ export type AboutStat = {
 export type AboutClient = {
   /** Company name — rendered as a wordmark, and used as the logo's alt text. */
   name: string;
-  /** Optional logo file under /public (e.g. "/images/clients/company.svg"). Falls back to a text wordmark. */
+  /** Existing site asset or official logo hosted on the image CDN. */
   logo?: string;
+  /** Client-requested emphasis, without changing the approved client order. */
+  featured?: boolean;
 };
 
 export type AboutTeamMember = {
@@ -230,8 +236,16 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
 
     partnersEyebrow: "מבין לקוחותינו",
     partnersTitle: "שותפות מנצחת",
-    // Names sourced from the company deck (slides 7–9).
+    // Company deck (slides 7–9), plus the approved September 7 additions.
     clients: [
+      { name: "מורוקנאויל", logo: "/images/clients/moroccanoil.png", featured: true },
+      { name: "תנובה", logo: "/images/clients/tnuva.svg" },
+      { name: "AHAVA", logo: "/images/clients/ahava.svg" },
+      { name: "סודהסטרים", logo: "/images/clients/sodastream.svg" },
+      { name: "מקס ברנר", logo: maxBrennerLogo },
+      { name: "GIGI", logo: gigiLogo },
+      { name: "ביוקור / כריסטינה", logo: christinaLogo },
+      { name: "FRE", logo: freLogo },
       { name: "שטראוס קפה בי. וי (קפה עלית)", logo: "/images/clients/elite.png" },
       { name: "קרלסברג", logo: "/images/clients/carlsberg.png" },
       { name: "CBC", logo: "/images/clients/cbc.svg" },
@@ -364,6 +378,14 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
     partnersTitle: "Winning partnerships",
     // Names sourced from the company deck (slides 7–9).
     clients: [
+      { name: "Moroccanoil", logo: "/images/clients/moroccanoil.png", featured: true },
+      { name: "Tnuva", logo: "/images/clients/tnuva.svg" },
+      { name: "AHAVA", logo: "/images/clients/ahava.svg" },
+      { name: "SodaStream", logo: "/images/clients/sodastream.svg" },
+      { name: "Max Brenner", logo: maxBrennerLogo },
+      { name: "GIGI", logo: gigiLogo },
+      { name: "Biocor / Christina", logo: christinaLogo },
+      { name: "FRE", logo: freLogo },
       { name: "Strauss Coffee B.V. (Elite Coffee)", logo: "/images/clients/elite.png" },
       { name: "Carlsberg", logo: "/images/clients/carlsberg.png" },
       { name: "CBC", logo: "/images/clients/cbc.svg" },

@@ -19,5 +19,15 @@
       "finishing": "השבחות וגימורים",
       "journal": "מגזין ותוכן"
     }
+  },
+  "productCatalog": {
+    "openLabel": "לפתיחת המוצר",
+    "productTypeSingular": "סוג",
+    "productTypePlural": "סוגים",
+    "examplesLabel": "דוגמאות ביצוע",
+    "characteristicsLabel": "מאפיינים אפשריים",
+    "examplePrefix": "דוגמה",
+    "closeLabel": "סגירת פירוט המוצר",
+    "emptyExamplesLabel": "תמונות נוספות בקרוב"
   }
 }

@@ -5,6 +5,7 @@ import { capability } from "./capability";
 import { careerRole } from "./careerRole";
 import { careers } from "./careers";
 import { careersArticle } from "./careersArticle";
+import { productCatalogCategory } from "./productCatalogCategory";
 import { catalog } from "./catalog";
 import { catalogCategory } from "./catalogCategory";
 import { catalogItem } from "./catalogItem";
@@ -38,6 +39,7 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   careersArticle,
   careerRole,
   catalogCategory,
+  productCatalogCategory,
   catalogItem,
   finishingItem,
   finishingStandard,
