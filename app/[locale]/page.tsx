@@ -39,7 +39,6 @@ export default async function Home({
         copy={{
           title: launch("title"), subtitle: launch("subtitle"), start: launch("start"),
           skip: launch("skip"), countdown: launch.raw("countdown"), welcome: launch("welcome"), brand: launch("brand"),
-          stopCelebration: launch("stopCelebration"), soundOn: launch("soundOn"), soundOff: launch("soundOff"), pauseVideo: launch("pauseVideo"), playVideo: launch("playVideo"),
         }}
       />
       <div id="launch-website" className="relative flex flex-col bg-bone text-ink overflow-x-clip">

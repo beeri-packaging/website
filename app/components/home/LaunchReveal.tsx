@@ -11,7 +11,6 @@ import type { LaunchConfig } from "@/lib/launch";
 export type LaunchCopy = {
   title: string; subtitle: string; start: string; skip: string;
   countdown: string; welcome: string; brand: string;
-  stopCelebration: string; soundOn: string; soundOff: string; pauseVideo: string; playVideo: string;
 };
 type Phase = "ready" | "countdown" | "opening" | "done";
 
@@ -21,7 +20,6 @@ export function LaunchReveal({ copy, logo, config, video, poster, music }: {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const startRef = useRef<HTMLButtonElement>(null);
   const skipRef = useRef<HTMLButtonElement>(null);
-  const endRef = useRef<HTMLButtonElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fireworksContainerRef = useRef<HTMLDivElement>(null);
@@ -32,7 +30,6 @@ export function LaunchReveal({ copy, logo, config, video, poster, music }: {
   const [active, setActive] = useState(false);
   const [reduced, setReduced] = useState(false);
   const [soundOn, setSoundOn] = useState(false);
-  const [videoPaused, setVideoPaused] = useState(false);
   const [videoFailed, setVideoFailed] = useState(false);
   const running = useRef(false);
   const startedAt = useRef<number | null>(null);
@@ -40,7 +37,7 @@ export function LaunchReveal({ copy, logo, config, video, poster, music }: {
 
   const finish = useCallback(() => {
     if (!running.current) return;
-    const restoreFocus = dialogRef.current?.contains(document.activeElement) || document.activeElement === endRef.current || document.activeElement === document.body;
+    const restoreFocus = dialogRef.current?.contains(document.activeElement) || document.activeElement === document.body;
     running.current = false;
     audioRef.current?.close();
     confettiRef.current?.reset();
@@ -91,9 +88,8 @@ export function LaunchReveal({ copy, logo, config, video, poster, music }: {
   useEffect(() => {
     const clip = videoRef.current;
     if (!active || !clip || reduced || videoFailed) return;
-    if (videoPaused) { clip.pause(); return; }
-    void clip.play().catch(() => setVideoPaused(true));
-  }, [active, reduced, videoFailed, videoPaused]);
+    void clip.play().catch(() => setVideoFailed(true));
+  }, [active, reduced, videoFailed]);
 
   useLayoutEffect(() => {
     if (phase !== "opening" || reduced) return;
@@ -233,6 +229,12 @@ export function LaunchReveal({ copy, logo, config, video, poster, music }: {
           muted loop playsInline preload="auto" poster={poster} onError={() => setVideoFailed(true)} /> : null}
         <div className="launch-shade" />
       </div>
+      <svg width="0" height="0" aria-hidden="true" className="absolute">
+        <defs><filter id="launch-logo-cyan" colorInterpolationFilters="sRGB">
+          <feFlood floodColor="var(--cyan)" />
+          <feComposite in2="SourceAlpha" operator="in" />
+        </filter></defs>
+      </svg>
       <div className="launch-brand"><Image src={logo} alt={copy.brand} width={180} height={70} unoptimized /></div>
       <div className="launch-content">
         <p className="launch-eyebrow" id="launch-subtitle">{copy.subtitle}</p>
@@ -246,17 +248,10 @@ export function LaunchReveal({ copy, logo, config, video, poster, music }: {
           {phase === "ready" ? <span className="launch-prepaint-number launch-number" aria-hidden="true">{LAUNCH_SECONDS}</span> : null}
         </div>
       </div>
-      <div className="launch-controls">
-        <Button variant="secondary" size="sm" className="launch-control" aria-pressed={soundOn} onClick={() => {
-          if (soundOn) { audioRef.current?.mute(); setSoundOn(false); } else void enableSound();
-        }}>{soundOn ? copy.soundOff : copy.soundOn}</Button>
-        {active && video && !reduced && !videoFailed ? <Button variant="secondary" size="sm" className="launch-control" onClick={() => setVideoPaused(!videoPaused)}>{videoPaused ? copy.playVideo : copy.pauseVideo}</Button> : null}
-      </div>
       <Button ref={skipRef} variant="secondary" size="sm" className="launch-skip launch-control" onClick={finish}>{copy.skip}<span aria-hidden="true">↗</span></Button>
       {phase === "opening" && !reduced ? <div ref={fireworksContainerRef} className="launch-fireworks" aria-hidden="true" /> : null}
       {active && !reduced ? <canvas ref={canvasRef} className="launch-confetti" aria-hidden="true" /> : null}
     </dialog>
-    {phase === "opening" && !reduced ? <Button ref={endRef} variant="secondary" size="sm" className="launch-end" onClick={finish}>{copy.stopCelebration}</Button> : null}
     </>
   );
 }

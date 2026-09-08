@@ -1,5 +1,5 @@
 import { beforeEach, describe, it, expect, vi } from "vitest";
-import { render, screen, fireEvent, within } from "@testing-library/react";
+import { render, screen, fireEvent, within, waitFor } from "@testing-library/react";
 import { JobApplicationDialog } from "./JobApplicationDialog";
 import { ContactDialogProvider } from "@/app/components/contact/ContactDialogProvider";
 import { jobApplicationCopy } from "@/app/content/jobApplication";
@@ -109,7 +109,7 @@ describe("JobApplicationDialog", () => {
     fireEvent.click(screen.getByRole("button", { name: he.form.submit }));
     expect(await screen.findByRole("alert")).toHaveTextContent(he.errors.submitFailed);
     expect(screen.getByLabelText(he.form.name.label)).toHaveValue("Test Applicant");
-    expect(screen.getByRole("button", { name: he.form.submit })).toBeEnabled();
+    await waitFor(() => expect(screen.getByRole("button", { name: he.form.submit })).toBeEnabled());
     expect(screen.queryByText(he.success.title)).not.toBeInTheDocument();
   });
 
