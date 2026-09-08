@@ -43,3 +43,22 @@ The original feedback records describe the local review before this publication:
   missing/incorrect access keys.
 - Direct CMS reads confirmed four standards with working CDN PDF URLs, the
   premium placement of the SABON carton, and both article links in both languages.
+
+## Production result
+
+- Application commit: `672a712` (pushed to `origin/main`, including launch commit `1a5abd8`).
+- Vercel deployment: `dpl_GDf4n1EXbGGU79M1QyYimgUG7Yeo`, **Ready / production**.
+- Production URL: https://beeri-arizot-1bxc.vercel.app
+- Immutable URL: https://beeri-arizot-1bxc-qcsn7p0b1-asd12288s-projects.vercel.app
+- Built with production settings, verified before domain assignment, then promoted.
+- Live verification: 18 pages returned HTTP 200; English branding, lab copy,
+  catalog photo, certificate links and bilingual article links passed assertions.
+- Both published PDFs matched the supplied files byte for byte.
+- Unsigned/incorrect launch links returned 307 to the ordinary site. The authorized
+  link returned 200 with private/no-store, no-referrer and noindex headers.
+- Browser verification on production: ordinary English visit had no launch;
+  authorized Hebrew link showed the launch button, counted down from 30 and
+  displayed visible fireworks over the live site.
+- Error-level log query for this deployment returned no entries at verification time.
+- The shareable access key is in Vercel environment configuration and the ignored
+  local `.env.launch-release`; it is not stored in this document or the repository.
