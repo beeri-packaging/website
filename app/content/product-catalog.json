@@ -1,589 +1,166 @@
 {
-  "he": [
-    {
-      "key": "cosmetics-preview",
-      "number": "01",
-      "name": "קוסמטיקה וטיפוח",
-      "intro": "שלושה סוגי פתרונות לאריזות טיפוח: ממותגות, מיוחדות ופרימיום.",
-      "products": [
-        {
-          "key": "cosmetics-branded",
-          "name": "אריזות ממותגות",
-          "shortDescription": "אריזה למספר מוצרי טיפוח, להשקה, מתנה או סדרה.",
-          "details": "פתרון ממותג שמאגד מוצר אחד או סדרת מוצרים תחת שפה חזותית ברורה. המבנה והגימורים מותאמים למוצר ולזהות המותג.",
-          "characteristics": [
-            "מיתוג",
-            "יוקרה"
-          ],
-          "examples": [
-            {
-              "key": "preview-christina",
-              "name": "כריסטינה · MUSE",
-              "description": "סדרת אריזות ממותגת למוצרי טיפוח, עם שפה אחידה המבדילה בין המוצרים ושומרת על נוכחות ברורה של המותג.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/4d1ebb5935b4456f68dc07e7d74292312734c13a-1181x787.png"
-            },
-            {
-              "key": "preview-gigi-glow-up",
-              "name": "GIGI · Glow Up Serum",
-              "description": "אריזה ממותגת לסרום טיפוח לצד המוצר.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/80b231be042bf217dd9301e66f1206bbd6ff4eba-1448x1086.png"
-            },
-            {
-              "key": "preview-gigi-mesopro",
-              "name": "GIGI · MESOPRO",
-              "description": "אריזה ממותגת לסדרת מוצרי טיפוח.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/8db2275a30dac01be697167b9cb1fcc7ec189b84-1448x1086.png"
-            },
-            {
-              "key": "preview-fre",
-              "name": "FRE · מארז טיפוח",
-              "description": "מארז ממותג למספר מוצרי טיפוח של FRE.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/9dfe67855cacce2c51093303cb524a2488448a44-841x841.png?w=1600&auto=format&q=85"
-            }
-          ]
-        },
-        {
-          "key": "cosmetics-special",
-          "name": "אריזות מיוחדות",
-          "shortDescription": "פתרון מותאם ללקוח, בעיצוב מיוחד.",
-          "details": "מבנה אריזה שמתוכנן סביב המוצר וחוויית הפתיחה, עם אפשרות לתושבות, חיתוכים ופתרונות פונקציונליים מותאמים.",
-          "characteristics": [
-            "השבחות",
-            "תכנון מיוחד",
-            "פונקציונליות"
-          ],
-          "examples": [
-            {
-              "key": "preview-sabon-trio",
-              "name": "SABON · מארז שלוש צנצנות",
-              "description": "מארז לשלוש צנצנות של SABON, עם חלוקה פנימית מותאמת.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/676f49038e33370dc36e6a9163182d7b4242f834-1672x941.png?w=1600&auto=format&q=85"
-            },
-            {
-              "key": "preview-sabon-popup",
-              "name": "SABON · Pop-up",
-              "description": "מארז פופ־אפ שנפתח לזירת תצוגה תלת־ממדית, עם חיתוכים צורניים, שכבות ופרטי השבחה.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/5282ee882481aab0849a6db246e7844a8f74aaf1-1402x1122.png"
-            },
-            {
-              "key": "preview-moroccanoil-heart",
-              "name": "Moroccanoil · מארז לב",
-              "description": "מארז מיוחד למוצרי Moroccanoil, עם חלון לב גדול המציג את המוצרים כחלק ממבנה האריזה.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/25256733fe3926b11a4a44700ec9f4114c2ec438-1448x1086.png"
-            }
-          ]
-        },
-        {
-          "key": "cosmetics-premium",
-          "name": "אריזות פרימיום",
-          "shortDescription": "קיט מוצרי קוסמטיקה כולל השבחות שונות.",
-          "details": "אריזות למוצרי טיפוח שבהן חומרי הגלם וההשבחות יוצרים נראות יוקרתית ומדויקת, בהתאם לשפת המותג.",
-          "characteristics": [
-            "למינציה",
-            "השבחה"
-          ],
-          "examples": [
-            {
-              "key": "preview-moroccanoil-eurovision",
-              "name": "Moroccanoil · מהדורת האירוויזיון",
-              "description": "אריזת פרימיום במהדורה מיוחדת, המשלבת למינציה, הטבעות וגימורים בולטים ליצירת נוכחות חגיגית ויוקרתית.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/445e316e89e27f136de68404256a70de2c4c20a7-1448x1086.png"
-            },
-            {
-              "key": "preview-ahava",
-              "name": "AHAVA · מארז פרימיום",
-              "description": "מארז פרימיום למוצרי טיפוח של AHAVA.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/9f22548574503d47948159d9944946bdf47db538-1774x887.png?w=1600&auto=format&q=85"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "key": "wine-preview",
-      "number": "02",
-      "name": "יינות",
-      "intro": "מארזים לבקבוק בודד, למתנות משולבות ולנשיאה נוחה.",
-      "products": [
-        {
-          "key": "single-bottle",
-          "name": "מארז לבקבוק בודד",
-          "shortDescription": "אריזה לבקבוק בודד.",
-          "details": "אריזות מהודרות לבקבוקים בודדים בשילוב חומרי גלם מיוחדים למראה יוקרתי.",
-          "characteristics": [
-            "חומרי גלם מיוחדים",
-            "השבחות"
-          ],
-          "examples": [
-            {
-              "key": "wine-dalton",
-              "name": "יקב דלתון · TRUE NORTH",
-              "description": "מארז לבקבוק יין בודד בגוני כחול וזהב, מסדרת TRUE NORTH של יקב דלתון.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/0bb28fbe3bade51dd9c5b6495b918e47155d216a-1448x1086.png"
-            },
-            {
-              "key": "wine-clos-de-gat",
-              "name": "קלו דה גת · SYCRA",
-              "description": "מארז לבקבוק יין בודד בגוני שחור וזהב, לצד בקבוק מסדרת SYCRA של קלו דה גת.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/82ab42da059c5089414a5393997e3250728c4b9b-1448x1086.png"
-            },
-            {
-              "key": "wine-yarden",
-              "name": "ירדן · ROM",
-              "description": "מארז לבקבוק יין בודד מסדרת ROM של ירדן, בגוני קראפט ואפור עם פרטי מיתוג בזהב.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/2c47b45febdba155f4337b978c763fd7539268d4-1448x1086.png"
-            }
-          ]
-        },
-        {
-          "key": "multi-product-gifts",
-          "name": "מארזי שי משולבים",
-          "shortDescription": "מארזי יין",
-          "details": "מארזי יינות בעיצוב אלגנטי בשילוב מתנות שונות.",
-          "characteristics": [
-            "חלוקה פנימית",
-            "מבנה רב-תכליתי",
-            "התאמה למתנה"
-          ],
-          "examples": [
-            {
-              "key": "preview-wine-handle",
-              "name": "מארז יין עם ידית נשיאה",
-              "description": "מארז עם ידית נשיאה וחלוקה פנימית לבקבוקים.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/27594f14469bc6d789b8a1009ddcaa388aa9e664-1672x941.png?w=1600&auto=format&q=85"
-            },
-            {
-              "key": "wine-golan",
-              "name": "יקב רמת הגולן",
-              "description": "מארז שי לבקבוק יין ושתי כוסות, עם חלונות תצוגה ומיתוג יקב רמת הגולן.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/5de359d3327a044475489955a33fa7f9d89746fb-1448x1086.png"
-            }
-          ]
-        },
-        {
-          "key": "carry-handle",
-          "name": "מארזים עם ידית נשיאה",
-          "shortDescription": "מבנה שימושי ונוח לנשיאה, עם נראות ממותגת.",
-          "details": "מארזים עם ידית משולבת או פטנט נשיאה ייעודי. המבנה נבדק מול משקל התכולה ומתאים למארזי חג, למתנות ולמספר מוצרים.",
-          "characteristics": [
-            "ידית משולבת",
-            "חיזוק למשקל",
-            "פתיחה קלה"
-          ],
-          "examples": [
-            {
-              "description": "מארז גנארי מיוחד שמותאם למוצרים שונים עם ידית נשיאה פטנט יחודי שלנו.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/a73b369bef7e7d8248e572fced9a5df2fe74aa33-889x571.png",
-              "key": "wine-carmel",
-              "name": "יקב כרמל"
-            },
-            {
-              "description": "מארז חגיגי למתנה מותאם לכמה מוצרים שונים. זכה בתחרות עיצוב “כוכב ישראל”. מודפס על קראפט חום.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/04c75762d6674599e12f28d0dfc42f1184de3707-1254x1254.png",
-              "key": "wine-tabor",
-              "name": "יקב תבור"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "key": "beverages-preview",
-      "number": "03",
-      "name": "משקאות",
-      "intro": "מאגדות בקבוקים, מארזי נשיאה ופתרונות תצוגה למספר משקאות.",
-      "products": [
-        {
-          "key": "beverage-packs",
-          "name": "מארזי משקאות",
-          "shortDescription": "אריזות ממותגות למשקאות.",
-          "details": "אריזות מיוחדות ממגוון חומרי גלם שונים המיועדים גם למיכון אוטומטי.",
-          "characteristics": [
-            "מספר מוצרים",
-            "תצוגת מוצר",
-            "נשיאה נוחה"
-          ],
-          "examples": [
-            {
-              "key": "preview-milk-honey",
-              "name": "Milk & Honey · מארזים משותפים",
-              "description": "סדרת מארזי וויסקי ממותגים של Milk & Honey, עם השבחות וחלונות תצוגה.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/bf0dba5d95a7cac0efe3c7ae89c9ea9bafc641bd-1448x1086.png"
-            },
-            {
-              "key": "preview-wissotzky-israel",
-              "name": "ויסוצקי · קמומיל ודבש",
-              "description": "אריזת תה ממותגת לשוק הישראלי, עם לשונית לפתיחה נוחה.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/1bc3316e5e9b38af181f1a26d54e0cc59cd9028e-1448x1086.png"
-            }
-          ]
-        },
-        {
-          "key": "bottle-carriers",
-          "name": "מאגדות לבקבוקי בירה",
-          "shortDescription": "חבק קרטון ממותג מחומר גלם מיוחד האוגד מספר בקבוקים.",
-          "details": "חבק קרטון מחומר גלם עמיד ללחות ומותאם לנשיאה המשמש למיתוג בולט בנקודת המכירה.",
-          "characteristics": [
-            "איגוד בקבוקים",
-            "ידית נשיאה",
-            "חבק ממותג"
-          ],
-          "examples": [
-            {
-              "description": "מאגדת שישיות קרלסברג כולל השבחות. המאגדת חובקת שישה בקבוקי בירה.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/cb80dbd33482e67aa5570333d176b3fa5582c27f-1254x1254.png",
-              "key": "beer-carlsberg",
-              "name": "החברה המרכזית / קרלסברג"
-            },
-            {
-              "key": "beer-tuborg",
-              "name": "החברה המרכזית – טובורג",
-              "description": "מאגדת קרטון ממותגת לבקבוקי בירה טובורג.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/4d1fcda1d9208c63a82f052fc4a08c6dfefa658f-1254x1254.png"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "key": "coffee-preview",
-      "number": "04",
-      "name": "קפה",
-      "intro": "קופסאות מדף, דיספליי ומארזי מתנה למוצרי קפה ולקפסולות.",
-      "products": [
-        {
-          "key": "coffee-retail-cartons",
-          "name": "מארזי קפסולות",
-          "shortDescription": "מארזי קפסולות ממותגות בתכנון מיוחד לפתיחה נוחה.",
-          "details": "אריזות קפה ממותגות בעיצוב אלגנטי עם השבחות שונות המעניקות למוצר מראה יוקרתי וייחודי על המדף.",
-          "characteristics": [
-            "פתיחה נוחה",
-            "התאמה לסדרה",
-            "נוכחות מדף",
-            "ייחודיות"
-          ],
-          "examples": [
-            {
-              "description": "אריזת קרטון ממותגת לקפסולות קפה, כוללת השבחות עם פתיחה מיוחדת וקלה לצרכן בעלת נוכחות מדף.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/43f263ed307fa20e5940a596f38ed2d13549e06d-1254x1254.png",
-              "key": "coffee-elite",
-              "name": "קפה עלית שטראוס"
-            },
-            {
-              "description": "סדרת אריזות לקפסולות קפה כולל השבחות של לכה סלקטיבית והטבעה עם בידול גרפי מותאם ללקוח, בסוגים שונים של טעמי קפה.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/2044098be5999ae7b93eb223844f0e1225fbd60a-1254x1254.png",
-              "key": "coffee-joe",
-              "name": "קפה ג׳ו"
-            },
-            {
-              "key": "preview-coffee-burgundy",
-              "name": "מארז קפסולות · מהדורה בערבית",
-              "description": "מארז קפסולות מוארך עם מיתוג בערבית ובידול צבעוני.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/36bb468e126bcca6b7e0f1f1bf7da2f43abe014e-1448x1086.png"
-            },
-            {
-              "key": "preview-coffee-guatemala",
-              "name": "קפה עלית · גואטמלה 11",
-              "description": "מארז קפסולות קפה עם מיתוג בגוני כחול וזהב.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/76aa56e99f02ccdb614ec5ef1a94001b4c5164c6-1448x1086.png"
-            }
-          ]
-        },
-        {
-          "key": "coffee-displays",
-          "name": "מארזי תצוגה ומתנה",
-          "shortDescription": "פתרון תצוגה ואריזה מעוצב למארזי קפה, קפסולות ומתנות.",
-          "details": "מעמד קרטון ייעודי להצגה ואריזה של קופסאות קפסולות, מארזי קפה ומארזי מתנה, המאפשר סידור נוח, נגיש ואסתטי של המוצרים.",
-          "characteristics": [
-            "תצוגה במדף",
-            "איגוד מספר אריזות",
-            "חומרי גלם ייחודיים"
-          ],
-          "examples": [
-            {
-              "description": "סט מארז לקפסולות כולל דיספליי עם בולטות בנקודת המכירה.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/b76503fe78173a5e8b45738053f9384adbec98b4-1254x1254.png",
-              "key": "coffee-aroma",
-              "name": "קפה ארומה"
-            },
-            {
-              "description": "מארז Taster’s Choice וכוס מתנה.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/dd9f9e5a5e122390230acaf7f8125b13424d16c9-1254x1254.png",
-              "key": "coffee-tasters-choice",
-              "name": "נסטלה / אסם"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "key": "food-preview",
-      "number": "05",
-      "name": "מזון",
-      "intro": "אריזות מזון צריכות לשלב נראות, נוחות ושמירה על המוצר. בתכנון בודקים אם מדובר באריזה חיצונית או במגע ישיר עם מזון, אילו תנאי אחסון נדרשים ואיך המוצר יוצג או יישלח.",
-      "products": [
-        {
-          "key": "food-cartons",
-          "name": "אריזות למוצרי מזון",
-          "shortDescription": "אריזות קרטון למוצרי מזון, המותאמות למוצר ומשלבות פונקציונליות, נראות ומיתוג.",
-          "details": "מגוון פתרונות אריזה מקרטון למוצרי מזון, המפותחים בהתאמה למאפייני המוצר, למידותיו ולצרכי המותג. האריזות משלבות תכנון מוקפד, נוחות שימוש ונראות איכותית, תוך התאמה למגוון רחב של מוצרים וסדרות.",
-          "characteristics": [
-            "התאמה לסדרה",
-            "נוכחות מדף",
-            "מיתוג",
-            "אריזות למזון",
-            "פונקציונליות"
-          ],
-          "examples": [
-            {
-              "key": "preview-tofu",
-              "name": "תנובה ומשק צוריאל · טופו",
-              "description": "סדרת קופסאות קרטון למוצרי טופו, עם בידול צבעוני בין הטעמים ונראות אחידה על המדף.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/9f1920d96b6f69dc58de2b8515cde6d6618cca7f-1254x1254.png"
-            },
-            {
-              "key": "preview-energy",
-              "name": "שטראוס · ENERGY",
-              "description": "אריזת קרטון ממותגת לחטיפי דגנים.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/e1b9a615a1491481b32f80bcccf2a607a8d86ac3-1448x1086.png"
-            },
-            {
-              "key": "preview-max-brenner",
-              "name": "Max Brenner · ADDICTION",
-              "description": "אריזת שוקולד בעלת מבנה ייחודי וגימור צבעוני.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/ab6256453ae655831aa151f3e8b09f5bd5ce31d0-1448x1086.png"
-            },
-            {
-              "key": "preview-roy",
-              "name": "ROY Chocolate · שוקולד דובאי",
-              "description": "אריזת קרטון לטבלת שוקולד, עם מיתוג ואיור מוצר.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/e6708d20e0e4d5cdd67d2899071be829c7018ae6-1448x1086.png"
-            },
-            {
-              "key": "preview-halloumi",
-              "name": "משק דותן · חלומי",
-              "description": "אריזת קרטון ממותגת לגבינת חלומי.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/a44a3acca04abeb2389e192277bf5e8f4bc0835c-1448x1086.png"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "key": "pharma-preview",
-      "number": "06",
-      "name": "פארמה",
-      "intro": "בפארמה אין מקום לאי-דיוקים. האריזה צריכה להיות ברורה, נקייה, יציבה ומתוכננת סביב מידע מודפס, סדרות מוצרים, סימון, ברקודים, הנחיות שימוש ודרישות תהליך.",
-      "products": [
-        {
-          "key": "pharma-ampoules",
-          "name": "אריזות פארמה",
-          "shortDescription": "אריזות קרטון מודפסות לתחום הפארמה ותוספי התזונה בגימור נקי ומקצועי.",
-          "details": "אריזות קרטון מודפסות לתחום הפארמה ותוספי התזונה, המשלבות איכות הדפסה גבוהה, דיוק וגימור מוקפד. כל אריזה מותאמת למוצר ולשפה המותגית, ליצירת מראה נקי, אמין ומקצועי.",
-          "characteristics": [
-            "מיתוג",
-            "דיוק",
-            "תקן",
-            "פארמה",
-            "תוספי תזונה",
-            "איכותי"
-          ],
-          "examples": [
-            {
-              "key": "preview-altman",
-              "name": "אלטמן · FEMINA 9 MONTHS",
-              "description": "אריזת קרטון מודפסת לתוסף תזונה, במבנה עם חלק עליון מעוגל.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/002cf377b6c789ee40e2f1b5022dab1c8db210c1-1448x1086.png"
-            },
-            {
-              "key": "preview-life",
-              "name": "Life KIDS · Pilonim",
-              "description": "אריזה מודפסת לתוסף תזונה לילדים.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/b6a5b8b03c66eeec6ff7e22859dc814d91986e41-1448x1086.png"
-            },
-            {
-              "key": "preview-tree-of-life",
-              "name": "Tree of Life · Chamomilo",
-              "description": "אריזת קרטון מוארכת למוצר פארמה.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/4617f926096fc1e00399127810d4831378b2248b-1448x1086.png"
-            }
-          ]
-        }
-      ]
-    }
-  ],
   "en": [
     {
-      "key": "cosmetics-preview",
-      "number": "01",
-      "name": "Cosmetics & skincare",
       "intro": "Three packaging solutions for skincare: branded, custom and premium.",
+      "key": "cosmetics-preview",
+      "name": "Cosmetics & skincare",
+      "number": "01",
       "products": [
         {
-          "key": "cosmetics-branded",
-          "name": "Branded packaging",
-          "shortDescription": "Packaging for skincare products, launches, gifts or a product range.",
-          "details": "A branded solution that brings one product or a range together through a consistent visual identity. The structure and finishes are tailored to the product and brand.",
           "characteristics": [
             "Branding",
             "Premium appearance"
           ],
+          "details": "A branded solution that brings one product or a range together through a consistent visual identity. The structure and finishes are tailored to the product and brand.",
           "examples": [
             {
-              "key": "preview-christina",
-              "name": "Christina · MUSE",
               "description": "A branded skincare packaging range with a consistent visual identity that distinguishes each product.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/4d1ebb5935b4456f68dc07e7d74292312734c13a-1181x787.png"
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/4d1ebb5935b4456f68dc07e7d74292312734c13a-1181x787.png",
+              "key": "preview-christina",
+              "name": "Christina · MUSE"
             },
             {
-              "key": "preview-gigi-glow-up",
-              "name": "GIGI · Glow Up Serum",
               "description": "Branded serum packaging displayed alongside the product.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/80b231be042bf217dd9301e66f1206bbd6ff4eba-1448x1086.png"
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/80b231be042bf217dd9301e66f1206bbd6ff4eba-1448x1086.png",
+              "key": "preview-gigi-glow-up",
+              "name": "GIGI · Glow Up Serum"
             },
             {
-              "key": "preview-gigi-mesopro",
-              "name": "GIGI · MESOPRO",
               "description": "Branded packaging for a skincare product range.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/8db2275a30dac01be697167b9cb1fcc7ec189b84-1448x1086.png"
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/8db2275a30dac01be697167b9cb1fcc7ec189b84-1448x1086.png",
+              "key": "preview-gigi-mesopro",
+              "name": "GIGI · MESOPRO"
             },
             {
-              "key": "preview-fre",
-              "name": "FRÉ · Skincare set",
               "description": "Branded packaging for multiple FRÉ skincare products.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/9dfe67855cacce2c51093303cb524a2488448a44-841x841.png?w=1600&auto=format&q=85"
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/9dfe67855cacce2c51093303cb524a2488448a44-841x841.png",
+              "key": "preview-fre",
+              "name": "FRÉ · Skincare set"
             }
-          ]
+          ],
+          "key": "cosmetics-branded",
+          "name": "Branded packaging",
+          "shortDescription": "Packaging for skincare products, launches, gifts or a product range."
         },
         {
-          "key": "cosmetics-special",
-          "name": "Custom packaging",
-          "shortDescription": "A tailored solution with a distinctive design.",
-          "details": "A packaging structure designed around the product and opening experience, with options for inserts, die cuts and functional details.",
           "characteristics": [
             "Special finishes",
             "Custom design",
             "Functionality"
           ],
+          "details": "A packaging structure designed around the product and opening experience, with options for inserts, die cuts and functional details.",
           "examples": [
             {
-              "key": "preview-sabon-trio",
-              "name": "SABON · Three-jar set",
               "description": "Packaging for three SABON jars, with tailored internal dividers.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/676f49038e33370dc36e6a9163182d7b4242f834-1672x941.png?w=1600&auto=format&q=85"
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/676f49038e33370dc36e6a9163182d7b4242f834-1672x941.png",
+              "key": "preview-sabon-trio",
+              "name": "SABON · Three-jar set"
             },
             {
-              "key": "preview-sabon-popup",
-              "name": "SABON · Pop-up",
               "description": "A pop-up pack that opens into a three-dimensional display, with shaped cuts, layers and special finishes.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/5282ee882481aab0849a6db246e7844a8f74aaf1-1402x1122.png"
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/5282ee882481aab0849a6db246e7844a8f74aaf1-1402x1122.png",
+              "key": "preview-sabon-popup",
+              "name": "SABON · Pop-up"
             },
             {
-              "key": "preview-moroccanoil-heart",
-              "name": "Moroccanoil · Heart pack",
               "description": "A distinctive pack with a large heart-shaped window that displays the products as part of the structure.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/25256733fe3926b11a4a44700ec9f4114c2ec438-1448x1086.png"
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/25256733fe3926b11a4a44700ec9f4114c2ec438-1448x1086.png",
+              "key": "preview-moroccanoil-heart",
+              "name": "Moroccanoil · Heart pack"
+            },
+            {
+              "key": "sabon-three-windows",
+              "name": "SABON · Three-product window pack",
+              "description": "Mediterranean Romance gift pack for three care products, with display windows and floral decoration.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/a0c2c633bb68ec324ccca73efc4d59d68bf8ada9-4620x3580.jpg"
             }
-          ]
+          ],
+          "key": "cosmetics-special",
+          "name": "Custom packaging",
+          "shortDescription": "A tailored solution with a distinctive design."
         },
         {
-          "key": "cosmetics-premium",
-          "name": "Premium packaging",
-          "shortDescription": "Skincare kits with a selection of special finishes.",
-          "details": "Skincare packaging that uses materials and finishing techniques to create a refined premium appearance aligned with the brand.",
           "characteristics": [
             "Lamination",
             "Special finishes"
           ],
+          "details": "Skincare packaging that uses materials and finishing techniques to create a refined premium appearance aligned with the brand.",
           "examples": [
             {
-              "key": "preview-moroccanoil-eurovision",
-              "name": "Moroccanoil · Eurovision edition",
               "description": "Special-edition premium packaging combining lamination, embossing and prominent finishes.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/445e316e89e27f136de68404256a70de2c4c20a7-1448x1086.png"
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/445e316e89e27f136de68404256a70de2c4c20a7-1448x1086.png",
+              "key": "preview-moroccanoil-eurovision",
+              "name": "Moroccanoil · Eurovision edition"
             },
             {
-              "key": "preview-ahava",
-              "name": "AHAVA · Premium set",
               "description": "Premium packaging for AHAVA skincare products.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/9f22548574503d47948159d9944946bdf47db538-1774x887.png?w=1600&auto=format&q=85"
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/9f22548574503d47948159d9944946bdf47db538-1774x887.png",
+              "key": "preview-ahava",
+              "name": "AHAVA · Premium set"
             }
-          ]
+          ],
+          "key": "cosmetics-premium",
+          "name": "Premium packaging",
+          "shortDescription": "Skincare kits with a selection of special finishes."
         }
       ]
     },
     {
+      "intro": "Single-bottle packaging and combined wine gift packs.",
       "key": "wine-preview",
-      "number": "02",
       "name": "Wine",
-      "intro": "Packaging for individual bottles, combined gifts and convenient carrying.",
+      "number": "02",
       "products": [
         {
-          "key": "single-bottle",
-          "name": "Single-bottle packs",
-          "shortDescription": "Packaging for one bottle.",
-          "details": "Refined single-bottle packaging combining distinctive materials for a premium appearance.",
           "characteristics": [
             "Special materials",
             "Special finishes"
           ],
+          "details": "Refined single-bottle packaging combining distinctive materials for a premium appearance.",
           "examples": [
             {
-              "key": "wine-dalton",
-              "name": "Dalton Winery · TRUE NORTH",
               "description": "A blue and gold single-bottle wine carton from Dalton Winery’s TRUE NORTH series.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/0bb28fbe3bade51dd9c5b6495b918e47155d216a-1448x1086.png"
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/0bb28fbe3bade51dd9c5b6495b918e47155d216a-1448x1086.png",
+              "key": "wine-dalton",
+              "name": "Dalton Winery · TRUE NORTH"
             },
             {
-              "key": "wine-clos-de-gat",
-              "name": "Clos de Gat · SYCRA",
               "description": "A black and gold single-bottle carton alongside a bottle from Clos de Gat’s SYCRA series.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/82ab42da059c5089414a5393997e3250728c4b9b-1448x1086.png"
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/82ab42da059c5089414a5393997e3250728c4b9b-1448x1086.png",
+              "key": "wine-clos-de-gat",
+              "name": "Clos de Gat · SYCRA"
             },
             {
-              "key": "wine-yarden",
-              "name": "Yarden · ROM",
               "description": "A single-bottle carton for Yarden ROM wine, in kraft and grey with gold branding details.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/2c47b45febdba155f4337b978c763fd7539268d4-1448x1086.png"
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/2c47b45febdba155f4337b978c763fd7539268d4-1448x1086.png",
+              "key": "wine-yarden",
+              "name": "Yarden · ROM"
+            },
+            {
+              "key": "wine-mony",
+              "name": "Mony Winery · SAMSON",
+              "description": "Black and gold single-bottle carton for Mony Winery’s SAMSON range.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/aaa3e31313ce449dbacf705537a4bc659f20f2dd-1448x1086.png"
             }
-          ]
+          ],
+          "key": "single-bottle",
+          "name": "Single-bottle packaging",
+          "shortDescription": "Packaging for one bottle."
         },
         {
-          "key": "multi-product-gifts",
-          "name": "Combined gift packs",
-          "shortDescription": "Wine gift packaging.",
-          "details": "Elegantly designed wine packaging combined with a variety of gifts.",
           "characteristics": [
             "Internal dividers",
             "Versatile structure",
             "Gift presentation"
           ],
+          "details": "Elegantly designed wine packaging combined with a variety of gifts.",
           "examples": [
             {
-              "key": "preview-wine-handle",
-              "name": "Wine pack with carry handle",
-              "description": "Packaging with a carry handle and internal bottle dividers.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/27594f14469bc6d789b8a1009ddcaa388aa9e664-1672x941.png?w=1600&auto=format&q=85"
-            },
-            {
-              "key": "wine-golan",
-              "name": "Golan Heights Winery",
               "description": "A gift pack for a wine bottle and two glasses, with display windows and Golan Heights Winery branding.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/5de359d3327a044475489955a33fa7f9d89746fb-1448x1086.png"
-            }
-          ]
-        },
-        {
-          "key": "carry-handle",
-          "name": "Packs with carry handles",
-          "shortDescription": "A practical structure for convenient carrying, with branded presentation.",
-          "details": "Packaging with an integrated handle or a dedicated carrying solution. The structure is assessed against the weight of its contents and suits holiday gifts, gift packs and multiple products.",
-          "characteristics": [
-            "Integrated handle",
-            "Weight support",
-            "Easy opening"
-          ],
-          "examples": [
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/5de359d3327a044475489955a33fa7f9d89746fb-1448x1086.png",
+              "key": "wine-golan",
+              "name": "Golan Heights Winery"
+            },
             {
               "description": "Branded wine gift packaging.",
               "image": "https://cdn.sanity.io/images/4qkb39ql/production/a73b369bef7e7d8248e572fced9a5df2fe74aa33-889x571.png",
@@ -596,51 +173,51 @@
               "key": "wine-tabor",
               "name": "Tabor Winery"
             }
-          ]
+          ],
+          "key": "multi-product-gifts",
+          "name": "Combined gift packs",
+          "shortDescription": "Wine gift packaging."
         }
       ]
     },
     {
-      "key": "beverages-preview",
-      "number": "03",
-      "name": "Beverages",
       "intro": "Bottle carriers, gift packs and display packaging for beverages.",
+      "key": "beverages-preview",
+      "name": "Beverages",
+      "number": "03",
       "products": [
         {
-          "key": "beverage-packs",
-          "name": "Beverage packaging",
-          "shortDescription": "Branded beverage packaging.",
-          "details": "Special packaging made from a variety of materials suitable for automated packing.",
           "characteristics": [
             "Multiple products",
             "Product display",
             "Convenient carrying"
           ],
+          "details": "Special packaging made from a variety of materials suitable for automated packing.",
           "examples": [
             {
-              "key": "preview-milk-honey",
-              "name": "Milk & Honey · Packaging range",
               "description": "A range of branded whisky packs with special finishes and display windows.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/bf0dba5d95a7cac0efe3c7ae89c9ea9bafc641bd-1448x1086.png"
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/bf0dba5d95a7cac0efe3c7ae89c9ea9bafc641bd-1448x1086.png",
+              "key": "preview-milk-honey",
+              "name": "Milk & Honey · Packaging range"
             },
             {
-              "key": "preview-wissotzky-israel",
-              "name": "Wissotzky · Chamomile & Honey",
               "description": "Branded tea packaging for the Israeli market, with a convenient opening tab.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/1bc3316e5e9b38af181f1a26d54e0cc59cd9028e-1448x1086.png"
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/1bc3316e5e9b38af181f1a26d54e0cc59cd9028e-1448x1086.png",
+              "key": "preview-wissotzky-israel",
+              "name": "Wissotzky · Chamomile & Honey"
             }
-          ]
+          ],
+          "key": "beverage-packs",
+          "name": "Beverage packaging",
+          "shortDescription": "Branded beverage packaging."
         },
         {
-          "key": "bottle-carriers",
-          "name": "Beer bottle carriers",
-          "shortDescription": "A branded paperboard sleeve that holds several bottles together.",
-          "details": "A carrier made from moisture-resistant material, designed for convenient carrying and prominent branding at the point of sale.",
           "characteristics": [
             "Bottle grouping",
             "Carry handle",
             "Branded sleeve"
           ],
+          "details": "A carrier made from moisture-resistant material, designed for convenient carrying and prominent branding at the point of sale.",
           "examples": [
             {
               "description": "Branded paperboard packaging for Carlsberg beer bottles.",
@@ -649,32 +226,32 @@
               "name": "CBC · Carlsberg"
             },
             {
-              "key": "beer-tuborg",
-              "name": "CBC · Tuborg",
               "description": "Branded paperboard packaging for Tuborg beer bottles.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/4d1fcda1d9208c63a82f052fc4a08c6dfefa658f-1254x1254.png"
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/4d1fcda1d9208c63a82f052fc4a08c6dfefa658f-1254x1254.png",
+              "key": "beer-tuborg",
+              "name": "CBC · Tuborg"
             }
-          ]
+          ],
+          "key": "bottle-carriers",
+          "name": "Beer bottle carriers",
+          "shortDescription": "A branded paperboard sleeve that holds several bottles together."
         }
       ]
     },
     {
-      "key": "coffee-preview",
-      "number": "04",
-      "name": "Coffee",
       "intro": "Retail cartons, displays and gift packaging for coffee products and capsules.",
+      "key": "coffee-preview",
+      "name": "Coffee",
+      "number": "04",
       "products": [
         {
-          "key": "coffee-retail-cartons",
-          "name": "Capsule packaging",
-          "shortDescription": "Branded capsule packs designed for convenient opening.",
-          "details": "Elegantly designed coffee packaging with special finishes that give the product a distinctive premium shelf presence.",
           "characteristics": [
             "Easy opening",
             "Range consistency",
             "Shelf presence",
             "Distinctive appearance"
           ],
+          "details": "Elegantly designed coffee packaging with special finishes that give the product a distinctive premium shelf presence.",
           "examples": [
             {
               "description": "Branded coffee capsule packaging.",
@@ -689,29 +266,29 @@
               "name": "Joe Coffee"
             },
             {
-              "key": "preview-coffee-burgundy",
-              "name": "Coffee capsules · Arabic edition",
               "description": "An elongated capsule pack with Arabic branding and distinctive colour separation.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/36bb468e126bcca6b7e0f1f1bf7da2f43abe014e-1448x1086.png"
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/36bb468e126bcca6b7e0f1f1bf7da2f43abe014e-1448x1086.png",
+              "key": "preview-coffee-burgundy",
+              "name": "Coffee capsules · Arabic edition"
             },
             {
-              "key": "preview-coffee-guatemala",
-              "name": "Elite Coffee · Guatemala 11",
               "description": "Coffee capsule packaging with navy and gold branding.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/76aa56e99f02ccdb614ec5ef1a94001b4c5164c6-1448x1086.png"
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/76aa56e99f02ccdb614ec5ef1a94001b4c5164c6-1448x1086.png",
+              "key": "preview-coffee-guatemala",
+              "name": "Elite Coffee · Guatemala 11"
             }
-          ]
+          ],
+          "key": "coffee-retail-cartons",
+          "name": "Capsule packaging",
+          "shortDescription": "Branded capsule packs designed for convenient opening."
         },
         {
-          "key": "coffee-displays",
-          "name": "Display & gift packaging",
-          "shortDescription": "Display and packaging solutions for coffee, capsules and gifts.",
-          "details": "A purpose-designed paperboard display for capsule boxes, coffee packs and gift sets, allowing products to be arranged neatly and accessibly.",
           "characteristics": [
             "Shelf display",
             "Multiple packs",
             "Distinctive materials"
           ],
+          "details": "A purpose-designed paperboard display for capsule boxes, coffee packs and gift sets, allowing products to be arranged neatly and accessibly.",
           "examples": [
             {
               "description": "Paperboard coffee display packaging.",
@@ -725,21 +302,20 @@
               "key": "coffee-tasters-choice",
               "name": "Taster’s Choice"
             }
-          ]
+          ],
+          "key": "coffee-displays",
+          "name": "Display & gift packaging",
+          "shortDescription": "Display and packaging solutions for coffee, capsules and gifts."
         }
       ]
     },
     {
-      "key": "food-preview",
-      "number": "05",
-      "name": "Food",
       "intro": "Food packaging combines presentation, convenience and product protection. Planning considers whether the packaging is secondary or in direct contact with food, the storage conditions and how the product will be displayed or shipped.",
+      "key": "food-preview",
+      "name": "Food",
+      "number": "05",
       "products": [
         {
-          "key": "food-cartons",
-          "name": "Food packaging",
-          "shortDescription": "Paperboard food packaging tailored to the product, combining function, presentation and branding.",
-          "details": "A range of paperboard packaging solutions developed around the product, its dimensions and the brand. Careful structural design, ease of use and quality presentation support a wide range of products and product ranges.",
           "characteristics": [
             "Range consistency",
             "Shelf presence",
@@ -747,52 +323,58 @@
             "Food packaging",
             "Functionality"
           ],
+          "details": "A range of paperboard packaging solutions developed around the product, its dimensions and the brand. Careful structural design, ease of use and quality presentation support a wide range of products and product ranges.",
           "examples": [
             {
-              "key": "preview-tofu",
-              "name": "Tnuva & Meshek Tzuriel · Tofu",
               "description": "A range of paperboard tofu boxes with colour separation between flavours and a consistent shelf appearance.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/9f1920d96b6f69dc58de2b8515cde6d6618cca7f-1254x1254.png"
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/9f1920d96b6f69dc58de2b8515cde6d6618cca7f-1254x1254.png",
+              "key": "preview-tofu",
+              "name": "Tnuva & Meshek Tzuriel · Tofu"
             },
             {
-              "key": "preview-energy",
-              "name": "Strauss · ENERGY",
               "description": "Branded paperboard packaging for cereal bars.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/e1b9a615a1491481b32f80bcccf2a607a8d86ac3-1448x1086.png"
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/e1b9a615a1491481b32f80bcccf2a607a8d86ac3-1448x1086.png",
+              "key": "preview-energy",
+              "name": "Strauss · ENERGY"
             },
             {
-              "key": "preview-max-brenner",
-              "name": "Max Brenner · ADDICTION",
               "description": "Chocolate packaging with a distinctive structure and colourful finish.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/ab6256453ae655831aa151f3e8b09f5bd5ce31d0-1448x1086.png"
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/ab6256453ae655831aa151f3e8b09f5bd5ce31d0-1448x1086.png",
+              "key": "preview-max-brenner",
+              "name": "Max Brenner · ADDICTION"
             },
             {
-              "key": "preview-roy",
-              "name": "ROY Chocolate · Dubai Chocolate",
               "description": "Paperboard packaging for a chocolate bar, with branding and a product illustration.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/e6708d20e0e4d5cdd67d2899071be829c7018ae6-1448x1086.png"
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/e6708d20e0e4d5cdd67d2899071be829c7018ae6-1448x1086.png",
+              "key": "preview-roy",
+              "name": "ROY Chocolate · Dubai Chocolate"
             },
             {
-              "key": "preview-halloumi",
-              "name": "Meshek Dotan · Halloumi",
               "description": "Branded paperboard packaging for halloumi cheese.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/a44a3acca04abeb2389e192277bf5e8f4bc0835c-1448x1086.png"
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/a44a3acca04abeb2389e192277bf5e8f4bc0835c-1448x1086.png",
+              "key": "preview-halloumi",
+              "name": "Meshek Dotan · Halloumi"
+            },
+            {
+              "key": "food-osem-pudding",
+              "name": "Osem · Vanilla pudding",
+              "description": "Osem vanilla pudding carton.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/f52a4b5bdfc383cada1846b92aa030d1ac243c82-1448x1086.png"
             }
-          ]
+          ],
+          "key": "food-cartons",
+          "name": "Food packaging",
+          "shortDescription": "Paperboard food packaging tailored to the product, combining function, presentation and branding."
         }
       ]
     },
     {
-      "key": "pharma-preview",
-      "number": "06",
-      "name": "Pharma",
       "intro": "Pharmaceutical packaging needs clear information, consistent printing and a stable structure. We plan around product ranges, labelling, barcodes, instructions and production requirements.",
+      "key": "pharma-preview",
+      "name": "Pharma",
+      "number": "06",
       "products": [
         {
-          "key": "pharma-ampoules",
-          "name": "Pharmaceutical packaging",
-          "shortDescription": "Printed paperboard packaging for pharmaceuticals and supplements, with a clean professional finish.",
-          "details": "Printed paperboard packaging for pharmaceuticals and dietary supplements, combining print quality, precision and careful finishing. Each pack is tailored to its product and brand for a clean, reliable and professional appearance.",
           "characteristics": [
             "Branding",
             "Precision",
@@ -801,26 +383,442 @@
             "Dietary supplements",
             "Quality"
           ],
+          "details": "Printed paperboard packaging for pharmaceuticals and dietary supplements, combining print quality, precision and careful finishing. Each pack is tailored to its product and brand for a clean, reliable and professional appearance.",
           "examples": [
             {
-              "key": "preview-altman",
-              "name": "Altman · FEMINA 9 MONTHS",
               "description": "Printed supplement packaging with a rounded upper structure.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/002cf377b6c789ee40e2f1b5022dab1c8db210c1-1448x1086.png"
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/002cf377b6c789ee40e2f1b5022dab1c8db210c1-1448x1086.png",
+              "key": "preview-altman",
+              "name": "Altman · FEMINA 9 MONTHS"
             },
             {
-              "key": "preview-life",
-              "name": "Life KIDS · Pilonim",
               "description": "Printed packaging for a children’s dietary supplement.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/b6a5b8b03c66eeec6ff7e22859dc814d91986e41-1448x1086.png"
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/b6a5b8b03c66eeec6ff7e22859dc814d91986e41-1448x1086.png",
+              "key": "preview-life",
+              "name": "Life KIDS · Pilonim"
             },
             {
-              "key": "preview-tree-of-life",
-              "name": "Tree of Life · Chamomilo",
               "description": "Elongated paperboard packaging for a pharmacy product.",
-              "image": "https://cdn.sanity.io/images/4qkb39ql/production/4617f926096fc1e00399127810d4831378b2248b-1448x1086.png"
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/4617f926096fc1e00399127810d4831378b2248b-1448x1086.png",
+              "key": "preview-tree-of-life",
+              "name": "Tree of Life · Chamomilo"
             }
-          ]
+          ],
+          "key": "pharma-ampoules",
+          "name": "Pharmaceutical packaging",
+          "shortDescription": "Printed paperboard packaging for pharmaceuticals and supplements, with a clean professional finish."
+        }
+      ]
+    }
+  ],
+  "he": [
+    {
+      "intro": "שלושה סוגי פתרונות לאריזות טיפוח: ממותגות, מיוחדות ופרימיום.",
+      "key": "cosmetics-preview",
+      "name": "קוסמטיקה וטיפוח",
+      "number": "01",
+      "products": [
+        {
+          "characteristics": [
+            "מיתוג",
+            "יוקרה"
+          ],
+          "details": "פתרון ממותג שמאגד מוצר אחד או סדרת מוצרים תחת שפה חזותית ברורה. המבנה והגימורים מותאמים למוצר ולזהות המותג.",
+          "examples": [
+            {
+              "description": "סדרת אריזות ממותגת למוצרי טיפוח, עם שפה אחידה המבדילה בין המוצרים ושומרת על נוכחות ברורה של המותג.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/4d1ebb5935b4456f68dc07e7d74292312734c13a-1181x787.png",
+              "key": "preview-christina",
+              "name": "כריסטינה · MUSE"
+            },
+            {
+              "description": "אריזה ממותגת לסרום טיפוח לצד המוצר.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/80b231be042bf217dd9301e66f1206bbd6ff4eba-1448x1086.png",
+              "key": "preview-gigi-glow-up",
+              "name": "GIGI · Glow Up Serum"
+            },
+            {
+              "description": "אריזה ממותגת לסדרת מוצרי טיפוח.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/8db2275a30dac01be697167b9cb1fcc7ec189b84-1448x1086.png",
+              "key": "preview-gigi-mesopro",
+              "name": "GIGI · MESOPRO"
+            },
+            {
+              "description": "מארז ממותג למספר מוצרי טיפוח של FRE.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/9dfe67855cacce2c51093303cb524a2488448a44-841x841.png",
+              "key": "preview-fre",
+              "name": "FRE · מארז טיפוח"
+            }
+          ],
+          "key": "cosmetics-branded",
+          "name": "אריזות ממותגות",
+          "shortDescription": "אריזה למספר מוצרי טיפוח, להשקה, מתנה או סדרה."
+        },
+        {
+          "characteristics": [
+            "השבחות",
+            "תכנון מיוחד",
+            "פונקציונליות"
+          ],
+          "details": "מבנה אריזה שמתוכנן סביב המוצר וחוויית הפתיחה, עם אפשרות לתושבות, חיתוכים ופתרונות פונקציונליים מותאמים.",
+          "examples": [
+            {
+              "description": "מארז לשלוש צנצנות של SABON, עם חלוקה פנימית מותאמת.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/676f49038e33370dc36e6a9163182d7b4242f834-1672x941.png",
+              "key": "preview-sabon-trio",
+              "name": "SABON · מארז שלוש צנצנות"
+            },
+            {
+              "description": "מארז פופ־אפ שנפתח לזירת תצוגה תלת־ממדית, עם חיתוכים צורניים, שכבות ופרטי השבחה.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/5282ee882481aab0849a6db246e7844a8f74aaf1-1402x1122.png",
+              "key": "preview-sabon-popup",
+              "name": "SABON · Pop-up"
+            },
+            {
+              "description": "מארז מיוחד למוצרי Moroccanoil, עם חלון לב גדול המציג את המוצרים כחלק ממבנה האריזה.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/25256733fe3926b11a4a44700ec9f4114c2ec438-1448x1086.png",
+              "key": "preview-moroccanoil-heart",
+              "name": "Moroccanoil · מארז לב"
+            },
+            {
+              "key": "sabon-three-windows",
+              "name": "SABON · מארז שלושה מוצרים עם חלונות",
+              "description": "מארז Mediterranean Romance לשלושה מוצרי טיפוח, עם חלונות תצוגה ועיטורי פרחים.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/a0c2c633bb68ec324ccca73efc4d59d68bf8ada9-4620x3580.jpg"
+            }
+          ],
+          "key": "cosmetics-special",
+          "name": "אריזות מיוחדות",
+          "shortDescription": "פתרון מותאם ללקוח, בעיצוב מיוחד."
+        },
+        {
+          "characteristics": [
+            "למינציה",
+            "השבחה"
+          ],
+          "details": "אריזות למוצרי טיפוח שבהן חומרי הגלם וההשבחות יוצרים נראות יוקרתית ומדויקת, בהתאם לשפת המותג.",
+          "examples": [
+            {
+              "description": "אריזת פרימיום במהדורה מיוחדת, המשלבת למינציה, הטבעות וגימורים בולטים ליצירת נוכחות חגיגית ויוקרתית.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/445e316e89e27f136de68404256a70de2c4c20a7-1448x1086.png",
+              "key": "preview-moroccanoil-eurovision",
+              "name": "Moroccanoil · מהדורת האירוויזיון"
+            },
+            {
+              "description": "מארז פרימיום למוצרי טיפוח של AHAVA.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/9f22548574503d47948159d9944946bdf47db538-1774x887.png",
+              "key": "preview-ahava",
+              "name": "AHAVA · מארז פרימיום"
+            }
+          ],
+          "key": "cosmetics-premium",
+          "name": "אריזות פרימיום",
+          "shortDescription": "קיט מוצרי קוסמטיקה כולל השבחות שונות."
+        }
+      ]
+    },
+    {
+      "intro": "מארזים לבקבוק יין בודד ומארזי שי משולבים.",
+      "key": "wine-preview",
+      "name": "יינות",
+      "number": "02",
+      "products": [
+        {
+          "characteristics": [
+            "חומרי גלם מיוחדים",
+            "השבחות"
+          ],
+          "details": "אריזות מהודרות לבקבוקים בודדים בשילוב חומרי גלם מיוחדים למראה יוקרתי.",
+          "examples": [
+            {
+              "description": "מארז לבקבוק יין בודד בגוני כחול וזהב, מסדרת TRUE NORTH של יקב דלתון.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/0bb28fbe3bade51dd9c5b6495b918e47155d216a-1448x1086.png",
+              "key": "wine-dalton",
+              "name": "יקב דלתון · TRUE NORTH"
+            },
+            {
+              "description": "מארז לבקבוק יין בודד בגוני שחור וזהב, לצד בקבוק מסדרת SYCRA של קלו דה גת.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/82ab42da059c5089414a5393997e3250728c4b9b-1448x1086.png",
+              "key": "wine-clos-de-gat",
+              "name": "קלו דה גת · SYCRA"
+            },
+            {
+              "description": "מארז לבקבוק יין בודד מסדרת ROM של ירדן, בגוני קראפט ואפור עם פרטי מיתוג בזהב.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/2c47b45febdba155f4337b978c763fd7539268d4-1448x1086.png",
+              "key": "wine-yarden",
+              "name": "ירדן · ROM"
+            },
+            {
+              "key": "wine-mony",
+              "name": "יקב מוני · SAMSON",
+              "description": "מארז לבקבוק יין בודד מסדרת SAMSON של יקב מוני, בשחור וזהב.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/aaa3e31313ce449dbacf705537a4bc659f20f2dd-1448x1086.png"
+            }
+          ],
+          "key": "single-bottle",
+          "name": "מארז בודד",
+          "shortDescription": "אריזה לבקבוק בודד."
+        },
+        {
+          "characteristics": [
+            "חלוקה פנימית",
+            "מבנה רב-תכליתי",
+            "התאמה למתנה"
+          ],
+          "details": "מארזי יינות בעיצוב אלגנטי בשילוב מתנות שונות.",
+          "examples": [
+            {
+              "description": "מארז שי לבקבוק יין ושתי כוסות, עם חלונות תצוגה ומיתוג יקב רמת הגולן.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/5de359d3327a044475489955a33fa7f9d89746fb-1448x1086.png",
+              "key": "wine-golan",
+              "name": "יקב רמת הגולן"
+            },
+            {
+              "description": "מארז גנארי מיוחד שמותאם למוצרים שונים עם ידית נשיאה פטנט יחודי שלנו.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/a73b369bef7e7d8248e572fced9a5df2fe74aa33-889x571.png",
+              "key": "wine-carmel",
+              "name": "יקב כרמל"
+            },
+            {
+              "description": "מארז חגיגי למתנה מותאם לכמה מוצרים שונים. זכה בתחרות עיצוב “כוכב ישראל”. מודפס על קראפט חום.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/04c75762d6674599e12f28d0dfc42f1184de3707-1254x1254.png",
+              "key": "wine-tabor",
+              "name": "יקב תבור"
+            }
+          ],
+          "key": "multi-product-gifts",
+          "name": "מארזי שי משולבים",
+          "shortDescription": "מארזי יין"
+        }
+      ]
+    },
+    {
+      "intro": "מאגדות בקבוקים, מארזי נשיאה ופתרונות תצוגה למספר משקאות.",
+      "key": "beverages-preview",
+      "name": "משקאות",
+      "number": "03",
+      "products": [
+        {
+          "characteristics": [
+            "מספר מוצרים",
+            "תצוגת מוצר",
+            "נשיאה נוחה"
+          ],
+          "details": "אריזות מיוחדות ממגוון חומרי גלם שונים המיועדים גם למיכון אוטומטי.",
+          "examples": [
+            {
+              "description": "סדרת מארזי וויסקי ממותגים של Milk & Honey, עם השבחות וחלונות תצוגה.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/bf0dba5d95a7cac0efe3c7ae89c9ea9bafc641bd-1448x1086.png",
+              "key": "preview-milk-honey",
+              "name": "Milk & Honey · מארזים משותפים"
+            },
+            {
+              "description": "אריזת תה ממותגת לשוק הישראלי, עם לשונית לפתיחה נוחה.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/1bc3316e5e9b38af181f1a26d54e0cc59cd9028e-1448x1086.png",
+              "key": "preview-wissotzky-israel",
+              "name": "ויסוצקי · קמומיל ודבש"
+            }
+          ],
+          "key": "beverage-packs",
+          "name": "מארזי משקאות",
+          "shortDescription": "אריזות ממותגות למשקאות."
+        },
+        {
+          "characteristics": [
+            "איגוד בקבוקים",
+            "ידית נשיאה",
+            "חבק ממותג"
+          ],
+          "details": "חבק קרטון מחומר גלם עמיד ללחות ומותאם לנשיאה המשמש למיתוג בולט בנקודת המכירה.",
+          "examples": [
+            {
+              "description": "מאגדת שישיות קרלסברג כולל השבחות. המאגדת חובקת שישה בקבוקי בירה.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/cb80dbd33482e67aa5570333d176b3fa5582c27f-1254x1254.png",
+              "key": "beer-carlsberg",
+              "name": "החברה המרכזית / קרלסברג"
+            },
+            {
+              "description": "מאגדת קרטון ממותגת לבקבוקי בירה טובורג.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/4d1fcda1d9208c63a82f052fc4a08c6dfefa658f-1254x1254.png",
+              "key": "beer-tuborg",
+              "name": "החברה המרכזית – טובורג"
+            }
+          ],
+          "key": "bottle-carriers",
+          "name": "מאגדות לבקבוקי בירה",
+          "shortDescription": "חבק קרטון ממותג מחומר גלם מיוחד האוגד מספר בקבוקים."
+        }
+      ]
+    },
+    {
+      "intro": "קופסאות מדף, דיספליי ומארזי מתנה למוצרי קפה ולקפסולות.",
+      "key": "coffee-preview",
+      "name": "קפה",
+      "number": "04",
+      "products": [
+        {
+          "characteristics": [
+            "פתיחה נוחה",
+            "התאמה לסדרה",
+            "נוכחות מדף",
+            "ייחודיות"
+          ],
+          "details": "אריזות קפה ממותגות בעיצוב אלגנטי עם השבחות שונות המעניקות למוצר מראה יוקרתי וייחודי על המדף.",
+          "examples": [
+            {
+              "description": "אריזת קרטון ממותגת לקפסולות קפה, כוללת השבחות עם פתיחה מיוחדת וקלה לצרכן בעלת נוכחות מדף.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/43f263ed307fa20e5940a596f38ed2d13549e06d-1254x1254.png",
+              "key": "coffee-elite",
+              "name": "קפה עלית שטראוס"
+            },
+            {
+              "description": "סדרת אריזות לקפסולות קפה כולל השבחות של לכה סלקטיבית והטבעה עם בידול גרפי מותאם ללקוח, בסוגים שונים של טעמי קפה.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/2044098be5999ae7b93eb223844f0e1225fbd60a-1254x1254.png",
+              "key": "coffee-joe",
+              "name": "קפה ג׳ו"
+            },
+            {
+              "description": "מארז קפסולות מוארך עם מיתוג בערבית ובידול צבעוני.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/36bb468e126bcca6b7e0f1f1bf7da2f43abe014e-1448x1086.png",
+              "key": "preview-coffee-burgundy",
+              "name": "מארז קפסולות · מהדורה בערבית"
+            },
+            {
+              "description": "מארז קפסולות קפה עם מיתוג בגוני כחול וזהב.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/76aa56e99f02ccdb614ec5ef1a94001b4c5164c6-1448x1086.png",
+              "key": "preview-coffee-guatemala",
+              "name": "קפה עלית · גואטמלה 11"
+            }
+          ],
+          "key": "coffee-retail-cartons",
+          "name": "מארזי קפסולות",
+          "shortDescription": "מארזי קפסולות ממותגות בתכנון מיוחד לפתיחה נוחה."
+        },
+        {
+          "characteristics": [
+            "תצוגה במדף",
+            "איגוד מספר אריזות",
+            "חומרי גלם ייחודיים"
+          ],
+          "details": "מעמד קרטון ייעודי להצגה ואריזה של קופסאות קפסולות, מארזי קפה ומארזי מתנה, המאפשר סידור נוח, נגיש ואסתטי של המוצרים.",
+          "examples": [
+            {
+              "description": "סט מארז לקפסולות כולל דיספליי עם בולטות בנקודת המכירה.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/b76503fe78173a5e8b45738053f9384adbec98b4-1254x1254.png",
+              "key": "coffee-aroma",
+              "name": "קפה ארומה"
+            },
+            {
+              "description": "מארז Taster’s Choice וכוס מתנה.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/dd9f9e5a5e122390230acaf7f8125b13424d16c9-1254x1254.png",
+              "key": "coffee-tasters-choice",
+              "name": "נסטלה / אסם"
+            }
+          ],
+          "key": "coffee-displays",
+          "name": "מארזי תצוגה ומתנה",
+          "shortDescription": "פתרון תצוגה ואריזה מעוצב למארזי קפה, קפסולות ומתנות."
+        }
+      ]
+    },
+    {
+      "intro": "אריזות מזון צריכות לשלב נראות, נוחות ושמירה על המוצר. בתכנון בודקים אם מדובר באריזה חיצונית או במגע ישיר עם מזון, אילו תנאי אחסון נדרשים ואיך המוצר יוצג או יישלח.",
+      "key": "food-preview",
+      "name": "מזון",
+      "number": "05",
+      "products": [
+        {
+          "characteristics": [
+            "התאמה לסדרה",
+            "נוכחות מדף",
+            "מיתוג",
+            "אריזות למזון",
+            "פונקציונליות"
+          ],
+          "details": "מגוון פתרונות אריזה מקרטון למוצרי מזון, המפותחים בהתאמה למאפייני המוצר, למידותיו ולצרכי המותג. האריזות משלבות תכנון מוקפד, נוחות שימוש ונראות איכותית, תוך התאמה למגוון רחב של מוצרים וסדרות.",
+          "examples": [
+            {
+              "description": "סדרת קופסאות קרטון למוצרי טופו, עם בידול צבעוני בין הטעמים ונראות אחידה על המדף.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/9f1920d96b6f69dc58de2b8515cde6d6618cca7f-1254x1254.png",
+              "key": "preview-tofu",
+              "name": "תנובה ומשק צוריאל · טופו"
+            },
+            {
+              "description": "אריזת קרטון ממותגת לחטיפי דגנים.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/e1b9a615a1491481b32f80bcccf2a607a8d86ac3-1448x1086.png",
+              "key": "preview-energy",
+              "name": "שטראוס · ENERGY"
+            },
+            {
+              "description": "אריזת שוקולד בעלת מבנה ייחודי וגימור צבעוני.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/ab6256453ae655831aa151f3e8b09f5bd5ce31d0-1448x1086.png",
+              "key": "preview-max-brenner",
+              "name": "Max Brenner · ADDICTION"
+            },
+            {
+              "description": "אריזת קרטון לטבלת שוקולד, עם מיתוג ואיור מוצר.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/e6708d20e0e4d5cdd67d2899071be829c7018ae6-1448x1086.png",
+              "key": "preview-roy",
+              "name": "ROY Chocolate · שוקולד דובאי"
+            },
+            {
+              "description": "אריזת קרטון ממותגת לגבינת חלומי.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/a44a3acca04abeb2389e192277bf5e8f4bc0835c-1448x1086.png",
+              "key": "preview-halloumi",
+              "name": "משק דותן · חלומי"
+            },
+            {
+              "key": "food-osem-pudding",
+              "name": "אסם · פודינג וניל",
+              "description": "אריזת קרטון לפודינג בטעם וניל של אסם.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/f52a4b5bdfc383cada1846b92aa030d1ac243c82-1448x1086.png"
+            }
+          ],
+          "key": "food-cartons",
+          "name": "אריזות למוצרי מזון",
+          "shortDescription": "אריזות קרטון למוצרי מזון, המותאמות למוצר ומשלבות פונקציונליות, נראות ומיתוג."
+        }
+      ]
+    },
+    {
+      "intro": "בפארמה אין מקום לאי-דיוקים. האריזה צריכה להיות ברורה, נקייה, יציבה ומתוכננת סביב מידע מודפס, סדרות מוצרים, סימון, ברקודים, הנחיות שימוש ודרישות תהליך.",
+      "key": "pharma-preview",
+      "name": "פארמה",
+      "number": "06",
+      "products": [
+        {
+          "characteristics": [
+            "מיתוג",
+            "דיוק",
+            "תקן",
+            "פארמה",
+            "תוספי תזונה",
+            "איכותי"
+          ],
+          "details": "אריזות קרטון מודפסות לתחום הפארמה ותוספי התזונה, המשלבות איכות הדפסה גבוהה, דיוק וגימור מוקפד. כל אריזה מותאמת למוצר ולשפה המותגית, ליצירת מראה נקי, אמין ומקצועי.",
+          "examples": [
+            {
+              "description": "אריזת קרטון מודפסת לתוסף תזונה, במבנה עם חלק עליון מעוגל.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/002cf377b6c789ee40e2f1b5022dab1c8db210c1-1448x1086.png",
+              "key": "preview-altman",
+              "name": "אלטמן · FEMINA 9 MONTHS"
+            },
+            {
+              "description": "אריזה מודפסת לתוסף תזונה לילדים.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/b6a5b8b03c66eeec6ff7e22859dc814d91986e41-1448x1086.png",
+              "key": "preview-life",
+              "name": "Life KIDS · Pilonim"
+            },
+            {
+              "description": "אריזת קרטון מוארכת למוצר פארמה.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/4617f926096fc1e00399127810d4831378b2248b-1448x1086.png",
+              "key": "preview-tree-of-life",
+              "name": "Tree of Life · Chamomilo"
+            }
+          ],
+          "key": "pharma-ampoules",
+          "name": "אריזות פארמה",
+          "shortDescription": "אריזות קרטון מודפסות לתחום הפארמה ותוספי התזונה בגימור נקי ומקצועי."
         }
       ]
     }

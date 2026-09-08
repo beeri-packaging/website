@@ -503,10 +503,10 @@ function mapPost(d: PostDoc, locale: Lang): LocalizedPost {
     ? { text: d.quote.text, cite: d.quote.cite ?? "" }
     : fbL?.quote;
   const sections: PostSection[] | undefined = d.sections?.length
-    ? d.sections.map((s, i) => ({
-        heading: s.heading ?? fbL?.sections?.[i]?.heading ?? "",
-        body: s.body ?? fbL?.sections?.[i]?.body ?? "",
-        image: s.imageUrl ?? s.imageLegacy ?? fbL?.sections?.[i]?.image,
+    ? d.sections.map((s) => ({
+        heading: s.heading ?? "",
+        body: s.body ?? "",
+        image: s.imageUrl ?? s.imageLegacy,
         imageAlt: s.imageAlt,
       }))
     : fbL?.sections?.map((s) => ({ heading: s.heading, body: s.body, image: s.image }));
@@ -523,7 +523,7 @@ function mapPost(d: PostDoc, locale: Lang): LocalizedPost {
     author: d.author ?? fb?.author?.[locale],
     credit: d.credit ?? fb?.credit?.[locale],
     quote,
-    quoteImage: d.quoteImageUrl ?? d.quoteImageLegacy ?? fb?.quoteImage,
+    quoteImage: d.quoteImageUrl ?? d.quoteImageLegacy,
     quoteImageAlt: d.quoteImageAlt,
     sections,
   };

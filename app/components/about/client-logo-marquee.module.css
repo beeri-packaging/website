@@ -1,5 +1,6 @@
 .marquee {
-  --logo-gap: clamp(2rem, 4vw, 4.5rem);
+  --logo-gap: clamp(2.5rem, 5vw, 4rem);
+  --logo-scale: 0.8;
   padding-block: 1.5rem 3.5rem;
 }
 
@@ -33,16 +34,31 @@
 
 .item {
   display: flex;
-  flex: 0 0 164px;
-  width: 164px;
+  flex: 0 0 auto;
+  width: calc(var(--logo-width) * var(--logo-scale));
   height: 104px;
   align-items: center;
   justify-content: center;
 }
 
+.logoBox {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: calc(var(--logo-width) * var(--logo-scale));
+  height: calc(var(--logo-height) * var(--logo-scale));
+}
+
 .logo {
-  filter: grayscale(1);
-  opacity: 0.65;
+  width: var(--image-width, 100%) !important;
+  height: var(--image-height, 100%) !important;
+  left: var(--image-left, 0%) !important;
+  top: var(--image-top, 0%) !important;
+  right: auto !important;
+  bottom: auto !important;
+  max-width: none;
+  filter: none;
+  opacity: 1;
   transition: opacity 200ms ease;
 }
 
@@ -61,7 +77,8 @@
 }
 
 @media (min-width: 640px) {
-  .item { flex-basis: 208px; width: 208px; height: 120px; }
+  .item { height: 120px; }
+  .marquee { --logo-scale: 1; }
   .marquee { padding-block-end: 4.5rem; }
 }
 

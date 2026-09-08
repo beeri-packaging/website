@@ -6,9 +6,9 @@ for (const locale of ["he", "en"] as const) {
     test.setTimeout(150_000);
     await page.goto(`/${locale}/catalog`);
     const cards = page.getByRole("button", { name: locale === "he" ? /— לפתיחת המוצר$/ : /— View packaging$/ });
-    await expect(cards).toHaveCount(12);
+    await expect(cards).toHaveCount(11);
     let imageCount = 0;
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 11; i++) {
       await cards.nth(i).click();
       const dialog = page.getByRole("dialog");
       await expect(dialog).toBeVisible();
@@ -20,15 +20,15 @@ for (const locale of ["he", "en"] as const) {
         await examples.nth(j).click();
         await expect.poll(() => dialog.locator("img").first().evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0), { timeout: 20_000 }).toBe(true);
       }
-      if (i === 11) {
+      if (i === 10) {
         const result = await new AxeBuilder({ page }).analyze();
         expect(result.violations.filter((v) => ["serious", "critical"].includes(v.impact ?? ""))).toEqual([]);
       }
       await dialog.getByRole("button", { name: locale === "he" ? "סגירת פירוט המוצר" : "Close product details" }).click();
     }
-    expect(imageCount).toBe(34);
+    expect(imageCount).toBe(36);
     await page.setViewportSize({ width: 390, height: 844 });
-    await cards.nth(11).click();
+    await cards.nth(10).click();
     const features = page.getByRole("dialog").getByRole("heading", { name: locale === "he" ? "מאפיינים אפשריים" : "Available features" });
     await features.scrollIntoViewIfNeeded();
     await expect(features).toBeInViewport();

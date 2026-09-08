@@ -6,6 +6,7 @@ import { aboutImages, type AboutClient, type AboutCopy } from "@/app/content/abo
 import type { Lang } from "@/app/content/home";
 import { ContactTriggerButton } from "@/app/components/contact/ContactTriggerButton";
 import { AboutTimeline } from "./AboutTimeline";
+import logoBounds from "@/app/content/client-logo-bounds.json";
 import marqueeStyles from "./client-logo-marquee.module.css";
 
 /** Tracked micro-label with a leading rule, matching the site's section eyebrows. */
@@ -20,26 +21,16 @@ function Eyebrow({ children }: { children: ReactNode }) {
   );
 }
 
-function clientLogoBoxClass(client: AboutClient) {
-  const logo = client.logo;
-  if (!logo) return "";
-
-  if (client.featured) return "h-16 w-44 max-w-full sm:h-[76px] sm:w-52";
-  if (/מקס ברנר|Max Brenner/.test(client.name)) return "h-[78px] w-24 sm:h-[94px] sm:w-28";
-  if (client.name === "FRE") return "h-14 w-28 sm:h-16 sm:w-32";
-  if (logo.includes("tempo")) return "h-16 w-24 sm:h-[74px] sm:w-28";
-  if (logo.includes("leiman")) return "h-16 w-28 sm:h-[74px] sm:w-32";
-  if (logo.includes("recanati")) return "h-16 w-28 sm:h-[76px] sm:w-32";
-  if (logo.includes("carmel")) return "h-16 w-28 sm:h-[76px] sm:w-32";
-  if (logo.includes("altman")) return "h-12 w-40 sm:h-14 sm:w-48";
-  if (logo.includes("nestle")) return "h-12 w-40 sm:h-14 sm:w-48";
-  if (logo.includes("carlsberg")) return "h-16 w-40 sm:h-[74px] sm:w-48";
-  if (logo.includes("cbc")) return "h-16 w-40 sm:h-[72px] sm:w-48";
-  if (logo.includes("golan")) return "h-16 w-40 sm:h-[72px] sm:w-48";
-  if (logo.includes("wissotzky")) return "h-14 w-40 sm:h-16 sm:w-48";
-  if (logo.includes("elite")) return "h-16 w-36 sm:h-[72px] sm:w-40";
-
-  return "h-14 w-40 sm:h-16 sm:w-48";
+function clientLogoStyle(client: AboutClient): CSSProperties {
+  const key = client.logo?.split("/").pop()?.split("?")[0] ?? "";
+  const bounds = (logoBounds as Record<string, {x: number; y: number; w: number; h: number; ratio: number}>)[key];
+  if (!bounds) return {"--logo-width": "170px", "--logo-height": "72px"} as CSSProperties;
+  const width = client.featured ? 350 : Math.min(230, 80 * bounds.ratio, Math.sqrt(7000 * bounds.ratio));
+  return {
+    "--logo-width": `${width}px`, "--logo-height": `${width / bounds.ratio}px`,
+    "--image-width": `${100 / bounds.w}%`, "--image-height": `${100 / bounds.h}%`,
+    "--image-left": `${-100 * bounds.x / bounds.w}%`, "--image-top": `${-100 * bounds.y / bounds.h}%`,
+  } as CSSProperties;
 }
 
 const teamAccentClasses = [
@@ -54,6 +45,9 @@ const teamAccentClasses = [
 
 export async function AboutPageDesign({ copy, lang }: { copy: AboutCopy; lang: Lang }) {
   const t = await getTranslations({ locale: lang, namespace: "clientLogos" });
+  const featuredClient = copy.clients.find((client) => client.featured);
+  const marqueeClients = copy.clients.map((client) => ({client, repeated: false}));
+  if (featuredClient) marqueeClients.splice(Math.ceil(marqueeClients.length / 2), 0, {client: featuredClient, repeated: true});
   const [introLead, ...introDetails] = copy.intro.split("\n\n");
   const heritageParagraphs = copy.heritageBody.split("\n\n");
 
@@ -373,18 +367,18 @@ export async function AboutPageDesign({ copy, lang }: { copy: AboutCopy; lang: L
             <div className={marqueeStyles.track}>
               {[false, true].map((duplicate) => (
                 <ul key={String(duplicate)} className={marqueeStyles.group} aria-hidden={duplicate || undefined}>
-                  {copy.clients.map((client) => (
-                    <li key={client.name} className={marqueeStyles.item}>
+                  {marqueeClients.map(({client, repeated}, index) => (
+                    <li key={`${client.name}-${index}`} aria-hidden={repeated || undefined} className={marqueeStyles.item} style={clientLogoStyle(client)}>
                       {client.logo ? (
-                        <span className={`relative block max-w-full ${clientLogoBoxClass(client)}`}>
+                        <span className={marqueeStyles.logoBox}>
                           <Image
                             src={client.logo}
-                            alt={duplicate ? "" : client.name}
+                            alt={duplicate || repeated ? "" : client.name}
                             fill
                             unoptimized
                             loading="eager"
-                            sizes="208px"
-                            className={`object-contain mix-blend-multiply ${marqueeStyles.logo}`}
+                            sizes="350px"
+                            className={`mix-blend-multiply ${marqueeStyles.logo}`}
                           />
                         </span>
                       ) : (

@@ -1,3 +1,4 @@
+import { blogImageFit } from "@/lib/blog-image";
 import Image from "next/image";
 import Link from "next/link";
 import type { Lang } from "@/app/content/home";
@@ -54,7 +55,7 @@ function FeatureCard({ post, lang, labels }: CardProps) {
       </div>
       {post.image ? (
         <div className="relative mt-auto aspect-[16/9] overflow-hidden border-t border-ink bg-bone">
-          <Image src={post.image} alt={post.imageAlt ?? post.title} fill sizes="(min-width:1024px) 58vw, 100vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+          <Image src={post.image} alt={post.imageAlt ?? post.title} fill sizes="(min-width:1024px) 58vw, 100vw" className={blogImageFit(post.image) + " transition-transform duration-500"} />
         </div>
       ) : null}
     </Link>
@@ -93,7 +94,7 @@ function ImageCard({ post, lang, labels, readLabel, className }: CardProps & { c
     >
       {post.image ? (
         <div className="relative aspect-[1.5] overflow-hidden border-b border-ink bg-ink">
-          <Image src={post.image} alt={post.imageAlt ?? post.title} fill sizes="(min-width:1024px) 30vw, 100vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+          <Image src={post.image} alt={post.imageAlt ?? post.title} fill sizes="(min-width:1024px) 30vw, 100vw" className={blogImageFit(post.image) + " transition-transform duration-500"} />
         </div>
       ) : null}
       <div className="flex flex-1 flex-col p-6 sm:p-8">
