@@ -8,7 +8,10 @@ import { placeholderContent } from "@/app/content/placeholder";
 
 describe("toChrome", () => {
   it("returns bundled fallback when doc is null", () => {
-    expect(toChrome(null, "he")).toEqual(chromeContent.he);
+    const result = toChrome(null, "he");
+    expect(result.logoHe).toBe(chromeContent.he.logoHe);
+    expect(result.menu).toBe(chromeContent.he.menu);
+    expect(result.footerTagline).toContain(" - ");
   });
   it("prefers the doc value and falls back per-field", () => {
     const result = toChrome({ menu: "X" }, "en");
@@ -26,13 +29,19 @@ describe("toChrome", () => {
 
 describe("toCareersCopy", () => {
   it("returns bundled fallback when doc is null", () => {
-    expect(toCareersCopy(null, "he")).toEqual(careersCopy.he);
+    const result = toCareersCopy(null, "he");
+    expect(result.title).toEqual(careersCopy.he.title);
+    expect(result.articles).toHaveLength(careersCopy.he.articles.length);
+    expect(JSON.stringify(result)).not.toMatch(/[—–]/);
   });
 });
 
 describe("toFinishingCopy", () => {
   it("returns bundled fallback when doc is null", () => {
-    expect(toFinishingCopy(null, "en")).toEqual(finishingCopy.en);
+    const result = toFinishingCopy(null, "en");
+    expect(result.title).toEqual(finishingCopy.en.title);
+    expect(result.standards.map(s => s.code)).toEqual(["ISO 9001:2015", "FSSC 22000", "ESSENTIAL", "VITAL"]);
+    expect(result.standards.slice(-2).every(s => s.certificateUrl?.startsWith("https://cdn.sanity.io/files/"))).toBe(true);
   });
 
   it("keeps the approved standards when an older Sanity document has no standards section", () => {
@@ -40,14 +49,17 @@ describe("toFinishingCopy", () => {
     expect(result.standards.map((standard) => standard.code)).toEqual([
       "ISO 9001:2015",
       "FSSC 22000",
-      "24/6",
+      "ESSENTIAL",
+      "VITAL",
     ]);
   });
 });
 
 describe("blog mappers", () => {
   it("blog index falls back when doc is null", () => {
-    expect(toBlogIndexCopy(null, "he")).toEqual(blogIndexCopy.he);
+    const result = toBlogIndexCopy(null, "he");
+    expect(result.title).toEqual(blogIndexCopy.he.title);
+    expect(result.body).toContain(" - ");
   });
   it("category labels fall back to bundled per-locale", () => {
     const labels = toCategoryLabels(null, "en");
@@ -62,6 +74,8 @@ describe("blog mappers", () => {
 
 describe("toPlaceholderCopy", () => {
   it("returns bundled fallback when doc is null", () => {
-    expect(toPlaceholderCopy(null, "catalog", "he")).toEqual(placeholderContent.catalog.he);
+    const result = toPlaceholderCopy(null, "catalog", "he");
+    expect(result.title).toEqual(placeholderContent.catalog.he.title);
+    expect(result.preview).toContain("קרטון 250-350 גרם");
   });
 });

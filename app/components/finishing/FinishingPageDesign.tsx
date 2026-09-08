@@ -174,7 +174,7 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
             </p>
           </div>
 
-          <ol className="grid gap-5 sm:grid-cols-3 lg:col-span-8">
+          <ol className={`grid gap-5 ${copy.standards.length > 3 ? "sm:grid-cols-2" : "sm:grid-cols-3"} lg:col-span-8`}>
             {copy.standards.map((standard) => {
               const essential = standard.tone === "essential";
               return (
@@ -227,7 +227,11 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
                       <p className="mt-3 font-sans text-[14px] leading-[1.55] text-clay">
                         {standard.body}
                       </p>
-                      {!standard.image ? (
+                      {standard.certificateUrl ? (
+                        <a href={standard.certificateUrl} target="_blank" rel="noopener noreferrer" className="mt-4 font-sans text-[13px] font-semibold text-teal underline underline-offset-4 hover:text-ink focus-ring">
+                          {standard.certificateLabel}
+                        </a>
+                      ) : !standard.image ? (
                         <p className="mt-4 border-t border-rule pt-3 font-sans text-[10px] font-bold uppercase tracking-[0.06em] text-clay/65">
                           {standard.certificateLabel}
                         </p>

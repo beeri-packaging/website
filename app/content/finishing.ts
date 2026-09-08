@@ -14,6 +14,7 @@ export type FinishingStandard = {
   title: string;
   body: string;
   certificateLabel: string;
+  certificateUrl?: string;
   image?: string;
   tone?: "plain" | "essential";
 };

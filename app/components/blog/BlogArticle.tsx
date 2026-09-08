@@ -1,6 +1,7 @@
 import { blogImageFit } from "@/lib/blog-image";
 import Image from "next/image";
 import Link from "next/link";
+import type { ReactNode } from "react";
 import type { Lang } from "@/app/content/home";
 import {
   categoryChipClass,
@@ -96,12 +97,30 @@ function QuoteBlock({ post }: { post: LocalizedPost }) {
 }
 
 // ── Numbered article section ─────────────────────────────────────────────────
+function LinkedSectionBody({ section, lang }: { section: NonNullable<LocalizedPost["sections"]>[number]; lang: Lang }) {
+  const matches = (section.links ?? []).map((link) => ({ ...link, index: section.body.indexOf(link.text) }))
+    .filter((link) => link.index >= 0 && /^[a-z0-9-]+$/.test(link.slug))
+    .sort((a, b) => a.index - b.index);
+  const parts: ReactNode[] = [];
+  let cursor = 0;
+  for (const link of matches) {
+    if (link.index < cursor) continue;
+    parts.push(section.body.slice(cursor, link.index));
+    parts.push(<Link key={`${link.index}-${link.slug}`} href={`/${lang}/blog/${link.slug}`} className="font-semibold text-teal underline underline-offset-4 hover:text-ink focus-ring">{link.text}</Link>);
+    cursor = link.index + link.text.length;
+  }
+  parts.push(section.body.slice(cursor));
+  return parts;
+}
+
 function Section({
   section,
   index,
+  lang,
 }: {
   section: NonNullable<LocalizedPost["sections"]>[number];
   index: number;
+  lang: Lang;
 }) {
   return (
     <section className="reveal flex flex-col gap-6">
@@ -110,7 +129,7 @@ function Section({
         {section.heading}
       </h2>
       <p className="font-sans text-[16px] font-light leading-[1.6] text-ink/90">
-        {section.body}
+        <LinkedSectionBody section={section} lang={lang} />
       </p>
       {section.image ? (
         <div className="relative mt-2 aspect-[16/9] w-full overflow-hidden border border-ink bg-sand">
@@ -270,7 +289,7 @@ export function BlogArticle({
             <QuoteBlock post={post} />
 
             {post.sections?.map((s, i) => (
-              <Section key={i} section={s} index={i} />
+              <Section key={i} section={s} index={i} lang={lang} />
             ))}
           </div>
         </div>

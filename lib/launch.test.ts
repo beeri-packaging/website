@@ -1,5 +1,21 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { LAUNCH_COOLDOWN_MS, launchBootstrap, launchConfig, launchScript } from "./launch";
+import { launchLinkAllowed } from "./launch-link";
+
+describe("temporary launch link", () => {
+  const expires = "2026-09-12T00:00:00+03:00";
+  it("accepts the shared link through Friday and expires at Israel midnight", () => {
+    expect(launchLinkAllowed("test-key", "test-key", expires, Date.parse(expires) - 1)).toBe(true);
+    expect(launchLinkAllowed("test-key", "test-key", expires, Date.parse(expires))).toBe(false);
+  });
+  it("rejects missing, incorrect or unconfigured access and invalid expiry", () => {
+    const now = Date.parse(expires) - 1;
+    expect(launchLinkAllowed(null, "test-key", expires, now)).toBe(false);
+    expect(launchLinkAllowed("wrong", "test-key", expires, now)).toBe(false);
+    expect(launchLinkAllowed(null, undefined, expires, now)).toBe(false);
+    expect(launchLinkAllowed("test-key", "test-key", "bad-date", now)).toBe(false);
+  });
+});
 
 const start = "2026-09-10T09:00:00+03:00";
 const end = "2026-09-15T09:00:00+03:00";

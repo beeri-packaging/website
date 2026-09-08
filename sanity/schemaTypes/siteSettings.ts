@@ -45,6 +45,7 @@ export const siteSettings = defineType({
     // Media
     imageField("logoHe", "לוגו (עברית)", "media"),
     imageField("logoEn", "לוגו (אנגלית)", "media"),
+    defineField({ name: "logoEnIncludesByline", title: "הלוגו באנגלית כולל כיתוב חברת האם", type: "boolean", group: "media" }),
   ],
   preview: {
     select: { language: "language" },

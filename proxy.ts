@@ -1,6 +1,7 @@
 import createMiddleware from "next-intl/middleware";
 import { NextResponse, type NextRequest } from "next/server";
 import { routing } from "./i18n/routing";
+import { launchLinkAllowed } from "./lib/launch-link";
 import {
   isPublicProductionHost,
   maintenanceLocale,
@@ -22,6 +23,20 @@ export default function proxy(request: NextRequest) {
     request.nextUrl.hostname,
   );
   const { pathname } = request.nextUrl;
+  const launchRequested = request.nextUrl.searchParams.has("launch");
+  const protectLaunch = Boolean(process.env.VERCEL || process.env.LAUNCH_ACCESS_TOKEN);
+  if (launchRequested && protectLaunch && !launchLinkAllowed(
+    request.nextUrl.searchParams.get("access"),
+    process.env.LAUNCH_ACCESS_TOKEN,
+    process.env.LAUNCH_LINK_EXPIRES_AT,
+  )) {
+    const destination = request.nextUrl.clone();
+    destination.searchParams.delete("launch");
+    destination.searchParams.delete("access");
+    const response = NextResponse.redirect(destination);
+    response.headers.set("Cache-Control", "private, no-store");
+    return response;
+  }
 
   if (isPublicProductionHost(hostname) && pathname === "/robots.txt") {
     return new NextResponse("User-agent: *\nDisallow: /\n", {
@@ -56,7 +71,13 @@ export default function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL(`/${locale}`, request.url));
   }
 
-  return intlMiddleware(request);
+  const response = intlMiddleware(request);
+  if (launchRequested && protectLaunch) {
+    response.headers.set("Cache-Control", "private, no-store");
+    response.headers.set("Referrer-Policy", "no-referrer");
+    response.headers.set("X-Robots-Tag", "noindex, nofollow");
+  }
+  return response;
 }
 
 export const config = {

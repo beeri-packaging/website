@@ -46,16 +46,14 @@ export function Footer({ lang, chrome }: { lang: Lang; chrome: Chrome }) {
               <Image
                 src={isHe ? chrome.logoHe : chrome.logoEn}
                 alt={brandName}
-                // HE is a slim wordmark (sized by width); EN is a taller
-                // icon+wordmark lockup (1322×826) — give it its real ratio and
-                // size by height so it lands at the same visual height, not a
-                // 220px-wide block.
-                width={isHe ? 249 : 1322}
-                height={isHe ? 64 : 826}
+                width={isHe ? 249 : (chrome.logoEnDimensions?.width ?? 1322)}
+                height={isHe ? 64 : (chrome.logoEnDimensions?.height ?? 826)}
                 className={
                   isHe
                     ? "h-11 sm:h-12 md:h-14 w-auto"
-                    : "h-12 sm:h-14 w-auto"
+                    : chrome.logoEnIncludesByline
+                      ? "h-20 sm:h-24 w-auto"
+                      : "h-12 sm:h-14 w-auto"
                 }
               />
               {isHe ? (
@@ -64,7 +62,7 @@ export function Footer({ lang, chrome }: { lang: Lang; chrome: Chrome }) {
                 </span>
               ) : null}
             </Link>
-            {isHe ? null : (
+            {isHe || chrome.logoEnIncludesByline ? null : (
               <span className="-mt-3 font-sans font-semibold uppercase text-teal text-[12px] tracking-[0.14em] leading-4">
                 {chrome.byline}
               </span>

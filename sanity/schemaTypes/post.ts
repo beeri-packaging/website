@@ -67,6 +67,12 @@ export const post = defineType({
             defineField({ name: "heading", title: "כותרת הפרק", type: "string", validation: (rule) => rule.required() }),
             defineField({ name: "body", title: "תוכן הפרק", type: "text", rows: 4, validation: (rule) => rule.required() }),
             imageField("image", "תמונת פרק (אופציונלי)"),
+            defineField({ name: "links", title: "קישורים לכתבות בתוך הטקסט", type: "array", of: [{
+              type: "object", name: "articleLink", fields: [
+                defineField({ name: "text", title: "הטקסט לקישור", type: "string", validation: rule => rule.required() }),
+                defineField({ name: "slug", title: "מזהה כתבת היעד", type: "string", validation: rule => rule.required() }),
+              ],
+            }] }),
           ],
           preview: { select: { title: "heading", media: "image" } },
         }),

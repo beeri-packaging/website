@@ -1,3 +1,4 @@
+import { reviewPunctuation, reviewCatalog, reviewChrome, reviewFinishing, reviewHomeCopy, reviewPost } from "@/app/content/client-feedback";
 import { defineQuery } from "next-sanity";
 
 import { client } from "./client";
@@ -103,7 +104,7 @@ const tuple = (
  * components expect. When `doc` is null/missing, returns the bundled copy for
  * the locale so the page renders unchanged until Sanity is seeded.
  */
-export function toHomeCopy(doc: HomeDoc | null, locale: Lang): HomeCopy {
+function baseToHomeCopy(doc: HomeDoc | null, locale: Lang): HomeCopy {
   const fallback = homeCopy[locale];
   if (!doc) return fallback;
 
@@ -178,12 +179,12 @@ export function toHomeContent(doc: HomeDoc | null, locale: Lang): HomeContent {
         tag: p[locale].tag, title: p[locale].title, body: p[locale].body,
         link: p[locale].link, src: p.src,
       }));
-  return {
+  return reviewPunctuation({
     copy, capabilities, faqItems, journeyPanels,
     heroImage: doc?.heroImageUrl ?? homeImages.hero,
     heroVideo: doc?.heroVideoUrl,
     bentoServiceImage: doc?.bentoServiceImageUrl ?? homeImages.bentoService,
-  };
+  });
 }
 
 // ---------------------------------------------------------------------------
@@ -195,7 +196,8 @@ export const chromeQuery = defineQuery(`*[_type == "siteSettings" && language ==
   navLinks[]{ he, en, href },
   footerEyebrow, footerAddr, footerLinks, footerCopy,
   "logoHeUrl": logoHe.asset->url, "logoHeLegacy": logoHe.legacyImagePath,
-  "logoEnUrl": logoEn.asset->url, "logoEnLegacy": logoEn.legacyImagePath
+  "logoEnUrl": logoEn.asset->url, "logoEnLegacy": logoEn.legacyImagePath,
+  "logoEnDimensions": logoEn.asset->metadata.dimensions, logoEnIncludesByline
 }`);
 
 type ChromeDoc = {
@@ -212,6 +214,8 @@ type ChromeDoc = {
   logoHeLegacy?: string;
   logoEnUrl?: string;
   logoEnLegacy?: string;
+  logoEnDimensions?: { width: number; height: number };
+  logoEnIncludesByline?: boolean;
 };
 
 export async function getChrome(locale: Lang): Promise<ChromeDoc | null> {
@@ -223,7 +227,7 @@ export async function getChrome(locale: Lang): Promise<ChromeDoc | null> {
   }
 }
 
-export function toChrome(doc: ChromeDoc | null, locale: Lang): Chrome {
+function baseToChrome(doc: ChromeDoc | null, locale: Lang): Chrome {
   const fb = chromeContent[locale];
   if (!doc) return fb;
   return {
@@ -241,6 +245,8 @@ export function toChrome(doc: ChromeDoc | null, locale: Lang): Chrome {
     footerCopy: doc.footerCopy ?? fb.footerCopy,
     logoHe: doc.logoHeUrl ?? doc.logoHeLegacy ?? fb.logoHe,
     logoEn: doc.logoEnUrl ?? doc.logoEnLegacy ?? fb.logoEn,
+    logoEnDimensions: doc.logoEnDimensions,
+    logoEnIncludesByline: doc.logoEnIncludesByline,
     // Footer composition fields are brand-stable; sourced from bundled chrome.
     byline: fb.byline,
     brandLinks: fb.brandLinks,
@@ -285,7 +291,7 @@ export async function getCareers(locale: Lang) {
   catch (err) { console.error("getCareers failed, using bundled copy", err); return null; }
 }
 
-export function toCareersCopy(doc: Awaited<ReturnType<typeof getCareers>>, locale: Lang): CareersCopy {
+function baseToCareersCopy(doc: Awaited<ReturnType<typeof getCareers>>, locale: Lang): CareersCopy {
   const fb = careersCopy[locale];
   if (!doc) return fb;
   return {
@@ -333,7 +339,7 @@ export const finishingQuery = defineQuery(`*[_type == "finishing" && language ==
   feature${ITEM},
   deboss${ITEM}, texture${ITEM},
   standardsEyebrow, standardsTitle, standardsBody,
-  standards[]{ code, title, body, certificateLabel, tone,
+  standards[]{ code, title, body, certificateLabel, tone, "certificateUrl": certificate.asset->url,
     "imageUrl": image.asset->url, "imageLegacy": image.legacyImagePath },
   ctaTitle, ctaPrimary, ctaSecondary
 }`);
@@ -356,14 +362,14 @@ function mapItem(i: { eyebrow?: string; title?: string; body?: string; sample?: 
 }
 
 type FinishingStandardDoc = Partial<
-  Pick<FinishingStandard, "code" | "title" | "body" | "certificateLabel" | "tone">
+  Pick<FinishingStandard, "code" | "title" | "body" | "certificateLabel" | "certificateUrl" | "tone">
 > & {
   imageUrl?: string;
   imageLegacy?: string;
 };
 
-export function toFinishingCopy(doc: Awaited<ReturnType<typeof getFinishing>>, locale: Lang): FinishingCopy {
-  const fb = finishingCopy[locale];
+function baseToFinishingCopy(doc: Awaited<ReturnType<typeof getFinishing>>, locale: Lang): FinishingCopy {
+  const fb = reviewFinishing(finishingCopy[locale], locale);
   if (!doc) return fb;
   return {
     step: doc.step ?? fb.step,
@@ -381,6 +387,7 @@ export function toFinishingCopy(doc: Awaited<ReturnType<typeof getFinishing>>, l
           title: standard.title ?? "",
           body: standard.body ?? "",
           certificateLabel: standard.certificateLabel ?? "",
+          certificateUrl: standard.certificateUrl,
           image: standard.imageUrl ?? standard.imageLegacy ?? undefined,
           tone: standard.tone === "essential" ? "essential" : "plain",
         } satisfies FinishingStandard))
@@ -409,7 +416,7 @@ export async function getBlogSettings(locale: Lang) {
   catch (err) { console.error("getBlogSettings failed, using bundled copy", err); return null; }
 }
 
-export function toBlogIndexCopy(doc: Awaited<ReturnType<typeof getBlogSettings>>, locale: Lang): BlogIndexCopy {
+function baseToBlogIndexCopy(doc: Awaited<ReturnType<typeof getBlogSettings>>, locale: Lang): BlogIndexCopy {
   const fb = blogIndexCopy[locale];
   if (!doc) return fb;
   return {
@@ -448,7 +455,7 @@ const POST_CARD = `"slug": slug.current, date, read, category,
 const POST_FULL = `{ ${POST_CARD}, author, credit,
   quote{ text, cite },
   "quoteImageUrl": quoteImage.asset->url, "quoteImageLegacy": quoteImage.legacyImagePath, "quoteImageAlt": quoteImage.alt,
-  sections[]{ heading, body, "imageUrl": image.asset->url, "imageLegacy": image.legacyImagePath, "imageAlt": image.alt }
+  sections[]{ heading, body, links[]{text, slug}, "imageUrl": image.asset->url, "imageLegacy": image.legacyImagePath, "imageAlt": image.alt }
 }`;
 
 export const allPostsQuery = defineQuery(`*[_type == "post" && language == $locale] | order(date desc) { ${POST_CARD} }`);
@@ -460,6 +467,7 @@ export const relatedPostsQuery = defineQuery(`*[_type == "post" && language == $
 
 type PostSectionDoc = {
   heading?: string; body?: string;
+  links?: { text: string; slug: string }[];
   imageUrl?: string; imageLegacy?: string; imageAlt?: string;
 };
 type PostDoc = {
@@ -473,7 +481,7 @@ type PostDoc = {
 };
 
 export type PostQuote = { text: string; cite: string };
-export type PostSection = { heading: string; body: string; image?: string; imageAlt?: string };
+export type PostSection = { links?: { text: string; slug: string }[]; heading: string; body: string; image?: string; imageAlt?: string };
 
 /** A single-locale post shape consumed by the blog components. */
 export type LocalizedPost = {
@@ -484,7 +492,7 @@ export type LocalizedPost = {
   sections?: readonly PostSection[];
 };
 
-function fbPost(p: BlogPost, locale: Lang): LocalizedPost {
+function baseFbPost(p: BlogPost, locale: Lang): LocalizedPost {
   const l = p[locale];
   return {
     slug: p.slug, date: p.date, read: p.read[locale], category: p.category,
@@ -496,7 +504,7 @@ function fbPost(p: BlogPost, locale: Lang): LocalizedPost {
   };
 }
 
-function mapPost(d: PostDoc, locale: Lang): LocalizedPost {
+function baseMapPost(d: PostDoc, locale: Lang): LocalizedPost {
   const fb = blogPosts.find((p) => p.slug === d.slug);
   const fbL = fb?.[locale];
   const quote = d.quote?.text
@@ -508,6 +516,7 @@ function mapPost(d: PostDoc, locale: Lang): LocalizedPost {
         body: s.body ?? "",
         image: s.imageUrl ?? s.imageLegacy,
         imageAlt: s.imageAlt,
+        links: s.links,
       }))
     : fbL?.sections?.map((s) => ({ heading: s.heading, body: s.body, image: s.image }));
   return {
@@ -632,7 +641,7 @@ export async function getCatalog(locale: Lang): Promise<CatalogDoc | null> {
  * components consume, resolving each item's image (uploaded asset URL, else
  * the local fallback path) and filling any gaps from the bundled copy by key.
  */
-export function toCatalogContent(doc: CatalogDoc | null, locale: Lang): CatalogCopy {
+function baseToCatalogContent(doc: CatalogDoc | null, locale: Lang): CatalogCopy {
   const fb = catalogCopy[locale];
   if (!doc?.categories?.length) return fb;
 
@@ -687,7 +696,7 @@ export async function getPlaceholder(route: PlaceholderRoute, locale: Lang) {
   catch (err) { console.error("getPlaceholder failed, using bundled copy", err); return null; }
 }
 
-export function toPlaceholderCopy(doc: Awaited<ReturnType<typeof getPlaceholder>>, route: PlaceholderRoute, locale: Lang): PlaceholderCopy {
+function baseToPlaceholderCopy(doc: Awaited<ReturnType<typeof getPlaceholder>>, route: PlaceholderRoute, locale: Lang): PlaceholderCopy {
   const fb = placeholderContent[route][locale];
   if (!doc) return fb;
   return {
@@ -700,3 +709,20 @@ export function toPlaceholderCopy(doc: Awaited<ReturnType<typeof getPlaceholder>
     ctaSecondary: doc.ctaSecondary ?? fb.ctaSecondary,
   };
 }
+
+export const toHomeCopy = (...args: Parameters<typeof baseToHomeCopy>) => args[0] ? reviewPunctuation(baseToHomeCopy(...args)) : reviewHomeCopy(baseToHomeCopy(...args), args[1]);
+
+export const toPlaceholderCopy = (...args: Parameters<typeof baseToPlaceholderCopy>) => reviewPunctuation(baseToPlaceholderCopy(...args));
+
+export const toChrome = (...args: Parameters<typeof baseToChrome>) => args[0] ? reviewPunctuation(baseToChrome(...args)) : reviewChrome(baseToChrome(...args), args[1]);
+
+export const toBlogIndexCopy = (...args: Parameters<typeof baseToBlogIndexCopy>) => reviewPunctuation(baseToBlogIndexCopy(...args));
+
+export const toCareersCopy = (...args: Parameters<typeof baseToCareersCopy>) => reviewPunctuation(baseToCareersCopy(...args));
+
+export const toFinishingCopy = (...args: Parameters<typeof baseToFinishingCopy>) => args[0] ? reviewPunctuation(baseToFinishingCopy(...args)) : reviewFinishing(baseToFinishingCopy(...args), args[1]);
+
+export const toCatalogContent = (...args: Parameters<typeof baseToCatalogContent>) => args[0] ? reviewPunctuation(baseToCatalogContent(...args)) : reviewCatalog(baseToCatalogContent(...args), args[1]);
+
+const mapPost = (doc: PostDoc, locale: Lang) => reviewPunctuation(baseMapPost(doc, locale));
+const fbPost = (post: BlogPost, locale: Lang) => reviewPost(baseFbPost(post, locale), locale);

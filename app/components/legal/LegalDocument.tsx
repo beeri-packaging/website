@@ -2,6 +2,7 @@ import type { Lang } from "@/app/content/home";
 import type { LegalDoc } from "@/app/content/legal";
 import { COMPANY, MAPS_HREF, companyLegalName, companyAddress } from "@/app/content/company";
 import { ContactLink } from "@/app/components/home/ContactLink";
+import { reviewPunctuation } from "@/app/content/client-feedback";
 
 /**
  * Editorial renderer for a legal document (Privacy / Terms). Reads its copy
@@ -9,7 +10,8 @@ import { ContactLink } from "@/app/components/home/ContactLink";
  * so the two pages stay in lockstep. Server component — uses only logical CSS
  * so it reads correctly in both RTL (he) and LTR (en).
  */
-export function LegalDocument({ doc, lang }: { doc: LegalDoc; lang: Lang }) {
+export function LegalDocument({ doc: sourceDoc, lang }: { doc: LegalDoc; lang: Lang }) {
+  const doc = reviewPunctuation(sourceDoc);
   const addr = companyAddress(lang);
   const regLabel = lang === "he" ? "ח.פ." : "Company No.";
 

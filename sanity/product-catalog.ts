@@ -1,3 +1,4 @@
+import { reviewProducts, reviewPunctuation } from "@/app/content/client-feedback";
 import { defineQuery } from "next-sanity";
 import type { Lang } from "@/app/content/home";
 import type { CategoryWithProducts } from "@/app/review/catalog-example/CatalogProductConcept";
@@ -14,9 +15,9 @@ export const productCatalogQuery = defineQuery(`*[_type == "catalog" && language
 export async function getProductCatalog(locale: Lang): Promise<readonly CategoryWithProducts[]> {
   try {
     const categories = await client.fetch<CategoryWithProducts[] | null>(productCatalogQuery, { locale });
-    if (categories?.length) return categories;
+    if (categories?.length) return reviewPunctuation(categories);
   } catch (error) {
     console.error("Product catalog fetch failed; using the published snapshot", error);
   }
-  return fallback[locale];
+  return reviewProducts(fallback[locale], locale);
 }

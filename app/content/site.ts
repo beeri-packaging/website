@@ -30,6 +30,8 @@ export type Chrome = {
   footerCopy: string;
   logoHe: string;
   logoEn: string;
+  logoEnDimensions?: { width: number; height: number };
+  logoEnIncludesByline?: boolean;
   // Footer composition
   wordmark: string;
   footerTagline: string;

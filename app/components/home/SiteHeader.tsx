@@ -25,17 +25,14 @@ export function SiteHeader({ lang, chrome }: { lang: Lang; chrome: Chrome }) {
           <Image
             src={lang === "he" ? chrome.logoHe : chrome.logoEn}
             alt={lang === "he" ? "בארי אריזות" : "Beeri Packaging"}
-            // The two logos differ: HE is a slim wordmark (249×64), EN is an
-            // icon+wordmark lockup (1322×826). Give each its real intrinsic
-            // ratio so EN isn't letterboxed in a HE-shaped box; both render at
-            // the same height. EN is capped a touch shorter so the squarer
-            // lockup doesn't overpower the row.
-            width={lang === "he" ? 249 : 1322}
-            height={lang === "he" ? 64 : 826}
+            width={lang === "he" ? 249 : (chrome.logoEnDimensions?.width ?? 1322)}
+            height={lang === "he" ? 64 : (chrome.logoEnDimensions?.height ?? 826)}
             className={
               lang === "he"
                 ? "h-11 sm:h-12 md:h-14 w-auto"
-                : "h-9 sm:h-10 md:h-11 w-auto"
+                : chrome.logoEnIncludesByline
+                  ? "h-12 sm:h-14 md:h-16 w-auto"
+                  : "h-9 sm:h-10 md:h-11 w-auto"
             }
           />
           {lang === "he" ? (
@@ -46,7 +43,7 @@ export function SiteHeader({ lang, chrome }: { lang: Lang; chrome: Chrome }) {
             <span className="-mt-0.5 self-end w-[79.5%] text-center font-sans text-logo-dark text-[10px] sm:text-[11px] md:text-[12px] tracking-normal leading-none">
               {chrome.byline}
             </span>
-          ) : (
+          ) : chrome.logoEnIncludesByline ? null : (
             <span className="ps-0.5 font-sans font-semibold uppercase text-teal text-[9px] sm:text-[10px] tracking-[0.14em] leading-3">
               {chrome.byline}
             </span>

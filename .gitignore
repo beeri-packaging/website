@@ -53,3 +53,6 @@ next-env.d.ts
 
 # claude code runtime state
 .claude/scheduled_tasks.lock
+
+# Original review attachments are archived locally; published assets use Sanity CDN.
+/review-assets/

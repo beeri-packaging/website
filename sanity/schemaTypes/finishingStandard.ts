@@ -11,6 +11,7 @@ export const finishingStandard = defineType({
     defineField({ name: "body", title: "הסבר קצר", type: "text", rows: 3, validation: (rule) => rule.required() }),
     defineField({ name: "certificateLabel", title: "טקסט כשאין עדיין תעודה", type: "string" }),
     imageField("image", "צילום התעודה"),
+    defineField({ name: "certificate", title: "קובץ התעודה", type: "file", options: { accept: "application/pdf" } }),
     defineField({
       name: "tone",
       title: "סגנון",

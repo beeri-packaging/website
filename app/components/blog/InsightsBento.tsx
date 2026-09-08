@@ -129,7 +129,7 @@ export function InsightsBento({
     <section
       id="posts"
       dir="ltr"
-      className="mx-auto grid w-full max-w-[1280px] grid-cols-1 gap-6 px-5 pb-20 sm:px-8 md:px-12 lg:grid-cols-12 lg:grid-rows-[340px_340px_360px] lg:px-20 scroll-mt-[80px]"
+      className="mx-auto grid w-full max-w-[1280px] grid-cols-1 gap-6 px-5 pb-20 sm:px-8 md:px-12 lg:grid-cols-12 lg:grid-rows-[minmax(340px,auto)_minmax(340px,auto)_minmax(360px,auto)] lg:px-20 scroll-mt-[80px]"
     >
       {p0 ? <FeatureCard post={p0} {...common} /> : null}
       {p1 ? <TextCard post={p1} {...common} surface="bg-mist" className="lg:col-start-9 lg:col-span-4 lg:row-start-1" /> : null}

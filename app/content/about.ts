@@ -21,6 +21,7 @@ export type AboutMilestone = {
 export type AboutStat = {
   value: string;
   label: string;
+  labelFirst?: boolean;
   sub?: string;
   /** Tile fill: plain (bone + blueprint border), magenta, or yellow. */
   tone?: "plain" | "magenta" | "yellow";

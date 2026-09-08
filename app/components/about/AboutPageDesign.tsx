@@ -221,6 +221,14 @@ export async function AboutPageDesign({ copy, lang }: { copy: AboutCopy; lang: L
                     key={s.label}
                     className={`reveal flex h-[150px] flex-col justify-between p-6 text-start ${tile}`}
                   >
+                    {s.labelFirst ? <>
+                      <dt className={`font-sans text-[12px] font-extrabold tracking-[0.08em] ${labelColor}`}>
+                        {s.label}
+                      </dt>
+                      <dd className={`font-display ${valueSize} ${valueColor}`}>
+                        <bdi dir="ltr">{s.value}</bdi>
+                      </dd>
+                    </> : <>
                     <dt className={`font-display ${valueSize} ${valueColor}`}>
                       {s.value}
                     </dt>
@@ -238,6 +246,7 @@ export async function AboutPageDesign({ copy, lang }: { copy: AboutCopy; lang: L
                         </span>
                       ) : null}
                     </dd>
+                    </>}
                   </div>
                 );
               })}

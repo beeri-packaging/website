@@ -1,3 +1,4 @@
+import { reviewAbout } from "@/app/content/client-feedback";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import type { Lang } from "@/app/content/home";
@@ -13,7 +14,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const copy = aboutCopy[locale as Lang];
+  const copy = reviewAbout(aboutCopy[locale as Lang], locale as Lang);
   const title = copy.title.join(" ");
   return { title, description: copy.intro, ...pageSeo(locale, "/about", title, copy.intro) };
 }
@@ -26,7 +27,7 @@ export default async function AboutPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const lang = locale as Lang;
-  const copy = aboutCopy[lang];
+  const copy = reviewAbout(aboutCopy[lang], lang);
   const chrome = toChrome(await getChrome(lang), lang);
   return (
     <PlaceholderShell lang={lang} chrome={chrome}>

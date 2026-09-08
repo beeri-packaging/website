@@ -1,0 +1,26 @@
+{
+  "sabon": {
+    "id": "image-80f62fd1b08a8220615e1d755e3f98778c98678c-1254x1254-png",
+    "url": "https://cdn.sanity.io/images/4qkb39ql/production/80f62fd1b08a8220615e1d755e3f98778c98678c-1254x1254.png"
+  },
+  "logo": {
+    "id": "image-d26d89c9056daa99dc85f783f41334990d164b34-471x336-svg",
+    "url": "https://cdn.sanity.io/images/4qkb39ql/production/d26d89c9056daa99dc85f783f41334990d164b34-471x336.svg"
+  },
+  "essentialImage": {
+    "id": "image-fe6b07e28192cfc6a967ccbb4f5c1eaf8e571b42-1131x1600-png",
+    "url": "https://cdn.sanity.io/images/4qkb39ql/production/fe6b07e28192cfc6a967ccbb4f5c1eaf8e571b42-1131x1600.png"
+  },
+  "vitalImage": {
+    "id": "image-c8bf30d00283d5d5d49ac0a798024d5202cf949e-1131x1600-png",
+    "url": "https://cdn.sanity.io/images/4qkb39ql/production/c8bf30d00283d5d5d49ac0a798024d5202cf949e-1131x1600.png"
+  },
+  "essentialPdf": {
+    "id": "file-04234e2ad267575b5d892f5e22c732dcbcbe3dcb-pdf",
+    "url": "https://cdn.sanity.io/files/4qkb39ql/production/04234e2ad267575b5d892f5e22c732dcbcbe3dcb.pdf"
+  },
+  "vitalPdf": {
+    "id": "file-443e427a7485a4bae9ff4753ce08bb8feb52acea-pdf",
+    "url": "https://cdn.sanity.io/files/4qkb39ql/production/443e427a7485a4bae9ff4753ce08bb8feb52acea.pdf"
+  }
+}
