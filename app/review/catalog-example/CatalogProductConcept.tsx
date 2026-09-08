@@ -142,8 +142,8 @@ export function CatalogProductConcept({
                       +
                     </span>
                   </div>
-                  <div className="flex min-h-[210px] flex-col px-6 pb-6 pt-5 sm:px-7">
-                    <h3 className="max-w-[10ch] font-display text-[48px] leading-[0.88] text-ink sm:text-[58px]">
+                  <div className="@container flex min-h-[210px] flex-col px-6 pb-6 pt-5 sm:px-7">
+                    <h3 className="w-full text-balance font-display text-[min(58px,17cqi)] leading-[0.95] text-ink">
                       {product.name}
                     </h3>
                     <p className="mt-4 max-w-[44ch] font-sans text-[15px] font-light leading-[1.65] text-clay">
@@ -183,11 +183,11 @@ export function CatalogProductConcept({
         >
           <DialogMain className={"order-2 px-6 pb-9 pt-16 sm:px-10 md:order-1 md:px-12 " + (imageFit === "contain" ? "flex-none overflow-visible md:flex-1 md:overflow-y-auto" : "")}>
             {active ? (
-              <div className="flex min-h-full flex-col">
+              <div className="@container flex min-h-full flex-col">
                 <Badge variant="cyan" className="mb-5 self-start">
                   {active.categoryName}
                 </Badge>
-                <DialogTitle className="max-w-[9ch] text-[54px] font-normal leading-[0.86] sm:text-[68px]">
+                <DialogTitle className="w-full text-balance text-[min(68px,18cqi)] font-normal leading-[0.95]">
                   {active.product.name}
                 </DialogTitle>
                 <DialogDescription className="mt-5 max-w-[42ch] text-[15px] leading-[1.75] sm:text-[16px]">

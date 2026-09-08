@@ -5,26 +5,26 @@ export const catalogPreviewLocalExamples: readonly CatalogExample[] = [
     "key": "wine-clos-de-gat",
     "name": "קלו דה גת · SYCRA",
     "description": "מארז לבקבוק יין בודד בגוני שחור וזהב, לצד בקבוק מסדרת SYCRA של קלו דה גת.",
-    "image": "https://cdn.sanity.io/images/4qkb39ql/production/9aae55464dc4b937f82676365c09e1181e15b710-2643x5496.jpg"
+    "image": "https://cdn.sanity.io/images/4qkb39ql/production/82ab42da059c5089414a5393997e3250728c4b9b-1448x1086.png"
   },
   {
     "key": "wine-yarden",
     "name": "ירדן · ROM",
     "description": "מארז לבקבוק יין בודד מסדרת ROM של ירדן, בגוני קראפט ואפור עם פרטי מיתוג בזהב.",
-    "image": "https://cdn.sanity.io/images/4qkb39ql/production/ff7cb052ab07db525673b1a31c0b1f35b995edef-1998x5660.jpg"
+    "image": "https://cdn.sanity.io/images/4qkb39ql/production/2c47b45febdba155f4337b978c763fd7539268d4-1448x1086.png"
   },
 
   {
     "key": "wine-dalton",
     "name": "יקב דלתון · TRUE NORTH",
     "description": "מארז לבקבוק יין בודד בגוני כחול וזהב, מסדרת TRUE NORTH של יקב דלתון.",
-    "image": "https://cdn.sanity.io/images/4qkb39ql/production/4be1b0af33f49224c2b5297fbd771d6ad46b8a3c-1968x5472.jpg"
+    "image": "https://cdn.sanity.io/images/4qkb39ql/production/0bb28fbe3bade51dd9c5b6495b918e47155d216a-1448x1086.png"
   },
   {
     "key": "wine-golan",
     "name": "יקב רמת הגולן",
     "description": "מארז שי לבקבוק יין ושתי כוסות, עם חלונות תצוגה ומיתוג יקב רמת הגולן.",
-    "image": "https://cdn.sanity.io/images/4qkb39ql/production/6cc3fcb2ceacddc3270d1cbc62dd15dc2f09af4e-3584x5632.jpg"
+    "image": "https://cdn.sanity.io/images/4qkb39ql/production/5de359d3327a044475489955a33fa7f9d89746fb-1448x1086.png"
   },
   {
     "key": "preview-coffee-burgundy",
