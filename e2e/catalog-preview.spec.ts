@@ -1,6 +1,6 @@
 import {test,expect} from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-test('catalog opens all twelve products and loads all thirty-two examples',async({page},testInfo)=>{
+test('catalog opens all twelve products and loads all thirty-four examples',async({page},testInfo)=>{
  test.setTimeout(150000);
  const errors:string[]=[]; page.on('pageerror',e=>errors.push(e.message));
  await page.goto('/review/catalog-preview');
@@ -24,7 +24,7 @@ test('catalog opens all twelve products and loads all thirty-two examples',async
   }
   await dialog.getByRole('button',{name:'סגירת פירוט המוצר'}).click();
  }
- expect(count).toBe(32);expect(errors).toEqual([]);
+ expect(count).toBe(34);expect(errors).toEqual([]);
  await page.setViewportSize({width:390,height:844});
  await cards.nth(10).click();const dialog=page.getByRole('dialog');await expect(dialog).toBeVisible();
  await page.screenshot({path:testInfo.outputPath('food-mobile.png'),animations:'disabled'});

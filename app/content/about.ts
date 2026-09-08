@@ -201,9 +201,9 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
     ],
 
     teamEyebrow: "האנשים שמאחורי האריזה",
-    teamTitle: "הצוות שלנו",
+    teamTitle: "ההנהלה שלנו",
     teamIntro:
-      "שבעה אנשים, תחומי מומחיות שונים ומטרה אחת: להפוך כל רעיון לאריזה שעובדת.",
+      "שבעה אנשים, תחומי מומחיות שונים ומטרה משותפת אחת!",
     teamMembers: [
       { name: "עמיר יוניק", role: 'מנכ"ל', image: teamImages.amirYunik },
       {
@@ -212,9 +212,9 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
         image: teamImages.andreyPlatonov,
       },
       {
-        name: "מיכל גבע",
-        role: 'סמנכ"לית משאבי אנוש',
-        image: teamImages.michalGeva,
+        name: "דורון חרפק",
+        role: 'סמנכ"ל מחקר ופיתוח',
+        image: teamImages.doronHarpak,
       },
       {
         name: "מני רפלד",
@@ -222,16 +222,16 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
         image: teamImages.meniRapfeld,
       },
       {
-        name: "דורון חרפק",
-        role: 'סמנכ"ל מחקר ופיתוח',
-        image: teamImages.doronHarpak,
+        name: "מיכל גבע",
+        role: 'סמנכ"לית משאבי אנוש',
+        image: teamImages.michalGeva,
       },
-      { name: "חמוטל דהן", role: 'מנהלת משל"ט', image: teamImages.hamutalDahan },
       {
         name: "לין בן שטרית",
         role: 'סמנכ"לית תפעול',
         image: teamImages.lynnBenChetrit,
       },
+      { name: "חמוטל דהן", role: 'מנהלת משל"ט', image: teamImages.hamutalDahan },
     ],
 
     partnersEyebrow: "מבין לקוחותינו",
@@ -345,32 +345,32 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
     ],
 
     teamEyebrow: "The people behind the packaging",
-    teamTitle: "Our team",
+    teamTitle: "Our leadership",
     teamIntro:
-      "Seven people, different areas of expertise, and one shared goal: turning every idea into packaging that works.",
+      "Seven people, different areas of expertise and one shared goal!",
     teamMembers: [
       { name: "Amir Yunik", role: "CEO", image: teamImages.amirYunik },
       { name: "Andrey Platonov", role: "CFO", image: teamImages.andreyPlatonov },
-      {
-        name: "Michal Geva",
-        role: "VP Human Resources",
-        image: teamImages.michalGeva,
-      },
-      { name: "Meni Rapfeld", role: "VP Sales", image: teamImages.meniRapfeld },
       {
         name: "Doron Harpak",
         role: "VP Research & Development",
         image: teamImages.doronHarpak,
       },
+      { name: "Meni Rapfeld", role: "VP Sales", image: teamImages.meniRapfeld },
       {
-        name: "Hamutal Dahan",
-        role: "Control Center Manager",
-        image: teamImages.hamutalDahan,
+        name: "Michal Geva",
+        role: "VP Human Resources",
+        image: teamImages.michalGeva,
       },
       {
         name: "Lynn Ben-Chetrit",
         role: "VP Operations",
         image: teamImages.lynnBenChetrit,
+      },
+      {
+        name: "Hamutal Dahan",
+        role: "Control Center Manager",
+        image: teamImages.hamutalDahan,
       },
     ],
 

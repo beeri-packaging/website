@@ -26,7 +26,7 @@ for (const locale of ["he", "en"] as const) {
       }
       await dialog.getByRole("button", { name: locale === "he" ? "סגירת פירוט המוצר" : "Close product details" }).click();
     }
-    expect(imageCount).toBe(32);
+    expect(imageCount).toBe(34);
     await page.setViewportSize({ width: 390, height: 844 });
     await cards.nth(11).click();
     const features = page.getByRole("dialog").getByRole("heading", { name: locale === "he" ? "מאפיינים אפשריים" : "Available features" });

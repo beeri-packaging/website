@@ -75,7 +75,7 @@ const wineProducts: readonly ProductConcept[] = wineCategory.products
         details:
           "אריזות מהודרות לבקבוקים בודדים בשילוב חומרי גלם מיוחדים למראה יוקרתי.",
         characteristics: ["חומרי גלם מיוחדים", "השבחות"],
-        exampleKeys: ["wine-dalton"],
+        exampleKeys: ["wine-dalton", "wine-clos-de-gat", "wine-yarden"],
       };
     }
     if (product.key === "multi-product-gifts") {

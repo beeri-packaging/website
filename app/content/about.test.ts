@@ -87,26 +87,26 @@ describe("aboutCopy", () => {
     ]);
   });
 
-  it("keeps the seven approved team members in matching bilingual order", () => {
+  it("keeps the seven approved leadership members in matching bilingual order", () => {
     expect(aboutCopy.he.teamMembers).toHaveLength(7);
     expect(aboutCopy.en.teamMembers).toHaveLength(7);
     expect(aboutCopy.he.teamMembers.map((member) => member.name)).toEqual([
       "עמיר יוניק",
       "אנדריי פלטונוב",
-      "מיכל גבע",
-      "מני רפלד",
       "דורון חרפק",
-      "חמוטל דהן",
+      "מני רפלד",
+      "מיכל גבע",
       "לין בן שטרית",
+      "חמוטל דהן",
     ]);
     expect(aboutCopy.en.teamMembers.map((member) => member.name)).toEqual([
       "Amir Yunik",
       "Andrey Platonov",
-      "Michal Geva",
-      "Meni Rapfeld",
       "Doron Harpak",
-      "Hamutal Dahan",
+      "Meni Rapfeld",
+      "Michal Geva",
       "Lynn Ben-Chetrit",
+      "Hamutal Dahan",
     ]);
     expect(
       aboutCopy.he.teamMembers.every((member) =>

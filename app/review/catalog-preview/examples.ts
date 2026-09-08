@@ -2,6 +2,19 @@ import type { CatalogExample } from "../catalog-example/content";
 
 export const catalogPreviewLocalExamples: readonly CatalogExample[] = [
   {
+    "key": "wine-clos-de-gat",
+    "name": "קלו דה גת · SYCRA",
+    "description": "מארז לבקבוק יין בודד בגוני שחור וזהב, לצד בקבוק מסדרת SYCRA של קלו דה גת.",
+    "image": "https://cdn.sanity.io/images/4qkb39ql/production/9aae55464dc4b937f82676365c09e1181e15b710-2643x5496.jpg"
+  },
+  {
+    "key": "wine-yarden",
+    "name": "ירדן · ROM",
+    "description": "מארז לבקבוק יין בודד מסדרת ROM של ירדן, בגוני קראפט ואפור עם פרטי מיתוג בזהב.",
+    "image": "https://cdn.sanity.io/images/4qkb39ql/production/ff7cb052ab07db525673b1a31c0b1f35b995edef-1998x5660.jpg"
+  },
+
+  {
     "key": "wine-dalton",
     "name": "יקב דלתון · TRUE NORTH",
     "description": "מארז לבקבוק יין בודד בגוני כחול וזהב, מסדרת TRUE NORTH של יקב דלתון.",

@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image, { type ImageProps } from "next/image";
 import { useMemo, useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
@@ -27,6 +27,27 @@ export type CategoryWithProducts = {
   intro: string;
   products: readonly ProductWithExamples[];
 };
+
+/** Keep the entire product visible while extending its backdrop to the frame edges. */
+function CatalogImage({ fit, className, ...props }: ImageProps & { fit: "contain" | "cover" }) {
+  return (
+    <>
+      <Image {...props} alt={props.alt} className={(fit === "contain" ? "z-[1] " : "") + (className ?? "")} />
+      {fit === "contain" ? (
+        <Image
+          src={props.src}
+          alt=""
+          aria-hidden="true"
+          fill
+          sizes={props.sizes}
+          loading={props.loading}
+          unoptimized={props.unoptimized}
+          className="pointer-events-none scale-110 object-cover opacity-70 blur-2xl"
+        />
+      ) : null}
+    </>
+  );
+}
 
 export function CatalogProductConcept({
   categories,
@@ -98,7 +119,8 @@ export function CatalogProductConcept({
                   />
                   <div className="relative aspect-[4/3] overflow-hidden border-b border-ink bg-sand">
                     {cover?.image ? (
-                      <Image
+                      <CatalogImage
+                        fit={imageFit}
                         src={cover.image}
                         alt=""
                         fill
@@ -108,13 +130,13 @@ export function CatalogProductConcept({
                         }
                         fetchPriority={categoryIndex === 0 && productIndex === 0 ? "high" : "auto"}
                         sizes="(min-width: 1280px) 357px, (min-width: 1024px) calc((100vw - 208px) / 3), (min-width: 640px) 50vw, 100vw"
-                        className={(imageFit === "contain" ? "object-contain" : "object-cover") + " transition duration-700 ease-out group-hover:scale-[1.025]"}
+                        className={(imageFit === "contain" ? "object-contain" : "object-cover") + " transition duration-700 ease-out "}
                       />
                     ) : emptyExamplesLabel ? (
                       <p className="grid h-full place-items-center px-8 text-center font-sans text-sm text-clay">{emptyExamplesLabel}</p>
                     ) : null}
                     <span
-                      className="absolute end-4 top-4 grid size-11 place-items-center border border-ink bg-bone font-sans text-[25px] font-light text-ink shadow-[3px_3px_0_0_var(--ink)] transition duration-300 group-hover:rotate-90 group-hover:bg-cyan"
+                      className="absolute end-4 top-4 z-[2] grid size-11 place-items-center border border-ink bg-bone font-sans text-[25px] font-light text-ink shadow-[3px_3px_0_0_var(--ink)] transition duration-300 group-hover:rotate-90 group-hover:bg-cyan"
                       aria-hidden
                     >
                       +
@@ -196,13 +218,14 @@ export function CatalogProductConcept({
             ) : null}
           </DialogMain>
 
-          <div className={"relative order-1 flex min-h-[330px] flex-col border-b border-ink md:order-2 md:w-[54%] md:shrink-0 md:border-b-0 md:border-s " + (imageFit === "contain" ? "flex-none shrink-0 bg-sand md:flex-1" : "flex-1 bg-ink")}>
+          <div className={"relative order-1 flex min-w-0 min-h-[330px] flex-col border-b border-ink md:order-2 md:w-[54%] md:shrink-0 md:border-b-0 md:border-s " + (imageFit === "contain" ? "flex-none shrink-0 bg-sand md:flex-1" : "flex-1 bg-ink")}>
             {selectedExample?.image ? (
               <div
                 key={selectedExample.key}
-                className={"relative flex-1 " + (imageFit === "contain" ? "min-h-[300px] md:min-h-[220px] " : "min-h-0 ") + styles.imageSwap}
+                className={"relative flex-1 overflow-hidden " + (imageFit === "contain" ? "min-h-[300px] md:min-h-[220px] " : "min-h-0 ") + styles.imageSwap}
               >
-                <Image
+                <CatalogImage
+                        fit={imageFit}
                   src={selectedExample.image}
                   alt={selectedExample.name}
                   fill
@@ -237,7 +260,7 @@ export function CatalogProductConcept({
             ) : null}
 
             <div
-              className="grid grid-cols-3 gap-px bg-bone/30 p-px"
+              className="flex shrink-0 gap-2 overflow-x-auto overscroll-x-contain border-t border-rule bg-bone p-3 [scrollbar-width:thin]"
               aria-label={copy.examplesLabel}
             >
               {active?.product.examples.map((example, index) => {
@@ -248,7 +271,7 @@ export function CatalogProductConcept({
                     type="button"
                     onClick={() => setSelectedExampleKey(example.key)}
                     className={
-                      "group relative aspect-[4/3] overflow-hidden bg-sand focus-ring " +
+                      "group relative aspect-[4/3] w-24 shrink-0 overflow-hidden border border-rule bg-sand focus-ring sm:w-28 " +
                       (selected
                         ? "outline outline-4 -outline-offset-4 outline-cyan"
                         : "")
@@ -257,13 +280,14 @@ export function CatalogProductConcept({
                     aria-pressed={selected}
                   >
                     {example.image ? (
-                      <Image
+                      <CatalogImage
+                        fit={imageFit}
                         src={example.image}
                         alt=""
                         fill
                         unoptimized={unoptimizedImages}
-                        sizes="(min-width: 768px) 18vw, 33vw"
-                        className={(imageFit === "contain" ? "object-contain" : "object-cover") + " transition duration-500 group-hover:scale-105"}
+                        sizes="(min-width: 640px) 112px, 96px"
+                        className={(imageFit === "contain" ? "object-contain" : "object-cover") + " transition duration-500 "}
                       />
                     ) : null}
                   </button>

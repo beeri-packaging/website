@@ -8,8 +8,8 @@ describe("published product catalog", () => {
     for (const locale of ["he", "en"] as const) {
       const products = content[locale].flatMap((c) => c.products);
       expect(products).toHaveLength(12);
-      expect(products.flatMap((p) => p.examples)).toHaveLength(32);
-      expect(products.find((p) => p.key === "single-bottle")?.examples.map((e) => e.key)).toEqual(["wine-dalton"]);
+      expect(products.flatMap((p) => p.examples)).toHaveLength(34);
+      expect(products.find((p) => p.key === "single-bottle")?.examples.map((e) => e.key)).toEqual(["wine-dalton", "wine-clos-de-gat", "wine-yarden"]);
       expect(products.flatMap((p) => p.examples).every((e) => e.image.startsWith("https://cdn.sanity.io/"))).toBe(true);
     }
   });

@@ -120,6 +120,18 @@
               "name": "יקב דלתון · TRUE NORTH",
               "description": "מארז לבקבוק יין בודד בגוני כחול וזהב, מסדרת TRUE NORTH של יקב דלתון.",
               "image": "https://cdn.sanity.io/images/4qkb39ql/production/4be1b0af33f49224c2b5297fbd771d6ad46b8a3c-1968x5472.jpg"
+            },
+            {
+              "key": "wine-clos-de-gat",
+              "name": "קלו דה גת · SYCRA",
+              "description": "מארז לבקבוק יין בודד בגוני שחור וזהב, לצד בקבוק מסדרת SYCRA של קלו דה גת.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/9aae55464dc4b937f82676365c09e1181e15b710-2643x5496.jpg"
+            },
+            {
+              "key": "wine-yarden",
+              "name": "ירדן · ROM",
+              "description": "מארז לבקבוק יין בודד מסדרת ROM של ירדן, בגוני קראפט ואפור עם פרטי מיתוג בזהב.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/ff7cb052ab07db525673b1a31c0b1f35b995edef-1998x5660.jpg"
             }
           ]
         },
@@ -521,6 +533,18 @@
               "name": "Dalton Winery · TRUE NORTH",
               "description": "A blue and gold single-bottle wine carton from Dalton Winery’s TRUE NORTH series.",
               "image": "https://cdn.sanity.io/images/4qkb39ql/production/4be1b0af33f49224c2b5297fbd771d6ad46b8a3c-1968x5472.jpg"
+            },
+            {
+              "key": "wine-clos-de-gat",
+              "name": "Clos de Gat · SYCRA",
+              "description": "A black and gold single-bottle carton alongside a bottle from Clos de Gat’s SYCRA series.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/9aae55464dc4b937f82676365c09e1181e15b710-2643x5496.jpg"
+            },
+            {
+              "key": "wine-yarden",
+              "name": "Yarden · ROM",
+              "description": "A single-bottle carton for Yarden ROM wine, in kraft and grey with gold branding details.",
+              "image": "https://cdn.sanity.io/images/4qkb39ql/production/ff7cb052ab07db525673b1a31c0b1f35b995edef-1998x5660.jpg"
             }
           ]
         },
