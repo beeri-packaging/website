@@ -1,4 +1,7 @@
-import { setRequestLocale } from "next-intl/server";
+import { launchMusic } from "@/app/content/launch";
+import { LaunchReveal } from "@/app/components/home/LaunchReveal";
+import { launchConfig } from "@/lib/launch";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Lang } from "@/app/content/home";
 import { getHome, toHomeContent, getChrome, toChrome } from "@/sanity/queries";
 import { SiteHeader } from "@/app/components/home/SiteHeader";
@@ -23,8 +26,23 @@ export default async function Home({
   const home = toHomeContent(doc, lang);
   const chrome = toChrome(await getChrome(lang), lang);
 
+  const launch = await getTranslations({ locale: lang, namespace: "Launch" });
+
   return (
-    <div className="relative flex flex-col bg-bone text-ink overflow-x-clip">
+    <>
+      <LaunchReveal
+        video={home.heroVideo}
+        music={launchMusic}
+        poster={home.heroImage}
+        logo={lang === "he" ? chrome.logoHe : chrome.logoEn}
+        config={launchConfig(process.env.LAUNCH_START_AT, process.env.LAUNCH_END_AT)}
+        copy={{
+          title: launch("title"), subtitle: launch("subtitle"), start: launch("start"),
+          skip: launch("skip"), countdown: launch.raw("countdown"), welcome: launch("welcome"), brand: launch("brand"),
+          stopCelebration: launch("stopCelebration"), soundOn: launch("soundOn"), soundOff: launch("soundOff"), pauseVideo: launch("pauseVideo"), playVideo: launch("playVideo"),
+        }}
+      />
+      <div id="launch-website" className="relative flex flex-col bg-bone text-ink overflow-x-clip">
       <SiteHeader lang={lang} chrome={chrome} />
       <main id="main" className="flex flex-col">
         <Hero lang={lang} t={home.copy} heroImage={home.heroImage} heroVideo={home.heroVideo} />
@@ -36,6 +54,7 @@ export default async function Home({
       </main>
       <Footer lang={lang} chrome={chrome} />
       <StickyContact lang={lang} chrome={chrome} />
-    </div>
+      </div>
+    </>
   );
 }

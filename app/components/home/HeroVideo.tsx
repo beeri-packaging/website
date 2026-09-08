@@ -40,7 +40,9 @@ export function HeroVideo({
       const allowed =
         desktop.matches &&
         !reduce.matches &&
-        document.documentElement.getAttribute("data-a11y-motion") !== "1";
+        document.documentElement.getAttribute("data-a11y-motion") !== "1" &&
+        !document.documentElement.hasAttribute("data-launch") &&
+        !document.documentElement.hasAttribute("data-launch-reveal");
       setShouldRenderVideo(allowed);
       if (!allowed) {
         ref.current?.pause();
@@ -48,10 +50,13 @@ export function HeroVideo({
       }
     }
 
+    const observer = new MutationObserver(sync);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-launch", "data-launch-reveal", "data-a11y-motion"] });
     sync();
     desktop.addEventListener("change", sync);
     reduce.addEventListener("change", sync);
     return () => {
+      observer.disconnect();
       desktop.removeEventListener("change", sync);
       reduce.removeEventListener("change", sync);
     };
@@ -68,7 +73,7 @@ export function HeroVideo({
     if (reduce) return;
     // Slow it down a touch so the footage's hard cuts read calm, not flashy.
     v.playbackRate = 0.75;
-    v.play().catch(() => {
+    v.play().then(() => setPaused(false)).catch(() => {
       // Autoplay can still be blocked; reflect the real state in the control.
       setPaused(true);
     });

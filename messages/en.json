@@ -32,5 +32,19 @@
   },
   "clientLogos": {
     "list": "Our clients and partners"
+  },
+  "Launch": {
+    "stopCelebration": "End celebration",
+    "title": "Ready for liftoff",
+    "subtitle": "The new Beeri Packaging website",
+    "start": "Launch the website",
+    "skip": "Skip to website",
+    "countdown": "Launching in {count}",
+    "welcome": "Welcome to Beeri Packaging",
+    "brand": "Beeri Packaging",
+    "soundOn": "Enable sound",
+    "soundOff": "Mute sound",
+    "pauseVideo": "Pause video",
+    "playVideo": "Play video"
   }
 }

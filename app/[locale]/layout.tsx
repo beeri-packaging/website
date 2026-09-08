@@ -1,3 +1,5 @@
+import { launchConfig, launchScript } from "@/lib/launch";
+import "../launch.css";
 import type { Metadata } from "next";
 import { Karantina, Open_Sans } from "next/font/google";
 import { hasLocale } from "next-intl";
@@ -68,7 +70,7 @@ export function generateStaticParams() {
 // asked for reduced motion. Repeat visitors and reduced-motion users keep the
 // overlay CSS-hidden, so it never flashes. Kept tiny and dependency-free
 // because it must run inline before hydration.
-const INTRO_SCRIPT = `(function(){try{var r=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;var s=false;try{s=sessionStorage.getItem("beeri:intro-seen")==="1"}catch(e){}if(r||s){window.__beeriIntro=false;return}window.__beeriIntro=true;document.documentElement.setAttribute("data-intro","on");try{sessionStorage.setItem("beeri:intro-seen","1")}catch(e){}}catch(e){window.__beeriIntro=false}})();`;
+const INTRO_SCRIPT = `(function(){try{if(document.documentElement.hasAttribute("data-launch-campaign")){window.__beeriIntro=false;return}var r=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;var s=false;try{s=sessionStorage.getItem("beeri:intro-seen")==="1"}catch(e){}if(r||s){window.__beeriIntro=false;return}window.__beeriIntro=true;document.documentElement.setAttribute("data-intro","on");try{sessionStorage.setItem("beeri:intro-seen","1")}catch(e){}}catch(e){window.__beeriIntro=false}})();`;
 
 // Applies the visitor's saved accessibility preferences to <html> before the
 // first paint, so a returning user never sees an un-adjusted flash. Mirrors
@@ -106,6 +108,7 @@ export default async function LocaleLayout({
       suppressHydrationWarning
     >
       <body className="flex flex-col bg-bone text-ink">
+        <script dangerouslySetInnerHTML={{ __html: launchScript(launchConfig(process.env.LAUNCH_START_AT, process.env.LAUNCH_END_AT)) }} />
         {/* Pre-paint decision for the intro overlay below — must be the first
             thing in <body> so `data-intro` is set before the overlay paints. */}
         <script dangerouslySetInnerHTML={{ __html: INTRO_SCRIPT }} />
