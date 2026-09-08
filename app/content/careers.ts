@@ -152,22 +152,6 @@ export const careersCopy: Record<Lang, CareersCopy> = {
         ],
       },
       {
-        code: "#BR-503",
-        status: "מגייסים",
-        title: "מלגזן/ית",
-        scope: "משמרת בוקר",
-        location: "יבנה",
-        department: "production",
-        description:
-          "שינוע משטחים וחומרי גלם בין מבני החברה, טעינה ופריקה של משאיות והעברת עבודות בין המחלקות. העבודה מתבצעת בהתאם לתוכנית העבודה ודורשת אחריות, סדר וניסיון מעשי.",
-        highlights: [
-          "שעות העבודה: 07:00–16:00; שעות נוספות עד 18:00 בהתאם לצורך",
-          "עבודה בימי שישי לסירוגין בהתאם לצורכי העבודה",
-          "רישיון מלגזה בתוקף וניסיון של שנה לפחות — חובה",
-          "עברית ברמת דיבור וקריאה — חובה",
-        ],
-      },
-      {
         code: "#BR-504",
         status: "מגייסים",
         title: "עוזר/ת למכונת UV",
@@ -283,22 +267,6 @@ export const careersCopy: Record<Lang, CareersCopy> = {
           "Load and remove sheets from the printing press",
           "Perform routine maintenance and support the department team",
           "Previous printing-industry experience is an advantage",
-        ],
-      },
-      {
-        code: "#BR-503",
-        status: "Hiring",
-        title: "Forklift operator",
-        scope: "Morning shift",
-        location: "Yavne",
-        department: "production",
-        description:
-          "Move pallets and raw materials between company buildings, load and unload trucks, and transfer work between departments. Work follows the production plan and calls for responsibility, organization, and practical experience.",
-        highlights: [
-          "Working hours: 07:00–16:00; overtime until 18:00 as needed",
-          "Alternating Fridays according to operational needs",
-          "Valid forklift license and at least one year of experience required",
-          "Spoken and written Hebrew required",
         ],
       },
       {

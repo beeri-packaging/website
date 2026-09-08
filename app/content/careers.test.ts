@@ -2,12 +2,12 @@ import { describe, expect, it } from "vitest";
 import { careersCopy } from "./careers";
 
 describe("careers content", () => {
-  it("keeps the four open roles aligned across both locales", () => {
+  it("keeps the three open roles aligned across both locales", () => {
     const heRoles = careersCopy.he.roles;
     const enRoles = careersCopy.en.roles;
 
-    expect(heRoles).toHaveLength(4);
-    expect(enRoles).toHaveLength(4);
+    expect(heRoles).toHaveLength(3);
+    expect(enRoles).toHaveLength(3);
     expect(enRoles.map((role) => role.code)).toEqual(
       heRoles.map((role) => role.code),
     );

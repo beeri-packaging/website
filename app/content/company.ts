@@ -40,8 +40,8 @@ export const COMPANY = {
   jobsEmail: "jobs@beeripacks.co.il",
   /** Company LinkedIn page. */
   linkedin: "https://www.linkedin.com/company/beeri-packaging/",
-  /** Facebook — the parent Beeri Print group page (בארי אריזות has no own page). */
-  facebook: "https://www.facebook.com/100063563441171",
+  /** Company Facebook page. */
+  facebook: "https://www.facebook.com/profile.php?id=61552470644837",
   /** Postal address, per locale. */
   address: {
     he: {
