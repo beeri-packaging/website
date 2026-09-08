@@ -82,7 +82,7 @@ export function CatalogProductConcept({
             {category.intro}
           </p>
 
-          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {category.products.map((product, productIndex) => {
               const cover = product.examples[0];
               return (
@@ -107,7 +107,7 @@ export function CatalogProductConcept({
                           categoryIndex === 0 && productIndex === 0 ? "eager" : "lazy"
                         }
                         fetchPriority={categoryIndex === 0 && productIndex === 0 ? "high" : "auto"}
-                        sizes="(min-width: 640px) 50vw, 100vw"
+                        sizes="(min-width: 1280px) 357px, (min-width: 1024px) calc((100vw - 208px) / 3), (min-width: 640px) 50vw, 100vw"
                         className={(imageFit === "contain" ? "object-contain" : "object-cover") + " transition duration-700 ease-out group-hover:scale-[1.025]"}
                       />
                     ) : emptyExamplesLabel ? (

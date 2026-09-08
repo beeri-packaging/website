@@ -75,7 +75,7 @@ const wineProducts: readonly ProductConcept[] = wineCategory.products
         details:
           "אריזות מהודרות לבקבוקים בודדים בשילוב חומרי גלם מיוחדים למראה יוקרתי.",
         characteristics: ["חומרי גלם מיוחדים", "השבחות"],
-        exampleKeys: [],
+        exampleKeys: ["wine-dalton"],
       };
     }
     if (product.key === "multi-product-gifts") {
@@ -83,7 +83,7 @@ const wineProducts: readonly ProductConcept[] = wineCategory.products
         ...product,
         shortDescription: "מארזי יין",
         details: "מארזי יינות בעיצוב אלגנטי בשילוב מתנות שונות.",
-        exampleKeys: ["preview-wine-handle"],
+        exampleKeys: ["preview-wine-handle", "wine-golan"],
       };
     }
     return product;

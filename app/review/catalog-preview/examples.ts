@@ -2,6 +2,18 @@ import type { CatalogExample } from "../catalog-example/content";
 
 export const catalogPreviewLocalExamples: readonly CatalogExample[] = [
   {
+    "key": "wine-dalton",
+    "name": "יקב דלתון · TRUE NORTH",
+    "description": "מארז לבקבוק יין בודד בגוני כחול וזהב, מסדרת TRUE NORTH של יקב דלתון.",
+    "image": "https://cdn.sanity.io/images/4qkb39ql/production/4be1b0af33f49224c2b5297fbd771d6ad46b8a3c-1968x5472.jpg"
+  },
+  {
+    "key": "wine-golan",
+    "name": "יקב רמת הגולן",
+    "description": "מארז שי לבקבוק יין ושתי כוסות, עם חלונות תצוגה ומיתוג יקב רמת הגולן.",
+    "image": "https://cdn.sanity.io/images/4qkb39ql/production/6cc3fcb2ceacddc3270d1cbc62dd15dc2f09af4e-3584x5632.jpg"
+  },
+  {
     "key": "preview-coffee-burgundy",
     "name": "מארז קפסולות · מהדורה בערבית",
     "description": "מארז קפסולות מוארך עם מיתוג בערבית ובידול צבעוני.",
