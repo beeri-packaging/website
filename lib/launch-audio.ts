@@ -8,9 +8,16 @@ let cachedUrl = "";
 let cachedMusic: Promise<ArrayBuffer> | undefined;
 
 export function preloadLaunchMusic(url: string) {
-  if (cachedUrl !== url || !cachedMusic) {
-    cachedUrl = url;
-    cachedMusic = fetch(url, { signal: AbortSignal.timeout(8000) }).then(response => {
+  // Forward the existing presentation credential only to our protected audio route.
+  const access = url.startsWith("/api/internal-launch-music") && typeof window !== "undefined"
+    ? new URLSearchParams(window.location.search).get("access") : null;
+  const cacheKey = `${url}:${access ?? ""}`;
+  if (cachedUrl !== cacheKey || !cachedMusic) {
+    cachedUrl = cacheKey;
+    cachedMusic = fetch(url, {
+      signal: AbortSignal.timeout(8000),
+      headers: access ? { "X-Launch-Access": access } : undefined,
+    }).then(response => {
       if (!response.ok) throw new Error("Launch music unavailable");
       return response.arrayBuffer();
     }).catch(error => { cachedMusic = undefined; throw error; });

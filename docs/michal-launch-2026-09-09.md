@@ -20,15 +20,30 @@ Run `npm run build`, then
 `npm run start -- --hostname 127.0.0.1 --port 3002`.
 Open `/he?launch=presentation` or `/en?launch=presentation` to replay.
 
-The internal route returns private, non-cacheable responses. It is disabled on
-Vercel, and internal audio is excluded from deployment file tracing. Pushing
-this code does not publish the soundtrack or activate it on the public site.
+The internal route returns private, non-cacheable responses. Local audio is
+excluded from deployment file tracing. The separately configured remote
+private store supplies the approved audio for authorized presentations.
 Without the local opt-in, the existing public soundtrack remains selected.
 
 An inactive fifteen-second comparison can be selected locally with
 `BEERI_INTERNAL_LAUNCH_SECONDS=15` and a separately supplied
 `review-assets/launch/michal-internal-v3-15s.mp3`. The approved setting remains
 10; the v2 audio was restored unchanged after the comparison.
+
+## Remote presentation
+
+The approved v2 audio is stored in a private Vercel Blob store, separately from
+Git and Sanity. Production and preview opt in with
+`BEERI_INTERNAL_LAUNCH_MUSIC=1`, `BEERI_LAUNCH_READ_WRITE_TOKEN`, and the existing
+`LAUNCH_ACCESS_TOKEN` / `LAUNCH_LINK_EXPIRES_AT` settings. The browser forwards
+its presentation access key only to the same-origin internal audio endpoint.
+The endpoint rechecks the key and expiry before reading private storage and
+returns non-cacheable audio. Requests without valid access cannot fetch it.
+Remote presentations always use ten seconds, regardless of the local trial flag.
+
+To test a deployed presentation, supply `E2E_BASE_URL` and `E2E_LAUNCH_ACCESS`
+from the environment alongside the internal soundtrack test flags below.
+Never put the access key or storage token into Git or test command arguments.
 
 ## Verification
 

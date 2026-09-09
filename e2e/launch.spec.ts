@@ -1,6 +1,9 @@
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
+const launchPath = (path: string) => process.env.E2E_LAUNCH_ACCESS
+  ? `${path}&access=${encodeURIComponent(process.env.E2E_LAUNCH_ACCESS)}` : path;
+
 const countdownSeconds = process.env.E2E_INTERNAL_LAUNCH_SECONDS === "15" ? 15 : 10;
 
 test("video-only presentation counts down with real audio and canvas confetti", async ({ page }) => {
@@ -24,7 +27,7 @@ test("video-only presentation counts down with real audio and canvas confetti", 
     const close = AudioContext.prototype.close;
     AudioContext.prototype.close = function () { state.closed = true; return close.call(this); };
   }, musicStart);
-  await page.goto("/he?launch=presentation");
+  await page.goto(launchPath("/he?launch=presentation"));
   const start = page.getByRole("button", { name: "מתחילים בשיגור" });
   await expect(start).toBeFocused();
   await expect(page.locator(".launch-video")).toBeVisible();
@@ -93,7 +96,7 @@ test("video-only presentation counts down with real audio and canvas confetti", 
 });
 
 test("automatic preview remains skippable and does not require audio permission", async ({ page }) => {
-  await page.goto("/en?launch=preview");
+  await page.goto(launchPath("/en?launch=preview"));
   const dialog = page.getByRole("dialog");
   await expect(dialog).toBeVisible();
   await page.keyboard.press("Escape");
@@ -105,7 +108,7 @@ test("mobile reduced motion preserves the countdown without moving video or conf
   await page.setViewportSize({ width: 390, height: 844 });
   test.setTimeout(45000);
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/en?launch=presentation");
+  await page.goto(launchPath("/en?launch=presentation"));
   await expect(page.getByRole("dialog")).toHaveAttribute("data-reduced", "true");
   await expect(page.locator(".launch-video, .hero-video video, .launch-confetti, .launch-fireworks")).toHaveCount(0);
   await page.getByRole("button", { name: "Launch the website" }).click();
@@ -117,7 +120,7 @@ test("mobile reduced motion preserves the countdown without moving video or conf
 
 test("mobile plays the standalone hero clip and keeps the promo free of sound and video controls", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/en?launch=presentation");
+  await page.goto(launchPath("/en?launch=presentation"));
   const video = page.locator(".launch-video");
   await expect(video).toBeVisible();
   await expect.poll(() => video.evaluate((clip: HTMLVideoElement) => clip.paused)).toBe(false);
@@ -134,7 +137,7 @@ test("mobile plays the standalone hero clip and keeps the promo free of sound an
 
 test("music download failure still reveals the site and remains skippable", async ({ page }) => {
   await page.route("**/api/*launch-music*", route => route.abort());
-  await page.goto("/en?launch=presentation");
+  await page.goto(launchPath("/en?launch=presentation"));
   await page.clock.install();
   await page.getByRole("button", { name: "Launch the website" }).click();
   await expect(page.locator(".launch-number")).toHaveText(String(countdownSeconds));
@@ -146,7 +149,7 @@ test("music download failure still reveals the site and remains skippable", asyn
 
 test("mobile reveal frames the site and restores normal geometry", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/en?launch=preview");
+  await page.goto(launchPath("/en?launch=preview"));
   await page.clock.install();
   await page.clock.fastForward((countdownSeconds - 2) * 1000);
   await expect(page.getByRole("dialog")).toHaveAttribute("data-breath", "true");
@@ -163,7 +166,7 @@ test("mobile reveal frames the site and restores normal geometry", async ({ page
 
 
 test("celebration ends automatically with no end button", async ({ page }) => {
-  await page.goto("/en?launch=preview");
+  await page.goto(launchPath("/en?launch=preview"));
   await page.clock.install();
   await page.clock.fastForward((countdownSeconds + 1) * 1000);
   await expect(page.locator(".launch-fireworks canvas")).toBeVisible();

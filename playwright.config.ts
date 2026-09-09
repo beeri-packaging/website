@@ -12,9 +12,9 @@ export default defineConfig({
   fullyParallel: false,
   workers: 1,
   reporter: "list",
-  use: { baseURL: `http://localhost:${port}`, trace: "on-first-retry" },
+  use: { baseURL: process.env.E2E_BASE_URL ?? `http://localhost:${port}`, trace: "on-first-retry" },
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
-  webServer: {
+  webServer: process.env.E2E_BASE_URL ? undefined : {
     command: `npm run dev -- --port ${port}`,
     url: `http://localhost:${port}`,
     reuseExistingServer: !process.env.CI,
