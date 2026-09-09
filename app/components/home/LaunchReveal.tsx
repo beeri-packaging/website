@@ -5,7 +5,7 @@ import Image from "next/image";
 import type { Fireworks } from "fireworks-js";
 import type { CreateTypes } from "canvas-confetti";
 import { Button } from "@/components/ui/button";
-import { CountdownAudio, LAUNCH_SECONDS, LAUNCH_TAIL_SECONDS, preloadLaunchMusic } from "@/lib/launch-audio";
+import { CountdownAudio, LAUNCH_SECONDS, LAUNCH_TAIL_SECONDS, preloadLaunchMusic, type LaunchAudioOptions } from "@/lib/launch-audio";
 import type { LaunchConfig } from "@/lib/launch";
 
 export type LaunchCopy = {
@@ -14,9 +14,10 @@ export type LaunchCopy = {
 };
 type Phase = "ready" | "countdown" | "opening" | "done";
 
-export function LaunchReveal({ copy, logo, config, video, poster, music }: {
-  copy: LaunchCopy; logo: string; config: LaunchConfig; video?: string; poster: string; music: string;
+export function LaunchReveal({ copy, logo, config, video, poster, music, audioOptions }: {
+  copy: LaunchCopy; logo: string; config: LaunchConfig; video?: string; poster: string; music: string; audioOptions?: LaunchAudioOptions;
 }) {
+  const countdownSeconds = audioOptions?.countdownSeconds ?? LAUNCH_SECONDS;
   const dialogRef = useRef<HTMLDialogElement>(null);
   const startRef = useRef<HTMLButtonElement>(null);
   const skipRef = useRef<HTMLButtonElement>(null);
@@ -26,7 +27,7 @@ export function LaunchReveal({ copy, logo, config, video, poster, music }: {
   const audioRef = useRef<CountdownAudio | null>(null);
   const confettiRef = useRef<CreateTypes | null>(null);
   const [phase, setPhase] = useState<Phase>("ready");
-  const [count, setCount] = useState(LAUNCH_SECONDS);
+  const [count, setCount] = useState(countdownSeconds);
   const [active, setActive] = useState(false);
   const [reduced, setReduced] = useState(false);
   const [soundOn, setSoundOn] = useState(false);
@@ -119,13 +120,13 @@ export function LaunchReveal({ copy, logo, config, video, poster, music }: {
     const update = () => {
       // Reading the music clock prevents timer drift from moving the reveal off the beat.
       const seconds = audioRef.current?.elapsed() ?? elapsed();
-      if (seconds >= LAUNCH_SECONDS) { setPhase("opening"); return; }
-      setCount(Math.max(1, Math.ceil(LAUNCH_SECONDS - seconds)));
+      if (seconds >= countdownSeconds) { setPhase("opening"); return; }
+      setCount(Math.max(1, Math.ceil(countdownSeconds - seconds)));
       frame = requestAnimationFrame(update);
     };
     frame = requestAnimationFrame(update);
     return () => cancelAnimationFrame(frame);
-  }, [elapsed, finish, phase, reduced]);
+  }, [countdownSeconds, elapsed, finish, phase, reduced]);
 
   useEffect(() => {
     if (soundOn && phase === "countdown") {
@@ -193,7 +194,7 @@ export function LaunchReveal({ copy, logo, config, video, poster, music }: {
 
   async function enableSound() {
     try {
-      audioRef.current ??= new CountdownAudio(music);
+      audioRef.current ??= new CountdownAudio(music, audioOptions);
       await audioRef.current.enable();
       if (running.current) setSoundOn(true);
     } catch { setSoundOn(false); }
@@ -245,7 +246,7 @@ export function LaunchReveal({ copy, logo, config, video, poster, music }: {
             <span className="sr-only" role="status">{copy.countdown.replace("{count}", String(count))}</span>
             <span key={count} className="launch-number" aria-hidden="true">{count}</span>
           </> : null}
-          {phase === "ready" ? <span className="launch-prepaint-number launch-number" aria-hidden="true">{LAUNCH_SECONDS}</span> : null}
+          {phase === "ready" ? <span className="launch-prepaint-number launch-number" aria-hidden="true">{countdownSeconds}</span> : null}
         </div>
       </div>
       <Button ref={skipRef} variant="secondary" size="sm" className="launch-skip launch-control" onClick={finish}>{copy.skip}<span aria-hidden="true">↗</span></Button>

@@ -12,6 +12,9 @@ const nextConfig: NextConfig = {
   },
   // Nothing is gained by advertising the framework in a response header.
   poweredByHeader: false,
+  outputFileTracingExcludes: {
+    "/api/internal-launch-music": ["./review-assets/launch/**/*"],
+  },
   images: {
     // Next 16 requires non-default quality values to be opted into here.
     // Everything now ships at the q75 default (the journey panels dropped

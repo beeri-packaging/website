@@ -3,6 +3,7 @@ export const LAUNCH_SECONDS = 10;
 export const LAUNCH_TAIL_SECONDS = 32;
 // Keep the existing musical reveal at asset second 30 after a ten-second buildup.
 const MUSIC_START_SECONDS = 20;
+export type LaunchAudioOptions = { startSeconds?: number; chimes?: boolean; countdownSeconds?: number };
 let cachedUrl = "";
 let cachedMusic: Promise<ArrayBuffer> | undefined;
 
@@ -26,7 +27,7 @@ export class CountdownAudio {
   private closed = false;
   private pending = false;
 
-  constructor(url: string) {
+  constructor(url: string, private options: LaunchAudioOptions = {}) {
     this.output.gain.value = .75;
     this.output.connect(this.context.destination);
     this.buffer = preloadLaunchMusic(url).then(data => this.context.decodeAudioData(data.slice(0)));
@@ -47,20 +48,21 @@ export class CountdownAudio {
       const buffer = await this.buffer;
       if (this.closed) return;
       const offset = getElapsed();
-      if (offset >= LAUNCH_SECONDS) return;
+      if (offset >= (this.options.countdownSeconds ?? LAUNCH_SECONDS)) return;
       const at = this.context.currentTime;
       const source = this.context.createBufferSource();
       source.buffer = buffer;
       source.connect(this.output);
       this.output.gain.setValueAtTime(0, at);
       this.output.gain.linearRampToValueAtTime(.75, at + .4);
-      source.start(at, MUSIC_START_SECONDS + offset);
+      source.start(at, (this.options.startSeconds ?? MUSIC_START_SECONDS) + offset);
       source.onended = () => source.disconnect();
       this.source = source;
       this.startedAt = at - offset;
       // Light ascending chimes mark the final five numbers on the music clock.
+      if (this.options.chimes === false) return;
       [523.25, 659.25, 783.99, 880, 1046.5].forEach((frequency, index) => {
-        const second = LAUNCH_SECONDS - 5 + index;
+        const second = (this.options.countdownSeconds ?? LAUNCH_SECONDS) - 5 + index;
         if (second < offset) return;
         const cueAt = at + second - offset;
         const tone = this.context.createOscillator();

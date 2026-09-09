@@ -1,3 +1,4 @@
+import { internalLaunchMusicEnabled, internalLaunchCountdownSeconds } from "@/lib/internal-launch-music";
 import { launchMusic } from "@/app/content/launch";
 import { LaunchReveal } from "@/app/components/home/LaunchReveal";
 import { launchConfig } from "@/lib/launch";
@@ -26,13 +27,16 @@ export default async function Home({
   const home = toHomeContent(doc, lang);
   const chrome = toChrome(await getChrome(lang), lang);
 
+  const internalMusic = internalLaunchMusicEnabled();
+  const countdownSeconds = internalLaunchCountdownSeconds();
   const launch = await getTranslations({ locale: lang, namespace: "Launch" });
 
   return (
     <>
       <LaunchReveal
         video={home.heroVideo}
-        music={launchMusic}
+        music={internalMusic ? `/api/internal-launch-music?v=michal-20260909-${countdownSeconds}s` : launchMusic}
+        audioOptions={internalMusic ? { startSeconds: 0, chimes: false, countdownSeconds } : undefined}
         poster={home.heroImage}
         logo={lang === "he" ? chrome.logoHe : chrome.logoEn}
         config={launchConfig(process.env.LAUNCH_START_AT, process.env.LAUNCH_END_AT)}
