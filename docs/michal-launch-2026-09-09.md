@@ -61,3 +61,33 @@ Run it against the configured local server with:
 ```sh
 E2E_PORT=3002 E2E_INTERNAL_LAUNCH_MUSIC=1 E2E_INTERNAL_LAUNCH_SECONDS=10 npm run test:e2e -- e2e/launch.spec.ts --grep 'video-only presentation'
 ```
+
+## Verified publication — 9 September 2026
+
+- Application commit: `4f614eb8d41474b8b1ddbccdca2d3b8b800f2ce6`, pushed to
+  `main` and `codex/michal-launch-september-9`.
+- Preview: `https://beeri-arizot-1bxc-j645p0h82-asd12288s-projects.vercel.app`,
+  deployment `dpl_D8RPWuCxX9xUhAb6hhs1TaGyqYSd`, Ready.
+- Production: `https://beeri-arizot-1bxc.vercel.app`, deployment
+  `dpl_2GJ1pLMnRmNJhqpEPoKHTUQp4D5x`, Ready and promoted. The domain-to-deployment
+  mapping was verified independently through the alias API.
+- Production build took 66 seconds. Both deployments use the same application
+  commit; production was checked before assigning the main domain.
+- The approved 42-second audio is served remotely, byte-for-byte identical to
+  the local v2 file (1,009,514 bytes). Its private storage URL rejects anonymous
+  requests with 403. The application route rejects missing/incorrect access
+  keys with 404 and uses private/no-store responses. Unit tests cover expiry.
+- The existing presentation key and expiry were preserved in production and
+  configured identically in preview. The link expires at midnight entering
+  Saturday 12 September in Israel. Normal visits do not show the launch.
+- Lint, TypeScript, build, 126 unit tests, and all 48 local browser tests passed.
+  All seven launch browser tests passed separately on the preview deployment
+  and on the production domain, including real audio playback, ten countdown
+  numbers, synchronized reveal, 30 seconds of fireworks, and automatic cleanup.
+- Both languages returned 200; unauthorized presentation links redirected to
+  normal pages. The preview countdown and fireworks were also checked visually.
+- A production mobile Lighthouse run measured performance 95, accessibility 100,
+  total blocking time 10 ms and cumulative layout shift 0. Error-level log queries
+  returned no entries on either deployment at verification time.
+- Audio, credentials, private source messages and verification artifacts remain
+  outside Git. No CMS changes or custom-domain settings were made.
