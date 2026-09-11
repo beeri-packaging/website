@@ -1,7 +1,9 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
 
-// Public production must remain crawlable; private routes stay excluded below.
+// Keep production crawl rules fresh after the maintenance gate is removed.
+export const dynamic = "force-dynamic";
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
