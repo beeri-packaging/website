@@ -14,7 +14,7 @@ const intlMiddleware = createMiddleware(routing);
 /**
  * Open the public site for testing by default. Set PUBLIC_MAINTENANCE_MODE=true
  * and redeploy to restore the holding page on the production domains.
- * Keep public robots.txt blocked until the site is ready for its full launch.
+ * Block public crawling only while the maintenance page is enabled.
  */
 export default function proxy(request: NextRequest) {
   const hostname = requestHostname(
@@ -39,6 +39,10 @@ export default function proxy(request: NextRequest) {
   }
 
   if (isPublicProductionHost(hostname) && pathname === "/robots.txt") {
+    if (process.env.PUBLIC_MAINTENANCE_MODE !== "true") {
+      // Let app/robots.ts serve the public crawl rules without locale routing.
+      return NextResponse.next();
+    }
     return new NextResponse("User-agent: *\nDisallow: /\n", {
       headers: {
         "Content-Type": "text/plain; charset=utf-8",

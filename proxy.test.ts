@@ -8,7 +8,7 @@ vi.mock("next-intl/middleware", () => ({
 
 afterEach(() => vi.unstubAllEnvs());
 
-describe("public site testing mode", () => {
+describe("public site maintenance mode", () => {
   it.each([undefined, "false"])(
     "opens both locales when maintenance mode is %s",
     (mode) => {
@@ -38,9 +38,22 @@ describe("public site testing mode", () => {
     expect(response.headers.get("x-test-intl")).toBe("1");
   });
 
-  it("keeps search engines blocked during public testing", async () => {
-    vi.stubEnv("PUBLIC_MAINTENANCE_MODE", "false");
-    const response = proxy(new NextRequest("https://www.beeripacks.co.il/robots.txt"));
-    expect(await response.text()).toBe("User-agent: *\nDisallow: /\n");
+  it.each([undefined, "false"])("serves public robots rules when maintenance mode is %s", (mode) => {
+    vi.stubEnv("PUBLIC_MAINTENANCE_MODE", mode);
+    for (const host of ["beeripacks.co.il", "www.beeripacks.co.il"]) {
+      const response = proxy(new NextRequest(`https://${host}/robots.txt`));
+      expect(response.headers.get("x-middleware-next")).toBe("1");
+      expect(response.headers.get("x-middleware-rewrite")).toBeNull();
+      expect(response.headers.get("x-test-intl")).toBeNull();
+    }
+  });
+
+  it("keeps search engines blocked during maintenance", async () => {
+    vi.stubEnv("PUBLIC_MAINTENANCE_MODE", "true");
+    for (const host of ["beeripacks.co.il", "www.beeripacks.co.il"]) {
+      const response = proxy(new NextRequest(`https://${host}/robots.txt`));
+      expect(await response.text()).toBe("User-agent: *\nDisallow: /\n");
+      expect(response.headers.get("Content-Type")).toBe("text/plain; charset=utf-8");
+    }
   });
 });
