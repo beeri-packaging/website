@@ -1,5 +1,6 @@
 // sanity/schemaTypes/finishing.ts
 import { defineField, defineType } from "sanity";
+import { imageField } from "./_helpers";
 
 export const finishing = defineType({
   name: "finishing",
@@ -22,6 +23,7 @@ export const finishing = defineType({
     defineField({ name: "feature", title: "השבחה ראשית", type: "finishingItem", group: "feature", validation: (rule) => rule.required() }),
 
     defineField({ name: "deboss", title: "משבצת הבלטה", type: "finishingItem", group: "grid", validation: (rule) => rule.required() }),
+    imageField("debossSecondaryImage", "תמונה נוספת להבלטה (אופציונלי)", "grid"),
     defineField({ name: "texture", title: "משבצת מרקם", type: "finishingItem", group: "grid", validation: (rule) => rule.required() }),
 
     defineField({ name: "standardsEyebrow", title: "תווית עליונה", type: "string", group: "standards" }),

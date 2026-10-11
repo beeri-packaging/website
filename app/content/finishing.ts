@@ -25,6 +25,7 @@ export type FinishingCopy = {
   intro: string;
   feature: FinishingGridItem;
   deboss: FinishingGridItem;
+  debossSecondaryImage?: { image: string; alt: string };
   texture: FinishingGridItem;
   standardsEyebrow: string;
   standardsTitle: string;

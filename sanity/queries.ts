@@ -2,7 +2,7 @@ import { reviewPunctuation, reviewCatalog, reviewChrome, reviewFinishing, review
 import { defineQuery } from "next-sanity";
 
 import { client } from "./client";
-import { withCdnParams } from "./image";
+import { withCdnParams, urlForImage } from "./image";
 import {
   homeCopy,
   homeImages,
@@ -338,6 +338,7 @@ export const finishingQuery = defineQuery(`*[_type == "finishing" && language ==
   step, title, intro,
   feature${ITEM},
   deboss${ITEM}, texture${ITEM},
+  debossSecondaryImage{ asset, crop, hotspot, alt, "imageUrl": asset->url },
   standardsEyebrow, standardsTitle, standardsBody,
   standards[]{ code, title, body, certificateLabel, tone, "certificateUrl": certificate.asset->url,
     "imageUrl": image.asset->url, "imageLegacy": image.legacyImagePath },
@@ -349,13 +350,13 @@ export async function getFinishing(locale: Lang) {
   catch (err) { console.error("getFinishing failed, using bundled copy", err); return null; }
 }
 
-function mapItem(i: { eyebrow?: string; title?: string; body?: string; sample?: string; cta?: string; imageUrl?: string; imageLegacy?: string } | null, fb: FinishingGridItem): FinishingGridItem {
+function mapItem(i: { eyebrow?: string; title?: string; body?: string; sample?: string; cta?: string; imageUrl?: string; imageLegacy?: string } | null, fb: FinishingGridItem, fallbackImage = true): FinishingGridItem {
   if (!i) return fb;
   return {
     eyebrow: i.eyebrow ?? fb.eyebrow,
     title: i.title ?? fb.title,
     body: i.body ?? fb.body,
-    image: i.imageUrl ?? i.imageLegacy ?? fb.image,
+    image: i.imageUrl ?? i.imageLegacy ?? (fallbackImage ? fb.image : undefined),
     sample: i.sample ?? fb.sample,
     cta: i.cta ?? fb.cta,
   };
@@ -377,7 +378,14 @@ function baseToFinishingCopy(doc: Awaited<ReturnType<typeof getFinishing>>, loca
     intro: doc.intro ?? fb.intro,
     feature: mapItem(doc.feature, fb.feature),
     deboss: mapItem(doc.deboss, fb.deboss),
-    texture: mapItem(doc.texture, fb.texture),
+    // A cleared CMS foil image must stay empty; never resurrect the bundled beer photo.
+    texture: mapItem(doc.texture, fb.texture, false),
+    ...(doc.debossSecondaryImage?.asset?._ref && doc.debossSecondaryImage?.imageUrl ? {
+      debossSecondaryImage: {
+        image: urlForImage(doc.debossSecondaryImage).width(900).height(675).fit("crop").url(),
+        alt: doc.debossSecondaryImage.alt ?? doc.deboss?.title ?? fb.deboss.title,
+      },
+    } : {}),
     standardsEyebrow: doc.standardsEyebrow ?? fb.standardsEyebrow,
     standardsTitle: doc.standardsTitle ?? fb.standardsTitle,
     standardsBody: doc.standardsBody ?? fb.standardsBody,

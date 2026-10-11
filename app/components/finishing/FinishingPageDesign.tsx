@@ -81,6 +81,9 @@ function FeatureCard({ item, lang }: { item: FinishingGridItem; lang: Lang }) {
 }
 
 export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang: Lang }) {
+  const embossImages = copy.deboss.image && copy.debossSecondaryImage?.image
+    ? [{ image: copy.deboss.image, alt: copy.deboss.title }, copy.debossSecondaryImage]
+    : undefined;
   return (
     <div className="bg-bone">
       <section className="mx-auto w-full max-w-[1152px] px-5 pb-[75px] pt-2 sm:px-8 lg:px-0">
@@ -113,8 +116,14 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
           <FeatureCard item={copy.feature} lang={lang} />
         </div>
 
-        <article className="reveal flex flex-col overflow-hidden border border-blueprint bg-bone lg:col-span-5 lg:h-[535px]" dir={lang === "he" ? "rtl" : "ltr"}>
-          {copy.deboss.image ? (
+        <article className={`reveal flex flex-col overflow-hidden border border-blueprint bg-bone ${embossImages ? "lg:col-span-7" : "lg:col-span-5 lg:h-[535px]"}`} dir={lang === "he" ? "rtl" : "ltr"}>
+          {embossImages ? (
+            <div className="grid grid-cols-2 gap-2 bg-bone p-2 sm:gap-3 sm:p-3">
+              {embossImages.map(({ image, alt }, index) => (
+                <FinishImage key={index} src={image} alt={alt} className="aspect-[4/3]" sizes="(min-width: 1024px) 330px, 50vw" />
+              ))}
+            </div>
+          ) : copy.deboss.image ? (
             <FinishImage
               src={copy.deboss.image}
               alt={copy.deboss.title}
@@ -136,7 +145,7 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
           </div>
         </article>
 
-        <article className="reveal flex h-auto flex-col overflow-hidden border border-blueprint bg-[#f0f0f0] lg:col-span-7 lg:h-[535px]" dir={lang === "he" ? "rtl" : "ltr"}>
+        <article className={`reveal flex h-auto flex-col overflow-hidden border border-blueprint bg-[#f0f0f0] ${embossImages ? "lg:col-span-5" : "lg:col-span-7 lg:h-[535px]"}`} dir={lang === "he" ? "rtl" : "ltr"}>
           <div className="mb-[-31px] p-8 text-start sm:p-12">
             <h2 className="whitespace-pre-line font-display text-[24px] font-bold leading-[0.8] tracking-[0.05em] text-magenta">
               {copy.texture.title}
@@ -153,7 +162,9 @@ export function FinishingPageDesign({ copy, lang }: { copy: FinishingCopy; lang:
               sizes="(min-width: 1024px) 54vw, 100vw"
               objectPosition="52% 65%"
             />
-          ) : null}
+          ) : (
+            <div aria-hidden="true" className="m-8 mt-14 min-h-[180px] flex-1 border border-dashed border-blueprint bg-bone sm:mx-12" />
+          )}
         </article>
       </section>
 
