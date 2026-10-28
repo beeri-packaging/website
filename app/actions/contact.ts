@@ -1,7 +1,7 @@
 "use server";
 
 import { sendEmail } from "@/lib/email";
-import { COMPANY } from "@/app/content/company";
+import { CONTACT_MAILBOXES } from "@/lib/contact-mailboxes";
 import {
   validateContactInquiry,
   type ContactInquiryInput,
@@ -42,7 +42,8 @@ export async function submitContactInquiry(
     return { ok: false, error: "validation", fieldErrors };
   }
 
-  const to = process.env.CONTACT_TO_EMAIL || COMPANY.email;
+  // The shared legacy override must not replace the reason-specific destination.
+  const to = input.reason === "quote" ? CONTACT_MAILBOXES.orders : CONTACT_MAILBOXES.office;
   const from = process.env.CONTACT_FROM_EMAIL || "";
   if (!process.env.RESEND_API_KEY || !from) {
     // Loud (console.error) so log/error tracking flags it — a misconfigured
