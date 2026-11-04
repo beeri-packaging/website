@@ -1,7 +1,7 @@
 "use server";
 
 import { sendEmail, type EmailAttachment } from "@/lib/email";
-import { COMPANY } from "@/app/content/company";
+import { CONTACT_MAILBOXES } from "@/lib/contact-mailboxes";
 import { MAX_CV_BYTES } from "@/lib/cv-upload";
 import { deleteCvUpload, readCvAttachment } from "@/lib/cv-storage";
 
@@ -47,7 +47,7 @@ export async function submitJobApplication(
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   if (!name || !phoneOk || !emailOk) return { ok: false, error: "validation" };
 
-  const to = process.env.JOBS_TO_EMAIL || COMPANY.jobsEmail;
+  const to = CONTACT_MAILBOXES.jobs;
   const from = process.env.CONTACT_FROM_EMAIL || "";
   if (!process.env.RESEND_API_KEY || !from) {
     console.error(

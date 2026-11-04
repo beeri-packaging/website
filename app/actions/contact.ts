@@ -43,7 +43,7 @@ export async function submitContactInquiry(
   }
 
   // The shared legacy override must not replace the reason-specific destination.
-  const to = input.reason === "quote" ? CONTACT_MAILBOXES.orders : CONTACT_MAILBOXES.office;
+  const to = input.reason === "other" ? CONTACT_MAILBOXES.office : CONTACT_MAILBOXES.orders;
   const from = process.env.CONTACT_FROM_EMAIL || "";
   if (!process.env.RESEND_API_KEY || !from) {
     // Loud (console.error) so log/error tracking flags it — a misconfigured
