@@ -26,7 +26,7 @@ afterEach(() => vi.unstubAllEnvs());
 describe("contact inquiry destination", () => {
   it.each([
     ["quote", "orders@beeripacks.co.il"],
-    ["meeting", "office@beeripacks.co.il"],
+    ["meeting", "orders@beeripacks.co.il"],
     ["other", "office@beeripacks.co.il"],
   ] as const)("routes %s to %s, ignoring the legacy shared override", async (reason, to) => {
     expect(await submitContactInquiry({ ...valid, reason })).toEqual({ ok: true });
@@ -36,6 +36,13 @@ describe("contact inquiry destination", () => {
       from: "website@example.com",
       replyTo: "person@example.com",
     }));
+  });
+
+  it("reports a send failure without trying another mailbox", async () => {
+    vi.mocked(sendEmail).mockRejectedValueOnce(new Error("Delivery failed"));
+    expect(await submitContactInquiry(valid)).toEqual({ ok: false, error: "send_failed" });
+    expect(sendEmail).toHaveBeenCalledTimes(1);
+    expect(sendEmail).toHaveBeenCalledWith(expect.objectContaining({ to: "orders@beeripacks.co.il" }));
   });
 
   it.each(["", "invalid", "__proto__"])("does not send for invalid reason %s", async (reason) => {

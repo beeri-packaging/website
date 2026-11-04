@@ -30,13 +30,13 @@ function application(file?: File) {
 }
 
 describe("CV attachments", () => {
-  it("passes a 10 MB attachment intact to the configured jobs inbox", async () => {
+  it("passes a 10 MB attachment intact to the official jobs inbox despite environment overrides", async () => {
     const bytes = new Uint8Array(MAX_CV_BYTES).fill(65);
     const result = await submitJobApplication(application(new File([bytes], "resume.pdf")));
     expect(result).toEqual({ ok: true });
     expect(sendEmail).toHaveBeenCalledOnce();
     const message = vi.mocked(sendEmail).mock.calls[0][0];
-    expect(message.to).toBe("jobs@example.com");
+    expect(message.to).toBe("jobs@beeripacks.co.il");
     expect(message.attachments?.[0].filename).toBe("resume.pdf");
     expect(message.attachments?.[0].content.equals(Buffer.from(bytes))).toBe(true);
   });
@@ -63,7 +63,7 @@ describe("private CV email delivery", () => {
     expect(await submitJobApplication(data)).toEqual({ ok: true });
     expect(sendEmail).toHaveBeenCalledOnce();
     const email = vi.mocked(sendEmail).mock.calls[0][0];
-    expect(email.to).toBe("jobs@example.com");
+    expect(email.to).toBe("jobs@beeripacks.co.il");
     expect(email.attachments?.[0].filename).toBe("resume.pdf");
     expect(email.attachments?.[0].content.equals(content)).toBe(true);
     expect(deleteCvUpload).toHaveBeenCalledWith("cv-uploads/one.pdf");
@@ -81,6 +81,8 @@ describe("private CV email delivery", () => {
     const data = application(); data.set("cvReceipt", "signed-receipt");
     expect(await submitJobApplication(data)).toEqual({ ok: false, error: "send_failed" });
     expect(deleteCvUpload).not.toHaveBeenCalled();
+    expect(sendEmail).toHaveBeenCalledTimes(1);
+    expect(sendEmail).toHaveBeenCalledWith(expect.objectContaining({ to: "jobs@beeripacks.co.il" }));
   });
   it("still reports success if cleanup fails after the email was sent", async () => {
     vi.mocked(readCvAttachment).mockResolvedValue({ attachment: { filename: "cv.pdf", content: Buffer.from("CV") }, pathname: "cv-uploads/one.pdf" });
